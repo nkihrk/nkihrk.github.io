@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+/* font */
+@font-face {
+    font-family: 'made-bruno';
+    src: url(../../font/MADE\ Bruno\ PERSONAL\ USE.otf);
+}
+
 /* centering */
 .center {
     text-align: center;
@@ -34,3 +40,52 @@
 .clearfix {
     min-height: 1px;
 }
+
+/* h1~h6 font*/
+h1 {
+    font-family: agency-fb, sans-serif;
+    font-style: normal;
+    font-weight: 200;
+}
+
+h2 {
+    font-family: 'made-bruno';
+}
+
+/* The parent of all contents */
+#container {
+    width: 100%;
+}
+
+/* Common prefix for .menu and .content */
+.column {
+    float: left;
+}
+
+/* Media queries in common fields*/
+/* Larger than mobile */
+@media (min-width: 400px) {}
+
+/* Larger than phablet (also point when grid becomes active) */
+@media (min-width: 550px) {}
+
+/* Larger than tablet */
+@media (min-width: 750px) {}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {
+    /* The parent of the header and footer */
+    .menu.column {
+        width: 20%;
+        background-color: #2a2835;
+    }
+
+    /* The parent of the main content */
+    .content.column {
+        width: 80%;
+        background-color: #32303f;
+    }
+}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {}
