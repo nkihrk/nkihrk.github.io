@@ -4,6 +4,28 @@
     let windowHeight = $(window).height();
 
     $(function () {
+        $(window).on('load resize', function () {
+            // Common settings
+            let common = {
+                func: function () {
+                    // Insert a window height to .menu and .content
+                    $(this.menu).css('height', windowHeight + 'px');
+                    $(this.content).css('height', windowHeight + 'px');
+
+                    // Change the font-size of 'PORTFOLIO' according to the parent width
+                    let portfolioFontSize = parseInt($(this.menu).css('width')) * 0.23;
+                    $(this.portfolio).css('font-size', portfolioFontSize + 'px');
+                    console.log(portfolioFontSize);
+                },
+                menu: document.getElementsByClassName('menu'),
+                content: document.getElementsByClassName('content'),
+                portfolio: document.getElementsByClassName('large half-opacity bold agency-fb'),
+            };
+            common.func();
+        });
+
+
+
         // Loading Gif. Use promise to express rich loading page.
         let loading = {
             func: function () {
@@ -12,18 +34,6 @@
             },
         }
         loading.func();
-
-
-        // Insert a window height to .menu and .content
-        let common = {
-            func: function () {
-                $(this.menu).css('height', windowHeight + 'px');
-                $(this.content).css('height', windowHeight + 'px');
-            },
-            menu: document.getElementsByClassName('menu'),
-            content: document.getElementsByClassName('content')
-        };
-        common.func();
 
 
         // Insert copyright into footer
@@ -40,7 +50,7 @@
 
         // Circlized + Gradation
         let circlized = {
-            func: function () {            
+            func: function () {
                 let wrapperWidth = this.width + this.thickness;
                 let imageTop = wrapperWidth / 2.0 - this.width / 2.0;
 
@@ -60,8 +70,6 @@
             thickness: $.circlized.thickness,
         };
         circlized.func();
-
-
     });
 
     $(window).on('load', function () {

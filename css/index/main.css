@@ -6,6 +6,10 @@ body {
     overflow: hidden;
 }
 
+header {
+    width: 90%;
+}
+
 /* Prefix of list-style to be none */
 ul {
     list-style: none;
@@ -19,9 +23,10 @@ a {
 
 /* Bluring background image */
 .twitter {
-    width: 96%;
+    width: 98%;
     height: inherit;
-    margin: 1.5% auto 0px auto;
+    margin-left: auto;
+    margin-right: auto;
     background-image: url(../../img/index/島風_2.png);
     background-repeat: no-repeat;
     background-size: cover;
@@ -29,11 +34,7 @@ a {
     position: relative;
     overflow: hidden;
     border: solid 6px #302e3c;
-    border-radius: 8px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: 12px;
     z-index: 0;
 }
 .twitter::before{
@@ -41,10 +42,16 @@ a {
     content: '';
     filter: brightness(60%) blur(10px);
     position: absolute;
-    top: -10px;
-    right: -10px;
-    bottom: -10px;
-    left: -10px;
+    top: -20px;
+    right: -20px;
+    bottom: -20px;
+    left: -20px;
     z-index: -1;
 }
 
+/* Centering header with flex */
+.header-twitter, .status-twitter ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

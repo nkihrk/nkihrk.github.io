@@ -67,6 +67,8 @@ body {
     color: #4d4b55;
 }
 
+
+
 /* Centering */
 .center {
     text-align: center;
@@ -121,15 +123,23 @@ body {
 .wrapper-gradation-circlized.circlized {
     position: relative;
     /* background: linear-gradient(126deg, #2225ba, #c1125b); */
-    background: linear-gradient(45deg,#007eff,#ff17b1);
+    background: linear-gradient(45deg, #007eff, #ff17b1);
     background-size: 200% 200%;
     animation: AnimationName 13s ease infinite;
 }
 
-@keyframes AnimationName { 
-    0%{background-position:0% 92%}
-    50%{background-position:100% 9%}
-    100%{background-position:0% 92%}
+@keyframes AnimationName {
+    0% {
+        background-position: 0% 92%
+    }
+
+    50% {
+        background-position: 100% 9%
+    }
+
+    100% {
+        background-position: 0% 92%
+    }
 }
 
 .gradation.circlized {
@@ -137,7 +147,7 @@ body {
 }
 
 /* Set the menu font to be bold */
-.menu li{
+.menu li {
     font-weight: bold;
 }
 
