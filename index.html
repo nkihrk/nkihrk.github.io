@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="all">
     <meta name="viewport" content="maximum-scale=1.0, user-scalable=yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NkiHrk.github.io</title>
@@ -17,9 +17,9 @@
     <meta property="og:site_name" content="NkiHrk">
     <meta property="og:image" content="">
     <link rel="stylesheet" href="css/common/Reboot.css">
+    <link rel="stylesheet" href="https://use.typekit.net/kqb4obi.css">
     <link rel="stylesheet" href="css/common/styles.css">
     <link rel="stylesheet" href="css/index/main.css">
-    <link rel="stylesheet" href="https://use.typekit.net/kqb4obi.css">
     <link rel="icon" href="img/common/favicon.ico">
     <!--[if lt IE 9]>
         <script src="js/common/html5shiv.js"></script>
@@ -36,15 +36,15 @@
     <div id="container clearfix">
         <div class="menu column">
             <header>
-                <h1>PORTFOLIO</h1>
+                <h1 class="half-opacity bold agency-fb">PORTFOLIO</h1>
                 <nav>
-                    <h2>SOCIAL</h2>
+                    <h2 class="gray made-bruno">SOCIAL</h2>
                     <ul>
                         <li><a href="#">TWITTER</a></li>
                         <li><a href="#">GITHUB</a></li>
                         <li><a href="#">PIXIV</a></li>
                     </ul>
-                    <h2>WEB APP</h2>
+                    <h2 class="gray made-bruno">WEB APP</h2>
                     <ul>
                         <li><a href="#">ImageLoader</a></li>
                         <li><a href="#">ModelLoader</a></li>
@@ -53,19 +53,46 @@
                 </nav>
             </header>
             <footer>
-                <p id="copyright"></p>
+                <p id="copyright" class="half-opacity bold agency-fb"></p>
             </footer>
         </div>
         <div class="content column">
-            <h1>NkiHrk</h1>
-            <h2>NkiHrk</h2>
+            <div class="twitter">
+                <div class="header-twitter">
+                    <div class="wrapper-gradation-circlized circlized">
+                        <img class="gradation circlized" src="img/index/YzbUMKD0_400x400.png" alt="Profile Image">
+                    </div>
+                    <p><span class="made-bruno" style="font-size:70px">NkiHrk</span><br><span class="half-opacity bold agency-fb" style="font-size:36px; line-height:0.0em;">@QU00h</span></p>
+                </div>
+                <div class="status-twitter">
+                    <ul>
+                        <li><span>2.8M</span><br><span>Tweets</span></li>
+                        <li><span>540</span><br><span>Followers</span></li>
+                        <li><span>3.3M</span><br><span>Likes</span></li>
+                    </ul>
+                </div>
+                <div class="description-twitter">
+                    <p>Majoring in Electrical Engineering and Computer Science at Kyushu Univ.</p>
+                    <span>
+                        <p>HTML/CSS/JavaScript(jQuery)/Ruby(Rails)/<br>C/C#(Unity)/HLSL/GLSL</p>
+                    </span>
+                    <div class="square-button"><span>CHECK ME OUT ☺</span></div>
+                </div>
+            </div>
         </div>
     </div>
+
 
     <script src="js/common/jquery-3.4.0.min.js"></script>
     <script src="js/common/common.js"></script>
     <script src="js/index/main.js"></script>
     <script src="https://kit.fontawesome.com/473d795c33.js"></script>
+    <script>
+        $.circlized = {
+            width: 300,
+            thickness: 6,
+        }
+    </script>
 </body>
 
 </html>

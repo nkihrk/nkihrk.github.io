@@ -1,17 +1,78 @@
 @charset "UTF-8";
 
-/* font */
+/* Importing made-bruno font */
 @font-face {
-    font-family: 'made-bruno';
+    font-family: made-bruno;
     src: url(../../font/MADE\ Bruno\ PERSONAL\ USE.otf);
 }
 
-/* centering */
+body {
+    font-family: agency-fb, sans-serif;
+    font-style: normal;
+}
+
+/* made-bruno font */
+.made-bruno {
+    font-family: made-bruno;
+}
+
+/* White - made-bruno */
+.white.made-bruno {
+    color: white;
+}
+
+/* half-opacity - made-bruno */
+.half-opacity.made-bruno {
+    color: white;
+    opacity: 0.5;
+}
+
+/* Gray - made-bruno */
+.gray.made-bruno {
+    color: #4d4b55;
+}
+
+/* agency-fb font */
+.agency-fb {
+    font-family: agency-fb, sans-serif;
+    font-style: normal;
+}
+
+/* Regular font - agency-fb */
+.regular.agency-fb {
+    font-weight: 200;
+}
+
+/* Bold - agency-fb */
+.bold.agency-fb {
+    font-weight: bold;
+}
+
+/* White - agency-fb */
+.white.regular.agency-fb,
+.white.bold.agency-fb {
+    color: white;
+}
+
+/* half-opacity - agency-fb */
+.half-opacity.regular.agency-fb,
+.half-opacity.bold.agency-fb {
+    color: white;
+    opacity: 0.5;
+}
+
+/* Gray - agency-fb */
+.gray.regular.agency-fb,
+.gray.bold.agency-fb {
+    color: #4d4b55;
+}
+
+/* Centering */
 .center {
     text-align: center;
 }
 
-/* loading gif */
+/* Loading gif */
 #loader-bg {
     position: fixed;
     width: 100%;
@@ -41,17 +102,6 @@
     min-height: 1px;
 }
 
-/* h1~h6 font*/
-h1 {
-    font-family: agency-fb, sans-serif;
-    font-style: normal;
-    font-weight: 200;
-}
-
-h2 {
-    font-family: 'made-bruno';
-}
-
 /* The parent of all contents */
 #container {
     width: 100%;
@@ -60,6 +110,35 @@ h2 {
 /* Common prefix for .menu and .content */
 .column {
     float: left;
+}
+
+/* Circlized a picture */
+.circlized {
+    border-radius: 50%;
+}
+
+/* Circlized + Gradation */
+.wrapper-gradation-circlized.circlized {
+    position: relative;
+    /* background: linear-gradient(126deg, #2225ba, #c1125b); */
+    background: linear-gradient(45deg,#007eff,#ff17b1);
+    background-size: 200% 200%;
+    animation: AnimationName 13s ease infinite;
+}
+
+@keyframes AnimationName { 
+    0%{background-position:0% 92%}
+    50%{background-position:100% 9%}
+    100%{background-position:0% 92%}
+}
+
+.gradation.circlized {
+    position: absolute;
+}
+
+/* Set the menu font to be bold */
+.menu li{
+    font-weight: bold;
 }
 
 /* Media queries in common fields*/
@@ -74,6 +153,7 @@ h2 {
 
 /* Larger than desktop */
 @media (min-width: 1000px) {
+
     /* The parent of the header and footer */
     .menu.column {
         width: 20%;
