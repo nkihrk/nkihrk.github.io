@@ -1,31 +1,9 @@
-;
 (function (window, $) {
-    // Window width and height
-    const w = $(window).width();
-    const h = $(window).height();
-
-    $(window).on('load resize', function () {
-        // Common settings
-        const common = {
-            func: function () {
-                // Fix the vertical margin to be same to the horizotal margin
-                let marginTwitter = (parseInt($(this.content).css('width')) - parseInt($(this.twitter).css('width'))) / 2.0;
-                $(this.twitter).css('margin-top', marginTwitter + 'px');
-
-                // Centering the content-twitter
-                let halfHeight = h / 2.0;
-                let halfContentTwitter = parseInt($(this.contentTwitter).css('height')) / 2.0;
-                let centerPosTwitter = halfHeight - halfContentTwitter - marginTwitter;
-                $(this.contentTwitter).css('top', centerPosTwitter + 'px');
-            },
-            content: document.getElementsByClassName('content'),
-            twitter: document.getElementsByClassName('twitter'),
-            contentTwitter: document.getElementsByClassName('content-twitter'),
-        };
-        common.func();
-    });
-
+    // When loading is finished
     $(window).on('load', function () {
+        // Window width and height
+        const w = $(window).width();
+        const h = $(window).height();
         // Set random numbers to the status-twitter when loading has done
         const statusNum = {
             func: function () {
@@ -54,6 +32,35 @@
             },
         }
         $(statusNum.func()).delay(1700);
+
+
+    });
+
+    // When loading is finished and resized
+    $(window).on('load resize', function () {
+        // Window width and height
+        const w = $(window).width();
+        const h = $(window).height();
+        // Common settings
+        const common = {
+            func: function () {
+                // Fix the vertical margin to be same to the horizotal margin
+                let marginTwitter = (parseInt($(this.content).css('width')) - parseInt($(this.twitter).css('width'))) / 2.0;
+                $(this.twitter).css('margin-top', marginTwitter + 'px');
+
+                // Centering the content-twitter
+                let halfHeight = h / 2.0;
+                let halfContentTwitter = parseInt($(this.contentTwitter).css('height')) / 2.0;
+                let centerPosTwitter = halfHeight - halfContentTwitter - marginTwitter;
+                $(this.contentTwitter).css('top', centerPosTwitter + 'px');
+            },
+            content: document.getElementsByClassName('content'),
+            twitter: document.getElementsByClassName('twitter'),
+            contentTwitter: document.getElementsByClassName('content-twitter'),
+        };
+        common.func();
+
+        
     });
 
 

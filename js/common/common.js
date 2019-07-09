@@ -1,11 +1,52 @@
-;
 (function (window, $) {
-    // Window width and height
-    const w = $(window).width();
-    const h = $(window).height();
-    
-    $(window).on('load resize', function () {
+    // When DOM tree is constructed
+    $(function () {
+        // Window width and height
+        const w = $(window).width();
+        const h = $(window).height();
+        // Loading Gif. Use promise to express rich loading page.
+        const loadingFirst = {
+            func: function () {
+                $('#container').css('display', 'none');
+                $('#loader-bg, #loader').height(h).css('display', 'block');
+            },
+        }
+        loadingFirst.func();
 
+        // Insert copyright into footer
+        const year = new Date().getFullYear();
+        const copyright = {
+            func: function () {
+                this.id.appendChild(this.text);
+            },
+            id: document.getElementById('copyright'),
+            text: document.createTextNode(year + ' © NkiHrk'),
+        };
+        copyright.func();
+
+
+    });
+
+    // When loading is finished
+    $(window).on('load', function () {
+        // Window width and height
+        const w = $(window).width();
+        const h = $(window).height();
+        const loadingLast = {
+            func: function () {
+                $('#loader-bg').delay(900).fadeOut(800);
+                $('#loading').delay(600).fadeOut(300);
+                $('#container').css('display', 'block');
+            }
+        }
+        loadingLast.func();
+    });
+
+    // When loading is finished and resized
+    $(window).on('load resize', function () {
+        // Window width and height
+        const w = $(window).width();
+        const h = $(window).height();
         // Common settings
         const common = {
             func: function () {
@@ -53,36 +94,9 @@
             thickness: $.circlized.thickness,
         };
         circlized.func();
+
+        
     });
 
-    $(function () {
-        // Loading Gif. Use promise to express rich loading page.
-        const loading = {
-            func: function () {
-                $('#container').css('display', 'none');
-                $('#loader-bg, #loader').height(h).css('display', 'block');
-            },
-        }
-        loading.func();
 
-
-        // Insert copyright into footer
-        const year = new Date().getFullYear();
-        const copyright = {
-            func: function () {
-                this.id.appendChild(this.text);
-            },
-            id: document.getElementById('copyright'),
-            text: document.createTextNode(year + ' © NkiHrk'),
-        };
-        copyright.func();
-
-
-    });
-
-    $(window).on('load', function () {
-        $('#loader-bg').delay(900).fadeOut(800);
-        $('#loading').delay(600).fadeOut(300);
-        $('#container').css('display', 'block');
-    });
 })(window, jQuery);
