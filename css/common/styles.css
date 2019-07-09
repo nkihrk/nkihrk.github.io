@@ -67,11 +67,15 @@ body {
     color: #4d4b55;
 }
 
-
-
 /* Centering */
+/* text-align way of centering */
 .center {
     text-align: center;
+}
+
+/* margin way of centering */
+.center-2 {
+    margin: 0 auto;
 }
 
 /* Loading gif */
@@ -174,6 +178,7 @@ body {
     .content.column {
         width: 80%;
         background-color: #32303f;
+        overflow: hidden;
     }
 }
 

@@ -3,29 +3,63 @@
     //Variable
     let windowHeight = $(window).height();
 
+
+    $(window).on('load resize', function () {
+        // Window height
+        let w = $(window).width();
+        let h = $(window).height();
+
+        // Common settings
+        let common = {
+            func: function () {
+                // Insert a window height to .menu and .content
+                $(this.menu).css('height', this.windowHeight + 'px');
+                $(this.content).css('height', this.windowHeight + 'px');
+
+                // Change the font-size according to the width of .menu
+                let menuWidth = parseInt($(this.menu).css('width'));
+                let largeFont = menuWidth * 0.244;
+                let mediumFont = menuWidth * 0.1;
+                $(this.largeHead).css('font-size', largeFont + 'px');
+                $(this.mediumHead).css('font-size', mediumFont + 'px');
+            },
+            windowHeight: $(window).height(),
+            menu: document.getElementsByClassName('menu'),
+            content: document.getElementsByClassName('content'),
+            largeHead: document.getElementsByClassName('large half-opacity bold agency-fb'),
+            mediumHead: document.getElementsByClassName('medium gray made-bruno')
+        };
+        common.func();
+
+        // Circlized + Gradation
+        let circlized = {
+            func: function () {
+                let wrapperWidth = this.width + this.thickness;
+                let imageTop = wrapperWidth / 2.0 - this.width / 2.0;
+
+                let relWidth = w * this.width / 1920.0;
+                let relWrapperWidth = w * wrapperWidth / 1920.0;
+                let relImageTop = w * imageTop / 1920.0;
+
+                $(this.wrapper).css({
+                    'width': relWrapperWidth + 'px',
+                    'height': relWrapperWidth + 'px'
+                });
+                $(this.image).css({
+                    'width': relWidth + 'px',
+                    'top': relImageTop + 'px',
+                    'left': relImageTop + 'px'
+                });
+            },
+            wrapper: document.getElementsByClassName('wrapper-gradation-circlized circlized'),
+            image: document.getElementsByClassName('gradation circlized'),
+            width: $.circlized.width,
+            thickness: $.circlized.thickness,
+        };
+        circlized.func();
+    });
+
     $(function () {
-        $(window).on('load resize', function () {
-            // Common settings
-            let common = {
-                func: function () {
-                    // Insert a window height to .menu and .content
-                    $(this.menu).css('height', windowHeight + 'px');
-                    $(this.content).css('height', windowHeight + 'px');
-
-                    // Change the font-size of 'PORTFOLIO' according to the parent width
-                    let portfolioFontSize = parseInt($(this.menu).css('width')) * 0.23;
-                    $(this.portfolio).css('font-size', portfolioFontSize + 'px');
-                    console.log(portfolioFontSize);
-                },
-                menu: document.getElementsByClassName('menu'),
-                content: document.getElementsByClassName('content'),
-                portfolio: document.getElementsByClassName('large half-opacity bold agency-fb'),
-            };
-            common.func();
-        });
-
-
-
         // Loading Gif. Use promise to express rich loading page.
         let loading = {
             func: function () {
@@ -48,28 +82,6 @@
         copyright.func();
 
 
-        // Circlized + Gradation
-        let circlized = {
-            func: function () {
-                let wrapperWidth = this.width + this.thickness;
-                let imageTop = wrapperWidth / 2.0 - this.width / 2.0;
-
-                $(this.wrapper).css({
-                    'width': wrapperWidth + 'px',
-                    'height': wrapperWidth + 'px'
-                });
-                $(this.image).css({
-                    'width': this.width + 'px',
-                    'top': imageTop + 'px',
-                    'left': imageTop + 'px'
-                });
-            },
-            wrapper: document.getElementsByClassName('wrapper-gradation-circlized circlized'),
-            image: document.getElementsByClassName('gradation circlized'),
-            width: $.circlized.width,
-            thickness: $.circlized.thickness,
-        };
-        circlized.func();
     });
 
     $(window).on('load', function () {

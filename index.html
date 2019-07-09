@@ -35,16 +35,16 @@
 
     <div id="container clearfix">
         <div class="menu column">
-            <header>
+            <header class="center-2">
                 <h1 class="large half-opacity bold agency-fb">PORTFOLIO</h1>
                 <nav>
-                    <h2 class="gray made-bruno">SOCIAL</h2>
+                    <h2 class="medium gray made-bruno">SOCIAL</h2>
                     <ul>
-                        <li><a href="#">TWITTER</a></li>
-                        <li><a href="#">GITHUB</a></li>
-                        <li><a href="#">PIXIV</a></li>
+                        <li><a href="#"><span class="twitter-menu">TWITTER</span></a></li>
+                        <li><a href="#"><span class="github-menu">GITHUB</span></a></li>
+                        <li><a href="#"><span class="pixiv-menu">PIXIV</span></a></li>
                     </ul>
-                    <h2 class="gray made-bruno">WEB APP</h2>
+                    <h2 class="medium gray made-bruno">WEB APP</h2>
                     <ul>
                         <li><a href="#">ImageLoader</a></li>
                         <li><a href="#">ModelLoader</a></li>
@@ -58,25 +58,43 @@
         </div>
         <div class="content column">
             <div class="twitter">
-                <div class="header-twitter">
-                    <div class="wrapper-gradation-circlized circlized">
-                        <img class="gradation circlized" src="img/index/YzbUMKD0_400x400.png" alt="Profile Image">
+                <div class="content-twitter">
+                    <div class="header-twitter">
+                        <div class="wrapper-gradation-circlized circlized" style="margin-right: 2rem;">
+                            <img class="gradation circlized" src="img/index/YzbUMKD0_400x400.png" alt="Profile Image">
+                        </div>
+                        <span><span class="made-bruno" style="font-size:4.0rem">NkiHrk</span><br><span
+                                class="half-opacity bold agency-fb"
+                                style="font-size:2.1rem; line-height:0.0em;">@QU00h</span></span>
                     </div>
-                    <span><span class="made-bruno" style="font-size:70px">NkiHrk</span><br><span
-                            class="half-opacity bold agency-fb"
-                            style="font-size:36px; line-height:0.0em;">@QU00h</span></span>
-                </div>
-                <div class="status-twitter">
-                    <ul>
-                        <li><span>2.8M</span><br><span>Tweets</span></li>
-                        <li><span>540</span><br><span>Followers</span></li>
-                        <li><span>3.3M</span><br><span>Likes</span></li>
-                    </ul>
-                </div>
-                <div class="center description-twitter">
-                    <span>Majoring in Electrical Engineering and Computer Science at Kyushu Univ.</span>
-                    <span>HTML/CSS/JavaScript(jQuery)/Ruby(Rails)/<br>C/C#(Unity)/HLSL/GLSL</span>
-                    <div class="square-button"><span>CHECK ME OUT ☺</span></div>
+                    <div class="status-twitter">
+                        <ul>
+                            <li>
+                                <div class="tweets-icon icon"><span class="bold agency-fb"
+                                        style="font-size: 2.3rem; color :#c1125b;">2.8M</span><br><span
+                                        class="bold agency-fb" style="font-size: 1.2rem;">Tweets</span></div>
+                            </li>
+                            <li>
+                                <div class="followers-icon icon"><span class="bold agency-fb"
+                                        style="font-size: 2.3rem; color: #c1125b;">540</span><br><span
+                                        class="bold agency-fb" style="font-size: 1.2rem;">Followers</span></div>
+                            </li>
+                            <li>
+                                <div class="likes-icon icon"><span class="bold agency-fb"
+                                        style="font-size: 2.3rem; color: #c1125b;">3.3M</span><br><span
+                                        class="bold agency-fb" style="font-size: 1.2rem;">Likes</span></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="center description-twitter">
+                        <div class="bold agency-fb" style="font-size: 1.5rem;">Majoring in Electrical Engineering and
+                            Computer Science at Kyushu
+                            Univ.</div><br>
+                        <div
+                            style="opacity: 0.7; background-color: #2a2835; font-size: 1.8rem; padding: 25px 0px 25px 0px;">
+                            HTML/CSS/JavaScript(jQuery)/Ruby(Rails)/<br>C/C#(Unity)/HLSL/GLSL</div>
+                        <div class="yellow square-button bold agency-fb"><a href="https://twitter.com/QU00h">CHECK ME OUT ☺</a></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -86,12 +104,13 @@
     <script src="js/common/jquery-3.4.0.min.js"></script>
     <script src="js/common/common.js"></script>
     <script src="js/index/main.js"></script>
-    <script src="https://kit.fontawesome.com/473d795c33.js"></script>
     <script>
         $.circlized = {
+            // width must be px. The value will be converted to a relative value of 1920px
             width: 250,
-            thickness: 8,
-        }
+            // thickness must be px
+            thickness: 10,
+        };
     </script>
 </body>
 
