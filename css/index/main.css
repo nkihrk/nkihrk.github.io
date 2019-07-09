@@ -10,7 +10,7 @@ header {
     width: 90%;
 }
 
-/* Prefix of list-style to be none */
+/* Prefix of list-style */
 ul {
     list-style: none;
 }
@@ -34,7 +34,8 @@ a {
     position: relative;
     overflow: hidden;
     border: solid 6px #302e3c;
-    border-radius: 12px;
+    border-bottom: none;
+    border-radius: 12px 12px 0px 0px;
     z-index: 0;
 }
 
@@ -58,22 +59,13 @@ a {
     justify-content: center;
 }
 
-/* Common settings of .status-twitter */
+/* Set border-top and -bottom of .status-twitter */
 .status-twitter {
     border-top: solid 1px rgba(255, 255, 255, 0.5);
     border-bottom: solid 1px rgba(255, 255, 255, 0.5);
 }
 
-/* Fix the line-height */
-.status-twitter li {
-    line-height: 1.3rem;
-}
-
-/* Set .content-twitter to the center pos of .twitter */
-.twitter {
-    position: relative;
-}
-
+/* Set .content-twitter to the center pos of body. No 'position: relative;' required */
 .content-twitter {
     position: absolute;
     /* 100% should be a 98% width of .twitter */
@@ -97,6 +89,12 @@ a {
         position: relative;
         padding-left: 55px;
         margin: 0px 20px;
+    }
+
+    /* Fix the each width of .status-num to be stable */
+    .status-num {
+        display: inline-block;
+        width: 62px;
     }
 
     /* tweets-icon */
