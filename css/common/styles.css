@@ -85,7 +85,7 @@ body {
     height: 100%;
     top: 0px;
     left: 0px;
-    background-color: black;
+    background-color: #2a2835;
     z-index: 1;
 }
 
@@ -172,13 +172,14 @@ body {
     .menu.column {
         width: 20%;
         background-color: #2a2835;
+        top: 0;
+        left: 0;
     }
 
     /* The parent of the main content */
     .content.column {
         width: 80%;
         background-color: #32303f;
-        overflow: hidden;
     }
 }
 

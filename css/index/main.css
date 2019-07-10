@@ -3,7 +3,7 @@
 /* Set white as the default font color */
 body {
     color: white;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 header {
@@ -37,6 +37,10 @@ a {
     border-bottom: none;
     border-radius: 12px 12px 0px 0px;
     z-index: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .twitter::before {
@@ -67,9 +71,7 @@ a {
 
 /* Set .content-twitter to the center pos of body. No 'position: relative;' required */
 .content-twitter {
-    position: absolute;
-    /* 100% should be a 98% width of .twitter */
-    width: 102%;
+    width: 100%;
 }
 
 /* Media queries in common fields*/
@@ -94,7 +96,8 @@ a {
     /* Fix the each width of .status-num to be stable */
     .status-num {
         display: inline-block;
-        width: 62px;
+        width: 40px;
+        text-align: right;
     }
 
     /* tweets-icon */
