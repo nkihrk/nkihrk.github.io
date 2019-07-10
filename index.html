@@ -46,16 +46,16 @@
                         <li><a href="#" class="hover-menu-common"><span class="github-menu menu-li-common">GITHUB</span></a></li>
                         <li><a href="#" class="hover-menu-common"><span class="pixiv-menu menu-li-common">PIXIV</span></a></li>
                     </ul>
-                    <h2 class="medium gray made-bruno menu-h2-common" style="padding: 40px 0 10px 0;">WEB APP</h2>
+                    <!-- <h2 class="medium gray made-bruno menu-h2-common" style="padding: 40px 0 10px 0;">WEB APP</h2>
                     <ul>
                         <li><a href="#" class="menu-li-common">ImageLoader</a></li>
                         <li><a href="#" class="menu-li-common">ModelLoader</a></li>
                         <li><a href="#" class="menu-li-common">CANVAS EVE</a></li>
-                    </ul>
+                    </ul> -->
                 </nav>
             </header>
-            <footer>
-                <span id="copyright" class="half-opacity bold agency-fb"></span>
+            <footer class="setToBottom">
+                <span id="copyright" class="menu-li-common bold agency-fb"></span>
             </footer>
         </div>
         <div class="content column">
@@ -102,12 +102,14 @@
     <script src="js/common/common.js"></script>
     <script src="js/index/main.js"></script>
     <script>
-        $.circlized = {
-            // width must be px. The value will be converted to a relative value of 1920px
-            width: 250,
-            // thickness must be px
-            thickness: 10,
-        };
+        (function ($) {
+            circlizedParam = {
+                // width must be px. The value will be converted to a relative value of 1920px
+                width: 250,
+                // thickness must be px
+                thickness: 10,
+            };
+        })(jQuery);
     </script>
 
 </body>

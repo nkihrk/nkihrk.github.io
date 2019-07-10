@@ -162,7 +162,7 @@ body {
 
 /* .menu ul > li */
 .menu-li-common {
-    display: inline-block;;
+    display: inline-block;
     width: 100%;
     opacity: 0.5;
     padding: 18px 0px 15px 30px;
@@ -230,6 +230,25 @@ body {
     background-color: #383747;
 }
 
+/* Set a dot befrore a string */
+.before-dot{
+    position: relative;
+}
+.before-dot::before {
+    content: '・';
+    display: inline-block;
+    font-size: 1.5rem;
+    vertical-align: middle;
+    line-height: 0;
+
+    position: absolute;
+    left: 6px;
+    top: 50%;
+}
+.red.before-dot::before{
+    color: #c1125b;
+}
+
 /* Media queries in common fields*/
 /* Larger than mobile */
 @media (min-width: 400px) {}
@@ -246,7 +265,6 @@ body {
     /* The parent of the header and footer */
     .menu.column {
         width: 20%;
-        min-width: 300px;
         background-color: #2a2835;
         top: 0;
         left: 0;
@@ -255,7 +273,7 @@ body {
 
     /* The parent of the main content */
     .content.column {
-        width: 80%;
+        width: auto;
         background-color: #32303f;
     }
 }

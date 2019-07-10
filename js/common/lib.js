@@ -3,8 +3,8 @@
     circlized = function (w) {
         let wrapper = $('.wrapper-gradation-circlized');
         let image = $('.gradation');
-        let width = $.circlized.width;
-        let thickness = $.circlized.thickness;
+        let width = circlizedParam.width;
+        let thickness = circlizedParam.thickness;
 
         let wrapperWidth = width + thickness;
         let imageTop = (wrapperWidth - width) / 2.0;

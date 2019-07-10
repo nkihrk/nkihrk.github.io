@@ -3,7 +3,7 @@
 /* Set white as the default font color */
 body {
     color: white;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 /* Prefix of list-style */
@@ -65,7 +65,7 @@ a {
     border-bottom: solid 1px rgba(255, 255, 255, 0.5);
 }
 
-/* Set .content-twitter to the center pos of body. No 'position: relative;' required */
+/* Set .content-twitter to the center pos of body. No 'position: relative;' is required */
 .content-twitter {
     width: 100%;
 }

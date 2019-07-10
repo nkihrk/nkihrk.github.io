@@ -30,8 +30,8 @@
     // When loading is finished
     $(window).on('load', function () {
         // Window width and height
-        let w = $(window).width();
-        let h = $(window).height();
+        const w = $(window).width();
+        const h = $(window).height();
 
         // loadingLast
         loadingLast = function () {
@@ -46,23 +46,23 @@
     // When loading is finished and is resized
     $(window).on('load resize', function () {
         // Window width and height
-        let w = $(window).width();
-        let h = $(window).height();
+        const w = $(window).width();
+        const h = $(window).height();
 
 
         // Insert a window height to .menu and .content
         const fixHeight = function () {
-            let menu = $('.menu');
-            let content = $('.content');
+            const menu = $('.menu');
+            const content = $('.content');
             $(menu).css('height', h + 'px');
             $(content).css('height', h + 'px');
 
             // Change a font-size according to the width of .menu
-            let largeHead = $('.large');
-            let mediumHead = $('.medium');
-            let menuWidth = parseInt($(menu).css('width'));
-            let largeFont = menuWidth * 0.244;
-            let mediumFont = menuWidth * 0.11;
+            const largeHead = $('.large');
+            const mediumHead = $('.medium');
+            const menuWidth = parseInt($(menu).css('width'));
+            const largeFont = menuWidth * 0.244;
+            const mediumFont = menuWidth * 0.11;
             $(largeHead).css('font-size', largeFont + 'px');
             $(mediumHead).css('font-size', mediumFont + 'px');
         };

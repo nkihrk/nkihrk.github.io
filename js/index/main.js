@@ -1,11 +1,11 @@
 (function (window, $) {
-    $(function () {
-        // Window width and height
-        const w = $(window).width();
-        const h = $(window).height();
+    // $(function () {
+    //     // Window width and height
+    //     const w = $(window).width();
+    //     const h = $(window).height();
 
 
-    });
+    // });
 
 
     // When loading is finished
@@ -19,23 +19,23 @@
             var t = [0, 0];
             var f = [0, 0, 0];
             var l = [0, 0];
-            let firstT = $('#first-t');
-            let secondT = $('#second-t');
-            let firstF = $('#first-f');
-            let secondF = $('#second-f');
-            let thirdF = $('#third-f');
-            let firstL = $('#first-l');
-            let secondL = $('#second-l');
-            let array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-            let elements = $('.status-num');
-            let randomize = function () {
+            const firstT = $('#first-t');
+            const secondT = $('#second-t');
+            const firstF = $('#first-f');
+            const secondF = $('#second-f');
+            const thirdF = $('#third-f');
+            const firstL = $('#first-l');
+            const secondL = $('#second-l');
+            const array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+            const elements = $('.status-num');
+            const randomize = function () {
                 return Math.floor(Math.random() * array.length);
             };
-            var isFinished = function () {
+            const isFinished = function () {
                 return t[0] && t[1] && f[0] && f[1] && f[2] && l[0] && l[1];
             }
             let count = 0;
-            let countup = function () {
+            const countup = function () {
                 return count++;
             }
 
@@ -129,6 +129,8 @@
         setTimeout(function () {
             statusNum();
         }, 1700); // Change the delay time when changing the loading time
+        
+
     });
 
     // When loading is finished and is resized
@@ -138,22 +140,40 @@
         const h = $(window).height();
 
 
+        // Prefix for the position of footer
+        const footer = function () {
+            const footer = $('footer');
+            const header = $('header');
+            const heightFooter = footer.height();
+            const setFooterBottom = h - heightFooter;
+            const headerHeight = header.height();
+            const bottomOffsetHeader = headerHeight + header.offset().top;
+            if(bottomOffsetHeader <  setFooterBottom)
+            footer.css({
+                'position': 'absolute',
+                'top': setFooterBottom + 'px',
+                'left': 0,
+            });
+            // console.log(bottomOffsetHeader);
+        };
+        footer();
+
         const twitter = function () {
-            // Fix the vertical margin to be same to the horizontal margin
-            let content = $('.content');
-            let twitter = $('.twitter');
-            let contentTwitter = $('.content-twitter');
-            let marginTwitter = (parseInt($(content).css('width')) - parseInt($(twitter).css('width'))) / 2.0;
+            // Fix the vertical margin to be the same to the horizontal margin
+            const content = $('.content');
+            const twitter = $('.twitter');
+            const contentTwitter = $('.content-twitter');
+            const marginTwitter = (parseInt($(content).css('width')) - parseInt($(twitter).css('width'))) / 2.0;
             // Fix .twitter height due to the marginTwitter
-            let twitterHeight = h - marginTwitter;
+            const twitterHeight = h - marginTwitter;
             $(twitter).css({
                 'height': twitterHeight + 'px',
                 'margin-top': marginTwitter + 'px'
             });
 
             // Prefix for the limit pos of content-twitter
-            let halfHeight = h / 2.0;
-            let halfContentTwitter = parseInt($(contentTwitter).css('height')) / 2.0;
+            const halfHeight = h / 2.0;
+            const halfContentTwitter = parseInt($(contentTwitter).css('height')) / 2.0;
             let contentTwitterTop = halfHeight - halfContentTwitter - marginTwitter;
             if (contentTwitterTop < marginTwitter * 2.0) {
                 contentTwitterTop = marginTwitter * 2.0;
