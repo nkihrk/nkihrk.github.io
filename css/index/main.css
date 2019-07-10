@@ -3,11 +3,7 @@
 /* Set white as the default font color */
 body {
     color: white;
-    /* overflow: hidden; */
-}
-
-header {
-    width: 90%;
+    overflow: hidden;
 }
 
 /* Prefix of list-style */
@@ -97,7 +93,7 @@ a {
     .status-num {
         display: inline-block;
         width: 40px;
-        text-align: right;
+        text-align: left;
     }
 
     /* tweets-icon */

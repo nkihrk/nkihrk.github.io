@@ -14,16 +14,6 @@
         const w = $(window).width();
         const h = $(window).height();
 
-
-    });
-
-    // When loading is finished and is resized
-    $(window).on('load resize', function () {
-        // Window width and height
-        const w = $(window).width();
-        const h = $(window).height();
-
-
         // Set random numbers to the status-twitter when loading has done
         const statusNum = function () {
             var t = [0, 0];
@@ -55,62 +45,68 @@
                 const label2 = [array[randomize()], array[randomize()], array[randomize()]];
                 countup();
                 if (count > 30) {
-                    for (i = 0; i < elements.length; i++) {
-                        if (i == 1) {
-                            if (label2[0] == 5) {
-                                $(firstF).html('5,');
-                                f[0] = 1;
-                            } else if (f[0] != 1) {
-                                $(firstF).html(randomize());
-                            }
-
-                            if (label2[1] == 4) {
-                                $(secondF).html('4');
-                                f[1] = 1;
-                            } else if (f[1] != 1) {
-                                $(secondF).html(randomize());
-                            }
-
-                            if (label2[2] == 0) {
-                                $(thirdF).html('0');
-                                f[2] = 1;
-                            } else if (f[2] != 1) {
-                                $(thirdF).html(randomize());
-                            }
-                        } else if (i == 0) {
-                            if (label[0] == 2) {
-                                $(firstT).html('2');
-                                t[0] = 1;
-                            } else if (t[0] != 1) {
-                                $(firstT).html(randomize());
-                            }
-
-                            if (label[1] == 8) {
+                    // Tweets
+                    if (label2[0] == 2) {
+                        $(firstT).html('2');
+                        t[0] = 1;
+                        if (label2[1] == 0) {
+                            if (label[2] == 8 || randomize()) {
                                 $(secondT).html('8');
                                 t[1] = 1;
-                            } else if (t[1] != 1) {
-                                $(secondT).html(randomize());
-                            }
-                        } else {
-                            if (label[0] == 3) {
-                                $(firstL).html('3')
-                                l[0] = 1;
-                            } else if (l[0] != 1) {
-                                $(firstL).html(randomize());
-                            }
-
-                            if (label[1] == 3) {
-                                $(secondL).html('3');
-                                l[1] = 1;
-                            } else if (l[1] != 1) {
-                                $(secondL).html(randomize());
                             }
                         }
+                    } else if (t[0] != 1) {
+                        $(firstT).html(randomize());
                     }
+                    if (t[1] != 1) {
+                        $(secondT).html(randomize());
+                    }
+
+                    // Followers
+                    if (label2[0] == 5) {
+                        $(firstF).html('5,');
+                        f[0] = 1;
+                        if (label2[1] == 4) {
+                            $(secondF).html('4');
+                            f[1] = 1;
+                            if (label2[2] == 0 || randomize()) {
+                                $(thirdF).html('0');
+                                f[2] = 1;
+                            }
+                        }
+                    } else if (f[0] != 1) {
+                        $(firstF).html(randomize());
+                    }
+                    if (f[1] != 1) {
+                        $(secondF).html(randomize());
+                    }
+                    if (f[2] != 1) {
+                        $(thirdF).html(randomize());
+                    }
+
+                    //Likes
+                    if (label2[0] == 3) {
+                        $(firstL).html('3')
+                        l[0] = 1;
+                        if (label2[1] == 0) {
+                            if (label2[2] == 3 || randomize()) {
+                                $(secondL).html('3');
+                                l[1] = 1;
+                            }
+                        }
+                    } else if (l[0] != 1) {
+                        $(firstL).html(randomize());
+                    }
+                    if (l[1] != 1) {
+                        $(secondL).html(randomize());
+                    }
+
+                    // Get out of the loop
                     if (isFinished()) {
                         clearInterval(id);
                     }
                 } else {
+                    // For the visual adjustment
                     for (i = 0; i < elements.length; i++) {
                         if (i == 1) {
                             $(firstF).html(randomize() + ',');
@@ -125,15 +121,21 @@
                         }
                     }
                 }
-
-                console.log(t);
-                console.log(f);
-                console.log(l);
+                // console.log(t);
+                // console.log(f);
+                // console.log(l);
             }, 10);
         };
         setTimeout(function () {
             statusNum();
         }, 1700); // Change the delay time when changing the loading time
+    });
+
+    // When loading is finished and is resized
+    $(window).on('load resize', function () {
+        // Window width and height
+        const w = $(window).width();
+        const h = $(window).height();
 
 
         const twitter = function () {

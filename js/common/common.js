@@ -62,7 +62,7 @@
             let mediumHead = $('.medium');
             let menuWidth = parseInt($(menu).css('width'));
             let largeFont = menuWidth * 0.244;
-            let mediumFont = menuWidth * 0.1;
+            let mediumFont = menuWidth * 0.11;
             $(largeHead).css('font-size', largeFont + 'px');
             $(mediumHead).css('font-size', mediumFont + 'px');
         };

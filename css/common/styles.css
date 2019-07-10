@@ -150,9 +150,84 @@ body {
     position: absolute;
 }
 
-/* Set the menu font to be bold */
-.menu li {
+/* Centering h1 header POTFOLIO */
+.fix-head.center-2 {
+    width: 90%;
+}
+
+/* menu nav > h2 */
+.menu-h2-common {
+    margin-left: 34px;
+}
+
+/* .menu ul > li */
+.menu-li-common {
+    display: inline-block;;
+    width: 100%;
+    opacity: 0.5;
+    padding: 18px 0px 15px 30px;
+    font-size: 1.2rem;
     font-weight: bold;
+}
+
+/* Fix a position of each menu icon */
+.twitter-menu, .github-menu, .pixiv-menu {
+    position: relative;
+}
+
+.twitter-menu::after {
+    content: '';
+    display: inline-block;
+    width: 30%;
+    height: 30%;
+    background-image: url(../../img/common/twitter.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: 80%;
+    top: 48%;
+    transform: translateY(-50%);
+}
+
+.github-menu::after {
+    content: '';
+    display: inline-block;
+    width: 35%;
+    height: 35%;
+    background-image: url(../../img/common/github.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: 80%;
+    top: 48%;
+    transform: translateY(-50%);
+}
+
+.pixiv-menu::after {
+    content: '';
+    display: inline-block;
+    width: 38%;
+    height: 38%;
+    background-image: url(../../img/common/pixiv.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: 80%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Current page */
+.active {
+    border-left: solid 4px #f4a807;
+    border-top: solid 3px rgba(32, 29, 38, 0.6);
+    border-bottom: solid 3px rgba(32, 29, 38, 0.6);
+    color: white;
+    opacity: 1;
+    background-color: #383747;
 }
 
 /* Media queries in common fields*/
@@ -171,9 +246,11 @@ body {
     /* The parent of the header and footer */
     .menu.column {
         width: 20%;
+        min-width: 300px;
         background-color: #2a2835;
         top: 0;
         left: 0;
+        overflow: hidden;
     }
 
     /* The parent of the main content */
