@@ -273,7 +273,7 @@ body {
 
     /* The parent of the main content */
     .content.column {
-        width: auto;
+        width: 80%;
         background-color: #32303f;
     }
 }
