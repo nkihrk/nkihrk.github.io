@@ -118,6 +118,22 @@ body {
     float: left;
 }
 
+/* Set a accurate width and margin for content-block */
+.content-block{
+    position: relative;
+    z-index: 0;
+
+    width: 98%;
+    height: inherit;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(42, 40, 53, 0.3);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* Circlized a picture */
 .circlized {
     border-radius: 50%;
@@ -150,14 +166,17 @@ body {
     position: absolute;
 }
 
-/* Centering h1 header POTFOLIO */
+/* Centering header and sub-header. ex.PORTFOLIO, SOCIAL */
 .fix-head.center-2 {
     width: 90%;
 }
 
 /* menu nav > h2 */
 .menu-h2-common {
-    margin-left: 34px;
+    /* line-height: 100%; */
+    /* margin-left: 34px; */
+    /* margin-bottom: -6px; */
+    /* padding-bottom: -6px; */
 }
 
 /* .menu ul > li */
@@ -168,6 +187,46 @@ body {
     padding: 18px 0px 15px 30px;
     font-size: 1.2rem;
     font-weight: bold;
+    line-height: 100%;
+}
+
+/* Add dot-and-line decoration for 'INTRODUCTION' */
+.line-border-intro {
+    border-top: solid 1px white;
+}
+
+.dot-line-intro::before {
+    position: absolute;
+    content: '・';
+    font-size: 11px;
+    top: 195px;
+    right: 45px;
+}
+
+/* Add common dot-and-line decoration */
+.line-border::before {
+    content: '';
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.5);
+    height: 50px;
+    width: 1px;
+    margin-right: 15px;
+
+    border-radius: 25%;
+}
+.dot-line {
+    position: relative;
+    padding-top: 20px;
+    margin-bottom: 10px;
+}
+
+.dot-line::before {
+    position: absolute;
+    content: '・';
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.5);
+    top: 66px;
+    left: 0;
 }
 
 /* Fix a position of each menu icon */
@@ -249,6 +308,16 @@ body {
     color: #c1125b;
 }
 
+/* rotate INTRODUCTION and other prefixes */
+.intro {
+    position: absolute;
+    transform: rotate(-90deg);
+    top: 100px;
+    right: -45px;
+
+    padding-right: 35px;
+}
+
 /* Media queries in common fields*/
 /* Larger than mobile */
 @media (min-width: 400px) {}
@@ -265,6 +334,7 @@ body {
     /* The parent of the header and footer */
     .menu.column {
         width: 20%;
+        /* min-width: 300px; */
         background-color: #2a2835;
         top: 0;
         left: 0;
@@ -274,6 +344,7 @@ body {
     /* The parent of the main content */
     .content.column {
         width: 80%;
+        /* width: auto; */
         background-color: #32303f;
     }
 }

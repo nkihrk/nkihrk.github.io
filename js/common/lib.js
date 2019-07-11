@@ -1,8 +1,8 @@
 (function (window, $) {
     // circlized + gradation. W should be the current window height
     circlized = function (w) {
-        let wrapper = $('.wrapper-gradation-circlized');
-        let image = $('.gradation');
+        let $wrapper = $('.wrapper-gradation-circlized');
+        let $image = $('.gradation');
         let width = circlizedParam.width;
         let thickness = circlizedParam.thickness;
 
@@ -13,11 +13,11 @@
         let relWrapperWidth = w * wrapperWidth / 1920.0;
         let relImageTop = w * imageTop / 1920.0;
 
-        $(wrapper).css({
+        $wrapper.css({
             'width': relWrapperWidth + 'px',
             'height': relWrapperWidth + 'px'
         });
-        $(image).css({
+        $image.css({
             'width': relWidth + 'px',
             'top': relImageTop + 'px',
             'left': relImageTop + 'px'
