@@ -67,7 +67,7 @@
             // $($mediumHead).css('font-size', mediumFont + 'px');
         };
         fixHeight();
-
+        
 
         // Fix the position of .dot-line::before and fit it to the same pos of .line-border
         const dotLine = function () {
@@ -76,7 +76,6 @@
 
             // For 7, it is a magic number. I dont know why
             const lineOffset = $lineBorder.offset().left - 7.0;
-            console.log(lineOffset);
             $dotLine.append('<style>.dot-line::before{ left: ' + lineOffset + 'px }</style>');
         };
         dotLine();

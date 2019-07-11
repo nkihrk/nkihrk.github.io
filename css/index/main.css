@@ -3,7 +3,7 @@
 /* Set white as the default font color */
 body {
     color: white;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 /* Prefix of list-style */
