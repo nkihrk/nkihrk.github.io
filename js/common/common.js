@@ -1,6 +1,23 @@
 (function (window, $) {
     // Global field
 
+    // Reloding when resizing
+    // var timer = false;
+    // var prewidth = $(window).width();
+    // $(window).resize(function() {
+    //     if (timer !== false) {
+    //         clearTimeout(timer);
+    //     }
+    //     timer = setTimeout(function() {
+    //         var nowWidth = $(window).width();
+    //         if(prewidth !== nowWidth){
+    //     // ????
+    //             location.reload();
+    //         }
+    //         prewidth = nowWidth;
+    //     }, 200);
+    // });
+
 
     // When DOM tree is constructed
     $(function () {
@@ -109,7 +126,8 @@
         const prefixForMenu = function () {
             // Insert a window height to .menu
             const $menu = $('.menu');
-            $($menu).css('height', h + 'px');
+            const innerHeight = $(window).innerHeight;
+            $($menu).css('height', innerHeight + 'px');
 
             // Change a font-size according to the width of .menu
             const $largeHead = $('.large');
@@ -141,14 +159,20 @@
             const $footer = $('footer');
             const $header = $('header');
             const setFooterBottom = h - $footer.outerHeight();
-            const bottomOffsetHeader = $header.height() + $header.offset().top;
-            if(bottomOffsetHeader <  setFooterBottom)
+            const bottomOffsetHeader = $header.outerHeight();
+
             $footer.css({
                 'position': 'absolute',
                 'top': setFooterBottom + 'px',
                 'left': 0,
             });
-            // console.log(bottomOffsetHeader);
+            if (bottomOffsetHeader > setFooterBottom) {
+                $footer.css({
+                    'position': 'absolute',
+                    'top': bottomOffsetHeader + 'px',
+                    'left': 0,
+                });
+            }
         };
         footer();
 
