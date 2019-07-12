@@ -52,25 +52,6 @@
         const h = $(window).height();
 
 
-        // Prefix for .menu
-        const prefixForMenu = function () {
-            // Insert a window height to .menu
-            const $menu = $('.menu');
-            $($menu).css('height', h + 'px');
-
-            // Change a font-size according to the width of .menu
-            const $largeHead = $('.large');
-            // const $mediumHead = $('.medium');
-            const menuWidth = parseInt($menu.css('width'));
-            // 0.244 is a magic number
-            const largeFont = menuWidth * 0.244;
-            // const mediumFont = menuWidth * 0.11;
-            $largeHead.css('font-size', largeFont + 'px');
-            // $($mediumHead).css('font-size', mediumFont + 'px');
-        };
-        prefixForMenu();
-
-
         // Prefix for .content
         const prefixForContent = function () {
             const $menu = $('.menu');
@@ -115,6 +96,25 @@
             }
         };
         prefixForContent();
+
+
+        // Prefix for .menu
+        const prefixForMenu = function () {
+            // Insert a window height to .menu
+            const $menu = $('.menu');
+            $($menu).css('height', h + 'px');
+
+            // Change a font-size according to the width of .menu
+            const $largeHead = $('.large');
+            const $mediumHead = $('.medium');
+            const menuWidth = parseInt($menu.css('width'));
+            // 0.244 and 0.13 are magic numbers
+            const largeFont = menuWidth * 0.244;
+            const mediumFont = menuWidth * 0.13;
+            $largeHead.css('font-size', largeFont + 'px');
+            $($mediumHead).css('font-size', mediumFont + 'px');
+        };
+        prefixForMenu();
         
 
         // Fix the position of .dot-line::before and fit it to the same pos of .line-border

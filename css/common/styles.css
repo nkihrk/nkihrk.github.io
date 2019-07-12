@@ -96,7 +96,7 @@ body {
 }
 
 /* clearfix */
-/* .clearfix:after {
+.clearfix:after {
     display: block;
     clear: both;
     height: 0px;
@@ -106,21 +106,21 @@ body {
 
 .clearfix {
     min-height: 1px;
-} */
+}
 
-.clearfix:after{
+/* .clearfix:after{
 	content:".";
 	display:block;
 	height:0px;
 	clear:both;
 	visibility:hidden;
 	font-size: 0.1em;
-}
+} */
 /* WinIE7 MacIE5 */
-.clearfix{
+/* .clearfix{
 	display:inline-table;
 	zoom:100%;
-}
+} */
 
 /* The parent of all contents */
 #container {
@@ -335,6 +335,7 @@ body {
 .menu.column {
     position: fixed;
     width: 15%;
+    height: 100%;
     background-color: #2a2835;
     top: 0;
     left: 0;
