@@ -36,12 +36,12 @@
     <div id="container clearfix">
         <div class="menu column">
             <header>
-                <div class="center-2 fix-head">
+                <div class="centerMarginAuto fix-head">
                     <h1 class="large bold agency-fb" style="opacity: 0.7;">PORTFOLIO</h1>
                 </div>
                 <nav>
                     <div class="dot-line">
-                        <h2 class="line-border center-2 fix-head medium gray made-bruno menu-h2-common" style="font-size: 2.3rem;">SOCIAL</h2>
+                        <h2 class="line-border centerMarginAuto fix-head medium gray made-bruno menu-h2-common" style="font-size: 2.3rem;">SOCIAL</h2>
                     </div>
                     <ul>
                         <li><a href="#" class="hover-menu-common"><span class="active twitter-menu menu-li-common">TWITTER</span></a></li>
@@ -49,7 +49,7 @@
                         <li><a href="#" class="hover-menu-common"><span class="pixiv-menu menu-li-common">PIXIV</span></a></li>
                     </ul>
                     <div class="dot-line">
-                        <h2 class="line-border center-2 fix-head medium gray made-bruno menu-h2-common" style="font-size: 2.3rem;">WEB APP</h2>
+                        <h2 class="line-border centerMarginAuto fix-head medium gray made-bruno menu-h2-common" style="font-size: 2.3rem;">WEB APP</h2>
                     </div>
                     <ul>
                         <li><a href="#" class="menu-li-common">ImageLoader</a></li>
@@ -67,6 +67,13 @@
                 <div class="dot-line-intro half-opacity">
                         <div class="line-border-intro intro half-opacity bold agency-fb" style="font-size: 1.5rem;">INTRODUCTION</div>
                 </div>
+                <div class="sub-menu">
+                    <a class="menu-trigger" href="#">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </a>
+                </div>
 
                 <div class="content-twitter">
                     <div class="header-twitter">
@@ -83,7 +90,7 @@
                             <li><div class="likes-icon icon" style="line-height: 18px;"><span class="bold agency-fb" style="font-size: 2.3rem; color: #c1125b;"><span class="status-num"><span id="first-l">-</span>.<span id="second-l">-</span></span>M</span><br><span class="bold agency-fb" style="font-size: 1.2rem;">Likes</span></div></li>
                         </ul>
                     </div>
-                    <div class="center description-twitter">
+                    <div class="centerTextAlign description-twitter">
                         <div class="regular agency-fb" style="font-size: 1.5rem;">
                             Majoring in Electrical Engineering and Computer Science at Kyushu Univ.
                             <div class="bold agency-fb" style="font-size: 1.5rem; margin-top: 20px;">Curious About : </div>
@@ -111,6 +118,13 @@
     <script src="js/index/main.js"></script>
     <script>
         (function ($) {
+            menuParam = {
+                minWidth: 200,
+                maxWidth: 300,
+                // Ratio must be %
+                ratioMenu: 15,
+            };
+
             circlizedParam = {
                 // width must be px. The value will be converted to a relative value of 1920px
                 width: 250,
@@ -121,12 +135,11 @@
                 thickness: 10,
             };
 
-            menuParam = {
-                minWidth: 200,
-                maxWidth: 300,
-                // Ratio must be %
-                ratioMenu: 15,
-            };
+             twitterParam = {
+                tweets: [2, 8],
+                followers: [5, 3, 9],
+                likes: [3, 3],
+             };
         })(jQuery);
     </script>
 

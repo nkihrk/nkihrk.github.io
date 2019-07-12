@@ -46,12 +46,12 @@
                 countup();
                 if (count > 30) {
                     // Tweets
-                    if (label2[0] == 2) {
-                        $firstT.html('2');
+                    if (label2[0] == twitterParam.tweets[0]) {
+                        $firstT.html(twitterParam.tweets[0]);
                         t[0] = 1;
                         if (label2[1] == 0) {
-                            if (label[2] == 8 || randomize()) {
-                                $secondT.html('8');
+                            if (label[2] == twitterParam.tweets[1] || randomize()) {
+                                $secondT.html(twitterParam.tweets[1]);
                                 t[1] = 1;
                             }
                         }
@@ -63,14 +63,14 @@
                     }
 
                     // Followers
-                    if (label2[0] == 5) {
-                        $firstF.html('5,');
+                    if (label2[0] == twitterParam.followers[0]) {
+                        $firstF.html(twitterParam.followers[0] + ',');
                         f[0] = 1;
-                        if (label2[1] == 4) {
-                            $secondF.html('4');
+                        if (label2[1] == twitterParam.followers[1]) {
+                            $secondF.html(twitterParam.followers[1]);
                             f[1] = 1;
-                            if (label2[2] == 1 || randomize()) {
-                                $thirdF.html('1');
+                            if (label2[2] == twitterParam.followers[2] || randomize()) {
+                                $thirdF.html(twitterParam.followers[2]);
                                 f[2] = 1;
                             }
                         }
@@ -85,12 +85,12 @@
                     }
 
                     //Likes
-                    if (label2[0] == 3) {
-                        $firstL.html('3')
+                    if (label2[0] == twitterParam.likes[0]) {
+                        $firstL.html(twitterParam.likes[0]);
                         l[0] = 1;
                         if (label2[1] == 0) {
-                            if (label2[2] == 3 || randomize()) {
-                                $secondL.html('3');
+                            if (label2[2] == twitterParam.likes[1] || randomize()) {
+                                $secondL.html(twitterParam.likes[1]);
                                 l[1] = 1;
                             }
                         }
@@ -145,7 +145,7 @@
             const $content = $('.content');
             const $twitter = $('.twitter');
             const $contentTwitter = $('.content-twitter');
-            const marginTwitter = (parseInt($content.css('width')) - parseInt($twitter.css('width'))) / 2.0;
+            const marginTwitter = ($content.width() - $twitter.width()) / 2.0;
             // Fix .twitter height due to the marginTwitter
             if ($twitter.height() < h) {
                 const twitterHeight = h - marginTwitter;

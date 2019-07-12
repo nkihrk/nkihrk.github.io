@@ -87,6 +87,7 @@
                     'width': 100 + '%',
                     'margin-left': 0,
                 });
+                $('.sub-menu').css('opacity', 1);
             } else if (w < minWindowWidth) {
                 $menu.css({
                     'display': 'block',
@@ -97,6 +98,7 @@
                     'width': w - menuParam.minWidth,
                     'margin-left': menuParam.minWidth,
                 });
+                $('.sub-menu').css('opacity', 0);
             } else if (w > minWindowWidth && w < maxWindowWidth) {
                 $menu.css({
                     'display': 'block',
@@ -107,6 +109,7 @@
                     'width': ratioContent + '%',
                     'margin-left': ratioMenu + '%',
                 });
+                $('.sub-menu').css('opacity', 0);
             } else if (w > maxWindowWidth) {
                 $menu.css({
                     'display': 'block',
@@ -117,6 +120,7 @@
                     'width': w - menuParam.maxWidth,
                     'margin-left': menuParam.maxWidth,
                 });
+                $('.sub-menu').css('opacity', 0);
             }
         };
         prefixForContent();
@@ -127,7 +131,7 @@
             // Insert a window height to .menu
             const $menu = $('.menu');
             const innerHeight = $(window).innerHeight();
-            $($menu).css('height', window.innerHeight + 'px');
+            $($menu).css('height', innerHeight + 'px');
             // console.log(innerHeight);
 
             // Change a font-size according to the width of .menu
@@ -178,7 +182,7 @@
         footer();
 
 
-        //?For the visual adjustment. Delete 'INTRODUCTION' when overlapping the header-twitter
+        // For the visual adjustment. Delete 'INTRODUCTION' when overlapping the header-twitter
         const introduction = function () {
             const $intro = $('.intro');
             const $dot = $('.dot-line-intro');
@@ -202,6 +206,24 @@
         introduction();
 
 
+    });
+
+    const subMenu = function () {
+        const $subMenu = $('.sub-menu');
+        const $content = $('.content');
+        const $contentBlock = $('.content-block');
+        const marginContent = ($content.width() - $contentBlock.width()) / 2.0;
+        // console.log($contentBlock.width());
+
+        $subMenu.css({
+            'top': marginContent + 'px',
+            'right': marginContent + 'px',
+        });
+    };
+    subMenu();
+
+    $('.sub-menu').click(function () {
+        $('.menu-trigger').addClass('active-menu-trigger');
     });
 
 

@@ -69,12 +69,12 @@ body {
 
 /* Centering */
 /* text-align way of centering */
-.center {
+.centerTextAlign {
     text-align: center;
 }
 
 /* margin way of centering */
-.center-2 {
+.centerMarginAuto {
     margin: 0 auto;
 }
 
@@ -108,20 +108,6 @@ body {
     min-height: 1px;
 }
 
-/* .clearfix:after{
-	content:".";
-	display:block;
-	height:0px;
-	clear:both;
-	visibility:hidden;
-	font-size: 0.1em;
-} */
-/* WinIE7 MacIE5 */
-/* .clearfix{
-	display:inline-table;
-	zoom:100%;
-} */
-
 /* The parent of all contents */
 #container {
     width: 100%;
@@ -133,7 +119,7 @@ body {
 }
 
 /* Set a accurate width and margin for content-block */
-.content-block{
+.content-block {
     position: relative;
     z-index: 0;
 
@@ -144,6 +130,11 @@ body {
     margin-right: auto;
     /* padding: 100px 0px; */
     background-color: rgba(42, 40, 53, 0.3);
+
+    overflow: hidden;
+    border: solid 6px #302e3c;
+    border-bottom: none;
+    border-radius: 12px 12px 0px 0px;
 
     display: flex;
     justify-content: center;
@@ -183,7 +174,7 @@ body {
 }
 
 /* Centering header and sub-header. ex.PORTFOLIO, SOCIAL */
-.fix-head.center-2 {
+.fix-head.centerMarginAuto {
     width: 90%;
 }
 
@@ -227,6 +218,7 @@ body {
 
     border-radius: 25%;
 }
+
 .dot-line {
     position: relative;
     padding-top: 20px;
@@ -243,7 +235,9 @@ body {
 }
 
 /* Fix a position of each menu icon */
-.twitter-menu, .github-menu, .pixiv-menu {
+.twitter-menu,
+.github-menu,
+.pixiv-menu {
     position: relative;
 }
 
@@ -303,9 +297,10 @@ body {
 }
 
 /* Set a dot befrore a string */
-.before-dot{
+.before-dot {
     position: relative;
 }
+
 .before-dot::before {
     content: '・';
     display: inline-block;
@@ -317,7 +312,8 @@ body {
     left: 6px;
     top: 50%;
 }
-.red.before-dot::before{
+
+.red.before-dot::before {
     color: #c1125b;
 }
 
@@ -349,6 +345,61 @@ body {
     margin-left: 15%;
     background-color: #32303f;
 }
+
+/* Preparing sub-menu as positioning, and .menu-trigger to introduce css animation */
+.sub-menu {
+    position: absolute;
+    border-radius: 3px;
+    padding: 15px;
+    background-color: #32303f;
+    opacity: 0;
+}
+
+.menu-trigger,
+.menu-trigger span {
+    display: inline-block;
+    transition: all .4s;
+    box-sizing: border-box;
+}
+
+.menu-trigger {
+    position: relative;
+    width: 30px;
+    height: 17px;
+}
+
+.menu-trigger span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.menu-trigger span:nth-of-type(1) {
+    top: 0;
+}
+
+.menu-trigger span:nth-of-type(2) {
+    top: 10px;
+}
+
+.menu-trigger span:nth-of-type(3) {
+    top: 20px;
+}
+
+.menu-trigger.active-menu-trigger span:nth-of-type(1) {
+    -webkit-transform: translateY(10px) rotate(-315deg);
+    transform: translateY(10px) rotate(-315deg);
+  }
+  .menu-trigger.active-menu-trigger span:nth-of-type(2) {
+    opacity: 0;
+  }
+  .menu-trigger.active-menu-trigger span:nth-of-type(3) {
+    -webkit-transform: translateY(-10px) rotate(315deg);
+    transform: translateY(-10px) rotate(315deg);
+  }
 
 /* Media queries in common fields*/
 /* Larger than mobile */

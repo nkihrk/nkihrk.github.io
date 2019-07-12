@@ -23,10 +23,6 @@ a {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    overflow: hidden;
-    border: solid 6px #302e3c;
-    border-bottom: none;
-    border-radius: 12px 12px 0px 0px;
 }
 
 .twitter::before {
