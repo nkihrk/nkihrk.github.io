@@ -34,12 +34,14 @@
         const h = $(window).height();
 
         // loadingLast
-        loadingLast = function () {
+        const loadingLast = function () {
             $('#loader-bg').delay(900).fadeOut(800);
             $('#loading').delay(600).fadeOut(300);
             $('#container').css('display', 'block');
         }
         loadingLast();
+
+
     });
 
 
@@ -50,12 +52,11 @@
         const h = $(window).height();
 
 
-        // Prefix for .menu and .content
+        // Prefix for .menu
         const prefixForMenu = function () {
             // Insert a window height to .menu
             const $menu = $('.menu');
             $($menu).css('height', h + 'px');
-
 
             // Change a font-size according to the width of .menu
             const $largeHead = $('.large');
@@ -68,6 +69,52 @@
             // $($mediumHead).css('font-size', mediumFont + 'px');
         };
         prefixForMenu();
+
+
+        // Prefix for .content
+        const prefixForContent = function () {
+            const $menu = $('.menu');
+            const $content = $('.content');
+            const ratioMenu = menuParam.ratioMenu;
+            const ratioContent = 100 - ratioMenu;
+            const minWindowWidth = menuParam.minWidth * 100 / ratioMenu;
+            const maxWindowWidth = menuParam.maxWidth * 100 / ratioMenu;
+            console.log(minWindowWidth);
+
+
+            if (w < minWindowWidth) {
+                $menu.css({
+                    'width': menuParam.minWidth,
+                    'height': h + 'px',
+                });
+                $content.css({
+                    'width': w - menuParam.minWidth,
+                    'margin-left': menuParam.minWidth,
+                });
+                console.log("a" + $menu.height());
+            } else if (w > minWindowWidth && w < maxWindowWidth) {
+                $menu.css({
+                    'width': ratioMenu + '%',
+                    'height': h + 'px',
+                });
+                $content.css({
+                    'width': ratioContent + '%',
+                    'margin-left': ratioMenu + '%',
+                });
+                console.log("b" + $menu.height());
+            } else if (w > maxWindowWidth) {
+                $menu.css({
+                    'width': menuParam.maxWidth,
+                    'height': h + 'px',
+                });
+                $content.css({
+                    'width': w - menuParam.maxWidth,
+                    'margin-left': menuParam.maxWidth,
+                });
+                console.log("c" + $menu.height());
+            }
+        };
+        prefixForContent();
         
 
         // Fix the position of .dot-line::before and fit it to the same pos of .line-border
@@ -87,7 +134,6 @@
             const $footer = $('footer');
             const $header = $('header');
             const setFooterBottom = h - $footer.outerHeight();
-            console.log($footer.outerHeight());
             const bottomOffsetHeader = $header.height() + $header.offset().top;
             if(bottomOffsetHeader <  setFooterBottom)
             $footer.css({

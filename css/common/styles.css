@@ -197,7 +197,7 @@ body {
     display: inline-block;
     width: 100%;
     opacity: 0.5;
-    padding: 18px 0px 15px 30px;
+    padding: 25px 0px 20px 30px;
     font-size: 1.2rem;
     font-weight: bold;
     line-height: 100%;
@@ -258,7 +258,7 @@ body {
     vertical-align: middle;
     position: absolute;
     left: 80%;
-    top: 48%;
+    top: 52%;
     transform: translateY(-50%);
 }
 
@@ -273,7 +273,7 @@ body {
     vertical-align: middle;
     position: absolute;
     left: 80%;
-    top: 48%;
+    top: 53%;
     transform: translateY(-50%);
 }
 
@@ -288,7 +288,7 @@ body {
     vertical-align: middle;
     position: absolute;
     left: 80%;
-    top: 50%;
+    top: 52%;
     transform: translateY(-50%);
 }
 
@@ -334,7 +334,7 @@ body {
 /* The parent of the header and footer */
 .menu.column {
     position: fixed;
-    width: 20%;
+    width: 15%;
     background-color: #2a2835;
     top: 0;
     left: 0;
@@ -343,9 +343,9 @@ body {
 
 /* The parent of the main content */
 .content.column {
-    width: 80%;
+    width: 85%;
     height: 100%;
-    margin-left: 20%;
+    margin-left: 15%;
     background-color: #32303f;
 }
 
