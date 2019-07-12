@@ -138,9 +138,11 @@ body {
     z-index: 0;
 
     width: 98%;
-    height: inherit;
+    /* Change height to allow scroll */
+    /* height: inherit; */
     margin-left: auto;
     margin-right: auto;
+    padding: 100px 0px;
     background-color: rgba(42, 40, 53, 0.3);
 
     display: flex;
@@ -329,9 +331,37 @@ body {
     padding-right: 35px;
 }
 
+/* The parent of the header and footer */
+.menu.column {
+    position: fixed;
+    width: 20%;
+    background-color: #2a2835;
+    top: 0;
+    left: 0;
+    /* overflow: hidden; */
+}
+
+/* The parent of the main content */
+.content.column {
+    width: 80%;
+    height: 100%;
+    margin-left: 20%;
+    background-color: #32303f;
+}
+
 /* Media queries in common fields*/
 /* Larger than mobile */
-@media (min-width: 400px) {}
+@media (min-width: 350px) {
+    /* Delete .menu */
+    .menu {
+        /* width: 100%; */
+        /* display: none; */
+    }
+    .content {
+        /* display: none; */
+        /* width: 100%; */
+    }
+}
 
 /* Larger than phablet (also point when grid becomes active) */
 @media (min-width: 550px) {}
@@ -340,23 +370,7 @@ body {
 @media (min-width: 750px) {}
 
 /* Larger than desktop */
-@media (min-width: 1000px) {
-
-    /* The parent of the header and footer */
-    .menu.column {
-        width: 20%;
-        background-color: #2a2835;
-        top: 0;
-        left: 0;
-        overflow: hidden;
-    }
-
-    /* The parent of the main content */
-    .content.column {
-        width: 80%;
-        background-color: #32303f;
-    }
-}
+@media (min-width: 1000px) {}
 
 /* Larger than Desktop HD */
 @media (min-width: 1200px) {}

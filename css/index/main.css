@@ -60,6 +60,109 @@ a {
     width: 100%;
 }
 
+/* Common settings of the .status-twitter icons */
+.icon {
+    position: relative;
+    padding-left: 55px;
+    margin: 0px 20px;
+}
+
+/* Fix the each width of .status-num to be stable */
+.status-num {
+    display: inline-block;
+    width: 40px;
+    text-align: left;
+}
+
+/* tweets-icon */
+.tweets-icon.icon::before {
+    content: '';
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-image: url(../../img/index/tweets.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: 0;
+    top: 40%;
+    transform: translateY(-50%);
+}
+
+/* followers-icon */
+.followers-icon.icon::before {
+    content: '';
+    display: inline-block;
+    width: 70px;
+    height: 50px;
+    background-image: url(../../img/index/followers.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: -20px;
+    top: 40%;
+    transform: translateY(-50%);
+}
+
+.followers-icon.icon {
+    margin-left: 45px;
+}
+
+/* likes-icon */
+.likes-icon.icon::before {
+    content: '';
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-image: url(../../img/index/likes.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: 0;
+    top: 40%;
+    transform: translateY(-50%);
+}
+
+.status-twitter {
+    width: 600px;
+    margin: 50px auto 30px auto;
+    padding-top: 25px;
+    padding-bottom: 15px;
+}
+
+/* square button */
+.square-button {
+    width: 240px;
+    height: 60px;
+    margin: 50px auto 0px auto;
+    border-radius: 3px;
+    font-size: 1.5rem;
+}
+
+.square-button a {
+    width: 240px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Yellow - .square-button */
+.yellow.square-button {
+    background-color: #f4a807;
+}
+
+/* figure and figcaption configuring */
+.fig{
+    display: inline-block;
+}
+.fig img {
+    height: 50px;
+}
+
 /* Media queries in common fields*/
 /* Larger than mobile */
 @media (min-width: 400px) {}
@@ -71,110 +174,7 @@ a {
 @media (min-width: 750px) {}
 
 /* Larger than desktop */
-@media (min-width: 1000px) {
-    /* Common settings of the .status-twitter icons */
-    .icon {
-        position: relative;
-        padding-left: 55px;
-        margin: 0px 20px;
-    }
-
-    /* Fix the each width of .status-num to be stable */
-    .status-num {
-        display: inline-block;
-        width: 40px;
-        text-align: left;
-    }
-
-    /* tweets-icon */
-    .tweets-icon.icon::before {
-        content: '';
-        display: inline-block;
-        width: 50px;
-        height: 50px;
-        background-image: url(../../img/index/tweets.png);
-        background-size: contain;
-        background-repeat: no-repeat;
-        vertical-align: middle;
-        position: absolute;
-        left: 0;
-        top: 40%;
-        transform: translateY(-50%);
-    }
-
-    /* followers-icon */
-    .followers-icon.icon::before {
-        content: '';
-        display: inline-block;
-        width: 70px;
-        height: 50px;
-        background-image: url(../../img/index/followers.png);
-        background-size: contain;
-        background-repeat: no-repeat;
-        vertical-align: middle;
-        position: absolute;
-        left: -20px;
-        top: 40%;
-        transform: translateY(-50%);
-    }
-    
-    .followers-icon.icon {
-        margin-left: 45px;
-    }
-
-    /* likes-icon */
-    .likes-icon.icon::before {
-        content: '';
-        display: inline-block;
-        width: 50px;
-        height: 50px;
-        background-image: url(../../img/index/likes.png);
-        background-size: contain;
-        background-repeat: no-repeat;
-        vertical-align: middle;
-        position: absolute;
-        left: 0;
-        top: 40%;
-        transform: translateY(-50%);
-    }
-
-    .status-twitter {
-        width: 600px;
-        margin: 50px auto 30px auto;
-        padding-top: 25px;
-        padding-bottom: 15px;
-    }
-
-    /* square button */
-    .square-button {
-        width: 240px;
-        height: 60px;
-        margin: 50px auto 0px auto;
-        border-radius: 3px;
-        font-size: 1.5rem;
-    }
-
-    .square-button a {
-        width: 240px;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    /* Yellow - .square-button */
-    .yellow.square-button {
-        background-color: #f4a807;
-    }
-
-    /* figure and figcaption configuring */
-    .fig{
-        display: inline-block;
-    }
-    .fig img {
-        height: 50px;
-    }
-}
+@media (min-width: 1000px) {}
 
 /* Larger than Desktop HD */
 @media (min-width: 1200px) {}

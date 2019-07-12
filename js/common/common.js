@@ -50,23 +50,24 @@
         const h = $(window).height();
 
 
-        // Insert a window height to .menu and .content
-        const fixHeight = function () {
+        // Prefix for .menu and .content
+        const prefixForMenu = function () {
+            // Insert a window height to .menu
             const $menu = $('.menu');
-            const $content = $('.content');
             $($menu).css('height', h + 'px');
-            $($content).css('height', h + 'px');
+
 
             // Change a font-size according to the width of .menu
             const $largeHead = $('.large');
             // const $mediumHead = $('.medium');
-            const menuWidth = parseInt($($menu).css('width'));
+            const menuWidth = parseInt($menu.css('width'));
+            // 0.244 is a magic number
             const largeFont = menuWidth * 0.244;
             // const mediumFont = menuWidth * 0.11;
-            $($largeHead).css('font-size', largeFont + 'px');
+            $largeHead.css('font-size', largeFont + 'px');
             // $($mediumHead).css('font-size', mediumFont + 'px');
         };
-        fixHeight();
+        prefixForMenu();
         
 
         // Fix the position of .dot-line::before and fit it to the same pos of .line-border

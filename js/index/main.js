@@ -163,27 +163,33 @@
             const $contentTwitter = $('.content-twitter');
             const marginTwitter = (parseInt($content.css('width')) - parseInt($twitter.css('width'))) / 2.0;
             // Fix .twitter height due to the marginTwitter
-            const twitterHeight = h - marginTwitter;
-            $twitter.css({
-                'height': twitterHeight + 'px',
-                'margin-top': marginTwitter + 'px'
-            });
-
-            // Prefix for the limit pos of content-twitter
-            const halfHeight = h / 2.0;
-            const halfContentTwitter = parseInt($contentTwitter.css('height')) / 2.0;
-            let contentTwitterTop = halfHeight - halfContentTwitter - marginTwitter;
-            if (contentTwitterTop < marginTwitter * 2.0) {
-                contentTwitterTop = marginTwitter * 2.0;
-                $contentTwitter.css({
-                    'position': 'absolute',
-                    'top': contentTwitterTop + 'px',
-                });
-            } else {
-                $contentTwitter.css({
-                    'position': 'static',
+            if ($twitter.height() < h) {
+                const twitterHeight = h - marginTwitter;
+                $twitter.css({
+                    'height': twitterHeight + 'px',
                 });
             }
+            $twitter.css({
+                'margin-top': marginTwitter + 'px',
+            });
+
+            // console.log($contentTwitter.height());
+
+            // Prefix for the limit pos of content-twitter
+            // const halfHeight = h / 2.0;
+            // const halfContentTwitter = parseInt($contentTwitter.css('height')) / 2.0;
+            // let contentTwitterTop = halfHeight - halfContentTwitter - marginTwitter;
+            // if (contentTwitterTop < marginTwitter * 2.0) {
+            //     contentTwitterTop = marginTwitter * 2.0;
+            //     $contentTwitter.css({
+            //         // 'position': 'absolute',
+            //         // 'top': contentTwitterTop + 'px'
+            //     });
+            // } else {
+            //     $contentTwitter.css({
+            //         // 'position': 'static',
+            //     });
+            // }
         };
         twitter();
 
