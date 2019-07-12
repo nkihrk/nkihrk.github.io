@@ -156,8 +156,6 @@
             $twitter.css({
                 'margin-top': marginTwitter + 'px',
             });
-
- 
         };
         twitter();
 

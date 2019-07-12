@@ -60,11 +60,19 @@
             const ratioContent = 100 - ratioMenu;
             const minWindowWidth = menuParam.minWidth * 100 / ratioMenu;
             const maxWindowWidth = menuParam.maxWidth * 100 / ratioMenu;
-            console.log(minWindowWidth);
 
 
-            if (w < minWindowWidth) {
+            if (w < 800) {
                 $menu.css({
+                    'display': 'none',
+                });
+                $content.css({
+                    'width': 100 + '%',
+                    'margin-left': 0,
+                });
+            } else if (w < minWindowWidth) {
+                $menu.css({
+                    'display': 'block',
                     'width': menuParam.minWidth,
                     'height': h + 'px',
                 });
@@ -72,9 +80,9 @@
                     'width': w - menuParam.minWidth,
                     'margin-left': menuParam.minWidth,
                 });
-                console.log("a" + $menu.height());
             } else if (w > minWindowWidth && w < maxWindowWidth) {
                 $menu.css({
+                    'display': 'block',
                     'width': ratioMenu + '%',
                     'height': h + 'px',
                 });
@@ -82,9 +90,9 @@
                     'width': ratioContent + '%',
                     'margin-left': ratioMenu + '%',
                 });
-                console.log("b" + $menu.height());
             } else if (w > maxWindowWidth) {
                 $menu.css({
+                    'display': 'block',
                     'width': menuParam.maxWidth,
                     'height': h + 'px',
                 });
@@ -92,7 +100,6 @@
                     'width': w - menuParam.maxWidth,
                     'margin-left': menuParam.maxWidth,
                 });
-                console.log("c" + $menu.height());
             }
         };
         prefixForContent();
