@@ -126,8 +126,9 @@
         const prefixForMenu = function () {
             // Insert a window height to .menu
             const $menu = $('.menu');
-            const innerHeight = $(window).innerHeight;
-            $($menu).css('height', innerHeight + 'px');
+            const innerHeight = $(window).innerHeight();
+            $($menu).css('height', window.innerHeight + 'px');
+            // console.log(innerHeight);
 
             // Change a font-size according to the width of .menu
             const $largeHead = $('.large');
