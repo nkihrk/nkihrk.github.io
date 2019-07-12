@@ -140,22 +140,6 @@
         const h = $(window).height();
 
 
-        // Prefix for the position of footer
-        const footer = function () {
-            const $footer = $('footer');
-            const $header = $('header');
-            const setFooterBottom = h - $footer.height();
-            const bottomOffsetHeader = $header.height() + $header.offset().top;
-            if(bottomOffsetHeader <  setFooterBottom)
-            $footer.css({
-                'position': 'absolute',
-                'top': setFooterBottom + 'px',
-                'left': 0,
-            });
-            // console.log(bottomOffsetHeader);
-        };
-        footer();
-
         const twitter = function () {
             // Fix the vertical margin to be the same to the horizontal margin
             const $content = $('.content');
@@ -173,23 +157,7 @@
                 'margin-top': marginTwitter + 'px',
             });
 
-            // console.log($contentTwitter.height());
-
-            // Prefix for the limit pos of content-twitter
-            // const halfHeight = h / 2.0;
-            // const halfContentTwitter = parseInt($contentTwitter.css('height')) / 2.0;
-            // let contentTwitterTop = halfHeight - halfContentTwitter - marginTwitter;
-            // if (contentTwitterTop < marginTwitter * 2.0) {
-            //     contentTwitterTop = marginTwitter * 2.0;
-            //     $contentTwitter.css({
-            //         // 'position': 'absolute',
-            //         // 'top': contentTwitterTop + 'px'
-            //     });
-            // } else {
-            //     $contentTwitter.css({
-            //         // 'position': 'static',
-            //     });
-            // }
+ 
         };
         twitter();
 

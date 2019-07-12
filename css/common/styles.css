@@ -351,17 +351,7 @@ body {
 
 /* Media queries in common fields*/
 /* Larger than mobile */
-@media (min-width: 350px) {
-    /* Delete .menu */
-    .menu {
-        /* width: 100%; */
-        /* display: none; */
-    }
-    .content {
-        /* display: none; */
-        /* width: 100%; */
-    }
-}
+@media (min-width: 350px) {}
 
 /* Larger than phablet (also point when grid becomes active) */
 @media (min-width: 550px) {}

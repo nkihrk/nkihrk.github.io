@@ -82,6 +82,24 @@
         dotLine();
 
 
+        // Prefix for the position of footer
+        const footer = function () {
+            const $footer = $('footer');
+            const $header = $('header');
+            const setFooterBottom = h - $footer.outerHeight();
+            console.log($footer.outerHeight());
+            const bottomOffsetHeader = $header.height() + $header.offset().top;
+            if(bottomOffsetHeader <  setFooterBottom)
+            $footer.css({
+                'position': 'absolute',
+                'top': setFooterBottom + 'px',
+                'left': 0,
+            });
+            // console.log(bottomOffsetHeader);
+        };
+        footer();
+
+
         //?For the visual adjustment. Delete 'INTRODUCTION' when overlapping the header-twitter
         const introduction = function () {
             const $intro = $('.intro');
