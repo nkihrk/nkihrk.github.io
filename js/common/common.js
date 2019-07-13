@@ -276,14 +276,15 @@
             $('.menu.column').css({
                 'position': 'absolute',
                 'overflow': 'hidden',
+                'height': $('.content').outerHeight(true),
             }).show().animate({
                 width: '100%'
             });
             $('header').delay(100).fadeIn();
-            $('.content').fadeOut();
+            // $('.content').fadeOut();
             return false;
         } else {
-            $('.content').fadeIn();
+            // $('.content').fadeIn();
             $('header').fadeOut();
             $('.menu.column').delay(100).css({
                 'position': 'fixed',
