@@ -273,7 +273,7 @@
         if ($('.menu-trigger').hasClass('active-menu-trigger')) {
             $('.menu.column').css({
                 'position': 'absolute',
-                'overflow': 'hidden',
+                // 'overflow': 'hidden',
                 'height': $('.content').outerHeight(true),
             }).show().animate({
                 width: '100%'
