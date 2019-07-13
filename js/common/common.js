@@ -4,14 +4,14 @@
     // Reloding when resizing
     var timer = false;
     var prewidth = $(window).width();
-    $(window).resize(function() {
+    $(window).resize(function () {
         if (timer !== false) {
             clearTimeout(timer);
         }
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
             var nowWidth = $(window).width();
-            if(prewidth !== nowWidth){
-        // ????
+            if (prewidth !== nowWidth) {
+                // ????
                 location.reload();
             }
             prewidth = nowWidth;
@@ -75,6 +75,7 @@
             const $header = $('header');
             const $footer = $(`footer`);
             const $content = $('.content');
+            const $menuBlock = $('.menu-block');
             const ratioMenu = menuParam.ratioMenu;
             const ratioContent = 100 - ratioMenu;
             const minWindowWidth = menuParam.minWidth * 100 / ratioMenu;
@@ -85,20 +86,32 @@
             const setFooterBottom = h - $footer.outerHeight();
             const bottomOffsetHeader = $header.outerHeight();
             const innerHeight = $(window).innerHeight();
-            const contentHeight = $('.content').height();
+            const contentHeight = $('.content').outerHeight(true);
 
-            $menu.css('height', innerHeight + 'px');
-            $footer.css({
-                'position': 'absolute',
-                'top': innerHeight - $footer.outerHeight() + 'px',
-            });
-            if (bottomOffsetHeader > setFooterBottom) {
+            if ($header.outerHeight(true) > innerHeight) {
                 $menu.css({
                     'height': contentHeight + 'px',
+                    'position': 'absolute',
+                    'top': 0,
+                    'left': 0,
+                });
+                $footer.css({
+                    'top': contentHeight - $footer.outerHeight(true) + 'px',
+                });
+            } else {
+                $menu.css({
+                    'position': 'fixed',
+                    'height': innerHeight + 'px',
+                });
+                $footer.css({
+                    'position': 'absolute',
+                    'top': innerHeight - $footer.outerHeight(true) + 'px',
                 });
             }
+            
 
 
+            // Configuring width
             if (w < commonParam.maxWidthForPhone) {
                 $menu.css({
                     'display': 'none',
@@ -115,11 +128,11 @@
                     'margin-left': 0,
                 });
                 $('.sub-menu').css('opacity', 1);
-            } else if (w >= commonParam.maxWidthForPhone && w < minWindowWidth) {
+            }
+            if (w >= commonParam.maxWidthForPhone && w < minWindowWidth) {
                 $menu.css({
                     'display': 'block',
                     'width': menuParam.minWidth,
-                    'height': h + 'px',
                 });
                 $header.css({
                     'display': 'block',
@@ -132,10 +145,11 @@
                     'margin-left': menuParam.minWidth,
                 });
                 $('.sub-menu').css('opacity', 0);
-            } else if (w >= minWindowWidth && w < maxWindowWidth) {
+            }
+            if (w >= minWindowWidth && w < maxWindowWidth) {
                 $menu.css({
+                    'display': 'block',
                     'width': ratioMenu + '%',
-                    'height': h + 'px',
                 });
                 $header.css({
                     'display': 'block',
@@ -149,11 +163,11 @@
                     'margin-left': ratioMenu + '%',
                 });
                 $('.sub-menu').css('opacity', 0);
-            } else if (w >= maxWindowWidth) {
+            }
+            if (w >= maxWindowWidth) {
                 $menu.css({
                     'display': 'block',
                     'width': menuParam.maxWidth,
-                    'height': h + 'px',
                 });
                 $header.css({
                     'display': 'block',
@@ -262,8 +276,10 @@
                 width: '100%'
             });
             $('header').delay(100).fadeIn();
+            $('.content').fadeOut();
             return false;
         } else {
+            $('.content').fadeIn();
             $('header').fadeOut();
             $('.menu.column').delay(100).css({
                 'position': 'fixed',
