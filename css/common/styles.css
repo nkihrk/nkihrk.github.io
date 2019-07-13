@@ -9,6 +9,7 @@
 body {
     font-family: agency-fb, sans-serif;
     font-style: normal;
+    background-color: #32303f;
 }
 
 /* made-bruno font */
@@ -86,7 +87,6 @@ body {
     top: 0px;
     left: 0px;
     background-color: #2a2835;
-    z-index: 1;
 }
 
 #loading {
@@ -287,7 +287,7 @@ body {
 }
 
 /* Current page */
-.active {
+.active-current-page {
     border-left: solid 4px #f4a807;
     border-top: solid 3px rgba(32, 29, 38, 0.6);
     border-bottom: solid 3px rgba(32, 29, 38, 0.6);
@@ -349,7 +349,7 @@ body {
 /* Preparing sub-menu as positioning, and .menu-trigger to introduce css animation */
 .sub-menu {
     position: absolute;
-    border-radius: 3px;
+    border-radius: 0 3px 0 3px;
     padding: 15px;
     background-color: #32303f;
     opacity: 0;
@@ -392,14 +392,21 @@ body {
 .menu-trigger.active-menu-trigger span:nth-of-type(1) {
     -webkit-transform: translateY(10px) rotate(-315deg);
     transform: translateY(10px) rotate(-315deg);
-  }
-  .menu-trigger.active-menu-trigger span:nth-of-type(2) {
+}
+
+.menu-trigger.active-menu-trigger span:nth-of-type(2) {
     opacity: 0;
-  }
-  .menu-trigger.active-menu-trigger span:nth-of-type(3) {
+}
+
+.menu-trigger.active-menu-trigger span:nth-of-type(3) {
     -webkit-transform: translateY(-10px) rotate(315deg);
     transform: translateY(-10px) rotate(315deg);
-  }
+}
+
+/* figure and figcaption configuring */
+.fig{
+    display: inline-block;
+}
 
 /* Media queries in common fields*/
 /* Larger than mobile */

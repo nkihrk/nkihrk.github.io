@@ -140,26 +140,6 @@
         const h = $(window).height();
 
 
-        const twitter = function () {
-            // Fix the vertical margin to be the same to the horizontal margin
-            const $content = $('.content');
-            const $twitter = $('.twitter');
-            const $contentTwitter = $('.content-twitter');
-            const marginTwitter = ($content.width() - $twitter.width()) / 2.0;
-            // Fix .twitter height due to the marginTwitter
-            if ($twitter.height() < h) {
-                const twitterHeight = h - marginTwitter;
-                $twitter.css({
-                    'height': twitterHeight + 'px',
-                });
-            }
-            $twitter.css({
-                'margin-top': marginTwitter + 'px',
-            });
-        };
-        twitter();
-
-
         // circlized + gradation
         circlized(w);
 

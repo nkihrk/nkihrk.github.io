@@ -69,9 +69,11 @@
         const h = $(window).height();
 
 
-        // Prefix for .content
+        // Prefix for .content and .menu
         const prefixForContent = function () {
             const $menu = $('.menu');
+            const $header = $('header');
+            const $footer = $(`footer`);
             const $content = $('.content');
             const ratioMenu = menuParam.ratioMenu;
             const ratioContent = 100 - ratioMenu;
@@ -81,6 +83,12 @@
 
             if (w < 800) {
                 $menu.css({
+                    'display': 'none',
+                });
+                $header.css({
+                    'display': 'none',
+                });
+                $footer.css({
                     'display': 'none',
                 });
                 $content.css({
@@ -126,6 +134,36 @@
         prefixForContent();
 
 
+        // Prefix for content-block and synchronize the pos with .sub-menu
+        const contentBlock = function () {
+            const $content = $('.content');
+            const $contentBlock = $('.content-block');
+            // const marginTop = ($content.width() - $contentBlock.width() - 12.0) / 2.0;
+            const marginTop = ($content.width() - $contentBlock.outerWidth()) / 2.0;
+            console.log(marginTop);
+            $contentBlock.css({
+                'margin-top': marginTop + 'px',
+            });
+            if ($contentBlock.height() < h) {
+                // const contentBlockHeight = h - (($content.width() - $contentBlock.width()) / 2.0);
+                const contentBlockHeight = h - marginTop;
+                $contentBlock.css({
+                    'height': contentBlockHeight + 'px',
+                });
+            }
+
+
+            // Set the pos of .sub-menu
+            const $subMenu = $('.sub-menu');
+            $subMenu.css({
+                'top': marginTop + 5.5 + 'px',
+                'right': marginTop + 5.5 + 'px',
+            });
+            console.log(marginTop);
+        };
+        contentBlock();
+
+
         // Prefix for .menu
         const prefixForMenu = function () {
             // Insert a window height to .menu
@@ -145,7 +183,7 @@
             $($mediumHead).css('font-size', mediumFont + 'px');
         };
         prefixForMenu();
-        
+
 
         // Fix the position of .dot-line::before and fit it to the same pos of .line-border
         const dotLine = function () {
@@ -179,7 +217,7 @@
                 });
             }
         };
-        footer();
+        // footer();
 
 
         // For the visual adjustment. Delete 'INTRODUCTION' when overlapping the header-twitter
@@ -208,22 +246,41 @@
 
     });
 
-    const subMenu = function () {
-        const $subMenu = $('.sub-menu');
-        const $content = $('.content');
-        const $contentBlock = $('.content-block');
-        const marginContent = ($content.width() - $contentBlock.width()) / 2.0;
-        // console.log($contentBlock.width());
 
-        $subMenu.css({
-            'top': marginContent + 'px',
-            'right': marginContent + 'px',
-        });
-    };
-    subMenu();
+    // Toggle class active-menu-trigger
+    $('.sub-menu').on('click', function () {
+        $('.menu-trigger').toggleClass('active-menu-trigger');
+        if ($('.menu-trigger').hasClass('active-menu-trigger')) {
+            // $('.menu.column').fadeIn();
 
-    $('.sub-menu').click(function () {
-        $('.menu-trigger').addClass('active-menu-trigger');
+            $('.menu.column').css({
+                'position': 'absolute',
+                // 'width': 650 + 'px',
+            }).show().animate({
+                width: '80%'
+            });
+            $('header').delay(100).fadeIn();
+            // $('.menu.column').animate({
+            //     width: '500px'
+            // })
+            // $('.content.column').fadeOut();
+            return false;
+        } else {
+            // $('.menu.column').fadeOut();
+            $('header').fadeOut();
+            $('.menu.column').delay(100).css({
+                'position': 'absolute',
+                // 'width': 650 + 'px',
+            }).animate({
+                width: '0%'
+            });
+            // $('.menu.column').css({
+            //     'position': 'fixed',
+            //     'width': 15 + '%',
+            // });
+            // $('.content.column').fadeIn();
+            return false;
+        }
     });
 
 

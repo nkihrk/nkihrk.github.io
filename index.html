@@ -27,14 +27,23 @@
 </head>
 
 <body>
-    <div id="loader-bg">
+    
+    <div id="loader-bg" style="z-index: 4;">
         <div id="loading">
             <img src="img/common/loadinfo.net.gif">
         </div>
     </div>
 
+    <!-- z-index of the .container might be 1 -->
     <div id="container clearfix">
-        <div class="menu column">
+        <div class="sub-menu" style="z-index: 3"><!-- .sub-menu has its position value 'relative' -->
+            <a class="menu-trigger" href="#">
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
+        </div>
+        <div class="menu column" style="z-index: 2;"><!-- .menu has its position value 'fixed' at first, changing the value to 'absolute' according to the window width -->
             <header>
                 <div class="centerMarginAuto fix-head">
                     <h1 class="large bold agency-fb" style="opacity: 0.7;">PORTFOLIO</h1>
@@ -44,7 +53,7 @@
                         <h2 class="line-border centerMarginAuto fix-head medium gray made-bruno menu-h2-common" style="font-size: 2.3rem;">SOCIAL</h2>
                     </div>
                     <ul>
-                        <li><a href="#" class="hover-menu-common"><span class="active twitter-menu menu-li-common">TWITTER</span></a></li>
+                        <li><a href="#" class="hover-menu-common"><span class="active-current-page twitter-menu menu-li-common">TWITTER</span></a></li>
                         <li><a href="#" class="hover-menu-common"><span class="github-menu menu-li-common">GITHUB</span></a></li>
                         <li><a href="#" class="hover-menu-common"><span class="pixiv-menu menu-li-common">PIXIV</span></a></li>
                     </ul>
@@ -58,21 +67,14 @@
                     </ul>
                 </nav>
             </header>
-            <footer style="width: 100%;">
-                <span id="copyright" class="setToBottom menu-li-common bold agency-fb" style="width: inherit; padding: 15px 0px 15px 30px;"></span>
+            <footer>
+                <span id="copyright" class="menu-li-common bold agency-fb" style="width: inherit; padding: 15px 0px 15px 30px;"></span>
             </footer>
         </div>
-        <div class="content column">
+        <div class="content column" style="position: relative; z-index: 1;">
             <div class="twitter content-block">
                 <div class="dot-line-intro half-opacity">
                         <div class="line-border-intro intro half-opacity bold agency-fb" style="font-size: 1.5rem;">INTRODUCTION</div>
-                </div>
-                <div class="sub-menu">
-                    <a class="menu-trigger" href="#">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </a>
                 </div>
 
                 <div class="content-twitter">
