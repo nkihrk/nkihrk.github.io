@@ -274,7 +274,7 @@
             $('.menu.column').css({
                 'position': 'absolute',
                 'overflow': 'hidden',
-                'height': $('.content').outerHeight(true),
+                'height': $('.content').innerHeight,
             }).show().animate({
                 width: '70%'
             });
