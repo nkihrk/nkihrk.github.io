@@ -69,8 +69,8 @@
         const h = $(window).height();
 
 
-        // Prefix for .content and .menu
-        const prefixForContent = function () {
+        // Prefix for .menu and .content
+        const prefixForMenuContent = function () {
             const $menu = $('.menu');
             const $header = $('header');
             const $footer = $(`footer`);
@@ -81,9 +81,42 @@
             const maxWindowWidth = menuParam.maxWidth * 100 / ratioMenu;
 
 
+
+            // Prefix for the position of footer
+            const setFooterBottom = h - $footer.outerHeight();
+            const bottomOffsetHeader = $header.outerHeight();
+            const innerHeight = $(window).innerHeight();
+            const contentHeight = $('.content').height();
+
+            $menu.css('height', innerHeight + 'px');
+            $footer.css({
+                'position': 'absolute',
+                'top': innerHeight - $footer.outerHeight() + 'px',
+            });
+            if (bottomOffsetHeader > setFooterBottom) {
+                $menu.css({
+                    'height': contentHeight + 'px',
+                });
+            }
+
+
+            // Change a font-size according to the width of .menu
+            const $largeHead = $('.large');
+            const $mediumHead = $('.medium');
+            const menuWidth = $menu.width();
+            // 0.244 and 0.13 are magic numbers
+            const largeFont = menuWidth * 0.244;
+            console.log(menuWidth);
+            
+            const mediumFont = menuWidth * 0.13;
+            $largeHead.css('font-size', largeFont + 'px');
+            $mediumHead.css('font-size', mediumFont + 'px');
+
+
             if (w < 800) {
                 $menu.css({
                     'display': 'none',
+                    'height': contentHeight + 'px',
                 });
                 $header.css({
                     'display': 'none',
@@ -96,11 +129,17 @@
                     'margin-left': 0,
                 });
                 $('.sub-menu').css('opacity', 1);
-            } else if (w < minWindowWidth) {
+            } else if (w > 800 && w < minWindowWidth) {
                 $menu.css({
                     'display': 'block',
                     'width': menuParam.minWidth,
                     'height': h + 'px',
+                });
+                $header.css({
+                    'display': 'block',
+                });
+                $footer.css({
+                    'display': 'block',
                 });
                 $content.css({
                     'width': w - menuParam.minWidth,
@@ -109,7 +148,6 @@
                 $('.sub-menu').css('opacity', 0);
             } else if (w > minWindowWidth && w < maxWindowWidth) {
                 $menu.css({
-                    'display': 'block',
                     'width': ratioMenu + '%',
                     'height': h + 'px',
                 });
@@ -120,7 +158,6 @@
                 $('.sub-menu').css('opacity', 0);
             } else if (w > maxWindowWidth) {
                 $menu.css({
-                    'display': 'block',
                     'width': menuParam.maxWidth,
                     'height': h + 'px',
                 });
@@ -131,7 +168,7 @@
                 $('.sub-menu').css('opacity', 0);
             }
         };
-        prefixForContent();
+        prefixForMenuContent();
 
 
         // Prefix for content-block and synchronize the pos with .sub-menu
@@ -140,7 +177,6 @@
             const $contentBlock = $('.content-block');
             // const marginTop = ($content.width() - $contentBlock.width() - 12.0) / 2.0;
             const marginTop = ($content.width() - $contentBlock.outerWidth()) / 2.0;
-            console.log(marginTop);
             $contentBlock.css({
                 'margin-top': marginTop + 'px',
             });
@@ -159,30 +195,44 @@
                 'top': marginTop + 5.5 + 'px',
                 'right': marginTop + 5.5 + 'px',
             });
-            console.log(marginTop);
         };
         contentBlock();
 
 
         // Prefix for .menu
         const prefixForMenu = function () {
-            // Insert a window height to .menu
+            // Prefix for the position of footer
             const $menu = $('.menu');
+            const $footer = $('footer');
+            const $header = $('header');
+            const setFooterBottom = h - $footer.outerHeight();
+            const bottomOffsetHeader = $header.outerHeight();
             const innerHeight = $(window).innerHeight();
-            $($menu).css('height', innerHeight + 'px');
-            // console.log(innerHeight);
+            const contentHeight = $('.content').height();
+
+            $menu.css('height', innerHeight + 'px');
+            $footer.css({
+                'position': 'absolute',
+                'top': innerHeight - $footer.outerHeight() + 'px',
+            });
+            if (bottomOffsetHeader > setFooterBottom) {
+                $menu.css({
+                    'height': contentHeight + 'px',
+                });
+            }
+
 
             // Change a font-size according to the width of .menu
             const $largeHead = $('.large');
             const $mediumHead = $('.medium');
-            const menuWidth = parseInt($menu.css('width'));
+            const menuWidth = $menu.width();
             // 0.244 and 0.13 are magic numbers
             const largeFont = menuWidth * 0.244;
             const mediumFont = menuWidth * 0.13;
             $largeHead.css('font-size', largeFont + 'px');
-            $($mediumHead).css('font-size', mediumFont + 'px');
+            $mediumHead.css('font-size', mediumFont + 'px');
         };
-        prefixForMenu();
+        // prefixForMenu();
 
 
         // Fix the position of .dot-line::before and fit it to the same pos of .line-border
@@ -195,29 +245,6 @@
             $dotLine.append('<style>.dot-line::before{ left: ' + lineOffset + 'px }</style>');
         };
         dotLine();
-
-
-        // Prefix for the position of footer
-        const footer = function () {
-            const $footer = $('footer');
-            const $header = $('header');
-            const setFooterBottom = h - $footer.outerHeight();
-            const bottomOffsetHeader = $header.outerHeight();
-
-            $footer.css({
-                'position': 'absolute',
-                'top': setFooterBottom + 'px',
-                'left': 0,
-            });
-            if (bottomOffsetHeader > setFooterBottom) {
-                $footer.css({
-                    'position': 'absolute',
-                    'top': bottomOffsetHeader + 'px',
-                    'left': 0,
-                });
-            }
-        };
-        // footer();
 
 
         // For the visual adjustment. Delete 'INTRODUCTION' when overlapping the header-twitter
@@ -251,34 +278,22 @@
     $('.sub-menu').on('click', function () {
         $('.menu-trigger').toggleClass('active-menu-trigger');
         if ($('.menu-trigger').hasClass('active-menu-trigger')) {
-            // $('.menu.column').fadeIn();
-
             $('.menu.column').css({
                 'position': 'absolute',
-                // 'width': 650 + 'px',
+                'overflow': 'hidden',
             }).show().animate({
-                width: '80%'
+                width: '100%'
             });
             $('header').delay(100).fadeIn();
-            // $('.menu.column').animate({
-            //     width: '500px'
-            // })
-            // $('.content.column').fadeOut();
             return false;
         } else {
-            // $('.menu.column').fadeOut();
             $('header').fadeOut();
             $('.menu.column').delay(100).css({
-                'position': 'absolute',
-                // 'width': 650 + 'px',
+                'position': 'fixed',
+                'overflow': '',
             }).animate({
                 width: '0%'
             });
-            // $('.menu.column').css({
-            //     'position': 'fixed',
-            //     'width': 15 + '%',
-            // });
-            // $('.content.column').fadeIn();
             return false;
         }
     });
