@@ -274,7 +274,7 @@
             $('.menu.column').css({
                 'position': 'absolute',
                 'overflow': 'hidden',
-                'height': $('.content').innerHeight,
+                'height': $('.content').innerHeight(),
             }).show().animate({
                 width: '70%'
             });
@@ -293,6 +293,9 @@
             return false;
         }
     });
+
+    console.log($('.content').innerHeight());
+    
 
 
 })(window, jQuery);
