@@ -2,21 +2,21 @@
     // Global field
 
     // Reloding when resizing
-    var timer = false;
-    var prewidth = $(window).width();
-    $(window).resize(function () {
-        if (timer !== false) {
-            clearTimeout(timer);
-        }
-        timer = setTimeout(function () {
-            var nowWidth = $(window).width();
-            if (prewidth !== nowWidth) {
-                // ????
-                location.reload();
-            }
-            prewidth = nowWidth;
-        }, 200);
-    });
+    // var timer = false;
+    // var prewidth = $(window).width();
+    // $(window).resize(function () {
+    //     if (timer !== false) {
+    //         clearTimeout(timer);
+    //     }
+    //     timer = setTimeout(function () {
+    //         var nowWidth = $(window).width();
+    //         if (prewidth !== nowWidth) {
+    //             // ????
+    //             location.reload();
+    //         }
+    //         prewidth = nowWidth;
+    //     }, 200);
+    // });
 
 
     // When DOM tree is constructed
@@ -110,8 +110,6 @@
                     'top': h - $footer.height() + 'px',
                 });
             }
-
-            console.log(bottomOffsetHeader > h);
             
 
 

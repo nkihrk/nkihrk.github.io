@@ -140,6 +140,49 @@
         const h = $(window).height();
 
 
+        // For the visual adjustment
+        const adjust = function () {
+            const $headerTwitter = $('.header-twitter');
+            const $statusTwitter = $('.status-twitter');
+            const $circlized = $('.wrapper-gradation-circlized.circlized');
+            if (w < 470) {
+                $headerTwitter.css({
+                    'text-align': 'center',
+                });
+                $circlized.css({
+                    'margin-right': 0,
+                });
+                $statusTwitter.css({
+                    'width': 300 + 'px',
+                });
+                $('.status-twitter li').css({
+                    'display': 'block',
+                    'margin-top': 20 + 'px',
+                    'margin-bottom': 20 + 'px',
+                });
+                $('#p-skill').css({
+                    'font-size': 1.5 + 'rem',
+                });
+            } else {
+                $headerTwitter.css({
+                    'text-align': '',
+                });
+                $circlized.css({
+                    'margin-right': 2.0 + 'rem',
+                });
+                $statusTwitter.css({
+                    'width': 600 + 'px',
+                });
+                $('.status-twitter li').css({
+                    'display': '',
+                    'margin-top': '',
+                    'margin-bottom': '',
+                });
+            }
+        };
+        adjust();
+
+
         // circlized + gradation
         circlized(w);
 
