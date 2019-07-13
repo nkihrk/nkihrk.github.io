@@ -341,7 +341,7 @@ body {
 /* The parent of the main content */
 .content.column {
     width: 85%;
-    height: 100%;
+    /* height: 100%; */
     margin-left: 15%;
     background-color: #32303f;
 }

@@ -66,7 +66,9 @@
     $(window).on('load resize', function () {
         // Window width and height
         const w = $(window).width();
+        // const w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         const h = $(window).height();
+        // const h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
 
 
         // Prefix for .menu and .content
@@ -88,7 +90,7 @@
             const innerHeight = $(window).innerHeight();
             const contentHeight = $('.content').outerHeight(true);
 
-            if ($header.outerHeight(true) > innerHeight) {
+            if (bottomOffsetHeader > h) {
                 $menu.css({
                     'height': contentHeight + 'px',
                     'position': 'absolute',
@@ -96,18 +98,20 @@
                     'left': 0,
                 });
                 $footer.css({
-                    'top': contentHeight - $footer.outerHeight(true) + 'px',
+                    'top': contentHeight - $footer.height() + 'px',
                 });
             } else {
                 $menu.css({
                     'position': 'fixed',
-                    'height': innerHeight + 'px',
+                    'height': h + 'px',
                 });
                 $footer.css({
                     'position': 'absolute',
-                    'top': innerHeight - $footer.outerHeight(true) + 'px',
+                    'top': h - $footer.height() + 'px',
                 });
             }
+
+            console.log(bottomOffsetHeader > h);
             
 
 
