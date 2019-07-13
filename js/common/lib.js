@@ -1,45 +1,72 @@
 (function (window, $) {
     // circlized + gradation. W should be the current window height
     circlized = function (w) {
+        const rel = function (x) {
+            return w * x / 1920.0;
+        };
+        const param = function (width, thickness) {
+            this.width = width;
+            this.thickness = thickness;
+            this.wrapperWidth = this.width + this.thickness;
+            this.imageTop = (this.wrapperWidth - this.width) / 2.0;
+
+            this.relWidth = rel(this.width);
+            this.relWrapperWidth = rel(this.wrapperWidth);
+            this.relImageTop = rel(this.imageTop);
+        }
         const $wrapper = $('.wrapper-gradation-circlized');
         const $image = $('.gradation');
+
+        // For PC
         const width = circlizedParam.width;
-        const minWidth = circlizedParam.minWidth;
-        const maxWidth = circlizedParam.maxWidth;
         const thickness = circlizedParam.thickness;
+        const pc = new param(width, thickness);
 
-        const minWrapperWidth = minWidth + thickness;
-        const minImageTop = (minWrapperWidth - minWidth) / 2.0;
+        // For smart phone
+        const sWidth = circlizedParam.sWidth;
+        const sThickness = circlizedParam.sThickness;
+        const phone = new param(sWidth, sThickness);
 
-        const wrapperWidth = width + thickness;
-        const imageTop = (wrapperWidth - width) / 2.0;
-        let relWidth = w * width / 1920.0;
-        let relWrapperWidth = w * wrapperWidth / 1920.0;
-        let relImageTop = w * imageTop / 1920.0;
+        // For limitation(max and min)
+        const minWidth = circlizedParam.minWidth;
+        const min = new param(minWidth, thickness);
 
-        const maxWrapperWidth = maxWidth + thickness;
-        const maxImageTop = (maxWrapperWidth - maxWidth) / 2.0;
+        const maxWidth = circlizedParam.maxWidth;
+        const max = new param(maxWidth, thickness);
 
-        if (relWidth > maxWidth) {
-            relWidth = maxWidth;
-            relWrapperWidth = maxWrapperWidth;
-            relImageTop = maxImageTop;
+
+        if (pc.relWidth >= max.width) {
+            pc.relWidth = max.width;
+            pc.relWrapperWidth = max.wrapperWidth;
+            pc.relImageTop = max.imageTop;
         }
-        if (minWidth > relWidth) {
-            relWidth = minWidth;
-            relWrapperWidth = minWrapperWidth;
-            relImageTop = minImageTop;
+        if (min.width >= pc.relWidth) {
+            pc.relWidth = min.width;
+            pc.relWrapperWidth = min.wrapperWidth;
+            pc.relImageTop = min.imageTop;
         }
-        
 
-        $wrapper.css({
-            'width': relWrapperWidth + 'px',
-            'height': relWrapperWidth + 'px'
-        });
-        $image.css({
-            'width': relWidth + 'px',
-            'top': relImageTop + 'px',
-            'left': relImageTop + 'px'
-        });
+        if ($(window).width() >= commonParam.maxWidthForPhone) {
+            $wrapper.css({
+                'width': pc.relWrapperWidth + 'px',
+                'height': pc.relWrapperWidth + 'px'
+            });
+            $image.css({
+                'width': pc.relWidth + 'px',
+                'top': pc.relImageTop + 'px',
+                'left': pc.relImageTop + 'px'
+            });
+        } else {
+            $wrapper.css({
+                'width': phone.wrapperWidth + 'px',
+                'height': phone.wrapperWidth + 'px'
+            });
+            $image.css({
+                'width': phone.width + 'px',
+                'top': phone.imageTop + 'px',
+                'left': phone.imageTop + 'px'
+            });
+        }
+
     };
 })(window, jQuery);

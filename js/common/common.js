@@ -2,21 +2,21 @@
     // Global field
 
     // Reloding when resizing
-    // var timer = false;
-    // var prewidth = $(window).width();
-    // $(window).resize(function() {
-    //     if (timer !== false) {
-    //         clearTimeout(timer);
-    //     }
-    //     timer = setTimeout(function() {
-    //         var nowWidth = $(window).width();
-    //         if(prewidth !== nowWidth){
-    //     // ????
-    //             location.reload();
-    //         }
-    //         prewidth = nowWidth;
-    //     }, 200);
-    // });
+    var timer = false;
+    var prewidth = $(window).width();
+    $(window).resize(function() {
+        if (timer !== false) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(function() {
+            var nowWidth = $(window).width();
+            if(prewidth !== nowWidth){
+        // ????
+                location.reload();
+            }
+            prewidth = nowWidth;
+        }, 200);
+    });
 
 
     // When DOM tree is constructed
@@ -81,7 +81,6 @@
             const maxWindowWidth = menuParam.maxWidth * 100 / ratioMenu;
 
 
-
             // Prefix for the position of footer
             const setFooterBottom = h - $footer.outerHeight();
             const bottomOffsetHeader = $header.outerHeight();
@@ -100,20 +99,7 @@
             }
 
 
-            // Change a font-size according to the width of .menu
-            const $largeHead = $('.large');
-            const $mediumHead = $('.medium');
-            const menuWidth = $menu.width();
-            // 0.244 and 0.13 are magic numbers
-            const largeFont = menuWidth * 0.244;
-            console.log(menuWidth);
-            
-            const mediumFont = menuWidth * 0.13;
-            $largeHead.css('font-size', largeFont + 'px');
-            $mediumHead.css('font-size', mediumFont + 'px');
-
-
-            if (w < 800) {
+            if (w < commonParam.maxWidthForPhone) {
                 $menu.css({
                     'display': 'none',
                     'height': contentHeight + 'px',
@@ -129,7 +115,7 @@
                     'margin-left': 0,
                 });
                 $('.sub-menu').css('opacity', 1);
-            } else if (w > 800 && w < minWindowWidth) {
+            } else if (w >= commonParam.maxWidthForPhone && w < minWindowWidth) {
                 $menu.css({
                     'display': 'block',
                     'width': menuParam.minWidth,
@@ -146,20 +132,34 @@
                     'margin-left': menuParam.minWidth,
                 });
                 $('.sub-menu').css('opacity', 0);
-            } else if (w > minWindowWidth && w < maxWindowWidth) {
+            } else if (w >= minWindowWidth && w < maxWindowWidth) {
                 $menu.css({
                     'width': ratioMenu + '%',
                     'height': h + 'px',
                 });
+                $header.css({
+                    'display': 'block',
+                });
+                $footer.css({
+                    'display': 'block',
+                });
                 $content.css({
+                    'display': 'block',
                     'width': ratioContent + '%',
                     'margin-left': ratioMenu + '%',
                 });
                 $('.sub-menu').css('opacity', 0);
-            } else if (w > maxWindowWidth) {
+            } else if (w >= maxWindowWidth) {
                 $menu.css({
+                    'display': 'block',
                     'width': menuParam.maxWidth,
                     'height': h + 'px',
+                });
+                $header.css({
+                    'display': 'block',
+                });
+                $footer.css({
+                    'display': 'block',
                 });
                 $content.css({
                     'width': w - menuParam.maxWidth,
@@ -167,6 +167,19 @@
                 });
                 $('.sub-menu').css('opacity', 0);
             }
+
+
+            // Change a font-size according to the width of .menu
+            const $largeHead = $('.large');
+            const $mediumHead = $('.medium');
+            const menuWidth = $menu.width();
+            // 0.244 and 0.13 are magic numbers
+            const largeFont = menuWidth * 0.244;
+            const mediumFont = menuWidth * 0.13;
+            $largeHead.css('font-size', largeFont + 'px');
+            $mediumHead.css('font-size', mediumFont + 'px');
+
+
         };
         prefixForMenuContent();
 
@@ -180,7 +193,7 @@
             $contentBlock.css({
                 'margin-top': marginTop + 'px',
             });
-            if ($contentBlock.height() < h) {
+            if ($contentBlock.height() <= h) {
                 // const contentBlockHeight = h - (($content.width() - $contentBlock.width()) / 2.0);
                 const contentBlockHeight = h - marginTop;
                 $contentBlock.css({
@@ -197,42 +210,6 @@
             });
         };
         contentBlock();
-
-
-        // Prefix for .menu
-        const prefixForMenu = function () {
-            // Prefix for the position of footer
-            const $menu = $('.menu');
-            const $footer = $('footer');
-            const $header = $('header');
-            const setFooterBottom = h - $footer.outerHeight();
-            const bottomOffsetHeader = $header.outerHeight();
-            const innerHeight = $(window).innerHeight();
-            const contentHeight = $('.content').height();
-
-            $menu.css('height', innerHeight + 'px');
-            $footer.css({
-                'position': 'absolute',
-                'top': innerHeight - $footer.outerHeight() + 'px',
-            });
-            if (bottomOffsetHeader > setFooterBottom) {
-                $menu.css({
-                    'height': contentHeight + 'px',
-                });
-            }
-
-
-            // Change a font-size according to the width of .menu
-            const $largeHead = $('.large');
-            const $mediumHead = $('.medium');
-            const menuWidth = $menu.width();
-            // 0.244 and 0.13 are magic numbers
-            const largeFont = menuWidth * 0.244;
-            const mediumFont = menuWidth * 0.13;
-            $largeHead.css('font-size', largeFont + 'px');
-            $mediumHead.css('font-size', mediumFont + 'px');
-        };
-        // prefixForMenu();
 
 
         // Fix the position of .dot-line::before and fit it to the same pos of .line-border
@@ -252,7 +229,7 @@
             const $intro = $('.intro');
             const $dot = $('.dot-line-intro');
 
-            if ($intro.offset().left < 1000) {
+            if ($intro.offset().left <= 1000) {
                 $intro.css({
                     'opacity': '0',
                 });
