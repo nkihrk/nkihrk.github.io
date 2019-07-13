@@ -145,7 +145,7 @@
             const $headerTwitter = $('.header-twitter');
             const $statusTwitter = $('.status-twitter');
             const $circlized = $('.wrapper-gradation-circlized.circlized');
-            if (w < 470) {
+            if (w < 600) {
                 $headerTwitter.css({
                     'text-align': 'center',
                 });
