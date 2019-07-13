@@ -276,7 +276,7 @@
                 'overflow': 'hidden',
                 'height': $('.content').outerHeight(true),
             }).show().animate({
-                width: '100%'
+                width: '70%'
             });
             $('header').delay(100).fadeIn();
             // $('.content').fadeOut();
