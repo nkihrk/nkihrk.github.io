@@ -397,11 +397,7 @@ body {
 
 .active-humberger {
     /* prefix for humberger-menu */
-    height: 100vh;
-    top: 0;
-    left: 0;
-    width: 100%;
-    transform: translatex(0%)!important;
+    transform: translatex(0%) !important;
 }
 
 /* The parent of the main content */
@@ -416,6 +412,10 @@ body {
         transition: all 0.5s ease-in-out;
         transform: translatex(-100%);
         display: block;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        width: 100%;
     }
 
     .sub-menu {
@@ -439,10 +439,12 @@ body {
         transform: translateX(0%);
         display: none;
     }
+
     header {
         transition: all 0s ease-in-out;
         transform: translateX(0%);
     }
+
     .sub-menu {
         display: block;
     }
@@ -450,6 +452,7 @@ body {
 
 /* Larger than desktop */
 @media (min-width: 1000px) {
+
     /* The parent of the header and footer */
     .menu.column {
         display: block;
