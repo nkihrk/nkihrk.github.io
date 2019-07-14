@@ -83,7 +83,7 @@ body {
 #loading {
     position: fixed;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-color: #2a2835;
     display: flex;
     justify-content: center;
@@ -169,7 +169,7 @@ body {
 }
 
 /* Centering header and sub-header. ex.PORTFOLIO, SOCIAL */
-.fix-head.centerMarginAuto {
+.fix-head.center-margin-auto {
     width: 90%;
 }
 
@@ -390,22 +390,139 @@ body {
     transform: translatex(0%) !important;
 }
 
+.add-transition {
+    transition: all 0.5s ease-in-out;
+}
+
 /* The parent of the main content */
 .content.column {
     background-color: #32303f;
 }
 
+/* Animation feedback for hovering. Double shadow */
+.hover-shadow-double {
+    position: relative;
+    transition: .3s;
+}
+
+.hover-shadow-double:link,
+.hover-shadow-double:visited,
+.hover-shadow-double:hover,
+.hover-shadow-double:active {
+    color: white;
+}
+
+.hover-shadow-double::before,
+.hover-shadow-double::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    content: '';
+    transform-origin: right top;
+    transform: scale(0, 1);
+    transition: transform .3s;
+}
+
+.hover-shadow-double::before {
+    background: #383747;
+}
+
+.hover-shadow-double::after {
+    background: #32303f;
+}
+
+.hover-shadow-double:hover::before,
+.hover-shadow-double:hover::after {
+    transform-origin: left top;
+    transform: scale(1, 1);
+}
+
+.hover-shadow-double:hover::after {
+    transition-delay: .3s;
+}
+
+/* Animation feedback for hovering. Single shadow */
+.hover-shadow-single {
+    position: relative;
+    display: inline-block;
+    padding: 20px 40px;
+    border: 2px solid #f4a807;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    transition: .3s;
+    margin: 50px auto 0px auto;
+}
+
+.hover-shadow-single:link,
+.hover-shadow-single:visited,
+.hover-shadow-single:hover,
+.hover-shadow-single:active {
+    color: white;
+}
+
+.hover-shadow-single::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    content: '';
+    transform-origin: right top;
+    transform: scale(0, 1);
+    transition: transform .3s;
+    background: #d38818;
+}
+
+.hover-shadow-single:hover::before {
+    transform-origin: left top;
+    transform: scale(1, 1);
+}
+
+/* square button. Covering a tag with this .square-button */
+.square-button {
+    width: 240px;
+    height: 60px;
+    margin: 50px auto 0px auto;
+    border-radius: 3px;
+    font-size: 1.5rem;
+}
+
+.square-button a {
+    width: 240px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+/* Yellow - .square-button */
+.yellow.square-button {
+    background-color: #f4a807;
+}
+
 /* Media queries in common fields*/
-/* Larger than mobile */
 @media (min-width: 0px) {
     .menu.column {
-        transition: all 0.5s ease-in-out;
-        transform: translatex(-100%);
         display: block;
         height: 100vh;
         top: 0;
         left: 0;
         width: 100%;
+        transition: all 0.5s ease-in-out;
+        transform: translatex(-100%);
+        overflow: hidden;
+    }
+
+    /* Prefix for the header-title 'PORTFOLIO' */
+    .portfolio {
+        font-size: 1.8rem;
+        margin-left: 15px;
     }
 
     .sub-menu {
@@ -420,33 +537,32 @@ body {
     .dot-line-intro {
         display: none;
     }
-}
-
-/* Larger than tablet */
-@media (min-width: 800px) {
-    .menu.column {
-        transition: all 0s ease-in-out;
-        transform: translateX(0%);
-        display: none;
-    }
-
-    header {
-        transition: all 0s ease-in-out;
-        transform: translateX(0%);
-    }
 
     .sub-menu {
         display: block;
     }
+
+    footer {
+        visibility: hidden;
+    }
+
+    .dot-line {
+        margin-left: 20px;
+    }
+
+    .dot-line::before {
+        left: -7px;
+    }
 }
 
-/* Larger than desktop */
 @media (min-width: 1000px) {
 
     /* The parent of the header and footer */
     .menu.column {
+        visibility: visible;
         display: block;
         width: 300px;
+        transform: none;
     }
 
     .sub-menu {
@@ -462,9 +578,21 @@ body {
     .dot-line-intro {
         display: block;
     }
+
+    .portfolio {
+        font-size: 2.3rem;
+    }
+
+    footer {
+        visibility: visible;
+    }
+
+    .dot-line::before,
+    .line-border::before {
+        visibility: visible;
+    }
 }
 
-/* Larger than Desktop HD */
 @media (min-width: 1920px) {
     .menu.column {
         width: 350px;
@@ -474,5 +602,9 @@ body {
     .content.column {
         width: calc(100% - 350px);
         margin-left: 350px;
+    }
+
+    .portfolio {
+        font-size: 2.7rem;
     }
 }

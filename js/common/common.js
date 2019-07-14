@@ -1,4 +1,22 @@
 (function (window, $) {
+    // Reloding when resizing
+    // var timer = false;
+    // var prewidth = $(window).width();
+    // $(window).resize(function () {
+    //     if (timer !== false) {
+    //         clearTimeout(timer);
+    //     }
+    //     timer = setTimeout(function () {
+    //         var nowWidth = $(window).width();
+    //         if (prewidth !== nowWidth) {
+    //             // ????
+    //             location.reload();
+    //         }
+    //         prewidth = nowWidth;
+    //     }, 200);
+    // });
+
+
     // When DOM tree is constructed
     $(function () {
         // Window width and height
@@ -40,6 +58,22 @@
         loadingLast();
 
 
+        // Add class .active-current-page to a accurate link
+        const activeCurrentPage = function () {
+            const getFileName = function () {
+                return window.location.href.split('/').pop();
+            };
+            const pageNameHtml = getFileName();
+            const pageName = pageNameHtml.split('.');
+            let join = pageName[0] + '-menu';
+            if (pageName[0] == 'index') join = 'twitter' + '-menu';
+            const $activeMenu = $('.' + join);
+
+            $activeMenu.addClass('active-current-page');
+        };
+        activeCurrentPage();
+
+
     });
 
 
@@ -58,10 +92,11 @@
 
 
             // Prefix for the position of footer
-            const bottomOffsetHeader = $header.outerHeight();
+            const bottomOffsetHeader = $header.outerHeight(true);
             const contentHeight = $('.content').outerHeight(true);
 
-            if (bottomOffsetHeader > h) {
+            // For 45, its the sum of padding-top and padding-bottom of .menu-li-common
+            if (bottomOffsetHeader + 45 > h) {
                 $menu.css({
                     'height': contentHeight + 'px',
                     'position': 'absolute',
@@ -110,21 +145,9 @@
                 'right': marginTop + 5.5 + 'px',
             });
 
-            
+
         };
         contentBlock();
-
-
-        // Fix the position of .dot-line::before and fit it to the same pos of .line-border
-        const dotLine = function () {
-            const $dotLine = $('.dot-line');
-            const $lineBorder = $('.line-border');
-
-            // For 7, it is a magic number. I dont know why
-            const lineOffset = $lineBorder.offset().left - 7.0;
-            $dotLine.append('<style>.dot-line::before{ left: ' + lineOffset + 'px }</style>');
-        };
-        dotLine();
 
 
     });

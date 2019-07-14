@@ -28,12 +28,12 @@ a {
 .twitter::before {
     background: inherit;
     content: '';
-    filter: brightness(70%) contrast(120%) blur(10px);
+    filter: brightness(70%) contrast(120%) blur(20px);
     position: absolute;
-    top: -30px;
-    right: -30px;
-    bottom: -30px;
-    left: -30px;
+    top: -60px;
+    right: -60px;
+    bottom: -60px;
+    left: -60px;
     z-index: -1;
 }
 
@@ -131,27 +131,6 @@ a {
     padding-bottom: 15px;
 }
 
-/* square button */
-.square-button {
-    width: 240px;
-    height: 60px;
-    margin: 50px auto 0px auto;
-    border-radius: 3px;
-    font-size: 1.5rem;
-}
-
-.square-button a {
-    width: 240px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Yellow - .square-button */
-.yellow.square-button {
-    background-color: #f4a807;
-}
 
 /* height of the .fig > img */
 .fig img {
@@ -180,7 +159,7 @@ a {
     }
 }
 
-@media (min-width: 800px) {
+@media (min-width: 630px) {
     .header-twitter {
         text-align: left;
     }
