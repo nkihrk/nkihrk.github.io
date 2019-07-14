@@ -67,7 +67,7 @@
             const pageName = pageNameHtml.split('.');
             let join = pageName[0] + '-menu';
             console.log(pageName[0]);
-            if (pageName[0] == 'index' || pageName[0] == '') join = 'twitter' + '-menu';
+            if (pageName[0] == 'index' || pageName[0] == '' || pageName[0] == '#') join = 'twitter' + '-menu';
             const $activeMenu = $('.' + join);
 
             $activeMenu.addClass('active-current-page');
