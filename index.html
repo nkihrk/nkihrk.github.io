@@ -43,7 +43,7 @@
                 <span></span>
             </a>
         </div>
-        <div class="menu column" style="z-index: 2;"><!-- .menu has its position value 'fixed' at first, changing the value to 'absolute' according to the window width -->
+        <div id="target-menu" class="menu column" style="z-index: 2;"><!-- .menu has its position value 'fixed' at first, changing the value to 'absolute' according to the window width -->
             <div class="menu-block" style="position: relative;">
                 <header>
                     <div class="centerMarginAuto fix-head">
@@ -76,7 +76,7 @@
         <div class="content column" style="position: relative; z-index: 0;">
             <div class="twitter content-block">
                 <div class="dot-line-intro half-opacity">
-                        <div class="line-border-intro intro half-opacity bold agency-fb" style="font-size: 1.5rem;">INTRODUCTION</div>
+                    <div class="line-border-intro intro half-opacity bold agency-fb" style="font-size: 1.5rem;">INTRODUCTION</div>
                 </div>
 
                 <div class="content-twitter">
@@ -94,7 +94,7 @@
                             <li><div class="likes-icon icon" style="line-height: 18px;"><span class="bold agency-fb" style="font-size: 2.3rem; color: #c1125b;"><span class="status-num"><span id="first-l">-</span>.<span id="second-l">-</span></span>M</span><br><span class="bold agency-fb" style="font-size: 1.2rem;">Likes</span></div></li>
                         </ul>
                     </div>
-                    <div class="centerTextAlign description-twitter">
+                    <div class="center-text-align description-twitter">
                         <div class="regular agency-fb" style="font-size: 1.5rem;">
                             Majoring in Electrical Engineering and Computer Science at Kyushu Univ.
                             <div class="bold agency-fb" style="font-size: 1.5rem; margin-top: 20px;">Curious About : </div>
@@ -122,13 +122,6 @@
     <script src="js/index/main.js"></script>
     <script>
         (function ($) {
-            menuParam = {
-                minWidth: 250,
-                maxWidth: 300,
-                // Ratio must be %
-                ratioMenu: 15,
-            };
-
             circlizedParam = {
                 // width must be px. The value will be converted to a relative value of 1920px
                 width: 250,
@@ -149,7 +142,7 @@
 
              commonParam = {
                 //  Max width of smart phone layout
-                 maxWidthForPhone: 810,
+                 maxWidthForPhone: 800,
              }
         })(jQuery);
     </script>

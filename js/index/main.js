@@ -180,7 +180,7 @@
                 });
             }
         };
-        adjust();
+        // adjust();
 
 
         // circlized + gradation

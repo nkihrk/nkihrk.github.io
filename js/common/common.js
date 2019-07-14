@@ -59,34 +59,6 @@
         loadingLast();
 
 
-        // To prevent .su-menu from vanishing when window height has changed
-        const initSubMenu = function () {
-            const $menu = $('.menu.column');
-            const $header = $('header');
-            const $footer = $(`footer`);
-            const $content = $('.content.column');
-            if (w < commonParam.maxWidthForPhone) {
-                $menu.css({
-                    'width': 0 + '%',
-                    'display': 'none',
-                    // 'height': contentHeight + 'px',
-                });
-                $header.css({
-                    'display': 'none',
-                });
-                $footer.css({
-                    'display': 'none',
-                });
-                $content.css({
-                    'width': 100 + '%',
-                    'margin-left': 0,
-                });
-                $('.sub-menu').css('opacity', 1);
-            }
-        };
-        initSubMenu();
-
-
     });
 
 
@@ -94,9 +66,7 @@
     $(window).on('load resize', function () {
         // Window width and height
         const w = $(window).width();
-        // const w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         const h = $(window).height();
-        // const h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
 
 
         // Prefix for .menu and .content
@@ -104,18 +74,10 @@
             const $menu = $('.menu.column');
             const $header = $('header');
             const $footer = $(`footer`);
-            const $content = $('.content.column');
-            const $menuBlock = $('.menu-block');
-            const ratioMenu = menuParam.ratioMenu;
-            const ratioContent = 100 - ratioMenu;
-            const minWindowWidth = menuParam.minWidth * 100 / ratioMenu;
-            const maxWindowWidth = menuParam.maxWidth * 100 / ratioMenu;
 
 
             // Prefix for the position of footer
-            const setFooterBottom = h - $footer.outerHeight();
             const bottomOffsetHeader = $header.outerHeight();
-            const innerHeight = $(window).innerHeight();
             const contentHeight = $('.content').outerHeight(true);
 
             if (bottomOffsetHeader > h) {
@@ -140,63 +102,6 @@
             }
 
 
-
-            // Configuring width
-            
-            if (w >= commonParam.maxWidthForPhone && w < minWindowWidth) {
-                $menu.css({
-                    'display': 'block',
-                    'width': menuParam.minWidth,
-                });
-                $header.css({
-                    'display': 'block',
-                });
-                $footer.css({
-                    'display': 'block',
-                });
-                $content.css({
-                    'width': w - menuParam.minWidth,
-                    'margin-left': menuParam.minWidth,
-                });
-                $('.sub-menu').css('opacity', 0);
-            }
-            if (w >= minWindowWidth && w < maxWindowWidth) {
-                $menu.css({
-                    'display': 'block',
-                    'width': ratioMenu + '%',
-                });
-                $header.css({
-                    'display': 'block',
-                });
-                $footer.css({
-                    'display': 'block',
-                });
-                $content.css({
-                    'display': 'block',
-                    'width': ratioContent + '%',
-                    'margin-left': ratioMenu + '%',
-                });
-                $('.sub-menu').css('opacity', 0);
-            }
-            if (w >= maxWindowWidth) {
-                $menu.css({
-                    'display': 'block',
-                    'width': menuParam.maxWidth,
-                });
-                $header.css({
-                    'display': 'block',
-                });
-                $footer.css({
-                    'display': 'block',
-                });
-                $content.css({
-                    'width': w - menuParam.maxWidth,
-                    'margin-left': menuParam.maxWidth,
-                });
-                $('.sub-menu').css('opacity', 0);
-            }
-
-
             // Change a font-size according to the width of .menu
             const $largeHead = $('.large');
             const $mediumHead = $('.medium');
@@ -204,8 +109,8 @@
             // 0.244 and 0.13 are magic numbers
             const largeFont = menuWidth * 0.244;
             const mediumFont = menuWidth * 0.13;
-            $largeHead.css('font-size', largeFont + 'px');
-            $mediumHead.css('font-size', mediumFont + 'px');
+            // $largeHead.css('font-size', largeFont + 'px');
+            // $mediumHead.css('font-size', mediumFont + 'px');
 
 
         };
@@ -252,55 +157,13 @@
         dotLine();
 
 
-        // For the visual adjustment. Delete 'INTRODUCTION' when overlapping the header-twitter
-        const introduction = function () {
-            const $intro = $('.intro');
-            const $dot = $('.dot-line-intro');
-
-            if ($intro.offset().left <= 1000) {
-                $intro.css({
-                    'opacity': '0',
-                });
-                $dot.css({
-                    'opacity': '0',
-                });
-            } else {
-                $intro.css({
-                    'opacity': '1',
-                });
-                $dot.css({
-                    'opacity': '1',
-                });
-            }
-        };
-        introduction();
-
-
     });
 
 
     // Toggle class active-menu-trigger
     $('.sub-menu').on('click', function () {
+        $('#target-menu').toggleClass('active-humberger');
         $('.menu-trigger').toggleClass('active-menu-trigger');
-        if ($('.menu-trigger').hasClass('active-menu-trigger')) {
-            $('.menu.column').css({
-                'position': 'fixed',
-                'overflow': 'hidden',
-            }).show().animate({
-                width: '100%',
-            });
-            $('header').delay(100).fadeIn();
-            $('.content').fadeOut();
-        } else {
-            $('.content').fadeIn();
-            $('header').fadeOut();
-            $('.menu.column').delay(100).css({
-                // 'position': 'fixed',
-                // 'overflow': '',
-            }).animate({
-                width: '0%'
-            });
-        }
     });
 
 
