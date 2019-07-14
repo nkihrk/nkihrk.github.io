@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="all">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>GitHub | NkiHrk.github.io</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="My Experimental Repo for My Web app.">
+    <meta name="author" content="NkiHrk">
+    <meta name="copyright" content="&copy; NkiHrk">
+    <meta property="og:title" content="NkiHrk">
+    <meta property="og:description" content="My Experimental Repo for My Web app.">
+    <meta property="og:url" content="https://nkihrk.github.io">
+    <meta property="og:site_name" content="NkiHrk">
+    <meta property="og:image" content="">
+    <link rel="stylesheet" href="../css/common/Reboot.css">
+    <link rel="stylesheet" href="https://use.typekit.net/kqb4obi.css">
+    <link rel="stylesheet" href="../css/common/styles.css">
+    <link rel="stylesheet" href="../css/github/github.css">
+    <link rel="icon" href="../img/common/favicon.ico">
+    <!--[if lt IE 9]>
+        <script src="js/common/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <div id="loader-bg" style="position: fixed; z-index: 4;">
+        <div id="loading">
+            <img src="../img/common/loadinfo.net.gif">
+        </div>
+    </div>
+
+    <!-- z-index of the .container might be 1 -->
+    <div id="container clearfix">
+        <div class="sub-menu" style="z-index: 3">
+            <!-- .sub-menu has its position value 'relative' -->
+            <a class="menu-trigger" href="#">
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
+        </div>
+        <div id="target-menu" class="menu column" style="z-index: 2;">
+            <!-- .menu has its position value 'fixed' at first, changing the value to 'absolute' according to the window width -->
+            <div class="menu-block" style="position: relative;">
+                <header>
+                    <div class="portfolio center-margin-auto fix-head">
+                        <h1 class="bold agency-fb" style="opacity: 0.7; color: white;">PORTFOLIO</h1>
+                    </div>
+                    <nav>
+                        <div class="dot-line">
+                            <h2 class="line-border medium gray made-bruno menu-h2-common" style="font-size: 2.3rem;">
+                                SOCIAL</h2>
+                        </div>
+                        <ul>
+                            <li><a href="../index.html" class="hover-shadow-double"
+                                    style="padding: 25px 0px 20px 0px;"><span
+                                        class="twitter-menu menu-li-common">TWITTER</span></a></li>
+                            <li><a href="../github/github.html" class="hover-shadow-double"
+                                    style="padding: 25px 0px 20px 0px;"><span
+                                        class="github-menu menu-li-common">GITHUB</span></a></li>
+                            <li><a href="pixiv/pixiv.html" class="hover-shadow-double"
+                                    style="padding: 25px 0px 20px 0px;"><span
+                                        class="pixiv-menu menu-li-common">PIXIV</span></a></li>
+                        </ul>
+                        <!-- <div class="dot-line">
+                            <h2 class="line-border medium gray made-bruno menu-h2-common" style="font-size: 2.3rem;">WEB APP</h2>
+                        </div>
+                        <ul>
+                            <li><a href="#" class="hover-shadow-double" style="padding: 25px 0px 20px 0px;"><span class="imageloader-menu menu-li-common">ImageLoader</span></a></li>
+                            <li><a href="#" class="hover-shadow-double" style="padding: 25px 0px 20px 0px;"><span class="modelloader-menu menu-li-common">ModelLoader</span></a></li>
+                            <li><a href="#" class="hover-shadow-double" style="padding: 25px 0px 20px 0px;"><span class="canvaseve-menu menu-li-common">CANVAS EVE</span></a></li>
+                        </ul> -->
+                    </nav>
+                </header>
+                <footer>
+                    <span id="copyright" class="menu-li-common bold agency-fb"
+                        style="width: inherit; padding: 15px 0px 15px 30px;"></span>
+                </footer>
+            </div>
+        </div>
+        <div class="content column" style="position: relative; z-index: 0;">
+            <div class="github content-block">
+                <div class="dot-line-intro half-opacity">
+                    <div class="line-border-intro intro half-opacity bold agency-fb" style="font-size: 1.5rem;">
+                        INTRODUCTION</div>
+                </div>
+
+                <div class="content-github">
+                    <div class="progress-github">
+
+                    </div>
+                    <div class="content-github">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/common/jquery-3.4.0.min.js"></script>
+    <script src="../js/common/lib.js"></script>
+    <script src="../js/common/common.js"></script>
+    <script src="../js/github/github.js"></script>
+
+</body>
+
+</html>

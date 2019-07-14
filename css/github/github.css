@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+/* Set white as the default font color */
+body {
+    color: white;
+    /* overflow: hidden; */
+}

@@ -66,7 +66,7 @@
             const pageNameHtml = getFileName().replace('#', '');
             const pageName = pageNameHtml.split('.');
             let join = pageName[0] + '-menu';
-            console.log(pageName[0]);
+            // console.log(pageName[0]);
             if (pageName[0] == 'index' || pageName[0] == '') join = 'twitter' + '-menu';
             const $activeMenu = $('.' + join);
 
