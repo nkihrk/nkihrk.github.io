@@ -124,7 +124,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     /* padding: 100px 0px; */
-    background-color: rgba(42, 40, 53, 0.3);
+    background-color: #302e3c;
 
     overflow: hidden;
     border: solid 6px #302e3c;
@@ -195,6 +195,7 @@ body {
     font-size: 11px;
     top: 195px;
     right: 45px;
+    opacity: 0.5;
 }
 
 /* Add common dot-and-line decoration */
@@ -251,7 +252,7 @@ body {
     display: inline-block;
     width: 35%;
     height: 35%;
-    background-image: url(../../img/common/github.png);
+    background-image: url(../../img/common/github_logo.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -448,13 +449,13 @@ body {
 .hover-shadow-single {
     position: relative;
     display: inline-block;
-    padding: 20px 40px;
+    padding: 10px 40px;
     border: 2px solid #d38818;
     color: white;
     text-align: center;
     text-decoration: none;
     transition: .3s;
-    margin: 50px auto 0px auto;
+    margin: 40px auto 0px auto;
 }
 
 .hover-shadow-single:link,
@@ -504,6 +505,19 @@ body {
 /* Yellow - .square-button */
 .yellow.square-button {
     background-color: #f4a807;
+}
+
+.flex-box {
+    display: flex;
+    justify-content: center;
+}
+
+.align-items.flex-box {
+    align-items: center;
+}
+
+.flex-wrap.flex-box {
+    flex-wrap: wrap;
 }
 
 /* Media queries in common fields*/

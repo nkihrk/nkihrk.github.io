@@ -5,3 +5,154 @@ body {
     color: white;
     /* overflow: hidden; */
 }
+
+/* Delete border from .content-block */
+.github {
+    border: none;
+}
+
+/* Prefix for the entire content */
+.content-github {
+    width: 80%;
+}
+
+/* Delete list dot */
+.content-progress-github li {
+    list-style: none;
+}
+
+/* Prefix for the progress content */
+.progress-li-common {
+    display: block;
+    width: 48%;
+    margin: 0px 20px 20px 0px;
+    padding: 20px 0px 20px 80px;
+    background-color: rgba(42, 40, 53, 0.7);
+    border-radius: 3px;
+    /* overflow: hidden; */
+}
+
+.html5-lang,
+.css3-lang,
+.javascript-lang,
+.ruby-lang,
+.c-lang,
+.csharp-lang {
+    position: relative;
+}
+
+.html5-lang::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url(../../img/github/html5.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: -45px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.css3-lang::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url(../../img/github/css3.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: -45px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.javascript-lang::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url(../../img/github/javascript.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: -47px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.ruby-lang::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url(../../img/github/ruby.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: -47px;
+    top: 56%;
+    transform: translateY(-50%);
+}
+
+.c-lang::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url(../../img/github/c.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: -45px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.csharp-lang::before {
+    content: '';
+    display: inline-block;
+    width: 90px;
+    height: 30px;
+    background-image: url(../../img/github/csharp.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: -45px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Common property for lang name */
+.name-lang {
+    display: inline-block;
+    font-size: 1.3rem;
+    vertical-align: middle;
+    width: 100px;
+}
+
+/* Common property for progress box */
+.progress-lang {
+    position: relative;
+    display: inline-block;
+    /* width: calc(100% - 35px -80px -20%); */
+    width: calc(80% - 115px);
+    height: 6px;
+    border-radius: 30px;
+    background-color: #6a6973;
+    vertical-align: middle;
+}
+
+.progress-num {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 1.3rem;
+}
