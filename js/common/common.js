@@ -66,7 +66,7 @@
             const pageNameHtml = getFileName();
             const pageName = pageNameHtml.split('.');
             let join = pageName[0] + '-menu';
-            if (pageName[0] == 'index') join = 'twitter' + '-menu';
+            if (pageName[0] == 'index' || pageName[0] == '') join = 'twitter' + '-menu';
             const $activeMenu = $('.' + join);
 
             $activeMenu.addClass('active-current-page');
