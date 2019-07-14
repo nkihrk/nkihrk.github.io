@@ -1,24 +1,4 @@
 (function (window, $) {
-    // Global field
-
-    // Reloding when resizing
-    // var timer = false;
-    // var prewidth = $(window).width();
-    // $(window).resize(function () {
-    //     if (timer !== false) {
-    //         clearTimeout(timer);
-    //     }
-    //     timer = setTimeout(function () {
-    //         var nowWidth = $(window).width();
-    //         if (prewidth !== nowWidth) {
-    //             // ????
-    //             location.reload();
-    //         }
-    //         prewidth = nowWidth;
-    //     }, 200);
-    // });
-
-
     // When DOM tree is constructed
     $(function () {
         // Window width and height
@@ -43,6 +23,7 @@
 
 
     });
+
 
     // When loading is finished
     $(window).on('load', function () {
@@ -102,17 +83,6 @@
             }
 
 
-            // Change a font-size according to the width of .menu
-            const $largeHead = $('.large');
-            const $mediumHead = $('.medium');
-            const menuWidth = $menu.width();
-            // 0.244 and 0.13 are magic numbers
-            const largeFont = menuWidth * 0.244;
-            const mediumFont = menuWidth * 0.13;
-            // $largeHead.css('font-size', largeFont + 'px');
-            // $mediumHead.css('font-size', mediumFont + 'px');
-
-
         };
         prefixForMenuContent();
 
@@ -121,13 +91,11 @@
         const contentBlock = function () {
             const $content = $('.content');
             const $contentBlock = $('.content-block');
-            // const marginTop = ($content.width() - $contentBlock.width() - 12.0) / 2.0;
             const marginTop = ($content.width() - $contentBlock.outerWidth()) / 2.0;
             $contentBlock.css({
                 'margin-top': marginTop + 'px',
             });
             if ($contentBlock.height() <= h) {
-                // const contentBlockHeight = h - (($content.width() - $contentBlock.width()) / 2.0);
                 const contentBlockHeight = h - marginTop;
                 $contentBlock.css({
                     'height': contentBlockHeight + 'px',
@@ -141,6 +109,8 @@
                 'top': marginTop + 5.5 + 'px',
                 'right': marginTop + 5.5 + 'px',
             });
+
+            
         };
         contentBlock();
 

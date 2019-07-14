@@ -75,24 +75,19 @@ body {
 }
 
 /* margin way of centering */
-.centerMarginAuto {
+.center-margin-auto {
     margin: 0 auto;
 }
 
 /* Loading gif */
-#loader-bg {
+#loading {
     position: fixed;
     width: 100%;
-    height: 100%;
-    top: 0px;
-    left: 0px;
+    height: 100vh;
     background-color: #2a2835;
-}
-
-#loading {
-    position: absolute;
-    left: 50%;
-    top: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* clearfix */
@@ -177,11 +172,6 @@ body {
 .fix-head.centerMarginAuto {
     width: 90%;
 }
-
-/* menu nav > h2 */
-/* .menu-h2-common {
-
-} */
 
 /* .menu ul > li */
 .menu-li-common {
