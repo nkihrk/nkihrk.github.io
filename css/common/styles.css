@@ -331,7 +331,7 @@ body {
 .menu.column {
     position: fixed;
     width: 15%;
-    height: 100vh;
+    /* height: 100vh; */
     background-color: #2a2835;
     top: 0;
     left: 0;

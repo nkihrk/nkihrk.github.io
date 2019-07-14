@@ -59,6 +59,34 @@
         loadingLast();
 
 
+        // To prevent .su-menu from vanishing when window height has changed
+        const initSubMenu = function () {
+            const $menu = $('.menu.column');
+            const $header = $('header');
+            const $footer = $(`footer`);
+            const $content = $('.content.column');
+            if (w < commonParam.maxWidthForPhone) {
+                $menu.css({
+                    'width': 0 + '%',
+                    'display': 'none',
+                    // 'height': contentHeight + 'px',
+                });
+                $header.css({
+                    'display': 'none',
+                });
+                $footer.css({
+                    'display': 'none',
+                });
+                $content.css({
+                    'width': 100 + '%',
+                    'margin-left': 0,
+                });
+                $('.sub-menu').css('opacity', 1);
+            }
+        };
+        initSubMenu();
+
+
     });
 
 
@@ -73,10 +101,10 @@
 
         // Prefix for .menu and .content
         const prefixForMenuContent = function () {
-            const $menu = $('.menu');
+            const $menu = $('.menu.column');
             const $header = $('header');
             const $footer = $(`footer`);
-            const $content = $('.content');
+            const $content = $('.content.column');
             const $menuBlock = $('.menu-block');
             const ratioMenu = menuParam.ratioMenu;
             const ratioContent = 100 - ratioMenu;
@@ -110,27 +138,11 @@
                     'top': h - $footer.height() + 'px',
                 });
             }
-            
+
 
 
             // Configuring width
-            if (w < commonParam.maxWidthForPhone) {
-                $menu.css({
-                    'display': 'none',
-                    'height': contentHeight + 'px',
-                });
-                $header.css({
-                    'display': 'none',
-                });
-                $footer.css({
-                    'display': 'none',
-                });
-                $content.css({
-                    'width': 100 + '%',
-                    'margin-left': 0,
-                });
-                $('.sub-menu').css('opacity', 1);
-            }
+            
             if (w >= commonParam.maxWidthForPhone && w < minWindowWidth) {
                 $menu.css({
                     'display': 'block',
@@ -272,30 +284,25 @@
         $('.menu-trigger').toggleClass('active-menu-trigger');
         if ($('.menu-trigger').hasClass('active-menu-trigger')) {
             $('.menu.column').css({
-                'position': 'absolute',
+                'position': 'fixed',
                 'overflow': 'hidden',
-                'height': $('.content').innerHeight(),
             }).show().animate({
-                width: '70%'
+                width: '100%',
             });
             $('header').delay(100).fadeIn();
-            // $('.content').fadeOut();
-            return false;
+            $('.content').fadeOut();
         } else {
-            // $('.content').fadeIn();
+            $('.content').fadeIn();
             $('header').fadeOut();
             $('.menu.column').delay(100).css({
-                'position': 'fixed',
-                'overflow': '',
+                // 'position': 'fixed',
+                // 'overflow': '',
             }).animate({
                 width: '0%'
             });
-            return false;
         }
     });
 
-    console.log($('.content').innerHeight());
-    
 
 
 })(window, jQuery);

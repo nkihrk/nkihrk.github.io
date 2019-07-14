@@ -161,7 +161,7 @@
                     'margin-bottom': 20 + 'px',
                 });
                 $('#p-skill').css({
-                    'font-size': 1.5 + 'rem',
+                    'font-size': 1.3 + 'rem',
                 });
             } else {
                 $headerTwitter.css({
