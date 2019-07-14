@@ -449,7 +449,7 @@ body {
     position: relative;
     display: inline-block;
     padding: 20px 40px;
-    border: 2px solid #f4a807;
+    border: 2px solid #d38818;
     color: white;
     text-align: center;
     text-decoration: none;
@@ -475,7 +475,7 @@ body {
     transform-origin: right top;
     transform: scale(0, 1);
     transition: transform .3s;
-    background: #d38818;
+    background: #f4a807;
 }
 
 .hover-shadow-single:hover::before {
