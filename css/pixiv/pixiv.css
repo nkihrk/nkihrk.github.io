@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+/* Set white as the default font color */
+body {
+    color: white;
+    /* overflow: hidden; */
+}
+
+/* Prefix of a */
+a {
+    text-decoration: none;
+    color: white;
+}
+
+/* Bluring background image */
+.pixiv {
+    background-image: url(../../img/pixiv/紫式部_添削.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.pixiv::before {
+    background: inherit;
+    content: '';
+    filter: brightness(100%) contrast(120%) blur(8px);
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    bottom: -30px;
+    left: -30px;
+    z-index: -1;
+}
