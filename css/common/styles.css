@@ -229,7 +229,8 @@ body {
 /* Fix a position of each menu icon */
 .twitter-menu,
 .github-menu,
-.pixiv-menu {
+.pixiv-menu,
+.twitch-menu {
     position: relative;
 }
 
@@ -269,6 +270,21 @@ body {
     width: 38%;
     height: 38%;
     background-image: url(../../img/common/pixiv.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: 80%;
+    top: 52%;
+    transform: translateY(-50%);
+}
+
+.twitch-menu::after {
+    content: '';
+    display: inline-block;
+    width: 38%;
+    height: 38%;
+    background-image: url(../../img/common/twitch.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
