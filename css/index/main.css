@@ -137,6 +137,11 @@ a {
     height: 50px;
 }
 
+/* Fix the pos of .hover-shadow-single  */
+.hover-shadow-single {
+    margin: 40px auto 0px auto;
+}
+
 /* Media queries in common fields*/
 /* Larger than mobile */
 @media (min-width: 0px) {

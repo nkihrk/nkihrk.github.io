@@ -73,50 +73,50 @@
                 <div class="content-github">
                     <div class="progress-github">
                         <section>
-                            <h1 style="font-size: 2.3rem; display: inline-block; margin-bottom: 40px;"><span style="color: #c1125b;">・</span>Progress Of My Understandings</h1>
+                            <h1 style="font-size: 2.3rem; display: inline-block; margin-bottom: 20px;"><span style="color: #c1125b;">・</span>Progress Of My Understandings</h1>
                             <div class="content-progress-github">
                                 <ul class="flex-wrap flex-box">
-                                    <li class="progress-li-common bold agency-fb">
+                                    <li class="progress-li-common bold agency-fb" style="order: 1;">
                                         <div class="html5-lang name-lang">HTML5</div>
                                         <div class="progress-lang">
-                                            <div class="progress-bar"></div>
+                                            <div class="html5-progress-bar"></div>
                                         </div>
-                                        <div class="progress-num">100%</div>
+                                        <div id="html5-progress-target" class="progress-num">0%</div>
                                     </li>
-                                    <li class="progress-li-common bold agency-fb">
+                                    <li class="progress-li-common bold agency-fb" style="order: 3;">
                                         <div class="css3-lang name-lang">CSS3</div>
                                         <div class="progress-lang">
-                                            <div class="progress-bar"></div>
+                                            <div class="css3-progress-bar"></div>
                                         </div>
-                                        <div class="progress-num">100%</div>
+                                        <div id="css3-progress-target" class="progress-num">0%</div>
                                     </li>
-                                    <li class="progress-li-common bold agency-fb">
+                                    <li class="progress-li-common bold agency-fb" style="order: 5;">
                                         <div class="javascript-lang name-lang">JavaScript</div>
                                         <div class="progress-lang">
-                                            <div class="progress-bar"></div>
+                                            <div class="javascript-progress-bar"></div>
                                         </div>
-                                        <div class="progress-num">100%</div>
+                                        <div id="javascript-progress-target" class="progress-num">0%</div>
                                     </li>
-                                    <li class="progress-li-common bold agency-fb">
+                                    <li class="progress-li-common bold agency-fb" style="order: 2;">
                                         <div class="ruby-lang name-lang">Ruby</div>
                                         <div class="progress-lang">
-                                            <div class="progress-bar"></div>
+                                            <div class="ruby-progress-bar"></div>
                                         </div>
-                                        <div class="progress-num">100%</div>
+                                        <div id="ruby-progress-target" class="progress-num">0%</div>
                                     </li>
-                                    <li class="progress-li-common bold agency-fb">
+                                    <li class="progress-li-common bold agency-fb" style="order: 4;">
                                         <div class="c-lang name-lang"><span style="visibility: hidden;">C</span></div>
                                         <div class="progress-lang">
-                                            <div class="progress-bar"></div>
+                                            <div class="c-progress-bar"></div>
                                         </div>
-                                        <div class="progress-num">100%</div>
+                                        <div id="c-progress-target" class="progress-num">0%</div>
                                     </li>
-                                    <li class="progress-li-common bold agency-fb">
+                                    <li class="progress-li-common bold agency-fb" style="order: 6;">
                                         <div class="csharp-lang name-lang"><span style="visibility: hidden;">C#(Unity)</span></div>
                                         <div class="progress-lang">
-                                            <div class="progress-bar"></div>
+                                            <div class="csharp-progress-bar"></div>
                                         </div>
-                                        <div class="progress-num">100%</div>
+                                        <div id="csharp-progress-target" class="progress-num">0%</div>
                                     </li>
                                 </ul>
                             </div>
@@ -125,18 +125,20 @@
                     <div class="mywork-github">
                         <section>
                             <h1 class="center-text-align" style="margin-top: 60px; margin-bottom: 40px;"><img src="../img/github/github.png" alt="GitHub" style="width: 15rem;"></h1>
-                            <div class="content-mywork-github flex-box">
-                                <figure>
-                                    <img src="../img/github/ugolino_with_hatching_shader.jpg" alt="Ugolino with Hatching Shader" style="width: 250px;">
-                                    <figcaption>Ugolino with Hatching Shader</figcaption>
+                            <div class="content-mywork-github flex-wrap flex-box">
+                                <figure style="width: 25%; margin-right: 30px;">
+                                    <img src="../img/github/ugolino_with_hatching_shader.jpg" alt="Ugolino with Hatching Shader" style="width: 100%; border: solid 3px rgba(42, 40, 53, 0.7); border-radius: 6px;">
+                                    <figcaption class="center-text-align bold agency-fb" style="margin-top: 10px; font-size: 1.3rem;">Ugolino with Hatching Shader</figcaption>
                                 </figure>
-                                <div class="description-content-mywork-github">
-                                    <h2>My Recent Work on HLSL Shader(Unity)</h2>
-                                    <p>Cross-hatching simulation had long be discussed in the history of Computer Graphics. Many researchers had suggested the better-look shading of hatching for a long period of time. In 2001, the new paper came out with its name called ‘Real-Time Hatching’ authored by                                    Emil Praun, Hugues Hoppe, Matthew Webb, and  Adam Finkelstein. They introduced how to render cross-hatching in real time. The keypoint of their algorithm is using TAM which is short for Tonal Art Map. Prepare 6 textures of different kinds of pencile-strokes, and bind them into two textures. Since we can store datas to RGB each, it actually shortens computations.</p>
-                                    <p>The picture shown on the left tells the result of their algorithm. I tested their method to see how accurate the hatching will be. The result is within satisfactory, however, there needs to be more fixes to make it more realistic. Thus, that is my next work for this project.</p>
-                                    <p>As you can know from this topic, I am also some kind of shader artist and really curious on rendering through shader. Please feel free to see my repositories if you are interested.</p>
-                                    <a href="https://github.com/nkihrk" class="orange-to-red-button">Visit My Git Repos</a>
+                                <div class="description-content-mywork-github justify-sentence" style="width: calc(75% - 30px); font-size: 1.3rem; line-height: 2rem;">
+                                    <h2 style="font-size: 2.3rem; margin-bottom: 20px;">My Recent Work on HLSL Shader(Unity)</h2>
+                                    <p style="opacity: 0.7;">
+                                    　Cross-hatching simulation had long be discussed in the history of Computer Graphics. Many researchers had suggested the better-look shading of hatching for a long period of time. In 2001, the new paper came out with its name called ‘<a href="http://hhoppe.com/hatching.pdf">Real-Time Hatching</a>’ authored by Emil Praun, Hugues Hoppe, Matthew Webb, and  Adam Finkelstein. They introduced how to render cross-hatching in real time. The keypoint of their algorithm is using TAM which is short for Tonal Art Map. Prepare 6 textures of different kinds of pencile-strokes, and bind them into two textures. Since we can store datas to RGB each, it actually shortens computations.<br>
+                                    　The picture shown on the left tells the result of their algorithm. I tested their method to see how accurate the hatching will be. The result is within satisfactory, however, there needs to be more fixes to make it more realistic. Thus, that is my next work for this project.<br>
+                                    　As you can know from this topic, I am also some kind of shader artist and really curious on rendering through shader. Please feel free to see my repositories if you are interested.
+                                    </p>
                                 </div>
+                                <a href="https://github.com/nkihrk" target="_blank" class="hover-shadow-single bold agency-fb" style="font-size: 1.3rem; color: white; padding: 15px 150px;"><span class="jump-icon">Visit My Git Repos</span></a>
                             </div>
                         </section>
                     </div>
@@ -149,6 +151,17 @@
     <script src="../js/common/lib.js"></script>
     <script src="../js/common/common.js"></script>
     <script src="../js/github/github.js"></script>
+
+    <script>
+        progressParam = {
+            html5: 90,
+            css3: 90,
+            javascript: 80,
+            ruby: 75,
+            c: 50,
+            csharp: 70,
+        };
+    </script>
 
 </body>
 

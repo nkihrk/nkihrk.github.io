@@ -26,11 +26,11 @@
             };
             const isFinished = function () {
                 return t[0] && t[1] && f[0] && f[1] && f[2] && l[0] && l[1];
-            }
+            };
             let count = 0;
             const countup = function () {
                 return count++;
-            }
+            };
 
 
             const id = setInterval(function () {

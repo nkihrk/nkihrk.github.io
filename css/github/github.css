@@ -14,6 +14,7 @@ body {
 /* Prefix for the entire content */
 .content-github {
     width: 80%;
+    margin: 60px 0;
 }
 
 /* Delete list dot */
@@ -25,7 +26,7 @@ body {
 .progress-li-common {
     display: block;
     width: 48%;
-    margin: 0px 20px 20px 0px;
+    margin: 10px;
     padding: 20px 0px 20px 80px;
     background-color: rgba(42, 40, 53, 0.7);
     border-radius: 3px;
@@ -139,20 +140,150 @@ body {
     width: 100px;
 }
 
-/* Common property for progress box */
+/* Common property for progress box. progress-bar is inside of it */
 .progress-lang {
     position: relative;
     display: inline-block;
     /* width: calc(100% - 35px -80px -20%); */
-    width: calc(80% - 115px);
-    height: 6px;
+    /* width: calc(80% - 115px); */
+    width: calc(100% - 200px);
+    height: 3px;
     border-radius: 30px;
     background-color: #6a6973;
     vertical-align: middle;
 }
 
+/* Transition width - html5 progress : 90% */
+.html5-progress-bar.is-active::before {
+    width: 90%;
+}
+
+/* Transition width - css3 progress : 90% */
+.css3-progress-bar.is-active::before {
+    width: 90%;
+}
+
+/* Transition width - javascript progress : 80% */
+.javascript-progress-bar.is-active::before {
+    width: 80%;
+}
+
+/* Transition width - ruby progress : 75% */
+.ruby-progress-bar.is-active::before {
+    width: 75%;
+}
+
+/* Transition width - c progress : 50% */
+.c-progress-bar.is-active::before {
+    width: 50%;
+}
+
+/* Transition width - csharp progress : 70% */
+.csharp-progress-bar.is-active::before {
+    width: 70%;
+}
+
+/* Property for each progress-bar */
+.html5-progress-bar::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 30px;
+    transition: width 500ms ease-in-out;
+
+    background: #e56470;
+    /* width: 90%; */
+    width: 0%;
+}
+
+.css3-progress-bar::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 30px;
+    transition: width 500ms ease-in-out;
+
+    background: #57afb6;
+    width: 0%;
+}
+
+.javascript-progress-bar::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 30px;
+    transition: width 500ms ease-in-out;
+
+    background: #f6be54;
+    width: 0%;
+}
+
+.ruby-progress-bar::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 30px;
+    transition: width 500ms ease-in-out;
+
+    background: #dc6e8f;
+    width: 0%;
+}
+
+.c-progress-bar::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 30px;
+    transition: width 500ms ease-in-out;
+
+    background: #959bc8;
+    width: 0%;
+}
+
+.csharp-progress-bar::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 30px;
+    transition: width 500ms ease-in-out;
+
+    background: #b285b8;
+    width: 0%;
+}
+
+/* Common property for progress-total-number */
 .progress-num {
     display: inline-block;
     vertical-align: middle;
     font-size: 1.3rem;
+    width: 50px;
+    text-align: right;
+}
+
+/* Fix the pos of .jump-icon */
+.jump-icon {
+    padding-right: 30px;
+}
+.jump-icon::after {
+    width: 80%;
+    height: 80%;
+    left: 135px;
+    top: 45%;
+}
+
+/* Fix the pos of .hover-shadow-single */
+.hover-shadow-single {
+    margin: 10px auto 0px auto;
 }

@@ -386,13 +386,10 @@ body {
     left: 0;
 }
 
+/* Active sub-menu */
 .active-humberger {
     /* prefix for humberger-menu */
     transform: translatex(0%) !important;
-}
-
-.add-transition {
-    transition: all 0.5s ease-in-out;
 }
 
 /* The parent of the main content */
@@ -455,7 +452,6 @@ body {
     text-align: center;
     text-decoration: none;
     transition: .3s;
-    margin: 40px auto 0px auto;
 }
 
 .hover-shadow-single:link,
@@ -507,17 +503,72 @@ body {
     background-color: #f4a807;
 }
 
+/* Flex settings */
 .flex-box {
     display: flex;
     justify-content: center;
 }
 
-.align-items.flex-box {
+/* To align items vertical-center */
+.align-items {
     align-items: center;
 }
 
-.flex-wrap.flex-box {
+.flex-wrap {
     flex-wrap: wrap;
+}
+
+.flex-space-between {
+    justify-content: space-between;
+}
+
+/* Insert dropcap */
+.dropcap::first-letter {
+    font-size: 4rem;
+    line-height: 1;
+    float: left;
+    margin: 0 0.6rem 0 0;
+    padding: 0 0;
+}
+
+/* To justify sentences */
+.justify-sentence {
+    text-align: justify;
+    text-justify: inter-ideograph;
+}
+
+/* orange-to-red-button */
+.orange-to-red-button {
+    background: -moz-linear-gradient(0% 50% 0deg, rgba(190, 39, 45, 1) 11.24%, rgba(155, 0, 93, 1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(190, 39, 45, 1) 11.24%, rgba(155, 0, 93, 1) 100%);
+    background: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0.1124, rgba(190, 39, 45, 1)), color-stop(1, rgba(155, 0, 93, 1)));
+    background: -o-linear-gradient(0deg, rgba(190, 39, 45, 1) 11.24%, rgba(155, 0, 93, 1) 100%);
+    background: -ms-linear-gradient(0deg, rgba(190, 39, 45, 1) 11.24%, rgba(155, 0, 93, 1) 100%);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#BE272D', endColorstr='#9B005D' ,GradientType=0)";
+    background: linear-gradient(90deg, rgba(190, 39, 45, 1) 11.24%, rgba(155, 0, 93, 1) 100%);
+    border-radius: 30px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#BE272D', endColorstr='#9B005D', GradientType=1);
+}
+
+/* Place jump icon */
+.jump-icon {
+    position: relative;
+}
+.jump-icon::after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background-image: url(../../img/common/open.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 /* Media queries in common fields*/
