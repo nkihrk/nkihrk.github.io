@@ -23,7 +23,7 @@ a {
 .pixiv::before {
     background: inherit;
     content: '';
-    filter: brightness(100%) contrast(120%) blur(8px);
+    filter: brightness(100%) contrast(120%) blur(10px);
     position: absolute;
     top: -30px;
     right: -30px;
