@@ -6,7 +6,7 @@
     <meta name="robots" content="all">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>pixiv | NkiHrk.github.io</title>
+    <title>code | NkiHrk.github.io</title>
     <meta name="keywords" content="">
     <meta name="description" content="My Experimental Repo for My Web App.">
     <meta name="author" content="NkiHrk">
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../css/common/Reboot.css">
     <link rel="stylesheet" href="https://use.typekit.net/kqb4obi.css">
     <link rel="stylesheet" href="../css/common/styles.css">
-    <link rel="stylesheet" href="../css/pixiv/pixiv.css">
+    <link rel="stylesheet" href="../css/code/code.css">
     <link rel="icon" href="../img/common/favicon.ico">
     <!--[if lt IE 9]>
         <script src="js/common/html5shiv.js"></script>
@@ -27,22 +27,23 @@
 </head>
 
 <body>
-
+    
     <div id="loader-bg" style="position: fixed; z-index: 4;">
         <div id="loading">
             <img src="../img/common/loadinfo.net.gif">
         </div>
     </div>
 
+    <!-- z-index of the .container might be 1 -->
     <div id="container clearfix">
-        <div class="sub-menu" style="z-index: 3">
+        <div class="sub-menu" style="z-index: 3"><!-- .sub-menu has its position value 'relative' -->
             <a class="menu-trigger" href="#">
                 <span></span>
                 <span></span>
                 <span></span>
             </a>
         </div>
-        <div id="target-menu" class="menu column" style="z-index: 2;">
+        <div id="target-menu" class="menu column" style="z-index: 2;"><!-- .menu has its position value 'fixed' at first, changing the value to 'absolute' according to the window width -->
             <div class="menu-block" style="position: relative;">
                 <header>
                     <div class="portfolio center-margin-auto fix-head">
@@ -62,7 +63,7 @@
                             <h2 class="line-border medium gray made-bruno menu-h2-common" style="font-size: 2.3rem;">MY WORKS</h2>
                         </div>
                         <ul>
-                            <li><a href="../code/code.html" class="hover-shadow-double" style="padding: 25px 0px 20px 0px;"><span class="code-menu menu-li-common">CODE</span></a></li>
+                            <li><a href="code.html" class="hover-shadow-double" style="padding: 25px 0px 20px 0px;"><span class="code-menu menu-li-common">CODE</span></a></li>
                             <li><a href="#" class="hover-shadow-double" style="padding: 25px 0px 20px 0px;"><span class="illustration-menu menu-li-common">ILLUSTRATION</span></a></li>
                             <li><a href="#" class="hover-shadow-double" style="padding: 25px 0px 20px 0px;"><span class="webservice-menu menu-li-common">WEB SERVICE</span></a></li>
                         </ul>
@@ -74,22 +75,13 @@
             </div>
         </div>
         <div class="content column" style="position: relative; z-index: 0;">
-            <div class="pixiv content-block">
+            <div class="twitter content-block">
                 <div class="dot-line-intro half-opacity">
                     <div class="line-border-intro intro half-opacity bold agency-fb" style="font-size: 1.5rem;">INTRODUCTION</div>
                 </div>
 
-                <div class="content-pixiv content-common">
-                    <div class="center-margin-auto pixiv-logo" style="margin-bottom: 30px;">
-                        <img src="../img/pixiv/pixiv_white.png" alt="pixiv logo" style="width: 100%;">
-                    </div>
-                    <div class="center-text-align visit-pixiv">
-                        <section>
-                            <h1 class=" bold agency-fb" style="font-size: 3.5rem; line-height: 4rem;">Love to Draw Fan-art.</h1>
-                            <p style="display: block; font-size: 1.5rem; opacity: 0.7; margin-bottom: 40px;">AzurLane/FGO/Princess Connect Re:Dive</p>
-                            <a href="https://www.pixiv.net/member.php?id=23577907" target="_blank" class="hover-shadow-single bold agency-fb" style="font-size: 1.3rem; color: white;"><span class="jump-icon">Visit My pixiv</span></a>
-                        </section>
-                    </div>
+                <div class="content-code content-common">
+                    
                 </div>
             </div>
         </div>
@@ -98,7 +90,7 @@
     <script src="../js/common/jquery-3.4.0.min.js"></script>
     <script src="../js/common/lib.js"></script>
     <script src="../js/common/common.js"></script>
-    <script src="../js/pixiv/pixiv.js"></script>
+    <script src="../js/code/code.js"></script>
 
 </body>
 

@@ -100,10 +100,8 @@
 
             const marginTop = ($content.width() - $contentBlock.outerWidth()) / 2.0;
             const contentBlockHeight = $contentBlock.outerHeight(true);
-            console.log(contentBlockHeight);
             const contentBlockHeightFull = h - marginTop;
             const contentBlockHeightBottomOffset = marginTop + contentBlockHeight;
-            console.log(contentBlockHeightFull);
 
             // Set a specific margin to the top of .content-block
             $contentBlock.css({
