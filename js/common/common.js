@@ -198,34 +198,6 @@
         prefixForMenuContent();
 
 
-        // Prefix for content-block and synchronize the pos with .sub-menu
-        const contentBlock = function () {
-            const $content = $('.content');
-            const $contentBlock = $('.content-block');
-            const marginTop = ($content.width() - $contentBlock.outerWidth()) / 2.0;
-            $contentBlock.css({
-                'margin-top': marginTop + 'px',
-            });
-            if ($contentBlock.height() <= h) {
-                const contentBlockHeight = h - marginTop;
-                $contentBlock.css({
-                    'height': contentBlockHeight + 'px',
-                });
-            }
-
-
-            // Set the pos of .sub-menu
-            const $subMenu = $('.sub-menu');
-            $subMenu.css({
-                'top': marginTop + 5.5 + 'px',
-                'right': marginTop + 5.5 + 'px',
-            });
-
-
-        };
-        // contentBlock();
-
-
     });
 
 
