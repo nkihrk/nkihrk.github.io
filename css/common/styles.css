@@ -294,7 +294,7 @@ body {
     transform: translateY(-50%);
 }
 
-.shader-menu::after {
+.code-menu::after {
     content: '';
     display: inline-block;
     width: 35%;
