@@ -245,7 +245,7 @@ body {
     vertical-align: middle;
     position: absolute;
     left: 80%;
-    top: 52%;
+    top: 50%;
     transform: translateY(-50%);
 }
 
@@ -260,37 +260,82 @@ body {
     vertical-align: middle;
     position: absolute;
     left: 80%;
-    top: 53%;
+    top: 50%;
     transform: translateY(-50%);
 }
 
 .pixiv-menu::after {
     content: '';
     display: inline-block;
-    width: 38%;
-    height: 38%;
+    width: 35%;
+    height: 35%;
     background-image: url(../../img/common/pixiv.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
     position: absolute;
     left: 80%;
-    top: 52%;
+    top: 50%;
     transform: translateY(-50%);
 }
 
 .twitch-menu::after {
     content: '';
     display: inline-block;
-    width: 38%;
-    height: 38%;
+    width: 35%;
+    height: 35%;
     background-image: url(../../img/common/twitch.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
     position: absolute;
     left: 80%;
-    top: 52%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.shader-menu::after {
+    content: '';
+    display: inline-block;
+    width: 35%;
+    height: 35%;
+    background-image: url(../../img/common/code.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: 80%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.illustration-menu::after {
+    content: '';
+    display: inline-block;
+    width: 35%;
+    height: 35%;
+    background-image: url(../../img/common/paint.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: 80%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.webservice-menu::after {
+    content: '';
+    display: inline-block;
+    width: 35%;
+    height: 35%;
+    background-image: url(../../img/common/right-arrow.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: 80%;
+    top: 50%;
     transform: translateY(-50%);
 }
 
@@ -586,6 +631,12 @@ body {
     left: 0px;
     top: 50%;
     transform: translateY(-50%);
+}
+
+/* Set border-top line to footer */
+footer {
+    width: 100%;
+    border-top: solid 1px rgba(255, 255, 255, 0.3);
 }
 
 /* Media queries in common fields*/

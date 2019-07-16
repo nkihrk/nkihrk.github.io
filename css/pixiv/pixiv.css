@@ -23,11 +23,42 @@ a {
 .pixiv::before {
     background: inherit;
     content: '';
-    filter: brightness(100%) contrast(120%) blur(10px);
+    filter: brightness(80%) contrast(120%) blur(15px);
     position: absolute;
     top: -30px;
     right: -30px;
     bottom: -30px;
     left: -30px;
     z-index: -1;
+}
+
+/* Fix the pos of .hover-shadow-single */
+.hover-shadow-single {
+    border-color: #c1125bb9;
+    /* border-radius: 30px; */
+    padding: 15px 100px;
+    overflow: hidden;
+}
+
+.hover-shadow-single::before {
+    background-color: #c1125b;
+}
+
+/* Fix the pos of .jump-icon */
+.jump-icon {
+    padding-right: 30px;
+}
+.jump-icon::after {
+    width: 80%;
+    height: 80%;
+    left: 100px;
+    top: 45%;
+}
+
+/* Fix pixiv logo */
+.pixiv-logo {
+    position: absolute;
+    width: 280px;
+    top: 95px;
+    right: 130px;
 }
