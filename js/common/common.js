@@ -90,32 +90,89 @@
             const $menu = $('.menu.column');
             const $header = $('header');
             const $footer = $(`footer`);
+            const $content = $('.content');
+            const $contentBlock = $('.content-block');
+            const $subMenu = $('.sub-menu');
 
-
-            // Prefix for the position of footer
             const bottomOffsetHeader = $header.outerHeight(true);
             const contentHeight = $('.content').outerHeight(true);
 
+            const marginTop = ($content.width() - $contentBlock.outerWidth()) / 2.0;
+            const contentBlockHeight = $contentBlock.outerHeight(true);
+            console.log(contentBlockHeight);
+            const contentBlockHeightFull = h - marginTop;
+            const contentBlockHeightBottomOffset = marginTop + contentBlockHeight;
+            console.log(contentBlockHeightFull);
+
+            // Set a specific margin to the top of .content-block
+            $contentBlock.css({
+                'margin-top': marginTop + 'px',
+            });
+
+            // Set the pos of .sub-menu
+            $subMenu.css({
+                'top': marginTop + 5.5 + 'px',
+                'right': marginTop + 5.5 + 'px',
+            });
+
+
             // For 45, its the sum of padding-top and padding-bottom of .menu-li-common
             if (bottomOffsetHeader + 45 > h) {
-                $menu.css({
-                    'height': contentHeight + 'px',
-                    'position': 'absolute',
-                    'top': 0,
-                    'left': 0,
-                });
-                $footer.css({
-                    'top': contentHeight - $footer.height() + 'px',
-                });
+                if (bottomOffsetHeader + 45 > contentBlockHeightBottomOffset) {
+                    $menu.css({
+                        'height': bottomOffsetHeader + 45 + 'px',
+                        'position': 'absolute',
+                        'top': 0,
+                        'left': 0,
+                    });
+                    $footer.css({
+                        'top': bottomOffsetHeader + 45 - $footer.height() + 'px',
+                    });
+                    if (contentBlockHeightBottomOffset > h) {
+                        $content.css({
+                            // 'height': bottomOffsetHeader + 45 + 'px',
+                            'position': 'relative',
+                        });
+                        $contentBlock.css({
+                            'height': bottomOffsetHeader + 45 - marginTop + 'px',
+                        });
+                    } else {
+                        $content.css({
+                            'position': 'fixed',
+                        });
+                        $contentBlock.css({
+                            'height': contentBlockHeightFull + 'px',
+                        });
+                    }
+                } else {
+                    $menu.css({
+                        'height': contentHeight + 'px',
+                        'position': 'absolute',
+                        'top': 0,
+                        'left': 0,
+                    });
+                    $footer.css({
+                        'top': contentHeight - $footer.height() + 'px',
+                    });
+                }
             } else {
                 $menu.css({
                     'position': 'fixed',
-                    'height': h + 'px',
+                    // Due to the height: 100vh; contains in .menu.column, no need to set height specifically
+                    // 'height': h + 'px',
                 });
                 $footer.css({
                     'position': 'absolute',
                     'top': h - $footer.height() + 'px',
                 });
+                if (contentBlockHeight + marginTop <= h) {
+                    $content.css({
+                        'position': 'relative',
+                    });
+                    $contentBlock.css({
+                        'height': contentBlockHeightFull + 'px',
+                    });
+                }
             }
 
 
@@ -148,7 +205,7 @@
 
 
         };
-        contentBlock();
+        // contentBlock();
 
 
     });

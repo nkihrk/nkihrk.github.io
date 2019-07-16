@@ -9,7 +9,7 @@
 body {
     font-family: agency-fb, sans-serif;
     font-style: normal;
-    background-color: #32303f;
+    /* background-color: #32303f; */
 }
 
 /* made-bruno font */
@@ -121,6 +121,7 @@ body {
     width: 98%;
     /* Change height to allow scroll */
     /* height: inherit; */
+    /* height: 100vh; */
     margin-left: auto;
     margin-right: auto;
     /* padding: 100px 0px; */
