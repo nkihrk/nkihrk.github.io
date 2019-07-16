@@ -92,6 +92,7 @@
             const $footer = $(`footer`);
             const $content = $('.content');
             const $contentBlock = $('.content-block');
+            const $contentCommon = $('.content-common');
             const $subMenu = $('.sub-menu');
 
             const bottomOffsetHeader = $header.outerHeight(true);
@@ -129,13 +130,30 @@
                         'top': bottomOffsetHeader + 45 - $footer.height() + 'px',
                     });
                     if (contentBlockHeightBottomOffset > h) {
-                        $content.css({
-                            // 'height': bottomOffsetHeader + 45 + 'px',
-                            'position': 'relative',
-                        });
-                        $contentBlock.css({
-                            'height': bottomOffsetHeader + 45 - marginTop + 'px',
-                        });
+                        // For 1000, its the borderline-width of smart-phone and PC layout
+                        if (w < 1000) {
+                            $content.css({
+                                // 'height': bottomOffsetHeader + 45 + 'px',
+                                'position': 'relative',
+                            });
+                            if (contentBlockHeight <= $contentCommon.outerHeight(true)) {
+                                $contentBlock.css({
+                                    'height': $contentCommon.outerHeight(true) + 'px',
+                                });
+                            } else {
+                                $contentBlock.css({
+                                    'height': contentBlockHeightFull + 'px',
+                                });
+                            }
+                        } else {
+                            $content.css({
+                                // 'height': bottomOffsetHeader + 45 + 'px',
+                                'position': 'relative',
+                            });
+                            $contentBlock.css({
+                                'height': bottomOffsetHeader + 45 - marginTop + 'px',
+                            });
+                        }
                     } else {
                         $content.css({
                             'position': 'fixed',
@@ -165,7 +183,7 @@
                     'position': 'absolute',
                     'top': h - $footer.height() + 'px',
                 });
-                if (contentBlockHeight + marginTop <= h) {
+                if (contentBlockHeightBottomOffset <= h) {
                     $content.css({
                         'position': 'relative',
                     });
