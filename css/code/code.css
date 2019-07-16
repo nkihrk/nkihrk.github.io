@@ -5,3 +5,8 @@ body {
     /* color: white; */
     /* overflow: hidden; */
 }
+
+/* Delete border from .content-block */
+.code {
+    border: none;
+}
