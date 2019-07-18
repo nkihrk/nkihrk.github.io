@@ -25,9 +25,9 @@
 
 /* Prefix for top and bottom margin for the .content-pixiv */
 .content-code {
-    width: 85%;
+    /* width: 85%; */
     height: 90%;
-    margin-left: 5%;
+    /* margin-left: 5%; */
     margin-top: 60px;
     margin-bottom: 60px;
 }
@@ -156,8 +156,12 @@
     .hover-shadow-single {
         padding: 15px 100px;
     }
-    .category-content-code {
+    .category-content-code,
+    .footer-content-code {
         visibility: hidden;
+    }
+    .content-code {
+        width: 100%;
     }
 }
 
@@ -180,7 +184,12 @@
     .hover-shadow-single {
         padding: 15px 150px;
     }
-    .category-content-code {
+    .category-content-code,
+    .footer-content-code {
         visibility: visible;
+    }
+    .content-code {
+        width: 85%;
+        margin-left: 5%;
     }
 }
