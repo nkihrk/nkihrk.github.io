@@ -5,11 +5,7 @@
 } */
 
 .code {
-    /* display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-wrap: wrap; */
-    background-image: url(../../img/code/bandicam\ 2018-09-10\ 07-27-13-144.gif);
+    background: url(../../img/code/bandicam\ 2018-09-10\ 07-27-13-144.gif);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -29,9 +25,162 @@
 
 /* Prefix for top and bottom margin for the .content-pixiv */
 .content-code {
-    /* margin: 60px 0; */
-    width: 90%;
+    width: 85%;
     height: 90%;
+    margin-left: 5%;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
 
+
+/* .p-category-common {
+    
+} */
+
+/* Set name after TOFU */
+.html5.lang-category-content-code,
+.css3.lang-category-content-code,
+.javascript.lang-category-content-code,
+.ruby.lang-category-content-code,
+.c.lang-category-content-code,
+.csharp.lang-category-content-code,
+.hlsl.lang-category-content-code,
+.glsl.lang-category-content-code,
+.footer-content.lang-category-content-code {
+    position: relative;
+}
+
+.html5.lang-category-content-code::after {
+    position: absolute;
+    content: 'HTML5';
+    left: 30px;
+}
+
+.css3.lang-category-content-code::after {
+    position: absolute;
+    content: 'CSS3';
+    left: 30px;
+}
+
+.javascript.lang-category-content-code::after {
+    position: absolute;
+    content: 'JavaScript';
+    left: 30px;
+}
+
+.ruby.lang-category-content-code::after {
+    position: absolute;
+    content: 'Ruby';
+    left: 30px;
+}
+
+.c.lang-category-content-code::after {
+    position: absolute;
+    content: 'C';
+    left: 30px;
+}
+
+.csharp.lang-category-content-code::after {
+    position: absolute;
+    content: 'C#';
+    left: 30px;
+}
+
+.hlsl.lang-category-content-code::after {
+    position: absolute;
+    content: 'HLSL';
+    left: 30px;
+}
+
+.glsl.lang-category-content-code::after {
+    position: absolute;
+    content: 'GLSL';
+    left: 30px;
+}
+
+.footer-content.lang-category-content-code::before {
+    position: absolute;
+    content: '■';
+    font-size: 0.6rem;
+    top: 1px;
+    left: 3px;
+    vertical-align: middle;
+}
+
+.footer-content.lang-category-content-code::after {
+    position: absolute;
+    content: 'LOVE TO CODE, LOVE TO EXPRESS';
+    left: 30px;
+    width: 170px;
+}
+
+/* Fix the pos of .hover-shadow-single */
+.hover-shadow-single {
+    /* border-radius: 30px; */
+    /* padding: 15px 150px; */
     overflow: hidden;
+}
+
+
+/* Fix the pos of .jump-icon */
+.jump-icon {
+    padding-right: 30px;
+}
+.jump-icon::after {
+    width: 80%;
+    height: 80%;
+    left: 100px;
+    top: 45%;
+}
+
+/* Media queries in common fields*/
+/* Larger than mobile */
+@media (min-width: 0px) {
+    .header-twitter {
+        text-align: center;
+    }
+    .wrapper-gradation-circlized.circlized {
+        margin-right: 0;
+    }
+    .status-twitter {
+        width: 300px;
+    }
+    .status-twitter li {
+        display: block;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    #p-skill {
+        font-size: 1.3rem;
+    }
+    .hover-shadow-single {
+        padding: 15px 100px;
+    }
+    .category-content-code {
+        visibility: hidden;
+    }
+}
+
+@media (min-width: 800px) {
+    .header-twitter {
+        text-align: left;
+    }
+    .wrapper-gradation-circlized.circlized {
+        margin-right: 2.0rem;
+    }
+    .status-twitter {
+        width: 600px;
+    }
+    .status-twitter li {
+        display: inline-block;
+    }
+    #p-skill {
+        font-size: 1.8rem;
+    }
+    .hover-shadow-single {
+        padding: 15px 150px;
+    }
+    .category-content-code {
+        visibility: visible;
+    }
 }

@@ -1,10 +1,9 @@
 @charset "UTF-8";
 
 /* Set white as the default font color */
-body {
-    /* color: white; */
-    /* overflow: hidden; */
-}
+/* body {
+
+} */
 
 /* Prefix of list-style */
 ul {
@@ -141,6 +140,17 @@ a {
     margin: 40px auto 0px auto;
 }
 
+/* Fix the pos of .jump-icon */
+.jump-icon {
+    padding-right: 30px;
+}
+.jump-icon::after {
+    width: 80%;
+    height: 80%;
+    left: 130px;
+    top: 45%;
+}
+
 /* Media queries in common fields*/
 /* Larger than mobile */
 @media (min-width: 0px) {
@@ -161,6 +171,9 @@ a {
     #p-skill {
         font-size: 1.3rem;
     }
+    .hover-shadow-single {
+        padding: 15px 50px;
+    }
 }
 
 @media (min-width: 630px) {
@@ -178,5 +191,8 @@ a {
     }
     #p-skill {
         font-size: 1.8rem;
+    }
+    .hover-shadow-single {
+        padding: 15px 150px;
     }
 }
