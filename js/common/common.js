@@ -62,7 +62,7 @@
         const activeCurrentPage = function () {
 
             console.log(window.location.href);
-            console.log(window.location.href.split('/')[4]);
+            console.log(window.location.href.split('/'));
             const getFileName = function () {
                 const fileName = window.location.href.split('/').pop();
                 const pageNameHtml = fileName.replace('#', '');
