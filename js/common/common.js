@@ -76,8 +76,8 @@
             // let whichName;
             // if (getNameLength() > 1) whichName = getFileName();
             // else whichName = window.location.href.split('/')[4];
-            if (window.location.href.split('/').length < 6) whichName = getFileName();
-            else whichName = window.location.href.split('/')[5];
+            if (window.location.href.split('/').length < 5) whichName = getFileName();
+            else whichName = window.location.href.split('/')[4];
             let join = whichName + '-menu';
             if (getFileName() == 'index' || getFileName() == '') join = 'twitter' + '-menu';
             const $activeMenu = $('.' + join);
