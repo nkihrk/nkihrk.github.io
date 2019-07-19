@@ -35,15 +35,17 @@
         const max = new param(maxWidth, thickness);
 
 
-        if (pc.relWidth >= max.width) {
-            pc.relWidth = max.width;
-            pc.relWrapperWidth = max.wrapperWidth;
-            pc.relImageTop = max.imageTop;
-        }
-        if (min.width >= pc.relWidth) {
-            pc.relWidth = min.width;
-            pc.relWrapperWidth = min.wrapperWidth;
-            pc.relImageTop = min.imageTop;
+        if (!!minWidth && !!maxWidth) {
+            if (pc.relWidth >= max.width) {
+                pc.relWidth = max.width;
+                pc.relWrapperWidth = max.wrapperWidth;
+                pc.relImageTop = max.imageTop;
+            }
+            if (min.width >= pc.relWidth) {
+                pc.relWidth = min.width;
+                pc.relWrapperWidth = min.wrapperWidth;
+                pc.relImageTop = min.imageTop;
+            }
         }
 
         if ($(window).width() >= commonParam.maxWidthForPhone) {
