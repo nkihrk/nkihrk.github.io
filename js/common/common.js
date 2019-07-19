@@ -70,8 +70,8 @@
                 return window.location.href.split('/')[4].split('.').length;
             }
 
-            console.log(getFileName());
-            console.log(getNameLength());
+            console.log(window.location.href.split('/')[4]);
+            // console.log(getNameLength());
 
             let whichName;
             if (getNameLength() > 1) whichName = getFileName();
