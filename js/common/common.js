@@ -60,6 +60,9 @@
 
         // Add class .active-current-page to a accurate link
         const activeCurrentPage = function () {
+
+            console.log(window.location.href);
+            console.log(window.location.href.split('/')[4]);
             const getFileName = function () {
                 const fileName = window.location.href.split('/').pop();
                 const pageNameHtml = fileName.replace('#', '');
@@ -69,9 +72,6 @@
             const getNameLength = function () {
                 return window.location.href.split('/')[4].split('.').length();
             }
-
-            console.log(window.location.href);
-            console.log(window.location.href.split('/')[4]);
 
             // console.log(getNameLength());
 
