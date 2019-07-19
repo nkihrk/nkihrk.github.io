@@ -71,6 +71,9 @@
             }
 
             console.log(window.location.href);
+            console.log(window.location.href.split('/')[4].split('.').length());
+            console.log(window.location.href.split('/')[4].split('.');
+            
             // console.log(getNameLength());
 
             let whichName;
