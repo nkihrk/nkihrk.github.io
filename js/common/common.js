@@ -70,7 +70,7 @@
                 return window.location.href.split('/')[4].split('.').length;
             }
 
-            console.log(window.location.href.split('/')[4]);
+            console.log(window.location.href.split('/'));
             // console.log(getNameLength());
 
             let whichName;
