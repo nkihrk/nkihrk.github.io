@@ -67,7 +67,7 @@
                 return pageName;
             };
             const getNameLength = function () {
-                return window.location.href.split('/')[4].split('.').length;
+                return window.location.href.split('/')[4].split('.').length();
             }
 
             console.log(window.location.href);
