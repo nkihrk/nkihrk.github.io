@@ -60,24 +60,14 @@
 
         // Add class .active-current-page to a accurate link
         const activeCurrentPage = function () {
-
-            console.log(window.location.href);
-            console.log(window.location.href.split('/'));
             const getFileName = function () {
                 const fileName = window.location.href.split('/').pop();
                 const pageNameHtml = fileName.replace('#', '');
                 const pageName = pageNameHtml.split('.')[0];
                 return pageName;
             };
-            const getNameLength = function () {
-                return window.location.href.split('/')[4].split('.').length();
-            }
 
-            // let whichName;
-            // if (getNameLength() > 1) whichName = getFileName();
-            // else whichName = window.location.href.split('/')[4];
-            if (window.location.href.split('/').length < 5) whichName = getFileName();
-            else whichName = window.location.href.split('/')[4];
+            const whichName = window.location.href.split('/')[4];
             let join = whichName + '-menu';
             if (getFileName() == 'index' || getFileName() == '') join = 'twitter' + '-menu';
             const $activeMenu = $('.' + join);
