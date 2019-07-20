@@ -978,6 +978,28 @@ footer {
     }
 }
 
+/* Typing animation */
+.typing {
+    /* Adjust width and animation step num to the specific strings. Also need to adjust line-space */
+    width: 6ch;
+    border-right: .1rem solid;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typying 3s steps(6, end), caret .5s step-end infinite;
+}
+
+@keyframes typying {
+    from {
+        width: 0;
+    }
+}
+
+@keyframes caret {
+    50% {
+        border-color: transparent;
+    }
+}
+
 /* Media queries in common fields*/
 @media (min-width: 0px) {
     .menu.column {

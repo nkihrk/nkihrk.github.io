@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+/* Prefix for the entire content */
+.content-illustration {
+    margin: 60px 0;
+}
+
+/* Set outline animation */
+.svg-wrapper {
+    margin: 0 auto;
+    width: 230px;
+}
+
+.shape {
+    stroke-dasharray: 50 540;
+    stroke-dashoffset: -379;
+    stroke-width: 8px;
+    stroke: #57afb6;
+}
+
+.svg-wrapper:hover .shape {
+    stroke-width: 2px;
+    stroke-dashoffset: 0;
+    stroke-dasharray: 760;
+}
+
+/* Place github logo before the .service-link, github */
+.service-link::before {
+    width: 70%;
+    height: 70%;
+    background-image: url(../../img/common/pixiv.png);
+    left: 0px;
+    top: 48%;
+    transform: translateY(-50%);
+}
+
+/* Typing animation */
+.typing-illust {
+    /* Adjust width and animation step num to the specific strings. Also need to adjust line-space */
+    width: 10.2ch;
+    border-right: .1rem solid;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: caret .5s step-end infinite;
+}
+
+@keyframes caret {
+    50% {
+        border-color: transparent;
+    }
+}
+
+
+

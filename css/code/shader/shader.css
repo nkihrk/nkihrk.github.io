@@ -5,14 +5,6 @@
     margin: 60px 0;
 }
 
-/* Prefix for profile */
-.wrapper-nkihrk {
-    width: 100%;
-    padding: 44px 0 20px 0;
-    background-color: #2b2a37;
-    border-radius: 3px;
-}
-
 /* Set outline animation */
 .svg-wrapper {
     margin: 0 auto;
@@ -23,11 +15,7 @@
     stroke-dasharray: 50 540;
     stroke-dashoffset: -379;
     stroke-width: 8px;
-    fill: transparent;
-    /* stroke: #19f6e8; */
     stroke: #57afb6;
-    border-bottom: 5px solid black;
-    transition: stroke-width 1s, stroke-dashoffset 1s, stroke-dasharray 1s;
 }
 
 .svg-wrapper:hover .shape {
@@ -36,85 +24,14 @@
     stroke-dasharray: 760;
 }
 
-/* Opacity transition */
-.svg-wrapper:hover .github-link {
-    opacity: 1;
-}
-
-/* Place github logo before the .github-link */
-.github-link {
-    position: relative;
-    line-height: 0;
-    padding-left: 35px;
-    vertical-align: middle;
-    top: -40px;
-    position: relative;
-
-    opacity: 0.6;
-    transition: all .5s !important;
-}
-
-.github-link::before {
-    content: '';
-    display: inline-block;
+/* Place github logo before the .service-link, github */
+.service-link::before {
     width: 70%;
     height: 70%;
     background-image: url(../../../img/common/github_logo.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    vertical-align: middle;
-    position: absolute;
     left: 0px;
     top: 45%;
     transform: translateY(-50%);
 }
 
-/* Rewrite a the default border and background-color settings */
-.column-content-shader {
-    background-color: #2b2a37;
-    border-radius: 3px;
-    padding-bottom: 30px;
-}
 
-.column-content-shader:first-of-type {
-    margin-top: 30px;
-}
-
-.column-content-shader:not(:first-of-type) {
-    margin-top: 60px;
-}
-
-/* Rewrite .hover-shadow-single settings */
-.hover-shadow-single {
-    z-index: 0;
-    padding: 20px 45px 15px 45px;
-    border: none;
-    border-left: solid 1px rgba(255, 255, 255, 0.2);
-
-    opacity: 0.5;
-    transition: opacity .5s !important;
-}
-
-.hover-shadow-single:hover {
-    opacity: 1;
-    border: none;
-}
-
-.hover-shadow-single::before {
-    background-color: #c1125b;
-}
-
-/* Set white 0.5 opacity. date */
-.date-column-content-shader {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 1.3rem;
-    margin: 25px 0;
-}
-
-/* Set small fixes for text in description */
-.text-column-content-shader {
-    color: rgba(255, 255, 255, 0.5);
-    border-left: solid 2px #e56470;
-    padding: 15px 0 20px 30px;
-    font-size: 1.3rem;
-}
