@@ -67,7 +67,7 @@
                 return pageName;
             };
 
-            const whichName = window.location.href.split('/')[4];
+            const whichName = window.location.href.split('/')[3];
             let join = whichName + '-menu';
             if (getFileName() == 'index' || getFileName() == '') join = 'twitter' + '-menu';
             const $activeMenu = $('.' + join);
