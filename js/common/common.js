@@ -31,6 +31,15 @@
         }
         loadingFirst();
 
+        // add line-through to .webservice-menu. Just for the limited time
+        const lineThrough = function () {
+            const $webService = $('.webservice-menu');
+            $webService.css({
+                'text-decoration': 'line-through',
+            });
+        }
+        lineThrough();
+
         // Insert copyright into footer
         const year = new Date().getFullYear();
         const copyright = function () {
