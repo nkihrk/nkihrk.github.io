@@ -6,7 +6,7 @@
     <meta name="robots" content="all">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>SHADER | NkiHrk.github.io</title>
+    <title>Shader | NkiHrk.github.io</title>
     <meta name="keywords" content="">
     <meta name="description" content="My Experimental Repo for My Web App.">
     <meta name="author" content="NkiHrk">
@@ -143,25 +143,14 @@
 
                         <div class="column-content-post">
                             <div class="align-items flex-space-between flex-box header-column-content-post">
-                                <h2 class="fix-name-column regular agency-fb" style="color: rgba(255, 255, 255, 0.5);">Plastic Shader</h2>
-                                <a href="https://github.com/nkihrk/everyday-one-shader/blob/master/PlasticShader.shader" target="_blank" class="hover-shadow-single">VIEW CODE</a>
-                            </div>
-                            <img src="../../img/code/shader/PlasticShader_2.gif" alt="" style="width: 100%;">
-                            <div class="center-margin-auto description-column-content-post" style="width: 90%;">
-                                <div class="date-column-content-post">July 20, 2019</div>
-                                <div class="text-column-content-post">I didn`t do anything special with this shader. Isn`t it look like plastic?</div>
-                            </div>
-                        </div>
-
-                        <div class="column-content-post">
-                            <div class="align-items flex-space-between flex-box header-column-content-post">
                                 <h2 class="fix-name-column regular agency-fb" style="color: rgba(255, 255, 255, 0.5);">Burning Outline Shader</h2>
                                 <a href="https://github.com/nkihrk/everyday-one-shader/blob/master/BurningOutlineShader.shader" target="_blank" class="hover-shadow-single">VIEW CODE</a>
                             </div>
                             <img src="../../img/code/shader/bandicam_2018-09-15_17-39-52-972.gif" alt="" style="width: 100%;">
+                            <img src="../../img/code/shader/bandicam_2018-09-12_15-05-26-060.gif" alt="" style="width: 100%;">
                             <div class="center-margin-auto description-column-content-post" style="width: 90%;">
                                 <div class="date-column-content-post">July 20, 2019</div>
-                                <div class="text-column-content-post">Using noise texture to simulate burning-outline.</div>
+                                <div class="text-column-content-post">Burning effect is all calcurated in screen-space. That`s the keypoint of this shader. Push the surface polygons a bit to the same directory as normal vector in screen-space, which we can only concentrate on x and y coordinate, and no need to care about z coordinate for calcuration, only for adjustment.</div>
                             </div>
                         </div>
 
@@ -171,9 +160,22 @@
                                 <a href="https://github.com/nkihrk/HatchingShader/blob/master/HatchingShader.shader" target="_blank" class="hover-shadow-single">VIEW CODE</a>
                             </div>
                             <img src="../../img/code/shader/ugolino_with_hatching_shader.jpg" alt="" style="width: 100%;">
+                            <img src="../../img/code/shader/D9km0JvUEAAACqN.jpg" alt="" style="width: 100%;">
                             <div class="center-margin-auto description-column-content-post" style="width: 90%;">
                                 <div class="date-column-content-post">July 20, 2019</div>
-                                <div class="text-column-content-post">Trying to simulate cross-hatching with Unity shader.</div>
+                                <div class="text-column-content-post">I got ideas from the paper called 'Real-time Hatching'. Customized their method and tried to improve it to make it more practical in game-use.</div>
+                            </div>
+                        </div>
+
+                        <div class="column-content-post">
+                            <div class="align-items flex-space-between flex-box header-column-content-post">
+                                <h2 class="fix-name-column regular agency-fb" style="color: rgba(255, 255, 255, 0.5);">GPU Raytracing with Unity</h2>
+                                <a href="https://github.com/nkihrk/everyday-one-shader/blob/master/BurningEffect.shader" target="_blank" class="hover-shadow-single">VIEW CODE</a>
+                            </div>
+                            <img src="../../img/code/shader/DogDSAJVAAE0ITm.jpg" alt="" style="width: 100%;">
+                            <div class="center-margin-auto description-column-content-post" style="width: 90%;">
+                                <div class="date-column-content-post">July 20, 2019</div>
+                                <div class="text-column-content-post">GPU Raytracing with C# and Compute Shader. There are many tutorials on how to make GPU Raytracer with Unity, so I tested for studying. It actually helped me a lot to understand the mechanism of path tracing. Next time, I`ll try to import fbx model via C# and render it with path tracer.</div>
                             </div>
                         </div>
 
@@ -185,9 +187,10 @@
                             <img src="../../img/code/shader/bandicam_2018-09-07_13-19-37-498.gif" alt="" style="width: 100%;">
                             <div class="center-margin-auto description-column-content-post" style="width: 90%;">
                                 <div class="date-column-content-post">July 20, 2019</div>
-                                <div class="text-column-content-post">Trying to simulate burning effect.</div>
+                                <div class="text-column-content-post">Trying to simulate burning effect using noise texture. I also use fire image for burning. So there we need base texture for the model`s detail and noise texture for simulating fire-like animation, and fire image for burning outline.</div>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
