@@ -6,9 +6,5 @@
         const h = $(window).height();
 
 
-        // circlized + gradation
-        circlized(w);
-
-
     });
 })(window, jQuery);

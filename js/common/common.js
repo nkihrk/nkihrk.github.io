@@ -207,6 +207,10 @@
         prefixForMenuContent();
 
 
+        // execute circlized() when there is .circlized class
+        if ($('div').hasClass('circlized')) circlized(w);
+
+
     });
 
 
