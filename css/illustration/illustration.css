@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
 /* Prefix for the entire content */
-.content-illustration {
+/* .content-illustration {
     margin: 60px 0;
-}
+} */
 
 /* Set outline animation */
 .svg-wrapper {
@@ -49,6 +49,3 @@
         border-color: transparent;
     }
 }
-
-
-

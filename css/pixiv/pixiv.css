@@ -32,9 +32,9 @@ a {
 }
 
 /* Prefix for top and bottom margin for the .content-pixiv */
-.content-pixiv {
+/* .content-pixiv {
     margin: 60px 0;
-}
+} */
 
 /* Fix the pos of .hover-shadow-single */
 .hover-shadow-single {
@@ -52,6 +52,7 @@ a {
 .jump-icon {
     padding-right: 30px;
 }
+
 .jump-icon::after {
     width: 80%;
     height: 80%;

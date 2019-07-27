@@ -84,7 +84,7 @@ body {
 #loading {
     position: fixed;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: #2a2835;
     display: flex;
     justify-content: center;
@@ -125,9 +125,10 @@ body {
     /* height: 100vh; */
     margin-left: auto;
     margin-right: auto;
-    /* padding: 100px 0px; */
+    padding: 30px 0px;
     background-color: #302e3c;
 
+    /* overflow: hidden for not allowing to show some artifacts */
     overflow: hidden;
     border: solid 6px #302e3c;
     border-bottom: none;
@@ -167,9 +168,9 @@ body {
 }
 
 /* Centering header and sub-header. ex.PORTFOLIO, SOCIAL */
-.fix-head.center-margin-auto {
+/* .fix-head.center-margin-auto {
     width: 90%;
-}
+} */
 
 /* .menu ul > li */
 .menu-li-common {
@@ -235,7 +236,7 @@ body {
 .twitter-menu::after {
     content: '';
     display: inline-block;
-    width: 30%;
+    width: 10%;
     height: 30%;
     background-image: url(../../img/common/twitter.png);
     background-size: contain;
@@ -250,7 +251,7 @@ body {
 .github-menu::after {
     content: '';
     display: inline-block;
-    width: 35%;
+    width: 10%;
     height: 35%;
     background-image: url(../../img/common/github_logo.png);
     background-size: contain;
@@ -265,7 +266,7 @@ body {
 .pixiv-menu::after {
     content: '';
     display: inline-block;
-    width: 35%;
+    width: 10%;
     height: 35%;
     background-image: url(../../img/common/pixiv.png);
     background-size: contain;
@@ -280,7 +281,7 @@ body {
 .twitch-menu::after {
     content: '';
     display: inline-block;
-    width: 35%;
+    width: 10%;
     height: 35%;
     background-image: url(../../img/common/twitch.png);
     background-size: contain;
@@ -295,7 +296,7 @@ body {
 .code-menu::after {
     content: '';
     display: inline-block;
-    width: 35%;
+    width: 10%;
     height: 35%;
     background-image: url(../../img/common/code.png);
     background-size: contain;
@@ -310,7 +311,7 @@ body {
 .illustration-menu::after {
     content: '';
     display: inline-block;
-    width: 35%;
+    width: 10%;
     height: 35%;
     background-image: url(../../img/common/paint.png);
     background-size: contain;
@@ -325,7 +326,7 @@ body {
 .webservice-menu::after {
     content: '';
     display: inline-block;
-    width: 35%;
+    width: 10%;
     height: 35%;
     background-image: url(../../img/common/right-arrow.png);
     background-size: contain;
@@ -439,11 +440,22 @@ body {
     display: inline-block;
 }
 
-.menu.column {
+.menu {
     position: fixed;
     background-color: #2a2835;
     top: 0;
     left: 0;
+
+    /* Prefix for allowing overflow in vertical */
+    overflow-x: hidden;
+}
+
+/* Delete scrollbar in y direction */
+.menu-block-scrollbar-hidden {
+    width: calc(100% + 17px);
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* Active sub-menu */
@@ -1002,7 +1014,7 @@ footer {
 
 /* Media queries in common fields*/
 @media (min-width: 0px) {
-    .menu.column {
+    .menu {
         display: block;
         height: 100vh;
         top: 0;
@@ -1010,12 +1022,17 @@ footer {
         width: 100%;
         transition: all 0.5s ease-in-out;
         transform: translatex(-100%);
+        /* It is important for scrollbar to be always hidden. I dont know why */
         overflow: hidden;
+    }
+
+    .content-block {
+        padding-top: 60px;
     }
 
     /* Prefix for the header-title 'PORTFOLIO' */
     .portfolio {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         margin-left: 15px;
     }
 
@@ -1024,16 +1041,12 @@ footer {
     }
 
     /* The parent of the main content */
-    .content.column {
+    .content {
         width: 100%;
     }
 
     .dot-line-intro {
         display: none;
-    }
-
-    .sub-menu {
-        display: block;
     }
 
     footer {
@@ -1052,11 +1065,20 @@ footer {
 @media (min-width: 1000px) {
 
     /* The parent of the header and footer */
-    .menu.column {
+    .menu {
         visibility: visible;
         display: block;
-        width: 300px;
         transform: none;
+    }
+
+    /* Prevent the changing of menu-width due to scrollbar apearing */
+    .menu,
+    .menu-li-common {
+        width: 300px;
+    }
+
+    .content-block {
+        padding-top: 30px;
     }
 
     .sub-menu {
@@ -1064,7 +1086,7 @@ footer {
     }
 
     /* The parent of the main content */
-    .content.column {
+    .content {
         width: calc(100% - 300px);
         margin-left: 300px;
     }
@@ -1088,12 +1110,15 @@ footer {
 }
 
 @media (min-width: 1920px) {
-    .menu.column {
+
+    .menu,
+    .menu-li-common {
         width: 350px;
     }
 
+
     /* The parent of the main content */
-    .content.column {
+    .content {
         width: calc(100% - 350px);
         margin-left: 350px;
     }

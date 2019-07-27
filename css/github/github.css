@@ -13,7 +13,7 @@
 /* Prefix for the entire content */
 .content-github {
     width: 80%;
-    margin: 60px 0;
+    /* margin: 60px 0; */
 }
 
 /* Delete list dot */
@@ -275,6 +275,7 @@
 .jump-icon {
     padding-right: 30px;
 }
+
 .jump-icon::after {
     width: 80%;
     height: 80%;
@@ -304,7 +305,7 @@
         width: 100%;
     }
 
-    .description-content-mywork-github{
+    .description-content-mywork-github {
         width: 100%;
     }
 
@@ -348,6 +349,7 @@
     .jump-icon {
         padding-right: 30px;
     }
+
     .jump-icon::after {
         width: 80%;
         height: 80%;

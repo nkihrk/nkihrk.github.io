@@ -1,21 +1,32 @@
 <!doctype html>
-<html lang="ja">
+<html lang="en">
 
-<head>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
     <meta charset="utf-8">
     <meta name="robots" content="all">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
     <title>Others | NkiHrk.github.io</title>
     <meta name="keywords" content="">
     <meta name="description" content="My Experimental Repo for My Web App.">
     <meta name="author" content="NkiHrk">
     <meta name="copyright" content="&copy; NkiHrk">
-    <meta property="og:title" content="NkiHrk">
+    <meta property="og:title" content="Others | NkiHrk">
+    <meta property="og:type" content="article">
     <meta property="og:description" content="My Experimental Repo for My Web App.">
     <meta property="og:url" content="https://nkihrk.github.io">
-    <meta property="og:site_name" content="NkiHrk">
-    <meta property="og:image" content="">
+    <meta property="og:site_name" content="NkiHrk.github.io">
+    <meta property="og:image" content="https://nkihrk.github.io/img/common/ogp.png">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="Summary with Large Image">
+    <meta name="twitter:site" content="@QU00h">
+
+    <!-- Facebook -->
+    <meta property="fb:app_id" content="480666636053173">
+
     <link rel="stylesheet" href="../css/common/Reboot.css">
     <link rel="stylesheet" href="https://use.typekit.net/kqb4obi.css">
     <link rel="stylesheet" href="../css/common/styles.css">
@@ -29,7 +40,7 @@
 
 <body>
 
-    <div id="loader-bg" style="position: fixed; z-index: 4;">
+    <div id="loader-bg" style="position: fixed; z-index: 3;">
         <div id="loading">
             <div class="spin-wrapper">
                 <div class="spinner"></div>
@@ -37,67 +48,157 @@
         </div>
     </div>
 
-    <div id="container clearfix">
-        <div class="sub-menu" style="z-index: 3"><!-- .sub-menu has its position value 'relative' -->
+    <div id="container">
+        <div class="sub-menu" style="z-index: 2;">
+            <!-- .sub-menu has its position value 'relative' -->
             <a class="menu-trigger" href="#">
                 <span></span>
                 <span></span>
                 <span></span>
             </a>
         </div>
-        <div id="target-menu" class="menu column" style="z-index: 2;">
+        <div id="target-menu" class="menu" style="z-index: 1;">
             <div class="menu-block" style="position: relative;">
-                <header>
-                    <div class="portfolio center-margin-auto fix-head">
-                        <h1 class="bold agency-fb" style="opacity: 0.7;"><a class="rainbow" href="https://nkihrk.github.io">PORTFOLIO</a></h1>
-                    </div>
-                    <nav>
-                        <div class="dot-line">
-                            <h2 class="line-border medium gray made-bruno menu-h2-common" style="font-size: 2.3rem;">SOCIAL</h2>
+                <div class="menu-block-scrollbar-hidden">
+                    <header>
+                        <div class="portfolio center-margin-auto">
+                            <h1 class="bold agency-fb" style="opacity: 0.7;"><a class="rainbow"
+                                    href="https://nkihrk.github.io">PORTFOLIO</a></h1>
                         </div>
-                        <ul>
-                            <li><a href="../index.html" class="hover-shadow-double" style="padding: 25px 0px 20px 0px;"><span class="twitter-menu menu-li-common">TWITTER</span></a></li>
-                            <li><a href="../github/github.html" class="hover-shadow-double" style="padding: 25px 0px 20px 0px;"><span class="github-menu menu-li-common">GITHUB</span></a></li>
-                            <li><a href="../pixiv/pixiv.html" class="hover-shadow-double" style="padding: 25px 0px 20px 0px;"><span class="pixiv-menu menu-li-common">PIXIV</span></a></li>
-                            <li><a href="https://www.twitch.tv/chirurimu" target="_blank" class="hover-shadow-double" style="padding: 25px 0px 20px 0px;"><span class="twitch-menu menu-li-common">TWITCH</span></a></li>
-                        </ul>
-                        <div class="dot-line">
-                            <h2 class="line-border medium gray made-bruno menu-h2-common" style="font-size: 2.3rem;">MY WORKS</h2>
-                        </div>
-                        <ul>
-                            <li><a href="../code/shader/shader.html" class="hover-shadow-double" style="padding: 25px 0px 20px 0px;"><span class="code-menu menu-li-common">CODE</span></a></li>
-                            <li><a href="../illustration/illustration.html" class="hover-shadow-double" style="padding: 25px 0px 20px 0px;"><span class="illustration-menu menu-li-common">ILLUSTRATION</span></a></li>
-                            <li><a href="others.html" class="hover-shadow-double" style="padding: 25px 0px 20px 0px;"><span class="menu-li-common">OTHERS</span></a></li>
-                            <li><a href="#" class="hover-shadow-double" style="padding: 25px 0px 20px 0px;"><span class="webservice-menu menu-li-common">WEB SERVICE</span></a></li>
-                        </ul>
-                    </nav>
-                </header>
-                <footer>
-                    <span id="copyright" class="menu-li-common bold agency-fb" style="width: inherit; padding: 15px 0px 15px 30px;"></span>
-                </footer>
+                        <nav>
+                            <div class="dot-line">
+                                <h2 class="line-border medium gray made-bruno menu-h2-common"
+                                    style="font-size: 2.3rem;">SOCIAL</h2>
+                            </div>
+                            <ul>
+                                <li><a href="../index.html" class="hover-shadow-double"
+                                        style="padding: 25px 0px 20px 0px;"><span
+                                            class="twitter-menu menu-li-common">TWITTER</span></a></li>
+                                <li><a href="../github/github.html" class="hover-shadow-double"
+                                        style="padding: 25px 0px 20px 0px;"><span
+                                            class="github-menu menu-li-common">GITHUB</span></a></li>
+                                <li><a href="../pixiv/pixiv.html" class="hover-shadow-double"
+                                        style="padding: 25px 0px 20px 0px;"><span
+                                            class="pixiv-menu menu-li-common">PIXIV</span></a></li>
+                                <li><a href="https://www.twitch.tv/chirurimu" target="_blank"
+                                        class="hover-shadow-double" style="padding: 25px 0px 20px 0px;"><span
+                                            class="twitch-menu menu-li-common">TWITCH</span></a></li>
+                            </ul>
+                            <div class="dot-line">
+                                <h2 class="line-border medium gray made-bruno menu-h2-common"
+                                    style="font-size: 2.3rem;">MY WORKS</h2>
+                            </div>
+                            <ul>
+                                <li><a href="../code/shader/shader.html" class="hover-shadow-double"
+                                        style="padding: 25px 0px 20px 0px;"><span
+                                            class="code-menu menu-li-common">CODE</span></a></li>
+                                <li><a href="../illustration/illustration.html" class="hover-shadow-double"
+                                        style="padding: 25px 0px 20px 0px;"><span
+                                            class="illustration-menu menu-li-common">ILLUSTRATION</span></a></li>
+                                <li><a href="others.html" class="hover-shadow-double"
+                                        style="padding: 25px 0px 20px 0px;"><span
+                                            class="menu-li-common">OTHERS</span></a></li>
+                                <li><a href="#" class="hover-shadow-double" style="padding: 25px 0px 20px 0px;"><span
+                                            class="webservice-menu menu-li-common">WEB SERVICE</span></a></li>
+                            </ul>
+                        </nav>
+                    </header>
+                    <footer>
+                        <span id="copyright" class="menu-li-common bold agency-fb"
+                            style="width: inherit; padding: 15px 0px 15px 30px;"></span>
+                    </footer>
+                </div>
             </div>
         </div>
-        <div class="content column" style="position: relative; z-index: 0;">
+        <div class="content" style="position: absolute; z-index: 0;">
             <div class="others justify-center flex-box content-block">
                 <div class="dot-line-intro half-opacity">
-                    <div class="line-border-intro intro half-opacity bold agency-fb" style="font-size: 1.5rem;">INTRODUCTION</div>
+                    <div class="line-border-intro intro half-opacity bold agency-fb" style="font-size: 1.5rem;">
+                        INTRODUCTION</div>
                 </div>
 
                 <div class="flex-wrap flex-box content-others content-common">
                     <div class="columns-content-post">
                         <!-- For letter-spacing 0.1rem, its the optical adjustment for overflow-hidden-applied position before 'R' -->
-                        <h1 class="typing-illust typing-common bold agency-fb" style="color: rgba(87, 175, 182, 0.8); font-size: 4rem; line-height: 4rem;">Others</h1>
+                        <h1 class="typing-illust typing-common bold agency-fb"
+                            style="color: rgba(87, 175, 182, 0.8); font-size: 4rem; line-height: 4rem;">Others</h1>
                         <!-- I`ll try remaking this columns to automate via JSON. -->
 
                         <div class="column-content-post">
                             <div class="align-items flex-space-between flex-box header-column-content-post">
-                                <h2 class="fix-name-column regular agency-fb" style="color: rgba(255, 255, 255, 0.5);">The ex-page of Code</h2>
+                                <h2 class="fix-name-column regular agency-fb" style="color: rgba(255, 255, 255, 0.5);">
+                                    Gave up already...</h2>
+                                <a href="https://www.pixiv.net/member_illust.php?mode=medium&illust_id=75587398" target="_blank" class="hover-shadow-single">VISIT PIXIV</a>
+                            </div>
+                            <img src="../img/others/CLIPStudioPaint_2019-05-10_01-54-55.png" alt="" style="width: 100%;">
+                            <img src="../img/others/CLIPStudioPaint_2019-05-15_01-50-36.png" alt="" style="width: 100%;">
+                            <div class="center-margin-auto description-column-content-post" style="width: 90%;">
+                                <div class="date-column-content-post">July 27, 2019</div>
+                                <div class="justify-sentence text-column-content-post">
+                                    <input id="leer3" type="checkbox">
+                                    <label for="leer3"></label>
+                                    <div class="expand">
+                                        <span class="detail-text-column-content-post">
+                                            Tried many times redrawing this illust, but still couldn`t get better result. Maybe I should leave it for a while and do other stuffs.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="hash-tag-group regular agency-fb">
+                                    <span class="hash-tag">#Drawing</span>
+                                    <span class="hash-tag">#Illustration</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column-content-post">
+                            <div class="align-items flex-space-between flex-box header-column-content-post">
+                                <h2 class="fix-name-column regular agency-fb" style="color: rgba(255, 255, 255, 0.5);">
+                                    Practicing and studying human body</h2>
+                                <a href="#" target="_blank" class="hover-shadow-single" style="visibility: hidden">VIEW
+                                    PAGE</a>
+                            </div>
+                            <img src="../img/others/IMG_1148.jpg" alt="" style="width: 100%;">
+                            <img src="../img/others/IMG_1149.jpg" alt="" style="width: 100%;">
+                            <div class="center-margin-auto description-column-content-post" style="width: 90%;">
+                                <div class="date-column-content-post">July 28, 2019</div>
+                                <div class="justify-sentence text-column-content-post">
+                                    <input id="leer2" type="checkbox">
+                                    <label for="leer2"></label>
+                                    <div class="expand">
+                                        <span class="detail-text-column-content-post">
+                                            Practicing human body and poses. Since I am not that good at crocky, it
+                                            was bit difficult for me to draw in short time. Anyway I`ll keep up with
+                                            this practicing!
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="hash-tag-group regular agency-fb">
+                                    <span class="hash-tag">#Drawing</span>
+                                    <span class="hash-tag">#Practice</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column-content-post">
+                            <div class="align-items flex-space-between flex-box header-column-content-post">
+                                <h2 class="fix-name-column regular agency-fb" style="color: rgba(255, 255, 255, 0.5);">
+                                    The ex-page of Code</h2>
                                 <a href="../code/code.html" target="_blank" class="hover-shadow-single">VIEW PAGE</a>
                             </div>
                             <img src="../img/others/chrome_2019-07-27_01-10-02.jpg" alt="" style="width: 100%;">
                             <div class="center-margin-auto description-column-content-post" style="width: 90%;">
                                 <div class="date-column-content-post">July 27, 2019</div>
-                                <div class="text-column-content-post">Desined the top page of Code. Since the Illustration page has no such stuff, I decided to take it off from the Code to make it fair-look. You can check the actual one from the link at the right-up corner.</div>
+                                <div class="justify-sentence text-column-content-post">
+                                    <input id="leer" type="checkbox">
+                                    <label for="leer"></label>
+                                    <div class="expand">
+                                        <span class="detail-text-column-content-post">Desined the top page of Code.
+                                            Since the Illustration page has no such stuff, I decided to take it off from
+                                            the Code to make it fair-look. You can check the actual one from the link at
+                                            the right-up corner.Desined the top page of Code.
+                                        </span>
+                                    </div>
+                                </div>
                                 <div class="hash-tag-group regular agency-fb">
                                     <span class="hash-tag">#Design</span>
                                 </div>
@@ -117,22 +218,37 @@
     <script src="../js/others/others.js"></script>
 
     <script>
-        circlizedParam = {
-            // width must be px. The value will be converted to a relative value of 1920px
-            width: 160,
-            sWidth: 160,
-            // min and max width must be px. Each width will be static
-            minWidth: 160,
-            maxWidth: 160,
-            // thickness must be px
-            thickness: 5,
-            sThickness: 5,
-        };
+        (function ($) {
+            circlizedParam = {
+                // width must be px. The value will be converted to a relative value of 1920px
+                width: 160,
+                sWidth: 160,
+                // min and max width must be px. Each width will be static
+                minWidth: 160,
+                maxWidth: 160,
+                // thickness must be px
+                thickness: 5,
+                sThickness: 5,
+            };
 
-        commonParam = {
-            //  Max width of smart phone layout
-            maxWidthForPhone: 1000,
+            commonParam = {
+                //  Max width of smart phone layout
+                maxWidthForPhone: 1000,
+            }
+        })(jQuery);
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-101863956-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
         }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-101863956-2');
     </script>
 
 </body>

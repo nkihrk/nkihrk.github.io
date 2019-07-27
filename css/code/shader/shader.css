@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
 /* Prefix for the entire content */
-.content-shader {
+/* .content-shader {
     margin: 60px 0;
-}
+} */
 
 /* Set outline animation */
 .svg-wrapper {
@@ -33,5 +33,3 @@
     top: 45%;
     transform: translateY(-50%);
 }
-
-

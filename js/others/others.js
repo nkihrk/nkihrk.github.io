@@ -4,7 +4,7 @@
         // Window width and height
         const w = $(window).width();
         const h = $(window).height();
-        
+
 
 
     });

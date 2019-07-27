@@ -132,12 +132,95 @@
 }
 
 
+/* add hide-and-read option for the long description */
+.text-column-content-post {
+    display: table;
+    position: relative;
+}
+
+.expand {
+    width: 100%;
+    /* Prefix for padding-top: 15px */
+    margin-top: -15px;
+    padding: 15px 10px 40px 10px;
+    max-height: 80px;
+    overflow: hidden;
+    position: relative;
+    border-bottom: solid 1px rgba(255, 255, 255, 0.3);
+    transition: .5s;
+}
+
+.expand::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    bottom: 0;
+    background-image: -webkit-linear-gradient(rgba(43, 42, 55, 0), #2b2a37);
+    background-image: linear-gradient(rgba(43, 42, 55, 0), #2b2a37);
+    pointer-events: none;
+    transition: 1s;
+}
+
+.text-column-content-post input {
+    display: none;
+}
+
+.text-column-content-post label {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    padding: .20rem 10px;
+    margin: 0;
+    /* right: 0; */
+    left: 48%;
+    background: #2b2a37;
+    border: solid 1px rgba(255, 255, 255, 0.3);
+    border-radius: 1px;
+
+    z-index: 999;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.text-column-content-post label {
+    /* For font color transition */
+    /* color: #e56470; */
+    color: rgba(255, 255, 255, 0.5);
+    transition: all .3s;
+}
+
+.text-column-content-post label:hover {
+    /* Set the result font color of transition */
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.text-column-content-post label::before {
+    content: "Read";
+}
+
+.text-column-content-post input:checked+label::before {
+    content: "Hide";
+}
+
+input[type=checkbox]:checked~.expand {
+    max-height: 300px;
+}
+
+input[type=checkbox]:checked~.expand:before {
+    opacity: 0;
+}
 
 /* Media queries in common fields*/
 /* Larger than mobile */
 @media (min-width: 0px) {
     .dot-line-intro {
         visibility: hidden;
+    }
+
+    .content-block {
+        padding-top: 0px;
+        padding-bottom: 0px;
     }
 
     .nkihrk-content {
@@ -154,7 +237,13 @@
     }
 
     .fix-name-column {
-        margin-left: 10px;
+        margin-left: 30px;
+    }
+}
+
+@media (min-width: 1000px) {
+    .content-block {
+        padding-top: 30px;
     }
 }
 
@@ -182,6 +271,7 @@
     .typing-common {
         margin: 30px 0px 30px 0px;
     }
+
     .fix-name-column {
         margin-left: 30px;
     }

@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
 /* Prefix for the entire content */
-.content-others {
+/* .content-others {
     margin: 60px 0;
-}
+} */
 
 /* Typing animation */
 .typing-illust {
@@ -21,6 +21,6 @@
     }
 }
 
-.columns-content-post{
+.columns-content-post {
     margin-left: 0;
 }
