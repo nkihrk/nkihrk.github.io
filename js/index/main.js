@@ -133,10 +133,6 @@
         const h = $(window).height();
 
 
-        // circlized + gradation
-        circlized(w);
-
-
     });
 
 

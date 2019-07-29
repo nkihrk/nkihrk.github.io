@@ -241,13 +241,11 @@ input[type=checkbox]:checked~.expand:before {
     }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1600px) {
     .content-block {
         padding-top: 30px;
+        padding-bottom: 30px;
     }
-}
-
-@media (min-width: 1600px) {
     .dot-line-intro {
         visibility: visible;
     }

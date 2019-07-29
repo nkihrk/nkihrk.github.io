@@ -6,6 +6,15 @@
     src: url(../../font/MADE\ Bruno\ PERSONAL\ USE.otf);
 }
 
+:root {
+    --bar-width: calc(100vw - 100%);
+}
+
+html {
+    -ms-scroll-chaining: none;
+    overscroll-behavior: none;
+}
+
 body {
     font-family: agency-fb, sans-serif;
     font-style: normal;
@@ -452,10 +461,14 @@ body {
 
 /* Delete scrollbar in y direction */
 .menu-block-scrollbar-hidden {
-    width: calc(100% + 17px);
-    height: 100vh;
+    /* width: calc(100% + 17px); */
+    width: calc(100% + var(--bar-width));
+    height: 100%;
+    /* height: 100vh; */
     overflow-y: auto;
     overflow-x: hidden;
+    -ms-scroll-chaining: none;
+    overscroll-behavior: none;
 }
 
 /* Active sub-menu */
@@ -1049,9 +1062,9 @@ footer {
         display: none;
     }
 
-    footer {
+    /* footer {
         visibility: hidden;
-    }
+    } */
 
     .dot-line {
         margin-left: 20px;
@@ -1088,7 +1101,7 @@ footer {
     /* The parent of the main content */
     .content {
         width: calc(100% - 300px);
-        margin-left: 300px;
+        /* margin-left: 300px; */
     }
 
     .dot-line-intro {
@@ -1099,9 +1112,9 @@ footer {
         font-size: 2.3rem;
     }
 
-    footer {
+    /* footer {
         visibility: visible;
-    }
+    } */
 
     .dot-line::before,
     .line-border::before {
@@ -1120,7 +1133,7 @@ footer {
     /* The parent of the main content */
     .content {
         width: calc(100% - 350px);
-        margin-left: 350px;
+        /* margin-left: 350px; */
     }
 
     .portfolio {

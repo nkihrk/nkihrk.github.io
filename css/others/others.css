@@ -24,3 +24,10 @@
 .columns-content-post {
     margin-left: 0;
 }
+
+@media (min-width: 1000px) {
+    /* Just for optical adjustment */
+    .content-block {
+        padding-top: 30px;
+    }
+}

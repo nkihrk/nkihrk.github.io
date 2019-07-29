@@ -127,79 +127,17 @@
 
 
             // For 45, its the sum of padding-top and padding-bottom of .menu-li-common
-            if (bottomOffsetHeader + 45 > h) {
-                if (bottomOffsetHeader + 45 > contentBlockHeightBottomOffset) {
-                    // $menu.css({
-                    //     'height': bottomOffsetHeader + 45 + 'px',
-                    //     'position': 'absolute',
-                    //     'top': 0,
-                    //     'left': 0,
-                    // });
-                    $footer.css({
-                        'top': bottomOffsetHeader + 45 - $footer.height() + 'px',
-                    });
-                    if (contentBlockHeightBottomOffset > h) {
-                        // For 1000, its the borderline-width of smart-phone and PC layout
-                        // if (w < 1000) {
-                        //     $content.css({
-                        //         // 'height': bottomOffsetHeader + 45 + 'px',
-                        //         'position': 'relative',
-                        //     });
-                        //     if (contentBlockHeight <= $contentCommon.outerHeight(true)) {
-                        //         $contentBlock.css({
-                        //             'height': $contentCommon.outerHeight(true) + 'px',
-                        //         });
-                        //     } else {
-                        //         $contentBlock.css({
-                        //             'height': contentBlockHeightFull + 'px',
-                        //         });
-                        //     }
-                        // } else {
-                        //     $content.css({
-                        //         // 'height': bottomOffsetHeader + 45 + 'px',
-                        //         'position': 'relative',
-                        //     });
-                        //     $contentBlock.css({
-                        //         'height': bottomOffsetHeader + 45 - marginTop + 'px',
-                        //     });
-                        // }
-                    } else {
-                        // $content.css({
-                        //     'position': 'fixed',
-                        // });
-                        // $contentBlock.css({
-                        //     'height': contentBlockHeightFull + 'px',
-                        // });
-                    }
-                } else {
-                    // $menu.css({
-                    //     'height': contentHeight + 'px',
-                    //     'position': 'absolute',
-                    //     'top': 0,
-                    //     'left': 0,
-                    // });
-                    $footer.css({
-                        'top': contentHeight - $footer.height() + 'px',
-                    });
-                }
-            } else {
-                // $menu.css({
-                //     'position': 'fixed',
-                // Due to the height: 100vh; contains in .menu.column, no need to set height specifically
-                // 'height': h + 'px',
-                // });
+            if (bottomOffsetHeader + 50 >= h) {
+                $footer.css({
+                    'position': 'static',
+                    // 'top': bottomOffsetHeader + 50 - $footer.height() + 'px',
+                });
+            }
+            if(bottomOffsetHeader + 50 < h) {
                 $footer.css({
                     'position': 'absolute',
                     'top': h - $footer.height() + 'px',
                 });
-                // if (contentBlockHeightBottomOffset <= h) {
-                //     $content.css({
-                //         'position': 'relative',
-                //     });
-                //     $contentBlock.css({
-                //         'height': contentBlockHeightFull + 'px',
-                //     });
-                // }
             }
 
 
@@ -209,20 +147,6 @@
                     'height': contentBlockHeightFull + 'px',
                 });
             }
-
-
-            // Delete scroll-bar
-            // $('<div class="scroll_bar_width"></div>').css({
-            //     'display': 'none',
-            //     'width': '100px',
-            //     'height': '1px',
-            //     'overflow-y': 'scroll',
-            // }).appendTo('body');
-
-            // const scroll_bar_width = 100 - parseInt($('.scroll_bar_width').css('width'));
-
-            // $('.scroll_bar_width').remove();
-            // $('.menu-block-scrollbar-hidden').css('width', 'calc(100% + ' + scroll_bar_width + 'px)');
 
 
         };
@@ -240,11 +164,6 @@
     $('.sub-menu').on('click', function () {
         $('#target-menu').toggleClass('active-humberger');
         $('.menu-trigger').toggleClass('active-menu-trigger');
-        if ($('.menu-trigger').hasClass('active-menu-trigger')) {
-            $('.content').css('position', 'fixed');
-        } else {
-            $('.content').css('position', 'absolute');
-        }
     });
 
 
