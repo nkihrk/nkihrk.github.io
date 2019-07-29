@@ -130,7 +130,6 @@
             if (bottomOffsetHeader + 70 >= h) {
                 $footer.css({
                     'position': 'static',
-                    'height': $footer.height(),
                     // 'top': bottomOffsetHeader + 50 - $footer.height() + 'px',
                 });
             }
