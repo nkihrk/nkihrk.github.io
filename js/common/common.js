@@ -133,7 +133,7 @@
                     // 'top': bottomOffsetHeader + 50 - $footer.height() + 'px',
                 });
             }
-            if(bottomOffsetHeader + 50 < h) {
+            if (bottomOffsetHeader + 50 < h) {
                 $footer.css({
                     'position': 'absolute',
                     'top': h - $footer.height() + 'px',
@@ -164,6 +164,11 @@
     $('.sub-menu').on('click', function () {
         $('#target-menu').toggleClass('active-humberger');
         $('.menu-trigger').toggleClass('active-menu-trigger');
+        if ($('.menu-trigger').hasClass('active-menu-trigger')) {
+            $('.content').css('position', 'fixed');
+        } else {
+            $('.content').css('position', 'absolute');
+        }
     });
 
 
