@@ -9,7 +9,6 @@
 /* Variables */
 :root {
     --bar-width: calc(100vw - 100%);
-    --inner-height: 100%;
 }
 
 html,
@@ -98,7 +97,7 @@ body {
 #loading {
     position: fixed;
     width: 100%;
-    /* height: 100vh; */
+    height: 100%;
     background-color: #2a2835;
     display: flex;
     justify-content: center;
@@ -1080,10 +1079,6 @@ footer {
     .dot-line::before {
         left: -7px;
     }
-
-    #loading {
-        height: var(--inner-height);
-    }
 }
 
 @media (min-width: 1000px) {
@@ -1130,11 +1125,6 @@ footer {
     .dot-line::before,
     .line-border::before {
         visibility: visible;
-    }
-
-    /* Limit #loading height to be 100vh */
-    #loading {
-        height: 100vh !important;
     }
 }
 
