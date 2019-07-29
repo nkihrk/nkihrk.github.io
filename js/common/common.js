@@ -162,6 +162,8 @@
         if ($('div').hasClass('circlized')) circlized(w);
     
 
+        $('.menu-block-scrollbar-hidden').css('height', window.innerHeight + 'px');
+
 
     });
 
