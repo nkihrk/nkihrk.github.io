@@ -172,6 +172,11 @@
     $('.sub-menu').on('click', function () {
         $('#target-menu').toggleClass('active-humberger');
         $('.menu-trigger').toggleClass('active-menu-trigger');
+        if ($('.menu-trigger').hasClass('active-menu-trigger')) {
+            $('.content').css('position', 'fixed');
+        } else {
+            $('.content').css('position', 'absolute');
+        }
     });
 
 
