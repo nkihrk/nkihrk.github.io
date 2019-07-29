@@ -288,11 +288,6 @@
     line-height: 2rem;
 }
 
-/* For the headline */
-.red-dot {
-    color: #c1125b;
-}
-
 /* Media queries in common fields*/
 /* Larger than mobile */
 @media (min-width: 0px) {
@@ -331,8 +326,10 @@
         text-align: center;
     }
 
-    .red-dot_2 {
+    /* For the headline */
+    .red-dot {
         display: none;
+        color: #c1125b;
     }
 
     .centering-headline {
