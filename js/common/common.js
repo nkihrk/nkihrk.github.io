@@ -166,8 +166,10 @@
         $('.menu-trigger').toggleClass('active-menu-trigger');
         if ($('.menu-trigger').hasClass('active-menu-trigger')) {
             $('.content').css('position', 'fixed');
+            $('html').css('overflow', 'hidden');
         } else {
             $('.content').css('position', 'absolute');
+            $('html').css('overflow', 'visible');
         }
     });
 
