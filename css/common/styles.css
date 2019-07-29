@@ -6,6 +6,7 @@
     src: url(../../font/MADE\ Bruno\ PERSONAL\ USE.otf);
 }
 
+/* Variables */
 :root {
     --bar-width: calc(100vw - 100%);
 }
