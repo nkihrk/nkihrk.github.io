@@ -24,8 +24,15 @@ body {
     font-style: normal;
     background-color: #32303f;
     color: white;
-    /* To show scrollbar anytime */
-    overflow-y: scroll;
+    /* For IE. Actually I dont support IE though XD */
+    -ms-overflow-style: none;
+    /* For Firefox. Doesn`t seem to be working */
+    overflow: -moz-scrollbars-none;
+}
+
+/* For Chrome. */
+body::-webkit-scrollbar {
+    display: none;
 }
 
 /* made-bruno font */

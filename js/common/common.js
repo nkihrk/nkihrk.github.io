@@ -150,6 +150,7 @@
             }
 
 
+            // This will configure the height of toolbar on safari
             $('#loading').css('height', window.innerHeight + 'px');
 
             // Prefix for menu height to exclude the height of toolbar on safari
