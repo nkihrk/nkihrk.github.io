@@ -9,11 +9,12 @@
 /* Variables */
 :root {
     --bar-width: calc(100vw - 100%);
+    --inner-height: 100%;
 }
 
 html,
 body {
-    height: 100%;
+    height: var(--inner-height);
     -ms-scroll-chaining: none;
     overscroll-behavior-y: none;
     -webkit-overflow-scrolling: touch;
@@ -97,7 +98,7 @@ body {
 #loading {
     position: fixed;
     width: 100%;
-    height: 100vh;
+    /* height: 100vh; */
     background-color: #2a2835;
     display: flex;
     justify-content: center;
@@ -458,6 +459,7 @@ body {
     background-color: #2a2835;
     top: 0;
     left: 0;
+    height: var(--inner-height);
 
     /* Prefix for allowing overflow in vertical */
     overflow-x: hidden;
@@ -1078,6 +1080,10 @@ footer {
     .dot-line::before {
         left: -7px;
     }
+
+    #loading {
+        height: var(--inner-height);
+    }
 }
 
 @media (min-width: 1000px) {
@@ -1124,6 +1130,11 @@ footer {
     .dot-line::before,
     .line-border::before {
         visibility: visible;
+    }
+
+    /* Limit #loading height to be 100vh */
+    #loading {
+        height: 100vh !important;
     }
 }
 

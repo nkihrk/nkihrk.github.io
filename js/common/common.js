@@ -149,12 +149,19 @@
             }
 
 
+            $('#loading').css('height', window.innerHeight + 'px');
+
+
+
         };
         prefixForMenuContent();
 
 
         // execute circlized() when there is .circlized class
         if ($('div').hasClass('circlized')) circlized(w);
+        
+
+        Element.style.setProperty('--inner-height', window.innerHeight + 'px');
 
 
     });
