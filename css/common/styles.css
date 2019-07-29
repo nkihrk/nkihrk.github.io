@@ -11,13 +11,19 @@
     --bar-width: calc(100vw - 100%);
 }
 
+html,
+body {
+    height: 100%;
+    -ms-scroll-chaining: none;
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
+}
+
 body {
     font-family: agency-fb, sans-serif;
     font-style: normal;
     background-color: #32303f;
     color: white;
-    -ms-scroll-chaining: none;
-    overscroll-behavior-y: none;
 }
 
 /* made-bruno font */
@@ -467,6 +473,7 @@ body {
     overflow-x: hidden;
     -ms-scroll-chaining: none;
     overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Active sub-menu */
