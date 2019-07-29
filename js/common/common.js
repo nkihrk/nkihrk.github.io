@@ -136,8 +136,8 @@
             if (bottomOffsetHeader + 70 < h) {
                 $footer.css({
                     'position': 'absolute',
-                    // For 20, it is a margin-top value of footer. Just for optical adjustment
-                    'top': h - $footer.height() - 20 + 'px',
+                    // For 21, it is a margin-top value of footer. Just for optical adjustment
+                    'top': h - $footer.height() - 21 + 'px',
                 });
             }
 
@@ -152,7 +152,9 @@
 
             $('#loading').css('height', window.innerHeight + 'px');
 
-
+            // Prefix for menu height to exclude the height of toolbar on safari
+            $('.menu-block-scrollbar-hidden').css('height', window.innerHeight + 'px');
+            
 
         };
         prefixForMenuContent();
@@ -160,9 +162,6 @@
 
         // execute circlized() when there is .circlized class
         if ($('div').hasClass('circlized')) circlized(w);
-    
-
-        $('.menu-block-scrollbar-hidden').css('height', window.innerHeight + 'px');
 
 
     });

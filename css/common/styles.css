@@ -8,7 +8,7 @@
 
 /* Variables */
 :root {
-    --bar-width: calc(100vw - 100%);
+    --bar-width: 17px;
 }
 
 html,
@@ -24,6 +24,8 @@ body {
     font-style: normal;
     background-color: #32303f;
     color: white;
+    /* To show scrollbar anytime */
+    overflow-y: scroll;
 }
 
 /* made-bruno font */
@@ -468,8 +470,7 @@ body {
 .menu-block-scrollbar-hidden {
     /* width: calc(100% + 17px); */
     width: calc(100% + var(--bar-width));
-    height: 300px;
-    /* height: 100vh; */
+    height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
     -ms-scroll-chaining: none;
@@ -1109,7 +1110,7 @@ footer {
     /* The parent of the main content */
     .content {
         width: calc(100% - 300px);
-        /* margin-left: 300px; */
+        margin-left: 300px;
     }
 
     .dot-line-intro {
@@ -1141,7 +1142,7 @@ footer {
     /* The parent of the main content */
     .content {
         width: calc(100% - 350px);
-        /* margin-left: 350px; */
+        margin-left: 350px;
     }
 
     .portfolio {
