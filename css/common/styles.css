@@ -1214,6 +1214,10 @@ footer {
     .line-border::before {
         visibility: visible;
     }
+
+    .menu-block-scrollbar-hidden {
+        height: 100vh !important;
+    }
 }
 
 @media (min-width: 1920px) {
