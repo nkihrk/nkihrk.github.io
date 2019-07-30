@@ -204,12 +204,12 @@ body::-webkit-scrollbar {
     font-weight: bold;
     line-height: 100%;
 
-    transition: margin-left .3s;
+    transition: padding-left .3s;
 }
 
 /* Move menu list when hovering */
 .menu-li-common:hover {
-    margin-left: 10px;
+    padding-left: 40px;
 }
 
 /* Add dot-and-line decoration for 'INTRODUCTION' */

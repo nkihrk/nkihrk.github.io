@@ -87,6 +87,8 @@
     padding: 20px 45px 15px 45px;
     border: none;
     border-left: solid 1px rgba(255, 255, 255, 0.2);
+    border-top-right-radius: 3px;
+    overflow: hidden;
 
     opacity: 0.5;
     transition: opacity .5s !important;
