@@ -208,14 +208,15 @@ body::-webkit-scrollbar {
 }
 
 /* For the optical adjustment */
-.active-current-page>.menu-li-common {
+header .active-current-page>.menu-li-common {
     /* border-left px is 4, which 30px - 4 px = 26px should be the right pos */
     padding-left: 26px;
 }
 
 /* Move a menu list when hovering */
-.menu-li-common:hover {
+header .menu-li-common:hover {
     margin-left: 10px;
+    margin-right: -10px;
 }
 
 /* .active-current-page.menu-li-common:hover {
@@ -401,6 +402,18 @@ body::-webkit-scrollbar {
     color: white;
     opacity: 1;
     background-color: #383747;
+}
+
+/* Due to 4px border-left width */
+.active-current-page>.twitter-menu::after,
+.active-current-page>.github-menu::after,
+.active-current-page>.pixiv-menu::after,
+.active-current-page>.twitch-menu::after,
+.active-current-page>.code-menu::after,
+.active-current-page>.illustration-menu::after,
+.active-current-page>.others-menu::after,
+.active-current-page>.webservice-menu::after {
+    left: calc(80% - 4px);
 }
 
 /* Set a dot before a string */
@@ -1209,7 +1222,6 @@ footer {
     .menu-li-common {
         width: 350px;
     }
-
 
     /* The parent of the main content */
     .content {
