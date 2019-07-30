@@ -49,6 +49,20 @@
         copyright();
 
 
+        const scrollTop = function () {
+            const $btn = $('#scroll-top');
+            $btn.click(function () {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+                return false;
+            });
+        };
+        if ($('#scroll-top').length) {
+            scrollTop();
+        }
+
+
     });
 
 

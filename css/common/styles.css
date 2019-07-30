@@ -203,6 +203,13 @@ body::-webkit-scrollbar {
     font-size: 1.2rem;
     font-weight: bold;
     line-height: 100%;
+
+    transition: margin-left .3s;
+}
+
+/* Move menu list when hovering */
+.menu-li-common:hover {
+    margin-left: 10px;
 }
 
 /* Add dot-and-line decoration for 'INTRODUCTION' */
@@ -344,6 +351,21 @@ body::-webkit-scrollbar {
     top: 50%;
     transform: translateY(-50%);
 }
+
+/* .others-menu::after {
+    content: '';
+    display: inline-block;
+    width: 10%;
+    height: 35%;
+    background-image: url(../../img/common/);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: 80%;
+    top: 50%;
+    transform: translateY(-50%);
+} */
 
 .webservice-menu::after {
     content: '';
@@ -1039,6 +1061,38 @@ footer {
     50% {
         border-color: transparent;
     }
+}
+
+/* scroll-top */
+.scroll-icon {
+    position: relative;
+    display: block;
+    width: 150px;
+    margin: 130px auto 60px auto;
+    padding-top: 100x;
+    text-align: center;
+    font-size: 1.5rem;
+    
+    opacity: 0.5;
+    transition: opacity .5s;
+}
+
+.scroll-icon:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.scroll-icon::before {
+    content: '';
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background-image: url(../../img/common/scroll-top.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    left: 50%;
+    margin-top: -50px;
+    transform: translateX(-50%);
 }
 
 /* Media queries in common fields*/
