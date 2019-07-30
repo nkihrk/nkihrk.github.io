@@ -204,13 +204,24 @@ body::-webkit-scrollbar {
     font-weight: bold;
     line-height: 100%;
 
-    transition: padding-left .3s;
+    transition: .3s;
 }
 
-/* Move menu list when hovering */
-.menu-li-common:hover {
-    padding-left: 40px;
+/* For the optical adjustment */
+.active-current-page>.menu-li-common {
+    /* border-left px is 4, which 30px - 4 px = 26px should be the right pos */
+    padding-left: 26px;
 }
+
+/* Move a menu list when hovering */
+.menu-li-common:hover {
+    margin-left: 10px;
+}
+
+/* .active-current-page.menu-li-common:hover {
+    margin-left: 0;
+    padding-left: 40px;
+} */
 
 /* Add dot-and-line decoration for 'INTRODUCTION' */
 .line-border-intro {

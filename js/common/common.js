@@ -95,7 +95,10 @@
             if (getFileName() == 'index' || getFileName() == '') join = 'twitter' + '-menu';
             const $activeMenu = $('.' + join);
 
-            $activeMenu.addClass('active-current-page');
+            // $activeMenu.parent() = <span></span>
+            $activeMenu.parent().addClass('active-current-page');
+            
+            $('.active-current-page>.menu-li-common').css('opacity', 1);
         };
         activeCurrentPage();
 
