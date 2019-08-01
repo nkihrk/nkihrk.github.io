@@ -270,7 +270,11 @@ header .menu-li-common:hover {
 .twitter-menu,
 .github-menu,
 .pixiv-menu,
-.twitch-menu {
+.twitch-menu,
+.code-menu,
+.illustration-menu,
+.others-menu,
+.webservice-menu {
     position: relative;
 }
 
