@@ -212,6 +212,7 @@ body::-webkit-scrollbar,
 header .active-current-page>.menu-li-common {
     /* border-left px is 4, which 30px - 4 px = 26px should be the right pos */
     padding-left: 26px;
+    margin-right: -17px;
 }
 
 /* Move a menu list when hovering */
@@ -1128,7 +1129,7 @@ footer {
 @media (min-width: 0px) {
     .menu {
         display: block;
-        height: 100vh;
+        /* height: 100vh; */
         top: 0;
         left: 0;
         width: 100%;
@@ -1171,6 +1172,12 @@ footer {
 
     .dot-line::before {
         left: -7px;
+    }
+
+    /* Move a menu list when hovering */
+    header .menu-li-common:hover {
+        margin-left: 10px;
+        margin-right: -27px;
     }
 }
 
@@ -1222,6 +1229,12 @@ footer {
 
     .menu-block-scrollbar-hidden {
         height: 100vh !important;
+    }
+
+    /* Move a menu list when hovering */
+    header .menu-li-common:hover {
+        margin-left: 10px;
+        margin-right: -10px;
     }
 }
 
