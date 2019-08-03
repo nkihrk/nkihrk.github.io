@@ -532,7 +532,7 @@ header .menu-li-common:hover {
     overflow-y: auto;
     overflow-x: hidden;
     -ms-scroll-chaining: none;
-    overscroll-behavior-y: none;
+    overscroll-behavior: none;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -1200,7 +1200,7 @@ footer {
     /* The parent of the main content */
     .content {
         width: calc(100% - 300px);
-        margin-left: 300px;
+        right: 0;
     }
 
     .dot-line-intro {
@@ -1235,7 +1235,7 @@ footer {
     /* The parent of the main content */
     .content {
         width: calc(100% - 350px);
-        margin-left: 350px;
+        /* right: 0; */
     }
 
     .portfolio {

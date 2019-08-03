@@ -142,19 +142,21 @@
                 'right': marginTop + 5.5 + 'px',
             });
 
+            // This will configure the height of toolbar on safari
+            $('#loading').css('height', window.innerHeight + 'px');
+
+            // Prefix for menu height to exclude the height of toolbar on safari
+            $('.menu-block-scrollbar-hidden').css('height', window.innerHeight + 'px');
 
             // For 70, its the sum of padding-top and padding-bottom of .menu-li-common, and also footer`s margin-top value 20
             if (bottomOffsetHeader + 70 >= h) {
                 $footer.css({
                     'position': 'static',
-                    // 'top': bottomOffsetHeader + 50 - $footer.height() + 'px',
                 });
-            }
-            if (bottomOffsetHeader + 70 < h) {
+            } else {
                 $footer.css({
                     'position': 'absolute',
-                    // For 21, it is a margin-top value of footer. Just for optical adjustment
-                    'top': h - $footer.height() - 21 + 'px',
+                    'bottom': 0,
                 });
             }
 
@@ -165,13 +167,6 @@
                     'height': contentBlockHeightFull + 'px',
                 });
             }
-
-
-            // This will configure the height of toolbar on safari
-            $('#loading').css('height', window.innerHeight + 'px');
-
-            // Prefix for menu height to exclude the height of toolbar on safari
-            $('.menu-block-scrollbar-hidden').css('height', window.innerHeight + 'px');
 
 
         };

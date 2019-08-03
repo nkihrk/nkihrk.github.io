@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
-/* Overwrite overflow value to show columnns properly */
+/* Overwrite a height of .content-block to show columnns properly */
 .content-block {
-    overflow: visible;
+    height: auto !important;
 }
 
 /* Prefix for profile */
