@@ -31,7 +31,8 @@ body {
 }
 
 /* For Chrome. */
-body::-webkit-scrollbar {
+body::-webkit-scrollbar,
+.menu-block-scrollbar-hidden::-webkit-scrollbar {
     display: none;
 }
 
@@ -151,7 +152,7 @@ body::-webkit-scrollbar {
     background-color: #302e3c;
 
     /* overflow: hidden for not allowing to show some artifacts */
-    /* overflow: hidden; */
+    overflow: hidden;
     border: solid 6px #302e3c;
     border-bottom: none;
     border-radius: 12px 12px 0px 0px;

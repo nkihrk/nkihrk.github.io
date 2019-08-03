@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+/* Overwrite overflow value to show columnns properly */
+.content-block {
+    overflow: visible;
+}
+
 /* Prefix for profile */
 .wrapper-nkihrk {
     width: 100%;
