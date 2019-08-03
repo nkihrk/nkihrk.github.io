@@ -25,9 +25,22 @@
     margin-left: 0;
 }
 
+@media (min-width: 0px) {
+    .dot-line-intro {
+        visibility: hidden;
+    }
+}
+
 @media (min-width: 1000px) {
+
     /* Just for optical adjustment */
     .content-block {
         padding-top: 30px;
+    }
+}
+
+@media (min-width: 1680px) {
+    .dot-line-intro {
+        visibility: visible;
     }
 }

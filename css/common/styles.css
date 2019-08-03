@@ -205,20 +205,7 @@ body::-webkit-scrollbar,
     font-weight: bold;
     line-height: 100%;
 
-    transition: .3s;
-}
-
-/* For the optical adjustment */
-header .active-current-page>.menu-li-common {
-    /* border-left px is 4, which 30px - 4 px = 26px should be the right pos */
-    padding-left: 26px;
-    margin-right: -17px;
-}
-
-/* Move a menu list when hovering */
-header .menu-li-common:hover {
-    margin-left: 10px;
-    margin-right: -10px;
+    transition: .3s ease-in-out;
 }
 
 /* .active-current-page.menu-li-common:hover {
@@ -1145,6 +1132,7 @@ footer {
 
     /* Prefix for the header-title 'PORTFOLIO' */
     .portfolio {
+        transition: all 0.5s ease-in-out;
         font-size: 1.5rem;
         margin-left: 15px;
     }
@@ -1172,6 +1160,15 @@ footer {
 
     .dot-line::before {
         left: -7px;
+    }
+
+    /* For the optical adjustment */
+    header .active-current-page>.menu-li-common {
+        /* border-left px is 4, which 30px - 4 px = 26px should be the right pos */
+        padding-left: 26px;
+        margin-right: -17px;
+
+        transition: .3s ease-in-out;
     }
 
     /* Move a menu list when hovering */
@@ -1231,9 +1228,13 @@ footer {
         height: 100vh !important;
     }
 
+    /* For the optical adjustment */
+    header .active-current-page>.menu-li-common {
+        margin-right: 0;
+    }
+
     /* Move a menu list when hovering */
     header .menu-li-common:hover {
-        margin-left: 10px;
         margin-right: -10px;
     }
 }

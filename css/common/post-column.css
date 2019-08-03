@@ -223,13 +223,14 @@ input[type=checkbox]:checked~.expand:before {
 /* Media queries in common fields*/
 /* Larger than mobile */
 @media (min-width: 0px) {
-    .dot-line-intro {
-        visibility: hidden;
-    }
 
     .content-block {
         padding-top: 0px;
         padding-bottom: 0px;
+    }
+
+    .dot-line-intro {
+        visibility: hidden;
     }
 
     .nkihrk-content {
@@ -257,10 +258,6 @@ input[type=checkbox]:checked~.expand:before {
         padding-bottom: 30px;
     }
 
-    .dot-line-intro {
-        visibility: visible;
-    }
-
     /* Don`t forget to add .content-x when adding new columns */
     .content-illustration,
     .content-shader {
@@ -284,5 +281,11 @@ input[type=checkbox]:checked~.expand:before {
     .fix-name-column {
         margin-left: 30px;
         margin-right: 30px;
+    }
+}
+
+@media (min-width: 1680px) {
+    .dot-line-intro {
+        visibility: visible;
     }
 }
