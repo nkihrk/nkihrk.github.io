@@ -97,7 +97,7 @@
 
             // $activeMenu.parent() = <span></span>
             $activeMenu.parent().addClass('active-current-page');
-            
+
             $('.active-current-page>.menu-li-common').css('opacity', 1);
         };
         activeCurrentPage();
@@ -172,7 +172,7 @@
 
             // Prefix for menu height to exclude the height of toolbar on safari
             $('.menu-block-scrollbar-hidden').css('height', window.innerHeight + 'px');
-            
+
 
         };
         prefixForMenuContent();
@@ -180,6 +180,26 @@
 
         // execute circlized() when there is .circlized class
         if ($('div').hasClass('circlized')) circlized(w);
+
+
+        // Check heights of detail-text-column-content-post, and exclude input, label and .expand when less than a specific height
+        const excludeExpand = function () {
+            let $detailText = $('.detail-text-column-content-post');
+
+            $detailText.each(function () {
+                if ($(this).height() < 60) {
+                    let text = $(this).text();
+                    $(this).parent().parent().empty().text(text);
+                    // console.log('less than 60px');
+                    // console.log(text);
+                } else {
+                    // console.log('larger than 60px');
+                }
+                // console.log('Height of the detailText is ' + $(this).height() + 'px');
+                // console.log('--------------------');
+            });
+        };
+        excludeExpand();
 
 
     });

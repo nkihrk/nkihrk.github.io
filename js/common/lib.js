@@ -71,4 +71,43 @@
         }
 
     };
+
+
+    // Insert a JSON data to #post
+    insertPost = function (json) {
+        for (var i in json) {
+            let column = '<div class="column-content-post">' +
+                '<div class="align-items flex-space-between flex-box header-column-content-post">' +
+                '<h2 class="fix-name-column regular agency-fb" style="color: rgba(255, 255, 255, 0.5); padding-top: 20px; padding-bottom:15px;">' + json[i].name + '</h2>';
+            // If linkName is filled in, then return 0, otherwise return style="display: none"
+            const isVisible = json[i].content.linkName ? 0 : 'style="display: none"';
+            column += '<a href="' + json[i].url.link + '" target = "_blank" class = "hover-shadow-single"' + isVisible + '>' + json[i].content.linkName + '</a>' +
+                '</div>';
+            for (let j = 0; j < json[i].url.image.length; j++) {
+                column += '<img src="' + json[i].url.image[j] + '" alt="" style="width: 100%;">';
+            }
+            column += '<div class="center-margin-auto description-column-content-post" style="width: 90%;">' +
+                '<div class="date-column-content-post">' + json[i].content.date + '</div>' +
+                '<div class="justify-sentence text-column-content-post">' +
+                '<input id="leer' + i + '" type="checkbox">' +
+                '<label for="leer' + i + '"></label>' +
+                '<div class="expand">' +
+                '<span class="detail-text-column-content-post">' +
+                json[i].content.text +
+                '</span>' +
+                '</div>' +
+                '</div>' +
+                '<div class="hash-tag-group regular agency-fb">';
+            for (let k = 0; k < json[i].tag.length; k++) {
+                column += '<span class="hash-tag">' + json[i].tag[k] + '</span>';
+            }
+            column += '</div>' +
+                '</div>' +
+                '</div>';
+
+            $('#post').append(column);
+        }
+    };
+
+
 })(window, jQuery);

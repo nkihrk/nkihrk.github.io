@@ -1,0 +1,56 @@
+[{
+        "name": "Gave up already...",
+        "url": {
+            "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=75587398",
+            "image": [
+                "../img/others/CLIPStudioPaint_2019-05-10_01-54-55.png",
+                "../img/others/CLIPStudioPaint_2019-05-15_01-50-36.png"
+            ]
+        },
+        "content": {
+            "linkName": "VISIT PIXIV",
+            "date": "July 28, 2019",
+            "text": "Tried many times redrawing this illust, but still couldn`t get better result. Maybe I should leave it for a while and do other stuffs."
+        },
+        "tag": [
+            "#Drawing",
+            "#Illustration"
+        ]
+    },
+    {
+        "name": "Practicing and studying human body",
+        "url": {
+            "link": "",
+            "image": [
+                "../img/others/IMG_1148.jpg",
+                "../img/others/IMG_1149.jpg"
+            ]
+        },
+        "content": {
+            "linkName": "",
+            "date": "July 28, 2019",
+            "text": "Practicing human body and poses. Since I am not that good at crocky, it was bit difficult for me to draw in short time. Anyway I`ll keep up with this practicing!"
+        },
+        "tag": [
+            "#Drawing",
+            "#Practice"
+        ]
+    },
+    {
+        "name": "The ex-page of Code",
+        "url": {
+            "link": "../code/code.html",
+            "image": [
+                "../img/others/chrome_2019-07-27_01-10-02.jpg"
+            ]
+        },
+        "content": {
+            "linkName": "VIEW PAGE",
+            "date": "July 27, 2019",
+            "text": "Designed the top page of Code. Since the Illustration page has no such stuff, I decided to take it off from the Code to make it fair-look.You can check the actual one from the link at the right-up corner."
+        },
+        "tag": [
+            "#Design"
+        ]
+    }
+]

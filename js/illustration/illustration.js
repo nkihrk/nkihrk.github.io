@@ -7,4 +7,15 @@
 
 
     });
+
+
+    $(function () {
+        // Insert a JSON data to post-columns
+        $.getJSON("../js/common/json/illustration.json", function (illust_list) {
+            const illust = illust_list;
+            insertPost(illust);
+        });
+    });
+
+
 })(window, jQuery);
