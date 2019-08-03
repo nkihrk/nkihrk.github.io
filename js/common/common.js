@@ -63,24 +63,6 @@
         }
 
 
-    });
-
-
-    // When loading is finished
-    $(window).on('load', function () {
-        // Window width and height
-        const w = $(window).width();
-        const h = $(window).height();
-
-        // loadingLast
-        const loadingLast = function () {
-            $('#loader-bg').delay(900).fadeOut(800);
-            $('#loading').delay(600).fadeOut(300);
-            $('#container').css('display', 'block');
-        }
-        loadingLast();
-
-
         // Add class .active-current-page to a accurate link
         const activeCurrentPage = function () {
             const getFileName = function () {
@@ -101,6 +83,24 @@
             $('.active-current-page>.menu-li-common').css('opacity', 1);
         };
         activeCurrentPage();
+
+
+    });
+
+
+    // When loading is finished
+    $(window).on('load', function () {
+        // Window width and height
+        const w = $(window).width();
+        const h = $(window).height();
+
+        // loadingLast
+        const loadingLast = function () {
+            $('#loader-bg').delay(900).fadeOut(800);
+            $('#loading').delay(600).fadeOut(300);
+            $('#container').css('display', 'block');
+        }
+        loadingLast();
 
 
     });
@@ -180,26 +180,6 @@
 
         // execute circlized() when there is .circlized class
         if ($('div').hasClass('circlized')) circlized(w);
-
-
-        // Check heights of detail-text-column-content-post, and exclude input, label and .expand when less than a specific height
-        const excludeExpand = function () {
-            let $detailText = $('.detail-text-column-content-post');
-
-            $detailText.each(function () {
-                if ($(this).height() < 60) {
-                    let text = $(this).text();
-                    $(this).parent().parent().empty().text(text);
-                    // console.log('less than 60px');
-                    // console.log(text);
-                } else {
-                    // console.log('larger than 60px');
-                }
-                // console.log('Height of the detailText is ' + $(this).height() + 'px');
-                // console.log('--------------------');
-            });
-        };
-        excludeExpand();
 
 
     });

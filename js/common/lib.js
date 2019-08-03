@@ -107,6 +107,26 @@
 
             $('#post').append(column);
         }
+
+
+        // Check heights of detail-text-column-content-post, and exclude input, label and .expand when less than a specific height
+        const excludeExpand = function () {
+            let $detailText = $('.detail-text-column-content-post');
+
+            $detailText.each(function () {
+                if ($(this).height() < 60) {
+                    let text = $(this).text();
+                    $(this).parent().parent().empty().text(text);
+                    // console.log('less than 60px');
+                    // console.log(text);
+                } else {
+                    // console.log('larger than 60px');
+                }
+                // console.log('Height of the detailText is ' + $(this).height() + 'px');
+                // console.log('--------------------');
+            });
+        };
+        excludeExpand();
     };
 
 
