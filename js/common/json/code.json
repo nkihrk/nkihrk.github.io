@@ -10,7 +10,11 @@
             "content": {
                 "linkName": "VIEW CODE",
                 "date": "July 20, 2019",
-                "text": "Using various techniques to simulate translucency. Go check my code to see how it works."
+                "text": "Using various techniques to simulate translucency. Go check my code to see how it works.",
+                "size": [{
+                    "width": 1000,
+                    "height": 563
+                }]
             },
             "tag": [
                 "#ShaderLab",
@@ -29,7 +33,11 @@
             "content": {
                 "linkName": "VIEW CODE",
                 "date": "July 20, 2019",
-                "text": "Trying to express cartoon-like waterfall like the one from Zelda. I am not that satisfied with the result shading, but yup still looks nice at some point."
+                "text": "Trying to express cartoon-like waterfall like the one from Zelda. I am not that satisfied with the result shading, but yup still looks nice at some point.",
+                "size": [{
+                    "width": 1000,
+                    "height": 563
+                }]
             },
             "tag": [
                 "#ShaderLab",
@@ -49,7 +57,16 @@
             "content": {
                 "linkName": "VIEW CODE",
                 "date": "July 20, 2019",
-                "text": "Using noise texture to simulate fire."
+                "text": "Using noise texture to simulate fire.",
+                "size": [{
+                        "width": 1000,
+                        "height": 550
+                    },
+                    {
+                        "width": 1000,
+                        "height": 550
+                    }
+                ]
             },
             "tag": [
                 "#ShaderLab",
@@ -69,7 +86,16 @@
             "content": {
                 "linkName": "VIEW CODE",
                 "date": "July 20, 2019",
-                "text": "Burning effect is all calcurated in screen-space. That`s the keypoint of this shader. Push the surface polygons a bit to the same direction as normal vector in screen-space, which we can only concentrate on x and y coordinate, and no need to care about z coordinate for calcuration, only for adjustment."
+                "text": "Burning effect is all calcurated in screen-space. That`s the keypoint of this shader. Push the surface polygons a bit to the same direction as normal vector in screen-space, which we can only concentrate on x and y coordinate, and no need to care about z coordinate for calcuration, only for adjustment.",
+                "size": [{
+                        "width": 1000,
+                        "height": 548
+                    },
+                    {
+                        "width": 1000,
+                        "height": 550
+                    }
+                ]
             },
             "tag": [
                 "#ShaderLab",
@@ -89,7 +115,16 @@
             "content": {
                 "linkName": "VIEW CODE",
                 "date": "July 20, 2019",
-                "text": "I got ideas from the paper called 'Real-time Hatching'. Customized their method and tried to improve it to make it more practical in game-use."
+                "text": "I got ideas from the paper called 'Real-time Hatching'. Customized their method and tried to improve it to make it more practical in game-use.",
+                "size": [{
+                        "width": 1209,
+                        "height": 1608
+                    },
+                    {
+                        "width": 1950,
+                        "height": 986
+                    }
+                ]
             },
             "tag": [
                 "#ShaderLab",
@@ -108,7 +143,11 @@
             "content": {
                 "linkName": "",
                 "date": "July 20, 2019",
-                "text": "GPU Raytracing with C# and Compute Shader. There are many tutorials on how to make GPU Raytracer with Unity, so I tested for studying. It actually helped me a lot to understand the mechanism of path tracing. Next time, I `ll try to import fbx model via C# and render it with path tracer."
+                "text": "GPU Raytracing with C# and Compute Shader. There are many tutorials on how to make GPU Raytracer with Unity, so I tested for studying. It actually helped me a lot to understand the mechanism of path tracing. Next time, I `ll try to import fbx model via C# and render it with path tracer.",
+                "size": [{
+                    "width": 1200,
+                    "height": 661
+                }]
             },
             "tag": [
                 "#ShaderLab",
@@ -127,7 +166,11 @@
             "content": {
                 "linkName": "VIEW CODE",
                 "date": "July 20, 2019",
-                "text": "Trying to simulate burning effect using noise texture. Also using fire image for burning. So there we need a base texture for the model`s detail and a noise texture for simulating fire-like animation, and a fire image for burning outline."
+                "text": "Trying to simulate burning effect using noise texture. Also using fire image for burning. So there we need a base texture for the model`s detail and a noise texture for simulating fire-like animation, and a fire image for burning outline.",
+                "size": [{
+                    "width": 1000,
+                    "height": 550
+                }]
             },
             "tag": [
                 "#ShaderLab",

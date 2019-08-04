@@ -9,7 +9,11 @@
         "content": {
             "linkName": "VISIT PIXIV",
             "date": "May 2, 2019",
-            "text": "Pekorinu-chan💕"
+            "text": "Pekorinu-chan💕",
+            "size": [{
+                "width": 1200,
+                "height": 1700
+            }]
         },
         "tag": [
             "#Pekorinu",
@@ -27,7 +31,11 @@
         "content": {
             "linkName": "VISIT PIXIV",
             "date": "April 24, 2019",
-            "text": "The new charcter Shimakaze will be appeared in the Yostar`s new console game, AzurLane CrossWave. Can`t wait to play!"
+            "text": "The new charcter Shimakaze will be appeared in the Yostar`s new console game, AzurLane CrossWave. Can`t wait to play!",
+            "size": [{
+                "width": 1470,
+                "height": 2400
+            }]
         },
         "tag": [
             "#Shimakaze",
@@ -45,7 +53,11 @@
         "content": {
             "linkName": "VISIT PIXIV",
             "date": "April 4, 2019",
-            "text": "Jeanne (๑˃̵ᴗ˂̵) so cute"
+            "text": "Jeanne (๑˃̵ᴗ˂̵) so cute",
+            "size": [{
+                "width": 1017,
+                "height": 1428
+            }]
         },
         "tag": [
             "#Jeanne d`arc",
@@ -63,7 +75,11 @@
         "content": {
             "linkName": "VISIT PIXIV",
             "date": "March 16, 2019",
-            "text": "Nero-chama! I really love to draw her ( ˘ω˘) I need more "
+            "text": "Nero-chama! I really love to draw her ( ˘ω˘) I need more ",
+            "size": [{
+                "width": 1699,
+                "height": 955
+            }]
         },
         "tag": [
             "#Nero Claudius",
@@ -81,7 +97,11 @@
         "content": {
             "linkName": "VISIT PIXIV",
             "date": "March 9, 2019",
-            "text": "Illustrious💕"
+            "text": "Illustrious💕",
+            "size": [{
+                "width": 1152,
+                "height": 1524
+            }]
         },
         "tag": [
             "#Illustrious",
@@ -99,7 +119,11 @@
         "content": {
             "linkName": "VISIT PIXIV",
             "date": "February 28, 2019",
-            "text": "Original character. Just for practice"
+            "text": "Original character. Just for practice",
+            "size": [{
+                "width": 1400,
+                "height": 2100
+            }]
         },
         "tag": [
             "#Original"
@@ -116,7 +140,11 @@
         "content": {
             "linkName": "VISIT PIXIV",
             "date": "February 25, 2019",
-            "text": "Commission."
+            "text": "Commission.",
+            "size": [{
+                "width": 2999,
+                "height": 1688
+            }]
         },
         "tag": [
             "#Manryo",
@@ -134,7 +162,11 @@
         "content": {
             "linkName": "VISIT PIXIV",
             "date": "February 17, 2019",
-            "text": "Commission."
+            "text": "Commission.",
+            "size": [{
+                "width": 4000,
+                "height": 3000
+            }]
         },
         "tag": [
             "#Shikibu Murasaki",
@@ -152,7 +184,11 @@
         "content": {
             "linkName": "VISIT PIXIV",
             "date": "February 8, 2019",
-            "text": "I love Asuka (๑˃̵ᴗ˂̵) Ohhhhhhhhh I want to draw more of her"
+            "text": "I love Asuka (๑˃̵ᴗ˂̵) Ohhhhhhhhh I want to draw more of her",
+            "size": [{
+                "width": 1005,
+                "height": 1407
+            }]
         },
         "tag": [
             "#Asuka Langley Shikinami",
@@ -170,7 +206,11 @@
         "content": {
             "linkName": "VISIT PIXIV",
             "date": "January 9, 2019",
-            "text": "The kimono version of Homura-chan ( ˘ω˘)"
+            "text": "The kimono version of Homura-chan ( ˘ω˘)",
+            "size": [{
+                "width": 2500,
+                "height": 3500
+            }]
         },
         "tag": [
             "#Homura",
@@ -188,7 +228,11 @@
         "content": {
             "linkName": "VISIT PIXIV",
             "date": "December 3, 2018",
-            "text": "Drew Unity-chan for my friend."
+            "text": "Drew Unity-chan for my friend.",
+            "size": [{
+                "width": 2662,
+                "height": 1486
+            }]
         },
         "tag": [
             "#Unity-chan"
@@ -205,7 +249,11 @@
         "content": {
             "linkName": "VISIT PIXIV",
             "date": "April 20, 2018",
-            "text": "Victorious-chan!!! She is one of my favourite characters. Really love to draw💕 "
+            "text": "Victorious-chan!!! She is one of my favourite characters. Really love to draw💕",
+            "size": [{
+                "width": 2500,
+                "height": 3300
+            }]
         },
         "tag": [
             "#Victorious",

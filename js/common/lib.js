@@ -84,7 +84,7 @@
             column += '<a href="' + json[i].url.link + '" target = "_blank" class = "hover-shadow-single"' + isVisible + '>' + json[i].content.linkName + '</a>' +
                 '</div>';
             for (let j = 0; j < json[i].url.image.length; j++) {
-                column += '<img src="' + json[i].url.image[j] + '" alt="" style="width: 100%;">';
+                column += '<amp-img src="' + json[i].url.image[j] + '"width="' + json[i].content.size[j].width + '"height="' + json[i].content.size[j].height + '" layout="responsive" alt=""></amp-img>';
             }
             column += '<div class="center-margin-auto description-column-content-post" style="width: 90%;">' +
                 '<div class="date-column-content-post">' + json[i].content.date + '</div>' +
