@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+/* #test_box {
+    position: absolute;
+    width: 30%;
+}
+
+#test_box img {
+    width: 100%;
+} */
+
+#test_box2 {
+    position: absolute;
+    width: 30%;
+}
+
+#test_box2 img {
+    width: 100%;
+}
+
+.img-style {
+    position: absolute;
+    width: 30%;
+}
