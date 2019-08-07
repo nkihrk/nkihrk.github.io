@@ -22,3 +22,17 @@
     position: absolute;
     width: 30%;
 }
+
+.in-active {
+    display: none;
+}
+
+.selected {
+    border: solid 2px red;
+}
+
+.resize {
+    height: auto;
+    overflow: auto;
+    resize: horizontal;
+}

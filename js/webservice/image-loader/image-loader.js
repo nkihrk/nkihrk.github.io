@@ -1,10 +1,6 @@
 (function (window, $) {
     // When DOM tree is constructed
     $(function () {
-        // Window width and height
-        const w = $(window).width();
-        const h = $(window).height();
-
 
         // Drag-and-Paste event
         const imgLoader = function () {
@@ -32,51 +28,63 @@
                 target.addEventListener("drop", function (e) {
                     e.stopPropagation();
                     e.preventDefault();
-                    const file = e.dataTransfer.files[0];
-                    const reader = new FileReader();
-                    // let imgStyle = 'position: absolute; width: 30%;';
+
+                    const files = e.dataTransfer.files;
+
+                    function readAndPreview(file) {
+                        if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
+                            const reader = new FileReader();
+                            // let imgStyle = 'position: absolute; width: 30%;';
+
+                            console.log(e.dataTransfer.files.length);
 
 
-                    // if (dropImage.flag == 0) {
-                    reader.onload = function (e) {
+                            reader.onload = function (e) {
 
-                        dropImage.id += 1;
-                        dropImage.flag = 0;
-                        // let assertImg = '<img id ="' + dropImage.id + '" style="' + imgStyle + '">';
-                        let assertImg = '<div class="img-style"><img id ="' + dropImage.id + '" style="width: 100%;"></div>';
-                        // $('#image').prepend(assertImg);
-                        $('#image').append(assertImg);
-                        const id = dropImage.id;
-                        // console.log(id);
-                        const img = document.getElementById(id);
-                        img.src = e.target.result;
-                        // console.log('done reader');
+                                dropImage.id += 1;
+                                dropImage.flag = 0;
+                                // let assertImg = '<img id ="' + dropImage.id + '" style="' + imgStyle + '">';
+                                let assertImg = '<div class="img-style in-active"><img id ="' + dropImage.id + '" style="width: 100%;"></div>';
+                                // $('#image').prepend(assertImg);
+                                $('#image').append(assertImg);
+                                const id = dropImage.id;
+                                // console.log(id);
+                                const img = document.getElementById(id);
+                                img.src = e.target.result;
+                                // console.log('done reader');
 
-                    }
-                    reader.readAsDataURL(file);
-                    // console.log('done');
-                    // }
+                            }
+                            reader.readAsDataURL(file);
+                            console.log('done');
 
 
-                    // Get mouse pos in real-time
-                    $(window).mousemove(function (e) {
-                        let mouseClientX = e.clientX;
-                        let mouseClientY = e.clientY;
-                        const imgId = '#' + dropImage.id;
-                        const $img = $(imgId).parent();
-                        const imgWidth = $img.width();
-                        const imgHeight = $img.height();
+                            // Get mouse pos in real-time
+                            $(window).mousemove(function (e) {
+                                let mouseClientX = e.clientX;
+                                let mouseClientY = e.clientY;
+                                const imgId = '#' + dropImage.id;
+                                const $img = $(imgId).parent();
+                                const imgWidth = $img.width();
+                                const imgHeight = $img.height();
 
 
-                        if (dropImage.flag == 0) {
-                            // console.log('done mousemove');
-                            $img.css({
-                                'top': mouseClientY - imgHeight / 2 + 'px',
-                                'left': mouseClientX - imgWidth / 2 + 'px'
+                                if (dropImage.flag == 0) {
+                                    console.log('done mousemove');
+                                    $img.css({
+                                        'top': mouseClientY - imgHeight / 2 + 'px',
+                                        'left': mouseClientX - imgWidth / 2 + 'px',
+                                    });
+                                    $('div').removeClass('in-active');
+                                    dropImage.flag = 1;
+                                }
                             });
-                            dropImage.flag = 1;
                         }
-                    });
+                    }
+
+
+                    if (files) {
+                        [].forEach.call(files, readAndPreview);
+                    }
 
 
                 }, false);
@@ -88,44 +96,45 @@
                 // console.log('move()');
 
                 var drag_flg = false;
-
                 var pos1;
-
                 var posX1;
                 var posY1;
-
                 var $imgId;
 
-                $(document).on('mousedown', '.img-style', function (evt1) {
+                $(document).on('mousedown', '.img-style', function (e) {
                     // console.log('move()');
+
+                    $('div').removeClass('selected');
+                    $(this).addClass('selected');
 
                     if (drag_flg == false) {
 
                         $imgId = $(this);
+                        $imgId.appendTo('#image');
 
                         pos1 = $imgId.position();
                         // console.log($imgId);
 
-                        posX1 = evt1.clientX - pos1.left;
-                        posY1 = evt1.clientY - pos1.top;
+                        posX1 = e.clientX - pos1.left;
+                        posY1 = e.clientY - pos1.top;
 
                         drag_flg = true;
                     }
                 });
 
-                $(document).on('mouseup', '.img-style', function (evt2) {
+                $(document).on('mouseup', '.img-style', function () {
                     if (drag_flg == true) {
                         drag_flg = false;
                     }
                 });
 
-                $(document).mousemove(function (evt3) {
-                    // Prevent the default drag event
-                    evt3.preventDefault();
+                $(document).mousemove(function (e) {
+                    // Prevent from the default drag event
+                    e.preventDefault();
 
                     if (drag_flg == true) {
-                        $imgId.css("left", (evt3.clientX - posX1));
-                        $imgId.css("top", (evt3.clientY - posY1));
+                        $imgId.css("left", (e.clientX - posX1));
+                        $imgId.css("top", (e.clientY - posY1));
                     }
                 });
             };
