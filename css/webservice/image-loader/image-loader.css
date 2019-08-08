@@ -1,26 +1,13 @@
 @charset "UTF-8";
 
-/* #test_box {
-    position: absolute;
-    width: 30%;
-}
-
-#test_box img {
-    width: 100%;
-} */
-
-#test_box2 {
-    position: absolute;
-    width: 30%;
-}
-
-#test_box2 img {
-    width: 100%;
-}
-
 .img-style {
     position: absolute;
-    width: 30%;
+    width: 600px;
+    border: solid 1px rgba(255, 0, 0, 0);
+}
+
+.resize-box-wrapper {
+    position: relative;
 }
 
 .in-active {
@@ -28,11 +15,56 @@
 }
 
 .selected {
-    border: solid 2px red;
+    border: solid 1px rgba(255, 0, 0, 1);
 }
 
 .resize {
     height: auto;
     overflow: auto;
     resize: horizontal;
+}
+
+.move-pointer {
+    cursor: move;
+}
+
+.left-top,
+.right-top,
+.right-bottom,
+.left-bottom {
+    position: absolute;
+    background-color: white;
+    border: solid 1px red;
+    width: 10px;
+    height: 10px;
+}
+
+.left-top,
+.right-bottom {
+    cursor: nwse-resize;
+}
+
+.right-top,
+.left-bottom {
+    cursor: nesw-resize;
+}
+
+.left-top {
+    top: -5px;
+    left: -5px;
+}
+
+.right-top {
+    top: -5px;
+    left: calc(100% - 5px);
+}
+
+.right-bottom {
+    top: calc(100% - 5px);
+    left: calc(100% - 5px);
+}
+
+.left-bottom {
+    top: calc(100% - 5px);
+    left: -5px;
 }
