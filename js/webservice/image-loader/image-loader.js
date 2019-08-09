@@ -34,18 +34,12 @@
                     function readAndPreview(file) {
                         if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
                             const reader = new FileReader();
-                            // let imgStyle = 'position: absolute; width: 30%;';
-
-                            console.log(e.dataTransfer.files.length);
-
 
                             reader.onload = function (e) {
 
                                 dropImage.id += 1;
                                 dropImage.flag = 0;
-                                // let assertImg = '<img id ="' + dropImage.id + '" style="' + imgStyle + '">';
-                                let assertImg = '<div class="grab-pointer img-style in-active"><div class="flip-wrapper"></div><img id ="' + dropImage.id + '" style="width: 100%;"></div>';
-                                // $('#image').prepend(assertImg);
+                                let assertImg = '<div class="grab-pointer img-style in-active"><div class="flip-wrapper"></div><div class="rotate-wrapper"></div><img id ="' + dropImage.id + '" style="width: 100%;"></div>';
                                 $('#image').append(assertImg);
                                 const id = dropImage.id;
                                 // console.log(id);
@@ -55,7 +49,6 @@
 
                             }
                             reader.readAsDataURL(file);
-                            console.log('done');
 
 
                             // Get mouse pos in real-time
@@ -96,6 +89,7 @@
                 // console.log('move()');
 
                 var drag_flg = false;
+                var rotate_flg = false;
 
                 var $imgStyle;
                 var imgStylePos;
@@ -103,38 +97,54 @@
                 var imgStylePosY;
 
                 const resizeBox =
-                    '<div class="left-top"></div>' +
-                    '<div class="right-top"></div>' +
-                    '<div class="right-bottom"></div>' +
-                    '<div class="left-bottom"></div>';
+                    '<div class="re-left-top"></div>' +
+                    '<div class="re-right-top"></div>' +
+                    '<div class="re-right-bottom"></div>' +
+                    '<div class="re-left-bottom"></div>';
+
+                const rotateBox =
+                    '<div class="ro-left-top"></div>' +
+                    '<div class="ro-right-top"></div>' +
+                    '<div class="ro-right-bottom"></div>' +
+                    '<div class="ro-left-bottom"></div>';
 
 
                 $(document).on('mousedown', '.img-style', function (e) {
 
                     $('div').removeClass('selected');
                     $('div').removeClass('flip-icon');
-                    $('div').remove('.left-top');
-                    $('div').remove('.right-top');
-                    $('div').remove('.right-bottom');
-                    $('div').remove('.left-bottom');
+                    $('div').removeClass('rotate-icon');
+
+                    $('div').remove('.re-left-top');
+                    $('div').remove('.re-right-top');
+                    $('div').remove('.re-right-bottom');
+                    $('div').remove('.re-left-bottom');
+
+                    $('div').remove('.ro-left-top');
+                    $('div').remove('.ro-right-top');
+                    $('div').remove('.ro-right-bottom');
+                    $('div').remove('.ro-left-bottom');
 
 
-                    // Added a selected symbol and resizing-boxes
-                    $(this).children('.flip-wrapper').addClass('flip-icon');
+                    // Added a selected symbol and other functions
                     $(this).addClass('selected');
                     $(this).prepend(resizeBox);
+                    if ($(this).children('.rotate-wrapper').hasClass('active')) $(this).prepend(rotateBox);
+
+                    $(this).children('.flip-wrapper').addClass('flip-icon');
+                    $(this).children('.rotate-wrapper').addClass('rotate-icon');
 
 
                     if (drag_flg == false) {
                         $imgStyle = $(this);
                         $imgStyle.appendTo('#image');
-                        imgStylePos = $imgStyle.position();
+                        imgStylePos = $imgStyle.offset();
                         // Fixing Pos to be matched to the relative pos of mouse coordinates
                         imgStylePosX = e.clientX - imgStylePos.left;
                         imgStylePosY = e.clientY - imgStylePos.top;
 
                         drag_flg = true;
-                        console.log('drag_flg true');
+                        console.log('drag_flg is true');
                     }
                 });
 
@@ -151,14 +161,40 @@
                 });
 
 
+                //Activate rotating
+                $(document).on('mousedown', '.rotate-wrapper', function (e) {
+                    e.stopPropagation();
+                    $(this).toggleClass('active');
+                    if ($(this).hasClass('active')) {
+                        if (!$(this).parent().hasClass('ro-left-top')) {
+                            $(this).parent().prepend(rotateBox);
+                        }
+
+                    } else {
+                        $('div').remove('.ro-left-top');
+                        $('div').remove('.ro-right-top');
+                        $('div').remove('.ro-right-bottom');
+                        $('div').remove('.ro-left-bottom');
+
+                    }
+                });
+
+
                 // Reset a selected area
                 $(document).on('mousedown', '#reset-res', function () {
                     $('div').removeClass('selected');
                     $('div').removeClass('flip-icon');
-                    $('div').remove('.left-top');
-                    $('div').remove('.right-top');
-                    $('div').remove('.right-bottom');
-                    $('div').remove('.left-bottom');
+                    $('div').removeClass('rotate-icon');
+
+                    $('div').remove('.re-left-top');
+                    $('div').remove('.re-right-top');
+                    $('div').remove('.re-right-bottom');
+                    $('div').remove('.re-left-bottom');
+
+                    $('div').remove('.ro-left-top');
+                    $('div').remove('.ro-right-top');
+                    $('div').remove('.ro-right-bottom');
+                    $('div').remove('.ro-left-bottom');
                 });
 
 
@@ -180,14 +216,14 @@
 
                     const whichResizeBox = function (b, n) {
                         $(document).on('mousedown', b, function (e) {
-                            console.log('right-bottom detected');
+                            console.log(b + ' is detected');
 
                             if (down_flg == false) {
                                 $target = $(this).parent();
                                 targetWidth = $target.outerWidth();
                                 targetHeight = $target.outerHeight();
                                 targetRatio = targetHeight / targetWidth;
-                                targetPos = $(this).parent().position();
+                                targetPos = $(this).parent().offset();
                                 targetPosX = targetPos.left;
                                 targetPosY = targetPos.top;
 
@@ -202,17 +238,55 @@
 
                                 console.log('down_flg true');
                                 console.log('resize_flg true');
+                                console.log('left_top_flg true');
+                                console.log('right_top_flg true');
+                                console.log('right_bottom_flg true');
+                                console.log('left_bottom_flg true');
                             }
                         });
                     };
 
 
-                    whichResizeBox('.left-top', 0);
-                    whichResizeBox('.right-top', 1);
-                    whichResizeBox('.right-bottom', 2);
-                    whichResizeBox('.left-bottom', 3);
+                    whichResizeBox('.re-left-top', 0);
+                    whichResizeBox('.re-right-top', 1);
+                    whichResizeBox('.re-right-bottom', 2);
+                    whichResizeBox('.re-left-bottom', 3);
                 }
                 resize();
+
+
+                const rotate = function () {
+                    const whichRotateBox = function (b) {
+                        $(document).on('mousedown', b, function (e) {
+                            e.stopPropagation();
+
+                            console.log(b + ' is detected');
+                            $target = $(this).parent();
+
+                            if (rotate_flg == false) {
+                                down_flg = true;
+                                drag_flg = false;
+                                rotate_flg = true;
+                                console.log('drag_flg is false');
+                                console.log('rotate_flg is true');
+                            }
+
+                            // targetWidth = $target.outerWidth();
+                            // targetHeight = $target.outerHeight();
+                            // targetRatio = targetHeight / targetWidth;
+                            // targetPos = $(this).parent().offset();
+                            // targetPosX = targetPos.left;
+                            // targetPosY = targetPos.top;
+                        });
+                    }
+
+
+                    whichRotateBox('.ro-left-top');
+                    whichRotateBox('.ro-right-top');
+                    whichRotateBox('.ro-right-bottom');
+                    whichRotateBox('.ro-left-bottom');
+                };
+                rotate();
 
 
                 // Reset flags
@@ -220,27 +294,33 @@
                     // When dragged
                     if (drag_flg == true) {
                         drag_flg = false;
-                        console.log('drag_flg false');
+                        console.log('drag_flg is false');
 
                     }
 
                     // When clicked
                     if (down_flg == true) {
                         down_flg = false;
-                        console.log('down_flg false');
+                        console.log('down_flg is false');
 
                     }
 
                     // Flags for resizing
                     if (resize_flg == true) {
                         resize_flg = false;
-                        console.log('resize_flg false');
+                        console.log('resize_flg is false');
 
                     }
                     if (left_top_flg == true) left_top_flg = false;
                     if (right_top_flg == true) right_top_flg = false;
                     if (right_bottom_flg == true) right_bottom_flg = false;
                     if (left_bottom_flg == true) left_bottom_flg = false;
+
+                    if (rotate_flg == true) {
+                        rotate_flg = false;
+                        console.log('rotate_flg is false');
+
+                    }
                 });
 
 
@@ -252,8 +332,27 @@
                     if (drag_flg == true && resize_flg == false) {
                         $imgStyle.css('left', (e.clientX - imgStylePosX));
                         $imgStyle.css('top', (e.clientY - imgStylePosY));
-                        console.log('drag one is called');
+                        console.log('drag function is called');
 
+                    }
+
+                    // When an image is rotated
+                    if (drag_flg == false && resize_flg == false && rotate_flg == true) {
+
+                        const calcAngleDegrees = function (x, y) {
+                            return Math.atan2(y, x);
+                        };
+
+                        let imgCenterPosX = $target.outerWidth() / 2 + $target.offset().left;
+                        let imgCenterPosY = $target.outerHeight() / 2 + $target.offset().top;
+
+                        let d = calcAngleDegrees(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
+
+                        console.log('d = ' + d);
+                        // console.log('d2 = ' + d2);
+
+                        $target.css('transform', 'rotate(' + d + 'rad)');
+                        console.log('rotate function is called');
                     }
 
                     // When resizing-boxes are clicked
@@ -263,7 +362,7 @@
                             'left': e.clientX + 'px',
                             'width': targetWidth - (e.clientX - targetPosX) + 'px',
                         });
-                        console.log('down one is called');
+                        console.log('mousedown is called');
 
                     }
 
@@ -273,7 +372,7 @@
                             'left': targetPosX + 'px',
                             'width': e.clientX - targetPosX + 'px',
                         });
-                        console.log('down one is called');
+                        // console.log('down one is called');
 
                     }
 
@@ -283,7 +382,7 @@
                             'left': targetPosX + 'px',
                             'width': e.clientX - targetPosX + 'px',
                         });
-                        console.log('down one is called');
+                        // console.log('down one is called');
 
                     }
 
@@ -293,7 +392,7 @@
                             'left': targetPosX + (e.clientX - targetPosX) + 'px',
                             'width': targetWidth - (e.clientX - targetPosX) + 'px',
                         });
-                        console.log('down one is called');
+                        // console.log('down one is called');
 
                     }
                 });
