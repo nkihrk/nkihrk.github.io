@@ -3,17 +3,16 @@
     $(function () {
 
         // Drag-and-Paste event
-        const imgLoader = function () {
+        const canvasEve = function () {
 
             const dragAndPaste = function () {
-                console.log('dragAndPaste()');
+
                 // Global scope
-                var dropImage = {
+                var newImg = {
                     'id': 0,
-                    // To identify being dropped or not
+                    // To identify whether being dropped or not
                     'flag': 0,
                 };
-
 
                 const handleDragEvent = function (e) {
                     e.preventDefault();
@@ -21,60 +20,56 @@
                     e.dataTransfer.dropEffect = 'copy';
                 };
 
-
                 // The target area to paste
                 const target = document.getElementById("target");
                 target.addEventListener("dragover", handleDragEvent, false);
                 target.addEventListener("drop", function (e) {
+
                     e.stopPropagation();
                     e.preventDefault();
 
-                    const files = e.dataTransfer.files;
+                    var clientX = e.clientX;
+                    var clientY = e.clientY;
 
-                    function readAndPreview(file) {
+                    const files = e.dataTransfer.files;
+                    const readAndPreview = function (file) {
                         if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
                             const reader = new FileReader();
-
                             reader.onload = function (e) {
-
-                                dropImage.id += 1;
-                                dropImage.flag = 0;
-                                let assertImg = '<div class="grab-pointer img-style in-active"><div class="flip-wrapper"></div><div class="rotate-wrapper"></div><img id ="' + dropImage.id + '" style="width: 100%;"></div>';
+                                newImg.id += 1;
+                                // console.log('newImg.id : ' + newImg.id + ', newImg.flag  : ' + newImg.flag);
+                                const assertImg = '<div class="grab-pointer img-style"><div class="flip-wrapper"></div><div class="rotate-wrapper"></div><img id ="' + newImg.id + '" src="' + e.target.result + '" style="width: 100%;"></div>';
                                 $('#image').append(assertImg);
-                                const id = dropImage.id;
-                                // console.log(id);
-                                const img = document.getElementById(id);
-                                img.src = e.target.result;
-                                // console.log('done reader');
+                                console.log('reader.onload is successfully executed');
 
-                            }
+                            };
+                            reader.onloadend = function (e) {
+                                if (e.target.readyState == FileReader.DONE) {
+                                    for (let i = 1; i < newImg.id + 1; i++) {
+                                        newImg.flag = 0;
+                                        var imgId = '#' + i;
+                                        var $img = $(imgId).parent();
+                                        var imgWidth = $img.width();
+                                        var imgHeight = $img.height();
+                                        // console.log('clientX : ' + clientX + ', clientY : ' + clientY + ', imgWidth : ' + imgWidth + ', imgHeight : ' + imgHeight);
+
+                                        if (newImg.flag == 0) {
+                                            $img.css({
+                                                'top': clientY - imgHeight / 2 + 'px',
+                                                'left': clientX - imgWidth / 2 + 'px',
+                                            });
+                                            newImg.flag = 1;
+                                            console.log('is active?');
+
+                                        }
+                                    }
+                                }
+                            };
                             reader.readAsDataURL(file);
 
 
-                            // Get mouse pos in real-time
-                            $(window).mousemove(function (e) {
-                                let mouseClientX = e.clientX;
-                                let mouseClientY = e.clientY;
-                                const imgId = '#' + dropImage.id;
-                                const $img = $(imgId).parent();
-                                const imgWidth = $img.width();
-                                const imgHeight = $img.height();
-
-
-                                if (dropImage.flag == 0) {
-                                    console.log('done mousemove');
-                                    $img.css({
-                                        'top': mouseClientY - imgHeight / 2 + 'px',
-                                        'left': mouseClientX - imgWidth / 2 + 'px',
-                                    });
-                                    $('div').removeClass('in-active');
-                                    dropImage.flag = 1;
-                                }
-                            });
                         }
-                    }
-
-
+                    };
                     if (files) {
                         [].forEach.call(files, readAndPreview);
                     }
@@ -85,16 +80,40 @@
             dragAndPaste();
 
 
-            const move = function () {
-                // console.log('move()');
+            const imgSet = function () {
 
-                var drag_flg = false;
-                var rotate_flg = false;
-
+                // Global scope
                 var $imgStyle;
                 var imgStylePos;
                 var imgStylePosX;
                 var imgStylePosY;
+
+                var $target;
+                var targetWidth;
+                var targetHeight;
+                var targetRatio;
+                var targetPosX;
+                var targetPosY;
+
+                // Flags
+                const flgs = {
+                    'drag_flg': false,
+                    'rotate_flg': false,
+                    'mousedown_flg': false,
+                    'resize_flg': false,
+                    're': {
+                        'left_top_flg': false,
+                        'right_top_flg': false,
+                        'right_bottom_flg': false,
+                        'left_bottom_flg': false
+                    },
+                    'ro': {
+                        'left_top_flg': false,
+                        'right_top_flg': false,
+                        'right_bottom_flg': false,
+                        'left_bottom_flg': false
+                    }
+                };
 
                 const resizeBox =
                     '<div class="re-left-top"></div>' +
@@ -126,7 +145,7 @@
                     $('div').remove('.ro-left-bottom');
 
 
-                    // Added a selected symbol and other functions
+                    // Added selected symbols and other functions
                     $(this).addClass('selected');
                     $(this).prepend(resizeBox);
                     if ($(this).children('.rotate-wrapper').hasClass('active')) $(this).prepend(rotateBox);
@@ -135,7 +154,7 @@
                     $(this).children('.rotate-wrapper').addClass('rotate-icon');
 
 
-                    if (drag_flg == false) {
+                    if (flgs.drag_flg == false) {
                         $imgStyle = $(this);
                         $imgStyle.appendTo('#image');
                         imgStylePos = $imgStyle.offset();
@@ -143,8 +162,8 @@
                         imgStylePosX = e.clientX - imgStylePos.left;
                         imgStylePosY = e.clientY - imgStylePos.top;
 
-                        drag_flg = true;
-                        console.log('drag_flg is true');
+                        flgs.drag_flg = true;
+                        console.log('flgs.drag_flg is true');
                     }
                 });
 
@@ -165,6 +184,7 @@
                 $(document).on('mousedown', '.rotate-wrapper', function (e) {
                     e.stopPropagation();
                     $(this).toggleClass('active');
+
                     if ($(this).hasClass('active')) {
                         if (!$(this).parent().hasClass('ro-left-top')) {
                             $(this).parent().prepend(rotateBox);
@@ -198,27 +218,13 @@
                 });
 
 
-                var down_flg = false;
-                var resize_flg = false;
-                var left_top_flg = false;
-                var right_top_flg = false;
-                var right_bottom_flg = false;
-                var left_bottom_flg = false;
-
-                var $target;
-                var targetWidth;
-                var targetHeight;
-                var targetRatio;
-                var targetPosX;
-                var targetPosY;
-
                 const resize = function () {
 
                     const whichResizeBox = function (b, n) {
                         $(document).on('mousedown', b, function (e) {
                             console.log(b + ' is detected');
 
-                            if (down_flg == false) {
+                            if (flgs.mousedown_flg == false) {
                                 $target = $(this).parent();
                                 targetWidth = $target.outerWidth();
                                 targetHeight = $target.outerHeight();
@@ -228,20 +234,20 @@
                                 targetPosY = targetPos.top;
 
 
-                                down_flg = true;
-                                resize_flg = true;
+                                flgs.mousedown_flg = true;
+                                flgs.resize_flg = true;
 
-                                if (n == 0) left_top_flg = true;
-                                if (n == 1) right_top_flg = true;
-                                if (n == 2) right_bottom_flg = true;
-                                if (n == 3) left_bottom_flg = true;
+                                if (n == 0) flgs.re.left_top_flg = true;
+                                if (n == 1) flgs.re.right_top_flg = true;
+                                if (n == 2) flgs.re.right_bottom_flg = true;
+                                if (n == 3) flgs.re.left_bottom_flg = true;
 
-                                console.log('down_flg true');
-                                console.log('resize_flg true');
-                                console.log('left_top_flg true');
-                                console.log('right_top_flg true');
-                                console.log('right_bottom_flg true');
-                                console.log('left_bottom_flg true');
+                                // console.log('flgs.mousedown_flg true');
+                                // console.log('flgs.resize_flg true');
+                                // console.log('flgs.re.left_top_flg true');
+                                // console.log('flgs.re.right_top_flg true');
+                                // console.log('flgs.re.right_bottom_flg true');
+                                // console.log('flgs.re.left_bottom_flg true');
                             }
                         });
                     };
@@ -263,20 +269,15 @@
                             console.log(b + ' is detected');
                             $target = $(this).parent();
 
-                            if (rotate_flg == false) {
-                                down_flg = true;
-                                drag_flg = false;
-                                rotate_flg = true;
-                                console.log('drag_flg is false');
-                                console.log('rotate_flg is true');
+                            if (flgs.rotate_flg == false) {
+                                flgs.mousedown_flg = true;
+                                flgs.drag_flg = false;
+                                flgs.rotate_flg = true;
+                                // console.log('flgs.drag_flg is false');
+                                console.log('flgs.rotate_flg is true');
                             }
 
-                            // targetWidth = $target.outerWidth();
-                            // targetHeight = $target.outerHeight();
-                            // targetRatio = targetHeight / targetWidth;
-                            // targetPos = $(this).parent().offset();
-                            // targetPosX = targetPos.left;
-                            // targetPosY = targetPos.top;
+
                         });
                     }
 
@@ -291,34 +292,35 @@
 
                 // Reset flags
                 $(document).mouseup(function () {
-                    // When dragged
-                    if (drag_flg == true) {
-                        drag_flg = false;
-                        console.log('drag_flg is false');
+                    // A flag for drag event
+                    if (flgs.drag_flg == true) {
+                        flgs.drag_flg = false;
+                        console.log('flgs.drag_flg is false');
 
                     }
 
-                    // When clicked
-                    if (down_flg == true) {
-                        down_flg = false;
-                        console.log('down_flg is false');
+                    // A flag for mousedown event
+                    if (flgs.mousedown_flg == true) {
+                        flgs.mousedown_flg = false;
+                        console.log('flgs.mousedown_flg is false');
 
                     }
 
                     // Flags for resizing
-                    if (resize_flg == true) {
-                        resize_flg = false;
-                        console.log('resize_flg is false');
+                    if (flgs.resize_flg == true) {
+                        flgs.resize_flg = false;
+                        console.log('flgs.resize_flg is false');
 
                     }
-                    if (left_top_flg == true) left_top_flg = false;
-                    if (right_top_flg == true) right_top_flg = false;
-                    if (right_bottom_flg == true) right_bottom_flg = false;
-                    if (left_bottom_flg == true) left_bottom_flg = false;
+                    if (flgs.re.left_top_flg == true) flgs.re.left_top_flg = false;
+                    if (flgs.re.right_top_flg == true) flgs.re.right_top_flg = false;
+                    if (flgs.re.right_bottom_flg == true) flgs.re.right_bottom_flg = false;
+                    if (flgs.re.left_bottom_flg == true) flgs.re.left_bottom_flg = false;
 
-                    if (rotate_flg == true) {
-                        rotate_flg = false;
-                        console.log('rotate_flg is false');
+                    // A flag for rotating
+                    if (flgs.rotate_flg == true) {
+                        flgs.rotate_flg = false;
+                        console.log('flgs.rotate_flg is false');
 
                     }
                 });
@@ -328,16 +330,22 @@
                     // Prevent from the default drag events
                     e.preventDefault();
 
+
                     // When an image is dragged
-                    if (drag_flg == true && resize_flg == false) {
+                    if (flgs.drag_flg == true && flgs.resize_flg == false) {
                         $imgStyle.css('left', (e.clientX - imgStylePosX));
                         $imgStyle.css('top', (e.clientY - imgStylePosY));
                         console.log('drag function is called');
 
+
+                        // console.log("imgStylePos.top: " + imgStylePos.top);
+                        // console.log("imgStylePos.left: " + imgStylePos.left);
+                        // console.log("imgStylePos.width: " + $imgStyle.outerWidth());
+                        // console.log("imgStylePos.height: " + $imgStyle.outerHeight());
                     }
 
                     // When an image is rotated
-                    if (drag_flg == false && resize_flg == false && rotate_flg == true) {
+                    if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true) {
 
                         const calcAngleDegrees = function (x, y) {
                             return Math.atan2(y, x);
@@ -356,7 +364,7 @@
                     }
 
                     // When resizing-boxes are clicked
-                    if (down_flg == true && resize_flg == true && left_top_flg == true) {
+                    if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_top_flg == true) {
                         $target.css({
                             'top': targetPosY + (targetHeight - (targetWidth - (e.clientX - targetPosX)) * targetRatio) + 'px',
                             'left': e.clientX + 'px',
@@ -366,7 +374,7 @@
 
                     }
 
-                    if (down_flg == true && resize_flg == true && right_top_flg == true) {
+                    if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_top_flg == true) {
                         $target.css({
                             'top': targetPosY + (targetHeight - (e.clientX - targetPosX) * targetRatio) + 'px',
                             'left': targetPosX + 'px',
@@ -376,7 +384,7 @@
 
                     }
 
-                    if (down_flg == true && resize_flg == true && right_bottom_flg == true) {
+                    if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_bottom_flg == true) {
                         $target.css({
                             'top': targetPosY + 'px',
                             'left': targetPosX + 'px',
@@ -386,7 +394,7 @@
 
                     }
 
-                    if (down_flg == true && resize_flg == true && left_bottom_flg == true) {
+                    if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_bottom_flg == true) {
                         $target.css({
                             'top': targetPosY + 'px',
                             'left': targetPosX + (e.clientX - targetPosX) + 'px',
@@ -397,11 +405,11 @@
                     }
                 });
             };
-            move();
+            imgSet();
 
 
         };
-        imgLoader();
+        canvasEve();
 
 
     });
