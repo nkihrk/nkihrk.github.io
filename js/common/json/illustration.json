@@ -69,7 +69,8 @@
         "url": {
             "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73707155",
             "image": [
-                "../img/illustration/ネロ_16-9.png"
+                "../img/illustration/ネロ_16-9.png",
+                "../img/illustration/ネロ_背景なしVer.png"
             ]
         },
         "content": {
@@ -77,9 +78,14 @@
             "date": "March 16, 2019",
             "text": "Nero-chama! I really love to draw her ( ˘ω˘) I need more ",
             "size": [{
-                "width": 1699,
-                "height": 955
-            }]
+                    "width": 1699,
+                    "height": 955
+                },
+                {
+                    "width": 1700,
+                    "height": 1300
+                }
+            ]
         },
         "tag": [
             "#Nero Claudius",
