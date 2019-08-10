@@ -13,7 +13,7 @@
 }
 
 
-/* To load images properly. */
+/* To load images properly. Currently not used */
 .in-active {
     display: none;
 }
@@ -88,16 +88,22 @@
 }
 
 
+.function-wrapper {
+    position: absolute;
+    vertical-align: middle;
+    /* z-index: 1; */
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
 /* Flipped an image */
 .flip-icon {
+    position: relative;
     width: 30px;
     height: 30px;
-    vertical-align: middle;
-    position: absolute;
-    z-index: 1;
-    right: -50px;
-    top: 45%;
-    transform: translateY(-50%);
+    margin-bottom: 10px;
 }
 
 .flip-icon::after {
@@ -138,14 +144,9 @@
 
 /* Rotate an image */
 .rotate-icon {
+    position: relative;
     width: 30px;
     height: 30px;
-    vertical-align: middle;
-    position: absolute;
-    z-index: 1;
-    right: -50px;
-    top: 55%;
-    transform: translateY(-50%);
 }
 
 .rotate-icon::after {
