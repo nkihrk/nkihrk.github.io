@@ -1,21 +1,26 @@
 @charset "UTF-8";
 
 /* A wrapper for a pasted image */
-.img-style {
+.img-wrap {
     position: absolute;
     width: 600px;
     border: solid 1px rgba(255, 0, 0, 0);
     transform-origin: center;
-    /* transform: rotate(90deg); */
+    /* transform: rotate(60deg); */
 
-    /* transition: width .1s, height .1s; */
-    transition: width .1s, height .1s, top .1s, left .1s;
+    transition: all .1s;
+    /* transition: width .1s, height .1s, top .1s, left .1s; */
 }
 
 
 /* To load images properly. Currently not used */
 .in-active {
-    display: none;
+    display: none !important;
+}
+
+/* Reset rotating */
+.not-rotated {
+    transform: rotate(0rad) !important;
 }
 
 

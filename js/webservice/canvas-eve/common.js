@@ -5,7 +5,6 @@
         const w = $(window).width();
         const h = $(window).height();
 
-
         // Loading animation
         const loadingFirst = function () {
             $('#container').css('display', 'none');

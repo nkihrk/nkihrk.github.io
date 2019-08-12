@@ -6,7 +6,6 @@
         const canvasEve = function () {
 
             const dragAndPaste = function () {
-
                 // Global scope
                 var newImg = {
                     'id': 0,
@@ -36,12 +35,11 @@
                     const readAndPreview = function (file) {
                         if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
                             const reader = new FileReader();
-
                             reader.onload = function (e) {
                                 newImg.prevId = newImg.id;
                                 newImg.id += 1;
                                 // console.log('newImg.id : ' + newImg.id + ', newImg.flg  : ' + newImg.flg);
-                                const assertImg = '<div class="grab-pointer img-style"><div class="function-wrapper"><div class="flip-wrapper"></div><div class="rotate-wrapper"></div></div><img id ="' + newImg.id + '" src="' + e.target.result + '" style="width: 100%;"></div>';
+                                const assertImg = '<div id ="' + newImg.id + '" class="grab-pointer img-wrap"><div class="function-wrapper"><div class="flip-wrapper"></div><div class="rotate-wrapper"></div></div><img src="' + e.target.result + '" style="width: 100%;"></div>';
                                 $('#image').append(assertImg);
                                 // console.log('reader.onload is successfully executed');
                             };
@@ -50,24 +48,25 @@
                                     for (let i = newImg.prevId + 1; i < newImg.id + 1; i++) {
                                         newImg.flg = 0;
                                         var imgId = '#' + i;
-                                        var $img = $(imgId).parent();
-                                        var imgWidth = $img.width();
-                                        var imgHeight = $img.height();
+                                        var $imgId = $(imgId);
+                                        var imgIdWidth = $imgId.outerWidth();
+                                        var imgIdHeight = $imgId.outerHeight();
                                         // console.log('clientX : ' + clientX + ', clientY : ' + clientY + ', imgWidth : ' + imgWidth + ', imgHeight : ' + imgHeight);
 
                                         if (newImg.flg == 0) {
-                                            $img.css({
-                                                'top': clientY - imgHeight / 2 + 'px',
-                                                'left': clientX - imgWidth / 2 + 'px',
+                                            $imgId.css({
+                                                'top': clientY - imgIdHeight / 2 + 'px',
+                                                'left': clientX - imgIdWidth / 2 + 'px',
                                             });
                                             newImg.flg = 1;
                                         }
                                     }
                                 }
-
-
                             };
                             reader.readAsDataURL(file);
+                        } else {
+                            console.log('The invalid input type is detected.');
+                            return;
                         }
                     };
                     if (files) {
@@ -82,18 +81,20 @@
 
             const imgSet = function () {
                 // Global scope
-                var $imgStyle;
-                var imgStylePos;
-                var imgStylePosX;
-                var imgStylePosY;
-
-                // For the specific variables. using it to iterate the function
-                var $target;
-                var targetWidth;
-                var targetHeight;
-                var targetRatio;
-                var targetPosX;
-                var targetPosY;
+                const img = {
+                    '$imgId': null,
+                    'imgId': 0,
+                    //
+                    'imgIdPos': 0,
+                    //
+                    'imgIdRelPosX': 0,
+                    'imgIdRelPosY': 0,
+                    //
+                    'imgIdWidth': 0,
+                    'imgIdHeight': 0,
+                    //
+                    'imgIdRatio': 0,
+                }
 
                 // Flags
                 const flgs = {
@@ -115,6 +116,26 @@
                     }
                 };
 
+                // Stored datas temporarily
+                const tmp = {
+                    'ro': {
+                        'prevRad': {
+                            'top': 0,
+                            'left': 0
+                        },
+                        //
+                        'left_top_initRad': null,
+                        'right_top_initRad': null,
+                        'right_bottom_initRad': null,
+                        'left_bottom_initRad': null,
+                        //
+                        'left_top_pos': null,
+                        'right_top_pos': null,
+                        'right_bottom_pos': null,
+                        'left_bottom_pos': null,
+                    }
+                };
+
                 const resizeBox =
                     '<div class="re-left-top"></div>' +
                     '<div class="re-right-top"></div>' +
@@ -128,8 +149,52 @@
                     '<div class="ro-left-bottom"></div>';
 
 
+                // Get transform values of a specific selector
+                const transformValue = function (e) {
+                    let values = e.split('(')[1];
+                    values = values.split(')')[0];
+                    values = values.split(', ');
+                    const matrix = {
+                        'scaleX': values[0],
+                        'rotateP': values[1],
+                        'rotateM': values[2],
+                        'scaleY': values[3],
+                        'transformX': values[4],
+                        'transformY': values[5]
+                    };
+                    return matrix;
+                };
+
+                // Calcurate radians
+                const calcRadians = function (x, y) {
+                    var tmpRad = Math.atan2(y, x) / Math.PI * 180 + (Math.atan2(y, x) > 0 ? 0 : 360);
+                    tmpRad = Math.floor(tmp / 360) * 360 + tmpRad;
+                    console.log(tmpRad);
+
+
+                    return ((Math.atan2(y, x) / Math.PI * 180) + (Math.atan2(y, x) > 0 ? 0 : 360)) / 180 * Math.PI;
+                };
+
+                const debugCircle = function (name, col, posX, posY) {
+                    $('#target').append('<div id="' + name + '"></div>')
+                    $('#' + name).css({
+                        'top': posY + 'px',
+                        'left': posX + 'px',
+                        'width': 15 + 'px',
+                        'height': 15 + 'px',
+                        'background': col,
+                        'border-radius': 50 + '%',
+                        'position': 'absolute',
+                        'z-index': 999,
+                    });
+                };
+
+                //////
+
+
                 // Prefix for pasted-images
-                $(document).on('mousedown', '.img-style', function (e) {
+                $(document).on('mousedown', '.img-wrap', function (e) {
+                    console.log('mousedown .img-wrap is detected.');
 
                     $('div').removeClass('selected');
                     $('div').removeClass('flip-icon');
@@ -151,20 +216,37 @@
                     $(this).prepend(resizeBox); // Resizing boxes
                     if ($(this).find('.rotate-wrapper').hasClass('active')) $(this).prepend(rotateBox); // Rotating circles
 
-                    $(this).find('.flip-wrapper').addClass('flip-icon'); // Add flipping icon
-                    $(this).find('.rotate-wrapper').addClass('rotate-icon'); // Add rotating icon
+                    $(this).find('.flip-wrapper').addClass('flip-icon'); // Add a flipping icon
+                    $(this).find('.rotate-wrapper').addClass('rotate-icon'); // Add a rotating icon
 
 
-                    // Add .imgStyle to #image, and set a flag to allow free-dragging
+                    // Add #id to #image, and init its values
                     if (flgs.drag_flg == false) {
-                        $imgStyle = $(this);
-                        $imgStyle.appendTo('#image');
-                        imgStylePos = $imgStyle.offset();
-                        // Fixing Pos to be matched to the relative pos of mouse coordinates
-                        imgStylePosX = e.clientX - imgStylePos.left;
-                        imgStylePosY = e.clientY - imgStylePos.top;
+                        img.imgId = '#' + $(this).attr('id');
+                        img.$imgId = $(img.imgId);
+                        console.log('id : ' + $(this).attr('id'));
 
+                        img.imgIdWidth = img.$imgId.outerWidth();
+                        img.imgIdHeight = img.$imgId.outerHeight();
+                        img.imgIdRatio = img.imgIdHeight / img.imgIdWidth;
+
+
+                        img.imgIdPos = img.$imgId.offset();
+
+
+                        // debugCircle('test-pos_1', 'blue', img.imgIdPos.left, img.imgIdPos.top);
+                        // debugCircle('test-pos_2', 'yellow', img.imgIdWidth / 2 + img.imgIdPos.left, img.imgIdHeight / 2 + img.imgIdPos.top);
+
+
+                        // Image-space mouse coordinates
+                        img.imgIdRelPosX = e.clientX - img.imgIdPos.left;
+                        img.imgIdRelPosY = e.clientY - img.imgIdPos.top;
+                        // debugCircle('test-pos_4', 'white', img.imgIdRelPosX, img.imgIdRelPosY);
+
+                        // Set the $imgId to be top of all the other unselected elements
+                        img.$imgId.appendTo('#image');
                         flgs.drag_flg = true;
+                        console.log('mousedown-left : ' + img.imgIdPos.left + ', mousedown-top : ' + img.imgIdPos.top + ', e.clientX : ' + e.clientX + ', e.clientY : ' + e.clientY + ', img.imgIdRelPosX : ' + img.imgIdRelPosX + ', img.imgIdRelPosY : ' + img.imgIdRelPosY);
                         console.log('flgs.drag_flg is true');
                     }
                 });
@@ -172,6 +254,7 @@
 
                 // Reset a selected area
                 $(document).on('mousedown', '#reset-res', function () {
+                    console.log('mousedown #reset-res is detected.');
                     $('div').removeClass('selected');
                     $('div').removeClass('flip-icon');
                     $('div').removeClass('rotate-icon');
@@ -192,30 +275,35 @@
                 const activate = function () {
                     // Activate flipping
                     $(document).on('mousedown', '.flip-wrapper', function (e) {
+                        console.log('mousedown .flip-wrapper is detected.');
+
                         e.stopPropagation();
                         $(this).toggleClass('active');
                         if ($(this).hasClass('active')) {
-                            $(this).parents('.img-style').children('img').addClass('flipped');
+                            $(img.imgId + ' img').addClass('flipped');
                         } else {
-                            $(this).parents('.img-style').children('img').removeClass('flipped');
+                            $(img.imgId + ' img').removeClass('flipped');
                         }
                     });
 
 
                     //Activate rotating
                     $(document).on('mousedown', '.rotate-wrapper', function (e) {
+                        console.log('mousedown .rotate-wrapper is detected.');
                         e.stopPropagation();
                         $(this).toggleClass('active');
 
                         if ($(this).hasClass('active')) {
-                            if (!$(this).parents('.img-style').hasClass('ro-left-top')) {
-                                $(this).parents('.img-style').prepend(rotateBox);
+                            if (!img.$imgId.hasClass('ro-left-top')) {
+                                img.$imgId.removeClass('not-rotated');
+                                img.$imgId.prepend(rotateBox);
                             }
                         } else {
-                            $('div').remove('.ro-left-top');
-                            $('div').remove('.ro-right-top');
-                            $('div').remove('.ro-right-bottom');
-                            $('div').remove('.ro-left-bottom');
+                            img.$imgId.addClass('not-rotated');
+                            img.$imgId.children('.ro-left-top').remove();
+                            img.$imgId.children('.ro-right-top').remove();
+                            img.$imgId.children('.ro-right-bottom').remove();
+                            img.$imgId.children('.ro-left-bottom').remove();
                         }
                     });
 
@@ -224,36 +312,39 @@
                 activate();
 
 
-                // Set of functions for image
+                // A set of functions for image configuring
                 const functions = function () {
                     // Configuring flags for resizing function
                     const resize = function () {
                         const whichResizeBox = function (b, n) {
                             $(document).on('mousedown', b, function (e) {
-                                console.log(b + ' is detected');
+                                console.log('mousedown ' + b + ' is detected');
 
                                 if (flgs.mousedown_flg == false) {
-                                    $target = $(this).parent();
-                                    targetWidth = $target.outerWidth();
-                                    targetHeight = $target.outerHeight();
-                                    targetRatio = targetHeight / targetWidth;
-                                    targetPos = $(this).parent().offset();
-                                    targetPosX = targetPos.left;
-                                    targetPosY = targetPos.top;
-
-
                                     flgs.mousedown_flg = true;
                                     flgs.resize_flg = true;
+                                    console.log('flgs.mousedown_flg is ' + flgs.mousedown_flg);
+                                    console.log('flgs.resize_flg is ' + flgs.resize_flg);
 
-                                    if (n == 0) flgs.re.left_top_flg = true;
-                                    if (n == 1) flgs.re.right_top_flg = true;
-                                    if (n == 2) flgs.re.right_bottom_flg = true;
-                                    if (n == 3) flgs.re.left_bottom_flg = true;
+                                    if (n == 0) {
+                                        flgs.re.left_top_flg = true;
+                                        console.log('flgs.re.left_top_flg is ' + flgs.re.left_top_flg);
+                                    }
+                                    if (n == 1) {
+                                        flgs.re.right_top_flg = true;
+                                        console.log('flgs.re.right_top_flg is ' + flgs.re.right_top_flg);
+                                    }
+                                    if (n == 2) {
+                                        flgs.re.right_bottom_flg = true;
+                                        console.log('flgs.re.right_bottom_flg is ' + flgs.re.right_bottom_flg);
+                                    }
+                                    if (n == 3) {
+                                        flgs.re.left_bottom_flg = true;
+                                        console.log('flgs.re.left_bottom_flg is ' + flgs.re.left_bottom_flg);
+                                    }
                                 }
                             });
                         };
-
-
                         whichResizeBox('.re-left-top', 0);
                         whichResizeBox('.re-right-top', 1);
                         whichResizeBox('.re-right-bottom', 2);
@@ -262,31 +353,41 @@
                     resize();
 
 
-                    // Configuring flags for rotating function
+                    // Configuring flags for a rotating function, configuring a reset function
                     const rotate = function () {
                         const whichRotateBox = function (b, n) {
                             $(document).on('mousedown', b, function (e) {
+                                console.log('mousedown ' + b + ' is detected');
                                 e.stopPropagation();
 
-                                console.log(b + ' is detected');
-                                $target = $(this).parent();
 
                                 if (flgs.rotate_flg == false) {
                                     flgs.mousedown_flg = true;
                                     flgs.drag_flg = false;
-                                    flgs.rotate_flg = true;
-                                    // console.log('flgs.drag_flg is false');
-                                    console.log('flgs.rotate_flg is true');
+                                    // flgs.rotate_flg = true; Make sure to uncomment this line !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                    console.log('flgs.mousedown_flg is ' + flgs.mousedown_flg);
+                                    console.log('flgs.drag_flg is ' + flgs.drag_flg);
+                                    console.log('flgs.rotate_flg is ' + flgs.rotate_flg);
 
-                                    if (n == 0) flgs.ro.left_top_flg = true;
-                                    if (n == 1) flgs.ro.right_top_flg = true;
-                                    if (n == 2) flgs.ro.right_bottom_flg = true;
-                                    if (n == 3) flgs.ro.left_bottom_flg = true;
+                                    if (n == 0) {
+                                        flgs.ro.left_top_flg = true;
+                                        console.log('flgs.ro.left_top_flg is ' + flgs.ro.left_top_flg);
+                                    }
+                                    if (n == 1) {
+                                        flgs.ro.right_top_flg = true;
+                                        console.log('flgs.ro.right_top_flg is ' + flgs.ro.right_top_flg);
+                                    }
+                                    if (n == 2) {
+                                        flgs.ro.right_bottom_flg = true;
+                                        console.log('flgs.ro.right_bottom_flg is ' + flgs.ro.right_bottom_flg);
+                                    }
+                                    if (n == 3) {
+                                        flgs.ro.left_bottom_flg = true;
+                                        console.log('flgs.ro.left_bottom_flg is ' + flgs.ro.left_bottom_flg);
+                                    }
                                 }
                             });
                         };
-
-
                         whichRotateBox('.ro-left-top', 0);
                         whichRotateBox('.ro-right-top', 1);
                         whichRotateBox('.ro-right-bottom', 2);
@@ -331,7 +432,7 @@
                         console.log('flgs.rotate_flg is false');
                     }
                 });
-
+                var test_flg = false;
 
                 // Allow events when flags are in specific values
                 $(document).mousemove(function (e) {
@@ -339,70 +440,103 @@
                     e.preventDefault();
 
 
+
                     // When an image is dragged
-                    if (flgs.drag_flg == true && flgs.resize_flg == false) {
-                        $imgStyle.css('left', (e.clientX - imgStylePosX));
-                        $imgStyle.css('top', (e.clientY - imgStylePosY));
+                    if (flgs.drag_flg == true && flgs.resize_flg == false && flgs.rotate_flg == false) {
+                        img.$imgId.css('left', (e.clientX - img.imgIdRelPosX));
+                        img.$imgId.css('top', (e.clientY - img.imgIdRelPosY));
+                        // debugCircle('test-pos_3', 'orange', e.clientX - img.imgIdRelPosX, e.clientY - img.imgIdRelPosY);
+                        if (test_flg == false) {
+                            console.log('img.$imgId.css("left") : ' + img.$imgId.css('left') + ', img.$imgId.css("top") : ' + img.$imgId.css('top') + ', e.clientX : ' + e.clientX + ', e.clientY : ' + e.clientY + ', img.imgIdRelPosX : ' + img.imgIdRelPosX + ', img.imgIdRelPosY : ' + img.imgIdRelPosY);
+                            test_flg = true;
+                        }
+
+
                         console.log('drag function is called');
                     }
 
 
                     // When an image is rotated
-                    if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true) {
+                    if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.left_top_flg == true) {
+                        let imgCenterPosX = img.imgIdWidth / 2 + img.imgIdPos.left;
+                        let imgCenterPosY = img.imgIdHeight / 2 + img.imgIdPos.top;
+                        let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
+                        let resRad = rad;
 
-                        const calcAngleDegrees = function (x, y) {
-                            return Math.atan2(y, x);
-                        };
+                        img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
+                        console.log('rotate function is called');
+                    }
 
-                        let imgCenterPosX = $target.outerWidth() / 2 + $target.offset().left;
-                        let imgCenterPosY = $target.outerHeight() / 2 + $target.offset().top;
 
-                        let d = calcAngleDegrees(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
+                    if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.right_top_flg == true) {
+                        let imgCenterPosX = img.imgIdWidth / 2 + img.imgIdPos.left;
+                        let imgCenterPosY = img.imgIdHeight / 2 + img.imgIdPos.top;
+                        let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
+                        let resRad = rad;
 
-                        console.log('d = ' + d);
-                        // console.log('d2 = ' + d2);
+                        img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
+                        console.log('rotate function is called');
+                    }
 
-                        $target.css('transform', 'rotate(' + d + 'rad)');
+
+                    if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.right_bottom_flg == true) {
+                        let imgCenterPosX = img.imgIdWidth / 2 + img.imgIdPos.left;
+                        let imgCenterPosY = img.imgIdHeight / 2 + img.imgIdPos.top;
+                        let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
+                        let resRad = rad;
+
+                        img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
+                        console.log('rotate function is called');
+                    }
+
+
+                    if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.left_bottom_flg == true) {
+                        let imgCenterPosX = img.imgIdWidth / 2 + img.imgIdPos.left;
+                        let imgCenterPosY = img.imgIdHeight / 2 + img.imgIdPos.top;
+                        let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
+                        let resRad = rad;
+
+                        img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
                         console.log('rotate function is called');
                     }
 
 
                     // When resizing-boxes are clicked
                     if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_top_flg == true) {
-                        $target.css({
-                            'top': targetPosY + (targetHeight - (targetWidth - (e.clientX - targetPosX)) * targetRatio) + 'px',
+                        img.$imgId.css({
+                            'top': img.imgIdPos.top + (img.imgIdHeight - (img.imgIdWidth - (e.clientX - img.imgIdPos.left)) * img.imgIdRatio) + 'px',
                             'left': e.clientX + 'px',
-                            'width': targetWidth - (e.clientX - targetPosX) + 'px',
+                            'width': img.imgIdWidth - (e.clientX - img.imgIdPos.left) + 'px',
                         });
                         console.log('mousedown is called');
                     }
 
 
                     if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_top_flg == true) {
-                        $target.css({
-                            'top': targetPosY + (targetHeight - (e.clientX - targetPosX) * targetRatio) + 'px',
-                            'left': targetPosX + 'px',
-                            'width': e.clientX - targetPosX + 'px',
+                        img.$imgId.css({
+                            'top': img.imgIdPos.top + (img.imgIdHeight - (e.clientX - img.imgIdPos.left) * img.imgIdRatio) + 'px',
+                            'left': img.imgIdPos.left + 'px',
+                            'width': e.clientX - img.imgIdPos.left + 'px',
                         });
                         // console.log('down one is called');
                     }
 
 
                     if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_bottom_flg == true) {
-                        $target.css({
-                            'top': targetPosY + 'px',
-                            'left': targetPosX + 'px',
-                            'width': e.clientX - targetPosX + 'px',
+                        img.$imgId.css({
+                            'top': img.imgIdPos.top + 'px',
+                            'left': img.imgIdPos.left + 'px',
+                            'width': e.clientX - img.imgIdPos.left + 'px',
                         });
                         // console.log('down one is called');
                     }
 
 
                     if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_bottom_flg == true) {
-                        $target.css({
-                            'top': targetPosY + 'px',
-                            'left': targetPosX + (e.clientX - targetPosX) + 'px',
-                            'width': targetWidth - (e.clientX - targetPosX) + 'px',
+                        img.$imgId.css({
+                            'top': img.imgIdPos.top + 'px',
+                            'left': img.imgIdPos.left + (e.clientX - img.imgIdPos.left) + 'px',
+                            'width': img.imgIdWidth - (e.clientX - img.imgIdPos.left) + 'px',
                         });
                         // console.log('down one is called');
                     }
