@@ -94,6 +94,12 @@
                     'imgIdHeight': 0,
                     //
                     'imgIdRatio': 0,
+                    'imgIdTheta': 0,
+                    //
+                    'rotatedSize': {
+                        'width': 0,
+                        'height': 0
+                    },
                 }
 
                 // Flags
@@ -165,27 +171,46 @@
                     return matrix;
                 };
 
+                // Get a specific transform-rotate value, and return the value as radian
+                const getRotationRad = function (obj) {
+                    var matrix = obj.css("-webkit-transform") ||
+                        obj.css("-moz-transform") ||
+                        obj.css("-ms-transform") ||
+                        obj.css("-o-transform") ||
+                        obj.css("transform");
+                    if (matrix !== 'none') {
+                        var values = matrix.split('(')[1].split(')')[0].split(',');
+                        var a = values[0];
+                        var b = values[1];
+                        var angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+                    } else {
+                        var angle = 0;
+                    }
+                    return (angle < 0) ? (angle + 360) / 180 * Math.PI : angle / 180 * Math.PI;
+                }
+
                 // Calcurate radians
                 const calcRadians = function (x, y) {
-                    var tmpRad = Math.atan2(y, x) / Math.PI * 180 + (Math.atan2(y, x) > 0 ? 0 : 360);
-                    tmpRad = Math.floor(tmp / 360) * 360 + tmpRad;
-                    console.log(tmpRad);
+                    var rad = Math.atan2(y, x) / Math.PI * 180 + (Math.atan2(y, x) > 0 ? 0 : 360);
+                    console.log('The radian value : ' + rad);
 
-
-                    return ((Math.atan2(y, x) / Math.PI * 180) + (Math.atan2(y, x) > 0 ? 0 : 360)) / 180 * Math.PI;
+                    return rad / 180 * Math.PI;
                 };
 
                 const debugCircle = function (name, col, posX, posY) {
                     $('#target').append('<div id="' + name + '"></div>')
                     $('#' + name).css({
-                        'top': posY + 'px',
-                        'left': posX + 'px',
-                        'width': 15 + 'px',
-                        'height': 15 + 'px',
+                        // For -1, it is a prefix due to a border-width and -height(1px each)
+                        'top': posY - 1 + 'px',
+                        'left': posX - 1 + 'px',
+                        'width': 14 + 'px',
+                        'height': 14 + 'px',
                         'background': col,
                         'border-radius': 50 + '%',
                         'position': 'absolute',
                         'z-index': 999,
+                        'transform': 'translateX(-50%) translateY(-50%)',
+                        'opacity': 0.8,
                     });
                 };
 
@@ -212,7 +237,7 @@
 
 
                     // Added selected symbols and other functions
-                    $(this).addClass('selected'); // Selected border
+                    $(this).addClass('selected'); // A selected border
                     $(this).prepend(resizeBox); // Resizing boxes
                     if ($(this).find('.rotate-wrapper').hasClass('active')) $(this).prepend(rotateBox); // Rotating circles
 
@@ -230,24 +255,24 @@
                         img.imgIdHeight = img.$imgId.outerHeight();
                         img.imgIdRatio = img.imgIdHeight / img.imgIdWidth;
 
+                        img.imgIdTheta = getRotationRad(img.$imgId);
+                        console.log('img.imgIdTheta : ' + img.imgIdTheta);
+                        img.rotatedSize.width = img.imgIdWidth * Math.abs(Math.cos(img.imgIdTheta)) + img.imgIdHeight * Math.abs(Math.sin(img.imgIdTheta));
+                        img.rotatedSize.height = img.imgIdHeight * Math.abs(Math.cos(img.imgIdTheta)) + img.imgIdWidth * Math.abs(Math.sin(img.imgIdTheta));
 
                         img.imgIdPos = img.$imgId.offset();
-
-
-                        // debugCircle('test-pos_1', 'blue', img.imgIdPos.left, img.imgIdPos.top);
-                        // debugCircle('test-pos_2', 'yellow', img.imgIdWidth / 2 + img.imgIdPos.left, img.imgIdHeight / 2 + img.imgIdPos.top);
-
-
                         // Image-space mouse coordinates
                         img.imgIdRelPosX = e.clientX - img.imgIdPos.left;
                         img.imgIdRelPosY = e.clientY - img.imgIdPos.top;
-                        // debugCircle('test-pos_4', 'white', img.imgIdRelPosX, img.imgIdRelPosY);
+                        debugCircle('test-pos_1', 'blue', img.imgIdPos.left, img.imgIdPos.top);
+                        debugCircle('test-pos_2', 'yellow', img.rotatedSize.width / 2 + img.imgIdPos.left, img.rotatedSize.height / 2 + img.imgIdPos.top);
+                        debugCircle('test-pos_4', 'white', img.imgIdRelPosX, img.imgIdRelPosY);
 
-                        // Set the $imgId to be top of all the other unselected elements
+                        // Set the $imgId to be the highest of all the other unselected elements
                         img.$imgId.appendTo('#image');
                         flgs.drag_flg = true;
+                        console.log('flgs.drag_flg is ' + flgs.drag_flg);
                         console.log('mousedown-left : ' + img.imgIdPos.left + ', mousedown-top : ' + img.imgIdPos.top + ', e.clientX : ' + e.clientX + ', e.clientY : ' + e.clientY + ', img.imgIdRelPosX : ' + img.imgIdRelPosX + ', img.imgIdRelPosY : ' + img.imgIdRelPosY);
-                        console.log('flgs.drag_flg is true');
                     }
                 });
 
@@ -290,6 +315,7 @@
                     //Activate rotating
                     $(document).on('mousedown', '.rotate-wrapper', function (e) {
                         console.log('mousedown .rotate-wrapper is detected.');
+
                         e.stopPropagation();
                         $(this).toggleClass('active');
 
@@ -353,7 +379,7 @@
                     resize();
 
 
-                    // Configuring flags for a rotating function, configuring a reset function
+                    // Configuring flags for a rotating function and a reset function
                     const rotate = function () {
                         const whichRotateBox = function (b, n) {
                             $(document).on('mousedown', b, function (e) {
@@ -364,7 +390,7 @@
                                 if (flgs.rotate_flg == false) {
                                     flgs.mousedown_flg = true;
                                     flgs.drag_flg = false;
-                                    // flgs.rotate_flg = true; Make sure to uncomment this line !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                    flgs.rotate_flg = true;
                                     console.log('flgs.mousedown_flg is ' + flgs.mousedown_flg);
                                     console.log('flgs.drag_flg is ' + flgs.drag_flg);
                                     console.log('flgs.rotate_flg is ' + flgs.rotate_flg);
@@ -405,21 +431,21 @@
                     // A flag for drag event
                     if (flgs.drag_flg == true) {
                         flgs.drag_flg = false;
-                        console.log('flgs.drag_flg is false');
+                        console.log('flgs.drag_flg is ' + flgs.drag_flg);
                     }
 
 
                     // A flag for mousedown event
                     if (flgs.mousedown_flg == true) {
                         flgs.mousedown_flg = false;
-                        console.log('flgs.mousedown_flg is false');
+                        console.log('flgs.mousedown_flg is ' + flgs.mousedown_flg);
                     }
 
 
                     // Flags for resizing
                     if (flgs.resize_flg == true) {
                         flgs.resize_flg = false;
-                        console.log('flgs.resize_flg is false');
+                        console.log('flgs.resize_flg is ' + flgs.resize_flg);
                     }
                     if (flgs.re.left_top_flg == true) flgs.re.left_top_flg = false;
                     if (flgs.re.right_top_flg == true) flgs.re.right_top_flg = false;
@@ -429,9 +455,11 @@
                     // A flag for rotating
                     if (flgs.rotate_flg == true) {
                         flgs.rotate_flg = false;
-                        console.log('flgs.rotate_flg is false');
+                        console.log('flgs.rotate_flg is ' + flgs.rotate_flg);
                     }
                 });
+
+                // just for the tmp debug
                 var test_flg = false;
 
                 // Allow events when flags are in specific values
@@ -440,106 +468,123 @@
                     e.preventDefault();
 
 
-
                     // When an image is dragged
-                    if (flgs.drag_flg == true && flgs.resize_flg == false && flgs.rotate_flg == false) {
-                        img.$imgId.css('left', (e.clientX - img.imgIdRelPosX));
-                        img.$imgId.css('top', (e.clientY - img.imgIdRelPosY));
-                        // debugCircle('test-pos_3', 'orange', e.clientX - img.imgIdRelPosX, e.clientY - img.imgIdRelPosY);
-                        if (test_flg == false) {
-                            console.log('img.$imgId.css("left") : ' + img.$imgId.css('left') + ', img.$imgId.css("top") : ' + img.$imgId.css('top') + ', e.clientX : ' + e.clientX + ', e.clientY : ' + e.clientY + ', img.imgIdRelPosX : ' + img.imgIdRelPosX + ', img.imgIdRelPosY : ' + img.imgIdRelPosY);
-                            test_flg = true;
+                    const dragged = function () {
+                        let targetPosLeft = e.clientX - img.imgIdRelPosX;
+                        let targetPosTop = e.clientY - img.imgIdRelPosY;
+                        let w = img.rotatedSize.width;
+                        let h = img.rotatedSize.height;
+                        let resLeft = (w - img.imgIdWidth) / 2 + targetPosLeft;
+                        let resTop = (h - img.imgIdHeight) / 2 + targetPosTop;
+
+
+                        if (flgs.drag_flg == true && flgs.resize_flg == false && flgs.rotate_flg == false) {
+                            img.$imgId.css('left', resLeft + 'px');
+                            img.$imgId.css('top', resTop + 'px');
+
+                            debugCircle('test-pos_3', 'orange', e.clientX - img.imgIdRelPosX, e.clientY - img.imgIdRelPosY);
+                            if (test_flg == false) {
+                                console.log('img.$imgId.css("left") : ' + img.$imgId.css('left') + ', img.$imgId.css("top") : ' + img.$imgId.css('top') + ', e.clientX : ' + e.clientX + ', e.clientY : ' + e.clientY + ', img.imgIdRelPosX : ' + img.imgIdRelPosX + ', img.imgIdRelPosY : ' + img.imgIdRelPosY);
+                                test_flg = true;
+                            }
+                            console.log('drag function is called');
                         }
-
-
-                        console.log('drag function is called');
-                    }
+                    };
 
 
                     // When an image is rotated
-                    if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.left_top_flg == true) {
-                        let imgCenterPosX = img.imgIdWidth / 2 + img.imgIdPos.left;
-                        let imgCenterPosY = img.imgIdHeight / 2 + img.imgIdPos.top;
-                        let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
-                        let resRad = rad;
+                    const rotated = function () {
+                        let imgCenterPosX = img.rotatedSize.width / 2 + img.imgIdPos.left;
+                        let imgCenterPosY = img.rotatedSize.height / 2 + img.imgIdPos.top;
 
-                        img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
-                        console.log('rotate function is called');
-                    }
+                        if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.left_top_flg == true) {
+                            let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
+                            let resRad = rad;
 
-
-                    if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.right_top_flg == true) {
-                        let imgCenterPosX = img.imgIdWidth / 2 + img.imgIdPos.left;
-                        let imgCenterPosY = img.imgIdHeight / 2 + img.imgIdPos.top;
-                        let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
-                        let resRad = rad;
-
-                        img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
-                        console.log('rotate function is called');
-                    }
+                            img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
+                            console.log('rotate function is called');
+                        }
 
 
-                    if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.right_bottom_flg == true) {
-                        let imgCenterPosX = img.imgIdWidth / 2 + img.imgIdPos.left;
-                        let imgCenterPosY = img.imgIdHeight / 2 + img.imgIdPos.top;
-                        let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
-                        let resRad = rad;
+                        if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.right_top_flg == true) {
+                            let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
+                            let resRad = rad;
 
-                        img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
-                        console.log('rotate function is called');
-                    }
+                            img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
+                            console.log('rotate function is called');
+                        }
 
 
-                    if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.left_bottom_flg == true) {
-                        let imgCenterPosX = img.imgIdWidth / 2 + img.imgIdPos.left;
-                        let imgCenterPosY = img.imgIdHeight / 2 + img.imgIdPos.top;
-                        let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
-                        let resRad = rad;
+                        if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.right_bottom_flg == true) {
+                            let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
+                            let resRad = rad;
 
-                        img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
-                        console.log('rotate function is called');
-                    }
+                            img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
+                            console.log('rotate function is called');
+                        }
+
+
+                        if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.left_bottom_flg == true) {
+                            let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
+                            let resRad = rad;
+
+                            img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
+                            console.log('rotate function is called');
+                        }
+                    };
 
 
                     // When resizing-boxes are clicked
-                    if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_top_flg == true) {
-                        img.$imgId.css({
-                            'top': img.imgIdPos.top + (img.imgIdHeight - (img.imgIdWidth - (e.clientX - img.imgIdPos.left)) * img.imgIdRatio) + 'px',
-                            'left': e.clientX + 'px',
-                            'width': img.imgIdWidth - (e.clientX - img.imgIdPos.left) + 'px',
-                        });
-                        console.log('mousedown is called');
-                    }
+                    const resized = function () {
+                        if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_top_flg == true) {
+                            img.$imgId.css({
+                                'top': img.imgIdPos.top + (img.imgIdHeight - (img.imgIdWidth - (e.clientX - img.imgIdPos.left)) * img.imgIdRatio) + 'px',
+                                'left': e.clientX + 'px',
+                                'width': img.imgIdWidth - (e.clientX - img.imgIdPos.left) + 'px',
+                            });
+                            console.log('mousedown is called');
+                        }
 
 
-                    if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_top_flg == true) {
-                        img.$imgId.css({
-                            'top': img.imgIdPos.top + (img.imgIdHeight - (e.clientX - img.imgIdPos.left) * img.imgIdRatio) + 'px',
-                            'left': img.imgIdPos.left + 'px',
-                            'width': e.clientX - img.imgIdPos.left + 'px',
-                        });
-                        // console.log('down one is called');
-                    }
+                        if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_top_flg == true) {
+                            img.$imgId.css({
+                                'top': img.imgIdPos.top + (img.imgIdHeight - (e.clientX - img.imgIdPos.left) * img.imgIdRatio) + 'px',
+                                'left': img.imgIdPos.left + 'px',
+                                'width': e.clientX - img.imgIdPos.left + 'px',
+                            });
+                            // console.log('down one is called');
+                        }
 
 
-                    if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_bottom_flg == true) {
-                        img.$imgId.css({
-                            'top': img.imgIdPos.top + 'px',
-                            'left': img.imgIdPos.left + 'px',
-                            'width': e.clientX - img.imgIdPos.left + 'px',
-                        });
-                        // console.log('down one is called');
-                    }
+                        if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_bottom_flg == true) {
+                            img.$imgId.css({
+                                'top': img.imgIdPos.top + 'px',
+                                'left': img.imgIdPos.left + 'px',
+                                'width': e.clientX - img.imgIdPos.left + 'px',
+                            });
+                            // console.log('down one is called');
+                        }
 
 
-                    if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_bottom_flg == true) {
-                        img.$imgId.css({
-                            'top': img.imgIdPos.top + 'px',
-                            'left': img.imgIdPos.left + (e.clientX - img.imgIdPos.left) + 'px',
-                            'width': img.imgIdWidth - (e.clientX - img.imgIdPos.left) + 'px',
-                        });
-                        // console.log('down one is called');
-                    }
+                        if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_bottom_flg == true) {
+                            img.$imgId.css({
+                                'top': img.imgIdPos.top + 'px',
+                                'left': img.imgIdPos.left + (e.clientX - img.imgIdPos.left) + 'px',
+                                'width': img.imgIdWidth - (e.clientX - img.imgIdPos.left) + 'px',
+                            });
+                            // console.log('down one is called');
+                        }
+                    };
+
+
+                    const executed = function () {
+                        dragged();
+                        rotated();
+                        resized();
+                    };
+                    executed();
+
+
                 });
             };
             imgSet();
