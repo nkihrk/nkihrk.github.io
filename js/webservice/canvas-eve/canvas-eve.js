@@ -98,9 +98,13 @@
                     //
                     'rotatedSize': {
                         'width': 0,
-                        'height': 0
+                        'height': 0,
                     },
-                }
+                    'rotatedCenterPos': {
+                        'left': 0,
+                        'top': 0,
+                    },
+                };
 
                 // Flags
                 const flgs = {
@@ -112,24 +116,19 @@
                         'left_top_flg': false,
                         'right_top_flg': false,
                         'right_bottom_flg': false,
-                        'left_bottom_flg': false
+                        'left_bottom_flg': false,
                     },
                     'ro': {
                         'left_top_flg': false,
                         'right_top_flg': false,
                         'right_bottom_flg': false,
-                        'left_bottom_flg': false
+                        'left_bottom_flg': false,
                     }
                 };
 
                 // Stored datas temporarily
                 const tmp = {
                     'ro': {
-                        'prevRad': {
-                            'top': 0,
-                            'left': 0
-                        },
-                        //
                         'left_top_initRad': null,
                         'right_top_initRad': null,
                         'right_bottom_initRad': null,
@@ -166,12 +165,12 @@
                         'rotateM': values[2],
                         'scaleY': values[3],
                         'transformX': values[4],
-                        'transformY': values[5]
+                        'transformY': values[5],
                     };
                     return matrix;
                 };
 
-                // Get a specific transform-rotate value, and return the value as radian
+                // Get a target`s specific transform-rotate value, and return the value as radian. The value will be in between 0 and 2PI
                 const getRotationRad = function (obj) {
                     var matrix = obj.css("-webkit-transform") ||
                         obj.css("-moz-transform") ||
@@ -189,10 +188,10 @@
                     return (angle < 0) ? (angle + 360) / 180 * Math.PI : angle / 180 * Math.PI;
                 }
 
-                // Calcurate radians
+                // Calcurate radians. The value will be in between 0 and 2PI
                 const calcRadians = function (x, y) {
                     var rad = Math.atan2(y, x) / Math.PI * 180 + (Math.atan2(y, x) > 0 ? 0 : 360);
-                    console.log('The radian value : ' + rad);
+                    // console.log('The radian value : ' + rad);
 
                     return rad / 180 * Math.PI;
                 };
@@ -213,6 +212,9 @@
                         'opacity': 0.8,
                     });
                 };
+
+                // Just for separation
+                const sep = () => console.log('-------------------------------------');
 
                 //////
 
@@ -245,7 +247,7 @@
                     $(this).find('.rotate-wrapper').addClass('rotate-icon'); // Add a rotating icon
 
 
-                    // Add #id to #image, and init its values
+                    // Add #id to #image, and initialize its values
                     if (flgs.drag_flg == false) {
                         img.imgId = '#' + $(this).attr('id');
                         img.$imgId = $(img.imgId);
@@ -264,9 +266,24 @@
                         // Image-space mouse coordinates
                         img.imgIdRelPosX = e.clientX - img.imgIdPos.left;
                         img.imgIdRelPosY = e.clientY - img.imgIdPos.top;
-                        debugCircle('test-pos_1', 'blue', img.imgIdPos.left, img.imgIdPos.top);
-                        debugCircle('test-pos_2', 'yellow', img.rotatedSize.width / 2 + img.imgIdPos.left, img.rotatedSize.height / 2 + img.imgIdPos.top);
-                        debugCircle('test-pos_4', 'white', img.imgIdRelPosX, img.imgIdRelPosY);
+                        // debugCircle('test-pos_1', 'blue', img.imgIdPos.left, img.imgIdPos.top);
+                        // debugCircle('test-pos_4', 'white', img.imgIdRelPosX, img.imgIdRelPosY);
+
+                        // Initialize img.rotatedCenterPos
+                        img.rotatedCenterPos.left = (e.clientX - img.imgIdRelPosX) + img.rotatedSize.width / 2;
+                        img.rotatedCenterPos.top = (e.clientY - img.imgIdRelPosY) + img.rotatedSize.height / 2;
+
+                        // Initialize the initRads for a rotating function
+                        tmp.ro.left_top_initRad = calcRadians(-img.imgIdWidth / 2, -img.imgIdHeight / 2);
+                        tmp.ro.right_top_initRad = calcRadians(img.imgIdWidth / 2, -img.imgIdHeight / 2);
+                        tmp.ro.right_bottom_initRad = calcRadians(img.imgIdWidth / 2, img.imgIdHeight / 2);
+                        tmp.ro.left_bottom_initRad = calcRadians(-img.imgIdWidth / 2, img.imgIdHeight / 2);
+                        sep();
+                        console.log('tmp.ro.left_top_initRad : ' + tmp.ro.left_top_initRad);
+                        console.log('tmp.ro.right_top_initRad : ' + tmp.ro.right_top_initRad);
+                        console.log('tmp.ro.right_bottom_initRad : ' + tmp.ro.right_bottom_initRad);
+                        console.log('tmp.ro.left_bottom_initRad : ' + tmp.ro.left_bottom_initRad);
+                        sep();
 
                         // Set the $imgId to be the highest of all the other unselected elements
                         img.$imgId.appendTo('#image');
@@ -333,7 +350,7 @@
                         }
                     });
 
-
+                    sep();
                 };
                 activate();
 
@@ -375,6 +392,7 @@
                         whichResizeBox('.re-right-top', 1);
                         whichResizeBox('.re-right-bottom', 2);
                         whichResizeBox('.re-left-bottom', 3);
+                        sep();
                     }
                     resize();
 
@@ -418,6 +436,7 @@
                         whichRotateBox('.ro-right-top', 1);
                         whichRotateBox('.ro-right-bottom', 2);
                         whichRotateBox('.ro-left-bottom', 3);
+                        sep();
                     };
                     rotate();
 
@@ -457,6 +476,12 @@
                         flgs.rotate_flg = false;
                         console.log('flgs.rotate_flg is ' + flgs.rotate_flg);
                     }
+                    if (flgs.ro.left_top_flg == true) flgs.ro.left_top_flg = false;
+                    if (flgs.ro.right_top_flg == true) flgs.ro.right_top_flg = false;
+                    if (flgs.ro.right_bottom_flg == true) flgs.ro.right_bottom_flg = false;
+                    if (flgs.ro.left_bottom_flg == true) flgs.ro.left_bottom_flg = false;
+
+                    sep();
                 });
 
                 // just for the tmp debug
@@ -482,7 +507,10 @@
                             img.$imgId.css('left', resLeft + 'px');
                             img.$imgId.css('top', resTop + 'px');
 
-                            debugCircle('test-pos_3', 'orange', e.clientX - img.imgIdRelPosX, e.clientY - img.imgIdRelPosY);
+                            // Update img.rotatedCenterPos for the later-use in rotating function
+                            img.rotatedCenterPos.left = (e.clientX - img.imgIdRelPosX) + w / 2;
+                            img.rotatedCenterPos.top = (e.clientY - img.imgIdRelPosY) + h / 2;
+                            // debugCircle('test-pos_3', 'orange', e.clientX - img.imgIdRelPosX, e.clientY - img.imgIdRelPosY);
                             if (test_flg == false) {
                                 console.log('img.$imgId.css("left") : ' + img.$imgId.css('left') + ', img.$imgId.css("top") : ' + img.$imgId.css('top') + ', e.clientX : ' + e.clientX + ', e.clientY : ' + e.clientY + ', img.imgIdRelPosX : ' + img.imgIdRelPosX + ', img.imgIdRelPosY : ' + img.imgIdRelPosY);
                                 test_flg = true;
@@ -494,12 +522,16 @@
 
                     // When an image is rotated
                     const rotated = function () {
-                        let imgCenterPosX = img.rotatedSize.width / 2 + img.imgIdPos.left;
-                        let imgCenterPosY = img.rotatedSize.height / 2 + img.imgIdPos.top;
+                        let imgCenterPosX = img.rotatedCenterPos.left;
+                        let imgCenterPosY = img.rotatedCenterPos.top;
+                        // debugCircle('test-pos_5', 'purple', imgCenterPosX, imgCenterPosY);
+                        // A current radian value of the mouse
+                        let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
+                        // debugCircle('test-pos_6', 'black', 50 * Math.cos(rad) + imgCenterPosX, 50 * Math.sin(rad) + imgCenterPosY);
 
                         if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.left_top_flg == true) {
-                            let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
-                            let resRad = rad;
+                            let resRad = rad - tmp.ro.left_top_initRad;
+                            console.log('tmp.ro.left_top_initRad : ' + tmp.ro.left_top_initRad);
 
                             img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
                             console.log('rotate function is called');
@@ -507,8 +539,8 @@
 
 
                         if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.right_top_flg == true) {
-                            let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
-                            let resRad = rad;
+                            let resRad = rad - tmp.ro.right_top_initRad;
+                            console.log('tmp.ro.right_top_initRad : ' + tmp.ro.right_top_initRad);
 
                             img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
                             console.log('rotate function is called');
@@ -516,8 +548,8 @@
 
 
                         if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.right_bottom_flg == true) {
-                            let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
-                            let resRad = rad;
+                            let resRad = rad - tmp.ro.right_bottom_initRad;
+                            console.log('tmp.ro.right_bottom_initRad : ' + tmp.ro.right_bottom_initRad);
 
                             img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
                             console.log('rotate function is called');
@@ -525,8 +557,8 @@
 
 
                         if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.left_bottom_flg == true) {
-                            let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
-                            let resRad = rad;
+                            let resRad = rad - tmp.ro.left_bottom_initRad;
+                            console.log('tmp.ro.left_bottom_initRad : ' + tmp.ro.left_bottom_initRad);
 
                             img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
                             console.log('rotate function is called');
