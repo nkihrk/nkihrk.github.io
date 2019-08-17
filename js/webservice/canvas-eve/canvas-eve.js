@@ -1,3 +1,14 @@
+// Global scope
+var newFile = {
+    'id': 0,
+    'prevId': 0,
+    // To identify whether being dropped or not
+    'flg': 0,
+};
+// A max length of the HIGHEST_Z_INDEX is 2147483647
+var HIGHEST_Z_INDEX = 1;
+
+
 (function (window, $) {
     // When DOM tree is constructed
     $(function () {
@@ -5,23 +16,14 @@
         // Drag-and-Paste event
         const canvasEve = function () {
 
-            // The max length of highest_z_index is 2147483647
-            var HIGHEST_Z_INDEX = 1;
-
             const dragAndPaste = function () {
                 // Global scope
-                var newFile = {
-                    'id': 0,
-                    'prevId': 0,
-                    // To identify whether being dropped or not
-                    'flg': 0,
-                };
 
                 const handleDragEvent = function (e) {
                     e.preventDefault();
                     e.stopPropagation();
                     e.dataTransfer.dropEffect = 'copy';
-                    // Not clear why this will help. Should reset pointer-events, but still works fine
+                    // Not clear why this will help. Should have to reset pointer-events, but still works fine
                     $('iframe').css('pointer-events', 'none');
                 };
 
@@ -50,7 +52,8 @@
                                     '<source src="' + e.target.result + '" type="video/mp4">' +
                                     '</video>';
                                 const resTag = /\.(jpe?g|png|gif)$/i.test(file.name) ? imgTag : videoTag;
-                                const assertFile = '<div id ="' + newFile.id + '" class="grab-pointer file-wrap"><div class="function-wrapper"><div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div></div>' + resTag + '</div>';
+                                const funcTags = '<div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>'
+                                const assertFile = '<div id ="' + newFile.id + '" class="grab-pointer file-wrap"><div class="function-wrapper">' + funcTags + '</div>' + resTag + '</div>';
                                 $('#add-files').append(assertFile);
                                 // console.log('reader.onload is successfully executed');
                             };
@@ -255,12 +258,12 @@
                         flgs.only_draggable_flg = false;
                     }
 
-                    // $('#add-files').children().css('z-index', 0);
 
                     $('div').removeClass('selected');
                     $('div').removeClass('resize-icon');
                     $('div').removeClass('rotate-icon');
                     $('div').removeClass('flip-icon');
+                    $('div').removeClass('trash-icon');
 
                     $('div').remove('.re-left-top');
                     $('div').remove('.re-right-top');
@@ -286,6 +289,7 @@
                         $(this).find('.resize-wrapper').addClass('resize-icon'); // Add a resizing icon
                         $(this).find('.rotate-wrapper').addClass('rotate-icon'); // Add a rotating icon
                         $(this).find('.flip-wrapper').addClass('flip-icon'); // Add a flipping icon
+                        $(this).find('.trash-wrapper').addClass('trash-icon'); // Add a trash icon
                     }
 
 
@@ -345,6 +349,7 @@
                     $('div').removeClass('resize-icon');
                     $('div').removeClass('rotate-icon');
                     $('div').removeClass('flip-icon');
+                    $('div').removeClass('trash-icon');
 
                     $('div').remove('.re-left-top');
                     $('div').remove('.re-right-top');
@@ -412,6 +417,18 @@
                             $(file.fileId + ' .is-flipped').addClass('flipped');
                         } else {
                             $(file.fileId + ' .is-flipped').removeClass('flipped');
+                        }
+                    });
+
+
+                    // Trash the selected element
+                    $(document).on('mousedown', '.trash-wrapper', function (e) {
+                        console.log('mousedown .trash-wrapper is detected.');
+
+                        e.stopPropagation();
+                        $(this).toggleClass('active');
+                        if ($(this).hasClass('active')) {
+                            $(file.fileId).remove();
                         }
                     });
 
