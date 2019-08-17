@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="https://use.typekit.net/kqb4obi.css">
     <link rel="stylesheet" href="../../css/common/styles.css">
     <link rel="stylesheet" href="../../css/webservice/canvas-eve/canvas-eve.css">
+    <link rel="stylesheet" href="../../css/webservice/youtube-eve/youtube-eve.css">
     <link rel="icon" href="../../img/common/favicon.ico ">
 
     <script async src="https://cdn.ampproject.org/v0.js"></script>
@@ -53,18 +54,116 @@
         </div>
     </div>
 
-
-    <div id="target"
+    <div id="canvas-eve"
         style="position: relative; z-index: 0; border: solid 1px #0000ff; height: 100vh; overflow: hidden;">
-        <!-- #reset-res will reset image-related functions when clicked -->
-        <div id="reset-res" style="position: absolute; width: 100%; height: 100vh;"></div>
-        <div id="image"></div>
+        <div id="add-files">
+            <!-- #reset-res will reset files-related functions when clicked -->
+            <div id="reset-res" style="position: absolute; z-index: 0 !important; width: 100%; height: 100vh;"></div>
+
+            <!-- youtube -->
+            <div id="0" class="grab-pointer file-wrap"
+                style="width: 880px; top: 3%; left: calc(50% - 440px); z-index: 0;">
+                <div class="only-draggable youtube-wrapper" style="width: 100%;">
+                    <div class="title-youtube" style="position: relative;">
+                        <h1>
+                            <span class="youtube-icon sep-right bold agency-fb"
+                                style="font-size: 4.5rem;">YouTube</span><span class="half-opacity"
+                                style="font-size: 1.8rem; color: rgba(255, 255, 255, 0.3);">Add
+                                any videos to the
+                                canvas</span>
+                        </h1>
+                    </div>
+                    <div class="search-youtube" style="position: relative;">
+                        <div class="search-box-wrapper" style="position: relative;">
+                            <input class="ellipsis search-box-youtube"
+                                placeholder="Paste a URL of any YouTube videos here." type="text" spellcheck="false"
+                                style="position: relative;">
+                            <div class="backspace-icon"></div>
+                        </div>
+                        <div class="hover-shadow-single search-button-youtube" style="position: relative;"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="99" class="grab-pointer file-wrap">
+                <div class="function-wrapper">
+                    <div class="resize-wrapper"></div>
+                    <div class="rotate-wrapper"></div>
+                    <div class="flip-wrapper"></div>
+                </div>
+                <div class="is-flipped youtube-wrapper" style="width: 100%;">
+                    <div class="tab-block-youtube" style="position: relative;">
+                        <div class="ellipsis fix-top-border">
+                            <div class="ellipsis tab-youtube bold agency-fb">
+                                TVアニメ『かぐや様は告らせたい～天才たちの恋愛頭脳戦～』第3話エンディング映像 ♪「チカっとチカ千花っ♡」</div>
+                        </div>
+                    </div>
+                    <div class="child-search-youtube" style="position: relative;">
+                        <div class="child-search-box-wrapper" style="position: relative;">
+                            <input class="ellipsis child-search-box-youtube"
+                                placeholder="Paste a URL of any YouTube videos here." type="text" spellcheck="false"
+                                style="position: relative;">
+                            <div class="backspace-icon"></div>
+                        </div>
+                        <div class="hover-shadow-single child-search-button-youtube" style="position: relative;"></div>
+                    </div>
+                    <div class="content-youtube">
+                        <iframe src="https://www.youtube.com/embed/Ywq4XR0G4Qk?rel=0&showinfo=0" frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div id="100" class="grab-pointer file-wrap">
+                <div class="function-wrapper">
+                    <div class="resize-wrapper"></div>
+                    <div class="rotate-wrapper"></div>
+                    <div class="flip-wrapper"></div>
+                </div>
+                <div class="is-flipped youtube-wrapper" style="width: 100%;">
+                    <div class="tab-block-youtube" style="position: relative;">
+                        <div class="ellipsis fix-top-border">
+                            <div class="ellipsis tab-youtube bold agency-fb">
+                                【500曲】私的ススメ!!アニソン他サビメドレー!!!</div>
+                        </div>
+                    </div>
+                    <div class="child-search-youtube" style="position: relative;">
+                        <div class="child-search-box-wrapper" style="position: relative;">
+                            <input class="ellipsis child-search-box-youtube"
+                                placeholder="Paste a URL of any YouTube videos here." type="text" spellcheck="false"
+                                style="position: relative;">
+                            <div class="backspace-icon"></div>
+                        </div>
+                        <div class="hover-shadow-single child-search-button-youtube" style="position: relative;"></div>
+                    </div>
+                    <div class="content-youtube">
+                        <iframe src="https://www.youtube.com/embed/eO0-jPpXLvE?rel=0&showinfo=0" frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 
 
+    <footer class="half-opacity bold agency-fb"
+        style="position: absolute; width: 100%; line-height: 70px; bottom: 0; border: none; text-align: center;">
+        <div>Icons made by <a href="https://www.flaticon.com/authors/twitter" title="Twitter">Twitter</a> from <a
+                href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a
+                href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC
+                3.0 BY</a></div>
+    </footer>
+
+
+    <script src="../../js/common/config.js"></script>
     <script src="../../js/common/jquery-3.4.0.min.js"></script>
-    <script src="../../js/webservice/canvas-eve/common.js"></script>
+    <script src="../../js/webservice/common/common.js"></script>
     <script src="../../js/webservice/canvas-eve/canvas-eve.js"></script>
+    <script src="../../js//webservice/youtube-eve/youtube-eve.js"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-101863956-2"></script>

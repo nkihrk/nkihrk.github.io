@@ -1,9 +1,11 @@
 @charset "UTF-8";
 
 /* A wrapper for a pasted image */
-.img-wrap {
+.file-wrap {
     position: absolute;
+    z-index: 1;
     width: 600px;
+    min-width: 192px;
     border: solid 1px rgba(255, 0, 0, 0);
     transform-origin: center;
     /* transform: rotate(60deg); */
@@ -48,8 +50,55 @@
     cursor: grabbing;
 }
 
+/* A wrapper for the functions` icon */
+.function-wrapper {
+    position: absolute;
+    vertical-align: middle;
+    /* z-index: 1; */
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
 
-/* Added resizing-boxes */
+    /* Change a height when adding new icons */
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Resize an image */
+.resize-icon {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    /* background: red; */
+}
+
+.resize-icon::after {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url(../../../img/webservice/canvas-eve/resize.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    z-index: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+
+    opacity: 0.5;
+    transition: opacity .1s ease-in-out;
+}
+
+.resize-icon.active::after {
+    opacity: 1;
+}
+
 .re-left-top,
 .re-right-top,
 .re-right-bottom,
@@ -93,22 +142,13 @@
 }
 
 
-.function-wrapper {
-    position: absolute;
-    vertical-align: middle;
-    /* z-index: 1; */
-    right: -60px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-
 /* Flipped an image */
 .flip-icon {
     position: relative;
     width: 30px;
     height: 30px;
     margin-bottom: 10px;
+    /* background: red; */
 }
 
 .flip-icon::after {
@@ -128,7 +168,6 @@
 
 
     opacity: 0.5;
-    cursor: pointer;
     transition: opacity .1s ease-in-out;
 }
 
@@ -152,6 +191,7 @@
     position: relative;
     width: 30px;
     height: 30px;
+    /* background: blue; */
 }
 
 .rotate-icon::after {
@@ -171,7 +211,6 @@
 
 
     opacity: 0.5;
-    cursor: pointer;
     transition: opacity .1s ease-in-out;
 }
 

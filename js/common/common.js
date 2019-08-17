@@ -26,7 +26,6 @@
 
         // Loading Gif.
         const loadingFirst = function () {
-            $('#container').css('display', 'none');
             $('#loader-bg, #loader').height(h).css('display', 'block');
         }
         loadingFirst();
@@ -96,13 +95,14 @@
 
         // loadingLast
         const loadingLast = function () {
-            $('#loader-bg').delay(900).fadeOut(800);
-            $('#loading').delay(600).fadeOut(300);
-            $('#container').css('display', 'block');
+            $('#loader-bg').delay(900).fadeOut(800, function () {
+                $(this).remove();
+            });
+            $('#loading').delay(600).fadeOut(300, function () {
+                $(this).remove();
+            });
         }
         loadingLast();
-
-
     });
 
 

@@ -5,9 +5,12 @@
         // Drag-and-Paste event
         const canvasEve = function () {
 
+            // The max length of highest_z_index is 2147483647
+            var HIGHEST_Z_INDEX = 1;
+
             const dragAndPaste = function () {
                 // Global scope
-                var newImg = {
+                var newFile = {
                     'id': 0,
                     'prevId': 0,
                     // To identify whether being dropped or not
@@ -18,12 +21,14 @@
                     e.preventDefault();
                     e.stopPropagation();
                     e.dataTransfer.dropEffect = 'copy';
+                    // Not clear why this will help. Should reset pointer-events, but still works fine
+                    $('iframe').css('pointer-events', 'none');
                 };
 
-                // The target area to paste
-                const target = document.getElementById("target");
-                target.addEventListener("dragover", handleDragEvent, false);
-                target.addEventListener("drop", function (e) {
+                // The canvas-eve area to paste
+                const canvasEve = document.getElementById("canvas-eve");
+                canvasEve.addEventListener("dragover", handleDragEvent, false);
+                canvasEve.addEventListener("drop", function (e) {
 
                     e.stopPropagation();
                     e.preventDefault();
@@ -33,32 +38,40 @@
 
                     const files = e.dataTransfer.files;
                     const readAndPreview = function (file) {
-                        if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
+                        if (/\.(jpe?g|png|gif|webm|mp4)$/i.test(file.name)) {
                             const reader = new FileReader();
                             reader.onload = function (e) {
-                                newImg.prevId = newImg.id;
-                                newImg.id += 1;
-                                // console.log('newImg.id : ' + newImg.id + ', newImg.flg  : ' + newImg.flg);
-                                const assertImg = '<div id ="' + newImg.id + '" class="grab-pointer img-wrap"><div class="function-wrapper"><div class="flip-wrapper"></div><div class="rotate-wrapper"></div></div><img src="' + e.target.result + '" style="width: 100%;"></div>';
-                                $('#image').append(assertImg);
+                                newFile.prevId = newFile.id;
+                                newFile.id += 1;
+                                // console.log('newFile.id : ' + newFile.id + ', newFile.flg  : ' + newFile.flg);
+                                const imgTag = '<img class="is-flipped" src="' + e.target.result + '" style="width: 100%;">';
+                                const videoTag = '<video class="is-flipped" controls playsinline preload="metadata" style="width: 100%;">' +
+                                    '<source src="' + e.target.result + '" type="video/webm">' +
+                                    '<source src="' + e.target.result + '" type="video/mp4">' +
+                                    '</video>';
+                                const resTag = /\.(jpe?g|png|gif)$/i.test(file.name) ? imgTag : videoTag;
+                                const assertFile = '<div id ="' + newFile.id + '" class="grab-pointer file-wrap"><div class="function-wrapper"><div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div></div>' + resTag + '</div>';
+                                $('#add-files').append(assertFile);
                                 // console.log('reader.onload is successfully executed');
                             };
                             reader.onloadend = function (e) {
                                 if (e.target.readyState == FileReader.DONE) {
-                                    for (let i = newImg.prevId + 1; i < newImg.id + 1; i++) {
-                                        newImg.flg = 0;
-                                        var imgId = '#' + i;
-                                        var $imgId = $(imgId);
-                                        var imgIdWidth = $imgId.outerWidth();
-                                        var imgIdHeight = $imgId.outerHeight();
-                                        // console.log('clientX : ' + clientX + ', clientY : ' + clientY + ', imgWidth : ' + imgWidth + ', imgHeight : ' + imgHeight);
+                                    for (let i = newFile.prevId + 1; i < newFile.id + 1; i++) {
+                                        newFile.flg = 0;
+                                        var fileId = '#' + i;
+                                        var $fileId = $(fileId);
+                                        var fileIdWidth = $fileId.outerWidth();
+                                        var fileIdHeight = $fileId.outerHeight();
+                                        // console.log('clientX : ' + clientX + ', clientY : ' + clientY + ', fileWidth : ' + fileWidth + ', fileHeight : ' + fileHeight);
 
-                                        if (newImg.flg == 0) {
-                                            $imgId.css({
-                                                'top': clientY - imgIdHeight / 2 + 'px',
-                                                'left': clientX - imgIdWidth / 2 + 'px',
+                                        HIGHEST_Z_INDEX += 1;
+                                        if (newFile.flg == 0) {
+                                            $fileId.css({
+                                                'top': clientY - fileIdHeight / 2 + 'px',
+                                                'left': clientX - fileIdWidth / 2 + 'px',
+                                                'z-index': HIGHEST_Z_INDEX,
                                             });
-                                            newImg.flg = 1;
+                                            newFile.flg = 1;
                                         }
                                     }
                                 }
@@ -79,22 +92,22 @@
             dragAndPaste();
 
 
-            const imgSet = function () {
+            const fileSet = function () {
                 // Global scope
-                const img = {
-                    '$imgId': null,
-                    'imgId': 0,
+                const file = {
+                    '$fileId': null,
+                    'fileId': 0,
                     //
-                    'imgIdPos': 0,
+                    'fileIdPos': 0,
                     //
-                    'imgIdRelPosX': 0,
-                    'imgIdRelPosY': 0,
+                    'fileIdRelPosX': 0,
+                    'fileIdRelPosY': 0,
                     //
-                    'imgIdWidth': 0,
-                    'imgIdHeight': 0,
+                    'fileIdWidth': 0,
+                    'fileIdHeight': 0,
                     //
-                    'imgIdRatio': 0,
-                    'imgIdTheta': 0,
+                    'fileIdRatio': 0,
+                    'fileIdTheta': 0,
                     //
                     'rotatedSize': {
                         'width': 0,
@@ -112,6 +125,8 @@
                     'rotate_flg': false,
                     'mousedown_flg': false,
                     'resize_flg': false,
+                    'only_draggable_flg': false,
+                    'iframe_draggable_flg': false,
                     're': {
                         'left_top_flg': false,
                         'right_top_flg': false,
@@ -128,6 +143,8 @@
 
                 // Stored datas temporarily
                 const tmp = {
+                    // The max length of highest_z_index is 2147483647
+                    // 'highest_z_index': 0,
                     'ro': {
                         'left_top_initRad': null,
                         'right_top_initRad': null,
@@ -197,7 +214,7 @@
                 };
 
                 const debugCircle = function (name, col, posX, posY) {
-                    $('#target').append('<div id="' + name + '"></div>')
+                    $('#canvas-eve').append('<div id="' + name + '"></div>')
                     $('#' + name).css({
                         // For -1, it is a prefix due to a border-width and -height(1px each)
                         'top': posY - 1 + 'px',
@@ -213,6 +230,14 @@
                     });
                 };
 
+                // For the iframe pointer problem
+                const iframePointerNone = function () {
+                    $('iframe').css('pointer-events', 'none');
+                };
+                const iframePointerReset = function () {
+                    $('iframe').css('pointer-events', '');
+                };
+
                 // Just for separation
                 const sep = () => console.log('-------------------------------------');
 
@@ -220,12 +245,22 @@
 
 
                 // Prefix for pasted-images
-                $(document).on('mousedown', '.img-wrap', function (e) {
-                    console.log('mousedown .img-wrap is detected.');
+                $(document).on('mousedown', '.file-wrap', function (e) {
+                    console.log('mousedown .file-wrap is detected.');
+
+                    // To restrict preferred functions
+                    if ($(this).children().hasClass('only-draggable')) {
+                        flgs.only_draggable_flg = true;
+                    } else {
+                        flgs.only_draggable_flg = false;
+                    }
+
+                    // $('#add-files').children().css('z-index', 0);
 
                     $('div').removeClass('selected');
-                    $('div').removeClass('flip-icon');
+                    $('div').removeClass('resize-icon');
                     $('div').removeClass('rotate-icon');
+                    $('div').removeClass('flip-icon');
 
                     $('div').remove('.re-left-top');
                     $('div').remove('.re-right-top');
@@ -237,47 +272,54 @@
                     $('div').remove('.ro-right-bottom');
                     $('div').remove('.ro-left-bottom');
 
-
-                    // Added selected symbols and other functions
                     $(this).addClass('selected'); // A selected border
-                    $(this).prepend(resizeBox); // Resizing boxes
-                    if ($(this).find('.rotate-wrapper').hasClass('active')) $(this).prepend(rotateBox); // Rotating circles
+                    // Added selected symbols and other functions
+                    if (flgs.only_draggable_flg == false) {
+                        // $(this).prepend(resizeBox); // Resizing boxes
 
-                    $(this).find('.flip-wrapper').addClass('flip-icon'); // Add a flipping icon
-                    $(this).find('.rotate-wrapper').addClass('rotate-icon'); // Add a rotating icon
+                        // Resizing boxes
+                        if ($(this).find('.resize-wrapper').hasClass('active')) {
+                            $(this).prepend(resizeBox);
+                        }
+                        if ($(this).find('.rotate-wrapper').hasClass('active')) $(this).prepend(rotateBox); // Rotating circles
+
+                        $(this).find('.resize-wrapper').addClass('resize-icon'); // Add a resizing icon
+                        $(this).find('.rotate-wrapper').addClass('rotate-icon'); // Add a rotating icon
+                        $(this).find('.flip-wrapper').addClass('flip-icon'); // Add a flipping icon
+                    }
 
 
                     // Add #id to #image, and initialize its values
                     if (flgs.drag_flg == false) {
-                        img.imgId = '#' + $(this).attr('id');
-                        img.$imgId = $(img.imgId);
+                        file.fileId = '#' + $(this).attr('id');
+                        file.$fileId = $(file.fileId);
                         console.log('id : ' + $(this).attr('id'));
 
-                        img.imgIdWidth = img.$imgId.outerWidth();
-                        img.imgIdHeight = img.$imgId.outerHeight();
-                        img.imgIdRatio = img.imgIdHeight / img.imgIdWidth;
+                        file.fileIdWidth = file.$fileId.outerWidth();
+                        file.fileIdHeight = file.$fileId.outerHeight();
+                        file.fileIdRatio = file.fileIdHeight / file.fileIdWidth;
 
-                        img.imgIdTheta = getRotationRad(img.$imgId);
-                        console.log('img.imgIdTheta : ' + img.imgIdTheta);
-                        img.rotatedSize.width = img.imgIdWidth * Math.abs(Math.cos(img.imgIdTheta)) + img.imgIdHeight * Math.abs(Math.sin(img.imgIdTheta));
-                        img.rotatedSize.height = img.imgIdHeight * Math.abs(Math.cos(img.imgIdTheta)) + img.imgIdWidth * Math.abs(Math.sin(img.imgIdTheta));
+                        file.fileIdTheta = getRotationRad(file.$fileId);
+                        console.log('file.fileIdTheta : ' + file.fileIdTheta);
+                        file.rotatedSize.width = file.fileIdWidth * Math.abs(Math.cos(file.fileIdTheta)) + file.fileIdHeight * Math.abs(Math.sin(file.fileIdTheta));
+                        file.rotatedSize.height = file.fileIdHeight * Math.abs(Math.cos(file.fileIdTheta)) + file.fileIdWidth * Math.abs(Math.sin(file.fileIdTheta));
 
-                        img.imgIdPos = img.$imgId.offset();
+                        file.fileIdPos = file.$fileId.offset();
                         // Image-space mouse coordinates
-                        img.imgIdRelPosX = e.clientX - img.imgIdPos.left;
-                        img.imgIdRelPosY = e.clientY - img.imgIdPos.top;
-                        // debugCircle('test-pos_1', 'blue', img.imgIdPos.left, img.imgIdPos.top);
-                        // debugCircle('test-pos_4', 'white', img.imgIdRelPosX, img.imgIdRelPosY);
+                        file.fileIdRelPosX = e.clientX - file.fileIdPos.left;
+                        file.fileIdRelPosY = e.clientY - file.fileIdPos.top;
+                        // debugCircle('test-pos_1', 'blue', file.fileIdPos.left, file.fileIdPos.top);
+                        // debugCircle('test-pos_4', 'white', file.fileIdRelPosX, file.fileIdRelPosY);
 
-                        // Initialize img.rotatedCenterPos
-                        img.rotatedCenterPos.left = (e.clientX - img.imgIdRelPosX) + img.rotatedSize.width / 2;
-                        img.rotatedCenterPos.top = (e.clientY - img.imgIdRelPosY) + img.rotatedSize.height / 2;
+                        // Initialize file.rotatedCenterPos
+                        file.rotatedCenterPos.left = (e.clientX - file.fileIdRelPosX) + file.rotatedSize.width / 2;
+                        file.rotatedCenterPos.top = (e.clientY - file.fileIdRelPosY) + file.rotatedSize.height / 2;
 
                         // Initialize the initRads for a rotating function
-                        tmp.ro.left_top_initRad = calcRadians(-img.imgIdWidth / 2, -img.imgIdHeight / 2);
-                        tmp.ro.right_top_initRad = calcRadians(img.imgIdWidth / 2, -img.imgIdHeight / 2);
-                        tmp.ro.right_bottom_initRad = calcRadians(img.imgIdWidth / 2, img.imgIdHeight / 2);
-                        tmp.ro.left_bottom_initRad = calcRadians(-img.imgIdWidth / 2, img.imgIdHeight / 2);
+                        tmp.ro.left_top_initRad = calcRadians(-file.fileIdWidth / 2, -file.fileIdHeight / 2);
+                        tmp.ro.right_top_initRad = calcRadians(file.fileIdWidth / 2, -file.fileIdHeight / 2);
+                        tmp.ro.right_bottom_initRad = calcRadians(file.fileIdWidth / 2, file.fileIdHeight / 2);
+                        tmp.ro.left_bottom_initRad = calcRadians(-file.fileIdWidth / 2, file.fileIdHeight / 2);
                         sep();
                         console.log('tmp.ro.left_top_initRad : ' + tmp.ro.left_top_initRad);
                         console.log('tmp.ro.right_top_initRad : ' + tmp.ro.right_top_initRad);
@@ -285,11 +327,13 @@
                         console.log('tmp.ro.left_bottom_initRad : ' + tmp.ro.left_bottom_initRad);
                         sep();
 
-                        // Set the $imgId to be the highest of all the other unselected elements
-                        img.$imgId.appendTo('#image');
+                        // Set the $fileId to be the highest of all the other unselected elements
+                        // file.$fileId.appendTo('#add-files');
+                        HIGHEST_Z_INDEX += 1;
+                        file.$fileId.css('z-index', HIGHEST_Z_INDEX);
                         flgs.drag_flg = true;
                         console.log('flgs.drag_flg is ' + flgs.drag_flg);
-                        console.log('mousedown-left : ' + img.imgIdPos.left + ', mousedown-top : ' + img.imgIdPos.top + ', e.clientX : ' + e.clientX + ', e.clientY : ' + e.clientY + ', img.imgIdRelPosX : ' + img.imgIdRelPosX + ', img.imgIdRelPosY : ' + img.imgIdRelPosY);
+                        console.log('mousedown-left : ' + file.fileIdPos.left + ', mousedown-top : ' + file.fileIdPos.top + ', e.clientX : ' + e.clientX + ', e.clientY : ' + e.clientY + ', file.fileIdRelPosX : ' + file.fileIdRelPosX + ', file.fileIdRelPosY : ' + file.fileIdRelPosY);
                     }
                 });
 
@@ -298,8 +342,9 @@
                 $(document).on('mousedown', '#reset-res', function () {
                     console.log('mousedown #reset-res is detected.');
                     $('div').removeClass('selected');
-                    $('div').removeClass('flip-icon');
+                    $('div').removeClass('resize-icon');
                     $('div').removeClass('rotate-icon');
+                    $('div').removeClass('flip-icon');
 
                     $('div').remove('.re-left-top');
                     $('div').remove('.re-right-top');
@@ -315,16 +360,22 @@
 
                 // Activate functions
                 const activate = function () {
-                    // Activate flipping
-                    $(document).on('mousedown', '.flip-wrapper', function (e) {
-                        console.log('mousedown .flip-wrapper is detected.');
+                    // Activate resizing
+                    $(document).on('mousedown', '.resize-wrapper', function (e) {
+                        console.log('mousedown .resize-wrapper is detected.');
 
                         e.stopPropagation();
                         $(this).toggleClass('active');
+
                         if ($(this).hasClass('active')) {
-                            $(img.imgId + ' img').addClass('flipped');
+                            if (!file.$fileId.hasClass('ro-left-top')) {
+                                file.$fileId.prepend(resizeBox);
+                            }
                         } else {
-                            $(img.imgId + ' img').removeClass('flipped');
+                            file.$fileId.children('.re-left-top').remove();
+                            file.$fileId.children('.re-right-top').remove();
+                            file.$fileId.children('.re-right-bottom').remove();
+                            file.$fileId.children('.re-left-bottom').remove();
                         }
                     });
 
@@ -337,16 +388,30 @@
                         $(this).toggleClass('active');
 
                         if ($(this).hasClass('active')) {
-                            if (!img.$imgId.hasClass('ro-left-top')) {
-                                img.$imgId.removeClass('not-rotated');
-                                img.$imgId.prepend(rotateBox);
+                            if (!file.$fileId.hasClass('ro-left-top')) {
+                                file.$fileId.removeClass('not-rotated');
+                                file.$fileId.prepend(rotateBox);
                             }
                         } else {
-                            img.$imgId.addClass('not-rotated');
-                            img.$imgId.children('.ro-left-top').remove();
-                            img.$imgId.children('.ro-right-top').remove();
-                            img.$imgId.children('.ro-right-bottom').remove();
-                            img.$imgId.children('.ro-left-bottom').remove();
+                            file.$fileId.addClass('not-rotated');
+                            file.$fileId.children('.ro-left-top').remove();
+                            file.$fileId.children('.ro-right-top').remove();
+                            file.$fileId.children('.ro-right-bottom').remove();
+                            file.$fileId.children('.ro-left-bottom').remove();
+                        }
+                    });
+
+
+                    // Activate flipping
+                    $(document).on('mousedown', '.flip-wrapper', function (e) {
+                        console.log('mousedown .flip-wrapper is detected.');
+
+                        e.stopPropagation();
+                        $(this).toggleClass('active');
+                        if ($(this).hasClass('active')) {
+                            $(file.fileId + ' .is-flipped').addClass('flipped');
+                        } else {
+                            $(file.fileId + ' .is-flipped').removeClass('flipped');
                         }
                     });
 
@@ -362,6 +427,7 @@
                         const whichResizeBox = function (b, n) {
                             $(document).on('mousedown', b, function (e) {
                                 console.log('mousedown ' + b + ' is detected');
+                                iframePointerNone();
 
                                 if (flgs.mousedown_flg == false) {
                                     flgs.mousedown_flg = true;
@@ -403,6 +469,7 @@
                             $(document).on('mousedown', b, function (e) {
                                 console.log('mousedown ' + b + ' is detected');
                                 e.stopPropagation();
+                                iframePointerNone();
 
 
                                 if (flgs.rotate_flg == false) {
@@ -447,6 +514,8 @@
 
                 // Reset flags
                 $(document).mouseup(function () {
+                    iframePointerReset();
+
                     // A flag for drag event
                     if (flgs.drag_flg == true) {
                         flgs.drag_flg = false;
@@ -495,24 +564,24 @@
 
                     // When an image is dragged
                     const dragged = function () {
-                        let targetPosLeft = e.clientX - img.imgIdRelPosX;
-                        let targetPosTop = e.clientY - img.imgIdRelPosY;
-                        let w = img.rotatedSize.width;
-                        let h = img.rotatedSize.height;
-                        let resLeft = (w - img.imgIdWidth) / 2 + targetPosLeft;
-                        let resTop = (h - img.imgIdHeight) / 2 + targetPosTop;
+                        let targetPosLeft = e.clientX - file.fileIdRelPosX;
+                        let targetPosTop = e.clientY - file.fileIdRelPosY;
+                        let w = file.rotatedSize.width;
+                        let h = file.rotatedSize.height;
+                        let resLeft = (w - file.fileIdWidth) / 2 + targetPosLeft;
+                        let resTop = (h - file.fileIdHeight) / 2 + targetPosTop;
 
 
                         if (flgs.drag_flg == true && flgs.resize_flg == false && flgs.rotate_flg == false) {
-                            img.$imgId.css('left', resLeft + 'px');
-                            img.$imgId.css('top', resTop + 'px');
+                            file.$fileId.css('left', resLeft + 'px');
+                            file.$fileId.css('top', resTop + 'px');
 
-                            // Update img.rotatedCenterPos for the later-use in rotating function
-                            img.rotatedCenterPos.left = (e.clientX - img.imgIdRelPosX) + w / 2;
-                            img.rotatedCenterPos.top = (e.clientY - img.imgIdRelPosY) + h / 2;
-                            // debugCircle('test-pos_3', 'orange', e.clientX - img.imgIdRelPosX, e.clientY - img.imgIdRelPosY);
+                            // Update file.rotatedCenterPos for the later-use in rotating function
+                            file.rotatedCenterPos.left = (e.clientX - file.fileIdRelPosX) + w / 2;
+                            file.rotatedCenterPos.top = (e.clientY - file.fileIdRelPosY) + h / 2;
+                            // debugCircle('test-pos_3', 'orange', e.clientX - file.fileIdRelPosX, e.clientY - file.fileIdRelPosY);
                             if (test_flg == false) {
-                                console.log('img.$imgId.css("left") : ' + img.$imgId.css('left') + ', img.$imgId.css("top") : ' + img.$imgId.css('top') + ', e.clientX : ' + e.clientX + ', e.clientY : ' + e.clientY + ', img.imgIdRelPosX : ' + img.imgIdRelPosX + ', img.imgIdRelPosY : ' + img.imgIdRelPosY);
+                                console.log('file.$fileId.css("left") : ' + file.$fileId.css('left') + ', file.$fileId.css("top") : ' + file.$fileId.css('top') + ', e.clientX : ' + e.clientX + ', e.clientY : ' + e.clientY + ', file.fileIdRelPosX : ' + file.fileIdRelPosX + ', file.fileIdRelPosY : ' + file.fileIdRelPosY);
                                 test_flg = true;
                             }
                             console.log('drag function is called');
@@ -522,18 +591,18 @@
 
                     // When an image is rotated
                     const rotated = function () {
-                        let imgCenterPosX = img.rotatedCenterPos.left;
-                        let imgCenterPosY = img.rotatedCenterPos.top;
-                        // debugCircle('test-pos_5', 'purple', imgCenterPosX, imgCenterPosY);
+                        let fileCenterPosX = file.rotatedCenterPos.left;
+                        let fileCenterPosY = file.rotatedCenterPos.top;
+                        // debugCircle('test-pos_5', 'purple', fileCenterPosX, fileCenterPosY);
                         // A current radian value of the mouse
-                        let rad = calcRadians(e.clientX - imgCenterPosX, e.clientY - imgCenterPosY);
-                        // debugCircle('test-pos_6', 'black', 50 * Math.cos(rad) + imgCenterPosX, 50 * Math.sin(rad) + imgCenterPosY);
+                        let rad = calcRadians(e.clientX - fileCenterPosX, e.clientY - fileCenterPosY);
+                        // debugCircle('test-pos_6', 'black', 50 * Math.cos(rad) + fileCenterPosX, 50 * Math.sin(rad) + fileCenterPosY);
 
                         if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.left_top_flg == true) {
                             let resRad = rad - tmp.ro.left_top_initRad;
                             console.log('tmp.ro.left_top_initRad : ' + tmp.ro.left_top_initRad);
 
-                            img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
+                            file.$fileId.css('transform', 'rotate(' + resRad + 'rad)');
                             console.log('rotate function is called');
                         }
 
@@ -542,7 +611,7 @@
                             let resRad = rad - tmp.ro.right_top_initRad;
                             console.log('tmp.ro.right_top_initRad : ' + tmp.ro.right_top_initRad);
 
-                            img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
+                            file.$fileId.css('transform', 'rotate(' + resRad + 'rad)');
                             console.log('rotate function is called');
                         }
 
@@ -551,7 +620,7 @@
                             let resRad = rad - tmp.ro.right_bottom_initRad;
                             console.log('tmp.ro.right_bottom_initRad : ' + tmp.ro.right_bottom_initRad);
 
-                            img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
+                            file.$fileId.css('transform', 'rotate(' + resRad + 'rad)');
                             console.log('rotate function is called');
                         }
 
@@ -560,7 +629,7 @@
                             let resRad = rad - tmp.ro.left_bottom_initRad;
                             console.log('tmp.ro.left_bottom_initRad : ' + tmp.ro.left_bottom_initRad);
 
-                            img.$imgId.css('transform', 'rotate(' + resRad + 'rad)');
+                            file.$fileId.css('transform', 'rotate(' + resRad + 'rad)');
                             console.log('rotate function is called');
                         }
                     };
@@ -569,40 +638,40 @@
                     // When resizing-boxes are clicked
                     const resized = function () {
                         if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_top_flg == true) {
-                            img.$imgId.css({
-                                'top': img.imgIdPos.top + (img.imgIdHeight - (img.imgIdWidth - (e.clientX - img.imgIdPos.left)) * img.imgIdRatio) + 'px',
+                            file.$fileId.css({
+                                'top': file.fileIdPos.top + (file.fileIdHeight - (file.fileIdWidth - (e.clientX - file.fileIdPos.left)) * file.fileIdRatio) + 'px',
                                 'left': e.clientX + 'px',
-                                'width': img.imgIdWidth - (e.clientX - img.imgIdPos.left) + 'px',
+                                'width': file.fileIdWidth - (e.clientX - file.fileIdPos.left) + 'px',
                             });
                             console.log('mousedown is called');
                         }
 
 
                         if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_top_flg == true) {
-                            img.$imgId.css({
-                                'top': img.imgIdPos.top + (img.imgIdHeight - (e.clientX - img.imgIdPos.left) * img.imgIdRatio) + 'px',
-                                'left': img.imgIdPos.left + 'px',
-                                'width': e.clientX - img.imgIdPos.left + 'px',
+                            file.$fileId.css({
+                                'top': file.fileIdPos.top + (file.fileIdHeight - (e.clientX - file.fileIdPos.left) * file.fileIdRatio) + 'px',
+                                'left': file.fileIdPos.left + 'px',
+                                'width': e.clientX - file.fileIdPos.left + 'px',
                             });
                             // console.log('down one is called');
                         }
 
 
                         if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_bottom_flg == true) {
-                            img.$imgId.css({
-                                'top': img.imgIdPos.top + 'px',
-                                'left': img.imgIdPos.left + 'px',
-                                'width': e.clientX - img.imgIdPos.left + 'px',
+                            file.$fileId.css({
+                                'top': file.fileIdPos.top + 'px',
+                                'left': file.fileIdPos.left + 'px',
+                                'width': e.clientX - file.fileIdPos.left + 'px',
                             });
                             // console.log('down one is called');
                         }
 
 
                         if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_bottom_flg == true) {
-                            img.$imgId.css({
-                                'top': img.imgIdPos.top + 'px',
-                                'left': img.imgIdPos.left + (e.clientX - img.imgIdPos.left) + 'px',
-                                'width': img.imgIdWidth - (e.clientX - img.imgIdPos.left) + 'px',
+                            file.$fileId.css({
+                                'top': file.fileIdPos.top + 'px',
+                                'left': file.fileIdPos.left + (e.clientX - file.fileIdPos.left) + 'px',
+                                'width': file.fileIdWidth - (e.clientX - file.fileIdPos.left) + 'px',
                             });
                             // console.log('down one is called');
                         }
@@ -619,7 +688,7 @@
 
                 });
             };
-            imgSet();
+            fileSet();
 
 
         };

@@ -17,6 +17,8 @@ body {
     -ms-scroll-chaining: none;
     overscroll-behavior-y: none;
     -webkit-overflow-scrolling: touch;
+    /* Firefox 64 */
+    scrollbar-width: none;
 }
 
 body {
@@ -27,7 +29,7 @@ body {
     /* For IE. Actually I dont support IE though XD */
     -ms-overflow-style: none;
     /* For Firefox. Doesn`t seem to be working */
-    overflow: -moz-scrollbars-none;
+    /* overflow: -moz-scrollbars-none; */
 }
 
 /* For Chrome. */
@@ -610,7 +612,7 @@ body::-webkit-scrollbar,
     transform-origin: right top;
     transform: scale(0, 1);
     transition: transform .3s;
-    background: #f4a807;
+    background-color: #f4a807;
 }
 
 .hover-shadow-single:hover::before {
@@ -644,6 +646,10 @@ body::-webkit-scrollbar,
 /* Flex settings */
 .flex-box {
     display: flex;
+}
+
+.inline-flex-box {
+    display: inline-flex;
 }
 
 /* To align items horizontal-center */
@@ -773,6 +779,13 @@ footer {
     right: 6px;
     bottom: 6px;
     animation: spin 4s linear infinite;
+}
+
+/* Use .ellipsis to show '...' */
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 @keyframes spin {
