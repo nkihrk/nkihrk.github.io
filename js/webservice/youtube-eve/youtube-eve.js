@@ -43,10 +43,7 @@
 
                 const addYoutube = () => {
                     $(document).on('mousedown', '.search-button-youtube', function () {});
-
-                    $(document).on('mousedown', '.child-search-button-youtube', function () {
-
-                    });
+                    $(document).on('mousedown', '.child-search-button-youtube', function () {});
                 };
                 addYoutube();
 

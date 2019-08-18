@@ -5,6 +5,8 @@ var newFile = {
     // To identify whether being dropped or not
     'flg': 0,
 };
+// Restrict the drag-and-paste event
+var drag_paste_avail_flg = true;
 // A max length of the HIGHEST_Z_INDEX is 2147483647
 var HIGHEST_Z_INDEX = 1;
 
@@ -92,7 +94,9 @@ var HIGHEST_Z_INDEX = 1;
 
 
             };
-            dragAndPaste();
+            if (drag_paste_avail_flg == true) {
+                dragAndPaste();
+            }
 
 
             const fileSet = function () {
