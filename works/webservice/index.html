@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="format-detection" content="telephone=no">
-    <title>pixiv | NkiHrk.github.io</title>
+    <title>Web services | NkiHrk.github.io</title>
     <meta name="keywords" content="">
     <meta name="description" content="My Experimental Repo for My Web App.">
     <meta name="author" content="NkiHrk">
     <meta name="copyright" content="&copy; NkiHrk">
-    <meta property="og:title" content="pixiv | NkiHrk">
+    <meta property="og:title" content="Web services | NkiHrk">
     <meta property="og:type" content="article">
     <meta property="og:description" content="My Experimental Repo for My Web App.">
     <meta property="og:url" content="https://nkihrk.github.io">
@@ -32,8 +32,11 @@
     <link rel="stylesheet" href="/css/common/Reboot.css">
     <link rel="stylesheet" href="https://use.typekit.net/kqb4obi.css">
     <link rel="stylesheet" href="/css/common/styles.css">
-    <link rel="stylesheet" href="/css/social/pixiv/pixiv.css">
+    <link rel="stylesheet" href="/css/common/post-column.css">
+    <link rel="stylesheet" href="/css/works/webservice/webservice.css">
     <link rel="icon" href="/img/common/favicon.ico">
+
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
     <!--[if lt IE 9]>
         <script src="/js/common/html5shiv.js"></script>
     <![endif]-->
@@ -41,9 +44,8 @@
 
 <body>
 
-    <div id="loader-bg" style="position: fixed; z-index: 4;">
+    <div id="loader-bg" style="position: fixed; z-index: 3;">
         <div id="loading">
-            <!-- <img src="/img/common/loadinfo.net.gif"> -->
             <div class="spin-wrapper">
                 <div class="spinner"></div>
             </div>
@@ -51,14 +53,15 @@
     </div>
 
     <div id="container">
-        <div class="sub-menu" style="z-index: 3">
+        <div class="sub-menu" style="z-index: 2;">
+            <!-- .sub-menu has its position value 'relative' -->
             <a class="menu-trigger" href="#">
                 <span></span>
                 <span></span>
                 <span></span>
             </a>
         </div>
-        <div id="target-menu" class="menu" style="z-index: 2;">
+        <div id="target-menu" class="menu" style="z-index: 1;">
             <div class="menu-block-scrollbar-hidden menu-block" style="position: relative;">
                 <header>
                     <div class="portfolio center-margin-auto">
@@ -75,7 +78,7 @@
                             <li><a href="/social/github/" class="hover-shadow-double"
                                     style="padding: 25px 0px 20px 0px;"><span
                                         class="github-menu menu-li-common">GITHUB</span></a></li>
-                            <li><a href="/social/pixiv/" class="hover-shadow-double active-current-page"
+                            <li><a href="/social/pixiv/" class="hover-shadow-double"
                                     style="padding: 25px 0px 20px 0px;"><span
                                         class="pixiv-menu menu-li-common">PIXIV</span></a></li>
                             <li><a href="https://www.twitch.tv/chirurimu" target="_blank" class="hover-shadow-double"
@@ -97,7 +100,7 @@
                                     style="padding: 25px 0px 20px 0px;"><span
                                         class="others-menu menu-li-common">OTHERS</span></a>
                             </li>
-                            <li><a href="/works/webservice/" class="hover-shadow-double"
+                            <li><a href="/works/webservice/" class="hover-shadow-double active-current-page"
                                     style="padding: 25px 0px 20px 0px;"><span class="webservice-menu menu-li-common">WEB
                                         SERVICE</span></a></li>
                         </ul>
@@ -110,29 +113,30 @@
             </div>
         </div>
         <div class="content" style="position: absolute; z-index: 0;">
-            <div class="pixiv align-items justify-center flex-box content-block">
+            <div class="others justify-center flex-box content-block">
                 <div class="dot-line-intro half-opacity">
                     <div class="line-border-intro intro half-opacity bold agency-fb" style="font-size: 1.5rem;">
                         INTRODUCTION</div>
                 </div>
 
-                <div class="content-pixiv content-common">
-                    <!-- <div class="center-margin-auto pixiv-logo" style="margin-bottom: 30px;">
-                        <img src="/img/social/pixiv/pixiv_white.png" alt="pixiv logo" style="width: 100%;">
-                    </div> -->
-                    <div class="center-text-align visit-pixiv">
-                        <section>
-                            <h1 class="bold agency-fb" style="font-size: 3.5rem; line-height: 4rem;">Love to Draw
-                                Fan-art.</h1>
-                            <p style="display: block; font-size: 1.5rem; opacity: 0.7; margin-bottom: 40px;">
-                                AzurLane/FGO/Princess Connect Re:Dive</p>
-                            <a href="https://www.pixiv.net/member.php?id=23577907" target="_blank"
-                                class="hover-shadow-single bold agency-fb"
-                                style="font-size: 1.3rem; color: white;"><span class="jump-icon">Visit My
-                                    pixiv</span></a>
-                        </section>
+                <div class="flex-wrap flex-box content-others content-common">
+                    <div class="columns-content-post">
+                        <!-- For letter-spacing 0.1rem, its the optical adjustment for overflow-hidden-applied position before 'R' -->
+                        <h1 class="typing-illust typing-common bold agency-fb"
+                            style="color: rgba(87, 175, 182, 0.8); font-size: 4rem; line-height: 4rem;">WEB SERVICES
+                        </h1>
+
+
+                        <div id="post"></div>
+
+
+                        <!-- Scroll to top -->
+                        <div id="scroll-top" class="scroll-icon bold agency-fb">SCROLL TO TOP</div>
+
+
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -140,7 +144,7 @@
     <script src="/js/common/jquery-3.4.0.min.js"></script>
     <script src="/js/common/lib.js"></script>
     <script src="/js/common/common.js"></script>
-    <script src="/js/social/pixiv/pixiv.js"></script>
+    <script src="/js/works/webservice/webservice.js"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-101863956-2"></script>

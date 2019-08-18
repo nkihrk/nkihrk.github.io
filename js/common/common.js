@@ -37,7 +37,7 @@
                 'text-decoration': 'line-through',
             });
         }
-        lineThrough();
+        // lineThrough();
 
         // Insert copyright into footer
         const year = new Date().getFullYear();
