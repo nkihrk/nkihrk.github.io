@@ -121,7 +121,7 @@
             const $content = $('.content');
             const $contentBlock = $('.content-block');
             const $contentCommon = $('.content-common');
-            const $subMenu = $('.sub-menu');
+            const $subMenu = $('.sub-menu-hamburger');
 
             const bottomOffsetHeader = $header.outerHeight(true);
             const contentHeight = $('.content').outerHeight(true);
@@ -136,7 +136,7 @@
                 'margin-top': marginTop + 'px',
             });
 
-            // Set the pos of .sub-menu
+            // Set the pos of .sub-menu-hamburger
             $subMenu.css({
                 'top': marginTop + 5.5 + 'px',
                 'right': marginTop + 5.5 + 'px',
@@ -183,13 +183,44 @@
 
 
     // Toggle class active-menu-trigger
-    $('.sub-menu').on('click', function () {
+    $('.sub-menu-hamburger').on('click', function () {
         $('#target-menu').toggleClass('active-humberger');
         $('.menu-trigger').toggleClass('active-menu-trigger');
         if ($('.menu-trigger').hasClass('active-menu-trigger')) {
             $('.content').css('position', 'fixed');
         } else {
             $('.content').css('position', 'absolute');
+        }
+    });
+
+
+    // Menu hovering animation mostly for web-service menu
+    $('.sub-menu').on({
+        'mouseenter': function () {
+            $(this).find('li').css('transition', 'all 1s ease-in-out');
+        },
+        'mouseleave': function () {
+            $(this).find('li').css('transition', 'all .2s ease-in-out');
+        }
+    });
+    $('.sub-menu-nav').on({
+        'mouseenter': function () {
+            $(this).parents('.sub-menu').children('.menu-hover-shadow-single').css('background', '#32303f');
+            $(this).parents('.sub-menu').find('li').css('transition', 'all .5s ease-in-out');
+        },
+        'mouseleave': function () {
+            $('.menu-hover-shadow-single').on({
+                'mouseenter': function () {
+                    $(this).css('background', '#32303f');
+                    $(this).parents('.sub-menu').find('li').css('transition', 'all .5s ease-in-out');
+                },
+                'mouseleave': function () {
+                    $(this).css('background', '');
+                    $(this).parents('.sub-menu').find('li').css('transition', 'all .2s ease-in-out');
+                }
+            });
+            $(this).parents('.sub-menu').children('.menu-hover-shadow-single').css('background', '');
+            $(this).parents('.sub-menu').find('li').css('transition', 'all .2s ease-in-out');
         }
     });
 

@@ -51,7 +51,7 @@
     </div>
 
     <div id="container">
-        <div class="sub-menu" style="z-index: 3">
+        <div class="sub-menu-hamburger" style="z-index: 3">
             <a class="menu-trigger" href="#">
                 <span></span>
                 <span></span>
@@ -70,17 +70,17 @@
                                 SOCIAL</h2>
                         </div>
                         <ul>
-                            <li><a href="/" class="hover-shadow-double active-current-page"
+                            <li><a href="/" class="menu-hover-shadow-single active-current-page"
                                     style="padding: 25px 0px 20px 0px;"><span
                                         class="twitter-menu menu-li-common">TWITTER</span></a></li>
-                            <li><a href="/social/github/" class="hover-shadow-double"
+                            <li><a href="/social/github/" class="menu-hover-shadow-single"
                                     style="padding: 25px 0px 20px 0px;"><span
                                         class="github-menu menu-li-common">GITHUB</span></a></li>
-                            <li><a href="/social/pixiv/" class="hover-shadow-double"
+                            <li><a href="/social/pixiv/" class="menu-hover-shadow-single"
                                     style="padding: 25px 0px 20px 0px;"><span
                                         class="pixiv-menu menu-li-common">PIXIV</span></a></li>
-                            <li><a href="https://www.twitch.tv/chirurimu" target="_blank" class="hover-shadow-double"
-                                    style="padding: 25px 0px 20px 0px;"><span
+                            <li><a href="https://www.twitch.tv/chirurimu" target="_blank"
+                                    class="menu-hover-shadow-single" style="padding: 25px 0px 20px 0px;"><span
                                         class="twitch-menu menu-li-common">TWITCH</span></a></li>
                         </ul>
                         <div class="dot-line">
@@ -88,19 +88,28 @@
                                 WORKS</h2>
                         </div>
                         <ul>
-                            <li><a href="/works/shader/" class="hover-shadow-double"
+                            <li><a href="/works/shader/" class="menu-hover-shadow-single"
                                     style="padding: 25px 0px 20px 0px;"><span
                                         class="code-menu menu-li-common">SHADER</span></a></li>
-                            <li><a href="/works/illustration/" class="hover-shadow-double"
+                            <li><a href="/works/illustration/" class="menu-hover-shadow-single"
                                     style="padding: 25px 0px 20px 0px;"><span
                                         class="illustration-menu menu-li-common">ILLUSTRATION</span></a></li>
-                            <li><a href="/works/others/" class="hover-shadow-double"
+                            <li><a href="/works/others/" class="menu-hover-shadow-single"
                                     style="padding: 25px 0px 20px 0px;"><span
                                         class="others-menu menu-li-common">OTHERS</span></a>
                             </li>
-                            <li><a href="/works/webservice/" class="hover-shadow-double"
+                            <li class="sub-menu">
+                                <a href="/works/webservice/" class="menu-hover-shadow-single"
                                     style="padding: 25px 0px 20px 0px;"><span class="webservice-menu menu-li-common">WEB
-                                        SERVICE</span></a></li>
+                                        SERVICE</span></a>
+                                <ul class="sub-menu-nav">
+                                    <li><a href="/works/webservice/youtube-eve/"><span
+                                                class="sub-menu-li-common">YOUTUBE EVE
+                                                -β-</span></a></li>
+                                    <li><a href="/works/webservice/canvas-eve/"><span class="sub-menu-li-common">CANVAS
+                                                EVE -β-</span></a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </nav>
                 </header>

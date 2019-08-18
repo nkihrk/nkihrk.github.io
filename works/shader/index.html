@@ -53,8 +53,8 @@
     </div>
 
     <div id="container">
-        <div class="sub-menu" style="z-index: 3">
-            <!-- .sub-menu has its position value 'relative' -->
+        <div class="sub-menu-hamburger" style="z-index: 3">
+            <!-- .sub-menu-hamburger has its position value 'relative' -->
             <a class="menu-trigger" href="#">
                 <span></span>
                 <span></span>
@@ -100,9 +100,18 @@
                                     style="padding: 25px 0px 20px 0px;"><span
                                         class="others-menu menu-li-common">OTHERS</span></a>
                             </li>
-                            <li><a href="/works/webservice/" class="hover-shadow-double"
+                            <li class="sub-menu">
+                                <a href="/works/webservice/" class="menu-hover-shadow-single"
                                     style="padding: 25px 0px 20px 0px;"><span class="webservice-menu menu-li-common">WEB
-                                        SERVICE</span></a></li>
+                                        SERVICE</span></a>
+                                <ul class="sub-menu-nav">
+                                    <li><a href="/works/webservice/youtube-eve/"><span
+                                                class="sub-menu-li-common">YOUTUBE EVE
+                                                -β-</span></a></li>
+                                    <li><a href="/works/webservice/canvas-eve/"><span class="sub-menu-li-common">CANVAS
+                                                EVE -β-</span></a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </nav>
                 </header>

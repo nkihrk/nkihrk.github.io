@@ -88,6 +88,10 @@ address {
     line-height: inherit;
 }
 
+ul {
+    list-style: none;
+}
+
 ol,
 ul,
 dl {

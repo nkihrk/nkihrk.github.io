@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+/* Prefix for the entire content */
+/* .content-others {
+    margin: 60px 0;
+} */
+
+/* Typing animation */
+.typing-web {
+    /* Adjust width and animation step num to the specific strings. Also need to adjust line-space */
+    width: 9.8ch;
+    border-right: .1rem solid;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: caret .5s step-end infinite;
+}
+
+@keyframes caret {
+    50% {
+        border-color: transparent;
+    }
+}
+
+.columns-content-post {
+    margin-left: 0;
+}
+
+@media (min-width: 0px) {
+    .dot-line-intro {
+        visibility: hidden;
+    }
+}
+
+@media (min-width: 1000px) {
+
+    /* Just for optical adjustment */
+    .content-block {
+        padding-top: 30px;
+    }
+}
+
+@media (min-width: 1680px) {
+    .dot-line-intro {
+        visibility: visible;
+    }
+}

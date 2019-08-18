@@ -6,7 +6,7 @@
 } */
 
 /* Typing animation */
-.typing-illust {
+.typing-others {
     /* Adjust width and animation step num to the specific strings. Also need to adjust line-space */
     width: 5.8ch;
     border-right: .1rem solid;
