@@ -81,7 +81,7 @@
 
             $('.active-current-page>.menu-li-common').css('opacity', 1);
         };
-        activeCurrentPage();
+        // activeCurrentPage();
 
 
     });

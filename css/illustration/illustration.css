@@ -28,7 +28,7 @@
 .service-link::before {
     width: 70%;
     height: 70%;
-    background-image: url(../../img/common/pixiv.png);
+    background-image: url(/img/common/pixiv.png);
     left: 0px;
     top: 48%;
     transform: translateY(-50%);

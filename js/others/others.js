@@ -11,7 +11,7 @@
 
     $(function () {
         // Insert a JSON data to post-columns
-        $.getJSON("../js/common/json/others.json", function (others_list) {
+        $.getJSON("/js/common/json/others.json", function (others_list) {
             const others = others_list;
             insertPost(others);
         });

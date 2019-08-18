@@ -3,7 +3,7 @@
         "url": {
             "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=74505481",
             "image": [
-                "../img/illustration/pekorinu.jpg"
+                "/img/illustration/pekorinu.jpg"
             ]
         },
         "content": {
@@ -25,7 +25,7 @@
         "url": {
             "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=74362254",
             "image": [
-                "../img/illustration/島風_最終調整.png"
+                "/img/illustration/島風_最終調整.png"
             ]
         },
         "content": {
@@ -47,7 +47,7 @@
         "url": {
             "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=74031803",
             "image": [
-                "../img/illustration/Jeanne_kakou_kiritori.png"
+                "/img/illustration/Jeanne_kakou_kiritori.png"
             ]
         },
         "content": {
@@ -69,8 +69,8 @@
         "url": {
             "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73707155",
             "image": [
-                "../img/illustration/ネロ_16-9.png",
-                "../img/illustration/ネロ_背景なしVer.png"
+                "/img/illustration/ネロ_16-9.png",
+                "/img/illustration/ネロ_背景なしVer.png"
             ]
         },
         "content": {
@@ -97,7 +97,7 @@
         "url": {
             "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73581669",
             "image": [
-                "../img/illustration/illustrious_最終補正.png"
+                "/img/illustration/illustrious_最終補正.png"
             ]
         },
         "content": {
@@ -119,7 +119,7 @@
         "url": {
             "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73435945",
             "image": [
-                "../img/illustration/original_6.png"
+                "/img/illustration/original_6.png"
             ]
         },
         "content": {
@@ -140,7 +140,7 @@
         "url": {
             "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73380853",
             "image": [
-                "../img/illustration/花騎士マンリョウasdasfasfasdsgsdagfasfasf.png"
+                "/img/illustration/花騎士マンリョウasdasfasfasdsgsdagfasfasf.png"
             ]
         },
         "content": {
@@ -162,7 +162,7 @@
         "url": {
             "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73240732",
             "image": [
-                "../img/illustration/紫式部_添削.png"
+                "/img/illustration/紫式部_添削.png"
             ]
         },
         "content": {
@@ -184,7 +184,7 @@
         "url": {
             "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73064804",
             "image": [
-                "../img/illustration/tumblr_pmmfa515NQ1x5sdt3o2_1280.png"
+                "/img/illustration/tumblr_pmmfa515NQ1x5sdt3o2_1280.png"
             ]
         },
         "content": {
@@ -206,7 +206,7 @@
         "url": {
             "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=72566894",
             "image": [
-                "../img/illustration/ホムラ_浴衣_2.png"
+                "/img/illustration/ホムラ_浴衣_2.png"
             ]
         },
         "content": {
@@ -228,7 +228,7 @@
         "url": {
             "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=71948338",
             "image": [
-                "../img/illustration/Unity-Chan_fin.png"
+                "/img/illustration/Unity-Chan_fin.png"
             ]
         },
         "content": {
@@ -249,7 +249,7 @@
         "url": {
             "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=68321013",
             "image": [
-                "../img/illustration/victorious.png"
+                "/img/illustration/victorious.png"
             ]
         },
         "content": {

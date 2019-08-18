@@ -3,8 +3,8 @@
         "url": {
             "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=75587398",
             "image": [
-                "../img/others/CLIPStudioPaint_2019-05-10_01-54-55.png",
-                "../img/others/CLIPStudioPaint_2019-05-15_01-50-36.png"
+                "/img/others/CLIPStudioPaint_2019-05-10_01-54-55.png",
+                "/img/others/CLIPStudioPaint_2019-05-15_01-50-36.png"
             ]
         },
         "content": {
@@ -31,8 +31,8 @@
         "url": {
             "link": "",
             "image": [
-                "../img/others/IMG_1148.jpg",
-                "../img/others/IMG_1149.jpg"
+                "/img/others/IMG_1148.jpg",
+                "/img/others/IMG_1149.jpg"
             ]
         },
         "content": {
@@ -57,9 +57,9 @@
     {
         "name": "The ex-page of Code",
         "url": {
-            "link": "../code/code.html",
+            "link": "/works/code/",
             "image": [
-                "../img/others/chrome_2019-07-27_01-10-02.jpg"
+                "/img/others/chrome_2019-07-27_01-10-02.jpg"
             ]
         },
         "content": {

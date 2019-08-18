@@ -28,7 +28,7 @@
     display: inline-block;
     width: 90px;
     height: 60px;
-    background-image: url(../../../img/webservice/canvas-eve/youtube.png);
+    background-image: url(/img/webservice/canvas-eve/youtube.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -107,7 +107,7 @@
     display: inline-block;
     width: 24px;
     height: 15px;
-    background-image: url(../../../img/webservice/canvas-eve/backspace.png);
+    background-image: url(/img/webservice/canvas-eve/backspace.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -184,7 +184,7 @@
     display: inline-block;
     width: 20px;
     height: 20px;
-    background-image: url(../../../img/webservice/canvas-eve/add.png);
+    background-image: url(/img/webservice/canvas-eve/add.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -306,7 +306,7 @@ input[type="text"]:focus {
     display: inline-block;
     width: 20px;
     height: 20px;
-    background-image: url(../../../img/webservice/canvas-eve/search.png);
+    background-image: url(/img/webservice/canvas-eve/search.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;

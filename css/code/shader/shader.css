@@ -28,7 +28,7 @@
 .service-link::before {
     width: 70%;
     height: 70%;
-    background-image: url(../../../img/common/github_logo.png);
+    background-image: url(/img/common/github_logo.png);
     left: 0px;
     top: 45%;
     transform: translateY(-50%);
