@@ -17,7 +17,7 @@ a {
 
 /* Bluring background image */
 .twitter {
-    background-image: url(/img/index/島風_2.png);
+    background-image: url(/img/島風_2.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -76,7 +76,7 @@ a {
     display: inline-block;
     width: 50px;
     height: 50px;
-    background-image: url(/img/index/tweets.png);
+    background-image: url(/img/tweets.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -92,7 +92,7 @@ a {
     display: inline-block;
     width: 70px;
     height: 50px;
-    background-image: url(/img/index/followers.png);
+    background-image: url(/img/followers.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -112,7 +112,7 @@ a {
     display: inline-block;
     width: 50px;
     height: 50px;
-    background-image: url(/img/index/likes.png);
+    background-image: url(/img/likes.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;

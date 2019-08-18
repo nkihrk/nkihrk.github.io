@@ -40,7 +40,7 @@
     display: inline-block;
     width: 30px;
     height: 30px;
-    background-image: url(/img/github/html5.png);
+    background-image: url(/img/social/github/html5.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -55,7 +55,7 @@
     display: inline-block;
     width: 30px;
     height: 30px;
-    background-image: url(/img/github/css3.png);
+    background-image: url(/img/social/github/css3.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -70,7 +70,7 @@
     display: inline-block;
     width: 30px;
     height: 30px;
-    background-image: url(/img/github/javascript.png);
+    background-image: url(/img/social/github/javascript.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -85,7 +85,7 @@
     display: inline-block;
     width: 30px;
     height: 30px;
-    background-image: url(/img/github/ruby.png);
+    background-image: url(/img/social/github/ruby.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -100,7 +100,7 @@
     display: inline-block;
     width: 30px;
     height: 30px;
-    background-image: url(/img/github/c.png);
+    background-image: url(/img/social/github/c.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -115,7 +115,7 @@
     display: inline-block;
     width: 90px;
     height: 30px;
-    background-image: url(/img/github/csharp.png);
+    background-image: url(/img/social/github/csharp.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;

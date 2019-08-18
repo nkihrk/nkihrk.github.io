@@ -48,14 +48,14 @@ var HIGHEST_Z_INDEX = 1;
                                 newFile.prevId = newFile.id;
                                 newFile.id += 1;
                                 // console.log('newFile.id : ' + newFile.id + ', newFile.flg  : ' + newFile.flg);
-                                const imgTag = '<img class="is-flipped" src="' + e.target.result + '" style="width: 100%;">';
-                                const videoTag = '<video class="is-flipped" controls playsinline preload="metadata" style="width: 100%;">' +
+                                const imgTag = '<img src="' + e.target.result + '" style="width: 100%;">';
+                                const videoTag = '<video controls playsinline preload="metadata" style="width: 100%;">' +
                                     '<source src="' + e.target.result + '" type="video/webm">' +
                                     '<source src="' + e.target.result + '" type="video/mp4">' +
                                     '</video>';
                                 const resTag = /\.(jpe?g|png|gif)$/i.test(file.name) ? imgTag : videoTag;
                                 const funcTags = '<div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>'
-                                const assertFile = '<div id ="' + newFile.id + '" class="grab-pointer file-wrap"><div class="function-wrapper">' + funcTags + '</div>' + resTag + '</div>';
+                                const assertFile = '<div id ="' + newFile.id + '" class="grab-pointer file-wrap"><div class="function-wrapper">' + funcTags + '</div><div class="is-flipped">' + resTag + '</div></div>';
                                 $('#add-files').append(assertFile);
                                 // console.log('reader.onload is successfully executed');
                             };

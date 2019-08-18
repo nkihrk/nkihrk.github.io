@@ -4,7 +4,7 @@
             "url": {
                 "link": "https://github.com/nkihrk/everyday-one-shader/blob/master/BRDFTranslucentSSS.shader",
                 "image": [
-                    "/img/code/shader/BRDFTranslucentSSS.gif"
+                    "/img/works/shader/BRDFTranslucentSSS.gif"
                 ]
             },
             "content": {
@@ -27,7 +27,7 @@
             "url": {
                 "link": "https://github.com/nkihrk/everyday-one-shader/blob/master/UnlitWaterFallShader.Shader",
                 "image": [
-                    "/img/code/shader/UnlitWaterFall_3.gif"
+                    "/img/works/shader/UnlitWaterFall_3.gif"
                 ]
             },
             "content": {
@@ -50,8 +50,8 @@
             "url": {
                 "link": "https://github.com/nkihrk/everyday-one-shader/blob/master/FireShader.shader",
                 "image": [
-                    "/img/code/shader/bandicam 2018-09-10 07-27-13-144.gif",
-                    "/img/code/shader/bandicam_2018-09-12_01-08-48-646.gif"
+                    "/img/works/shader/bandicam 2018-09-10 07-27-13-144.gif",
+                    "/img/works/shader/bandicam_2018-09-12_01-08-48-646.gif"
                 ]
             },
             "content": {
@@ -79,8 +79,8 @@
             "url": {
                 "link": "https://github.com/nkihrk/everyday-one-shader/blob/master/BurningOutlineShader.shader",
                 "image": [
-                    "/img/code/shader/bandicam_2018-09-15_17-39-52-972.gif",
-                    "/img/code/shader/bandicam_2018-09-12_15-05-26-060.gif"
+                    "/img/works/shader/bandicam_2018-09-15_17-39-52-972.gif",
+                    "/img/works/shader/bandicam_2018-09-12_15-05-26-060.gif"
                 ]
             },
             "content": {
@@ -108,8 +108,8 @@
             "url": {
                 "link": "https://github.com/nkihrk/HatchingShader/blob/master/HatchingShader.shader",
                 "image": [
-                    "/img/code/shader/ugolino_with_hatching_shader.jpg",
-                    "/img/code/shader/D9km0JvUEAAACqN.jpg"
+                    "/img/works/shader/ugolino_with_hatching_shader.jpg",
+                    "/img/works/shader/D9km0JvUEAAACqN.jpg"
                 ]
             },
             "content": {
@@ -137,7 +137,7 @@
             "url": {
                 "link": "",
                 "image": [
-                    "/img/code/shader/DogDSAJVAAE0ITm.jpg"
+                    "/img/works/shader/DogDSAJVAAE0ITm.jpg"
                 ]
             },
             "content": {
@@ -160,7 +160,7 @@
             "url": {
                 "link": "https://github.com/nkihrk/everyday-one-shader/blob/master/BurningEffect.shader",
                 "image": [
-                    "/img/code/shader/bandicam_2018-09-07_13-19-37-498.gif"
+                    "/img/works/shader/bandicam_2018-09-07_13-19-37-498.gif"
                 ]
             },
             "content": {
