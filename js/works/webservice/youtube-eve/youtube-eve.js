@@ -233,6 +233,7 @@
                             }
 
 
+                            var $selected = $(this);
                             // Get a specific json data from youtube via data api
                             if (jsonYt == -1) {
                                 tabName = 'The API Key is missing; the key is needed to show a name of the now-playing video properly.';
@@ -241,16 +242,15 @@
                                     if (isVideo) {
                                         tabName = jsonData.items[0].snippet.title;
                                         console.log('tabName(isVideo=true)', tabName);
-                                        $(this).parents('.youtube-wrapper').find('.tab-youtube').text(tabName);
                                     } else {
                                         tabName = 'Playlist : Enqueued ' + jsonData.pageInfo.totalResults + ' videos';
                                         console.log('tabName(isVideo=false)', tabName);
-                                        $(this).parents('.youtube-wrapper').find('.tab-youtube').text(tabName);
                                     }
+                                    $selected.parents('.youtube-wrapper').find('.tab-youtube')[0].innerText = tabName;
                                 });
                             }
 
-                            $(this).parents('.youtube-wrapper').find('iframe').attr('src', 'https://www.youtube.com/embed/' + youtubeID);
+                            $selected.parents('.youtube-wrapper').find('iframe').attr('src', 'https://www.youtube.com/embed/' + youtubeID);
                         } else {}
                     });
                 };
