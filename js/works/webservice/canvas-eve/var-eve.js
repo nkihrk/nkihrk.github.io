@@ -5,8 +5,6 @@ var newFile = {
     // To identify whether being dropped or not
     'flg': 0,
 };
-// Restrict the drag-and-paste event
-var dnd_eve_avail_flg = true;
 // A max length of the HIGHEST_Z_INDEX is 2147483647
 var HIGHEST_Z_INDEX = 1;
 
@@ -24,6 +22,7 @@ var config = {
 
 
 ///
+
 
 // Functions
 // Get transform values of a specific selector

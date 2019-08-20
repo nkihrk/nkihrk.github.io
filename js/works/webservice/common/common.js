@@ -24,6 +24,4 @@
         }
         loadingLast();
     });
-
-
 })(window, jQuery);
