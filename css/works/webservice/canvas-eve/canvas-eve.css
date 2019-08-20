@@ -14,6 +14,12 @@
     transition: width .1s, height .1s, top .1s, left .1s;
 }
 
+.is-flipped video {
+    margin: 0;
+    padding: 0;
+    margin-bottom: -6px;
+}
+
 
 /* To load images properly. Currently not used */
 .in-active {
@@ -288,4 +294,9 @@
 
 .trash-icon.active::after {
     opacity: 1;
+}
+
+/* Delete a blue outline when focused on a video tag */
+video:focus {
+    outline: none;
 }
