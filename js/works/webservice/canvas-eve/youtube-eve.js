@@ -1,31 +1,10 @@
-(function (window, $) {
+(function ($) {
     // When DOM tree is constructed
     $(function () {
 
         // Add youtube videos to the canvas
         const youtubeEve = () => {
             // Global scope variables, flags and functions
-            var flgs = {};
-
-            var tmp = {};
-
-            const handlePropagation = (e) => {
-                e.stopPropagation();
-            };
-
-            // For the iframe pointer problem
-            const iframePointerNone = function () {
-                $('iframe').css('pointer-events', 'none');
-            };
-            const iframePointerReset = function () {
-                $('iframe').css('pointer-events', '');
-            };
-
-            const handleDragEvent = function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                e.dataTransfer.dropEffect = 'copy';
-            };
 
             // Get json data from youtube. video
             const ajaxDataVideo = (id) => {
@@ -58,21 +37,8 @@
             };
 
 
-            // Initialize variables
-            const initVar = () => {};
-
-            // Configuring flags
-            const flags = () => {};
-
             // Functions to execute. Main program
-            const functions = () => {
-
-                const addYoutube = () => {
-                    $(document).on('mousedown', '.search-button-youtube', function () {});
-                    $(document).on('mousedown', '.child-search-button-youtube', function () {});
-                };
-                addYoutube();
-
+            const funcs = () => {
                 const searchBox = () => {
                     // Stop propagation
                     // $(document).on('mousedown', '.search-youtube', handlePropagation);
@@ -203,6 +169,7 @@
 
 
                     $(document).on('mousedown', '.child-search-button-youtube', function () {
+                        var $selected = $(this);
                         var url, youtubeID, listID, videoID, jsonYt, tabName, isVideo;
                         var input = encodeURI($(this).parent().find('input').val());
                         var isUrl = input.match(/^(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/);
@@ -232,8 +199,6 @@
                                 }
                             }
 
-
-                            var $selected = $(this);
                             // Get a specific json data from youtube via data api
                             if (jsonYt == -1) {
                                 tabName = 'The API Key is missing; the key is needed to show a name of the now-playing video properly.';
@@ -256,17 +221,10 @@
                 };
                 searchBox();
             };
-
-            // Execute functions
-            const executed = () => {
-                initVar();
-                flags();
-                functions();
-            };
-            executed();
+            funcs();
         };
         youtubeEve();
 
 
     });
-})(window, jQuery);
+})(jQuery);

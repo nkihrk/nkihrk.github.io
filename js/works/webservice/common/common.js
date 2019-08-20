@@ -1,8 +1,6 @@
 (function (window, $) {
     // When DOM tree is constructed
     $(function () {
-        // Window width and height
-        const w = $(window).width();
         const h = $(window).height();
 
         // Loading animation
@@ -15,10 +13,6 @@
 
     // When loading is finished
     $(window).on('load', function () {
-        // Window width and height
-        const w = $(window).width();
-        const h = $(window).height();
-
         // loadingLast
         const loadingLast = function () {
             $('#loader-bg').delay(900).fadeOut(800, function () {

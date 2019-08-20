@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+#plain {
+    width: 100%;
+    height: 100vh;
+}
+
 /* A wrapper for a pasted image */
 .file-wrap {
     position: absolute;
