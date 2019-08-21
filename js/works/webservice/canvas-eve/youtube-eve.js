@@ -94,7 +94,7 @@
                         if (jsonYt == -1) {
                             tabName = 'The API Key is missing; the key is needed to show a name of the now-playing video properly.';
                             iframeTag = '<iframe src="https://www.youtube.com/embed/' + youtubeID + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-                            assertFile = '<div id="' + newFile.id + '" class="grab-pointer file-wrap" style="width: 700px; top: 33%; left: calc(50% - 350px); z-index:' + HIGHEST_Z_INDEX + ';">' +
+                            assertFile = '<div id="' + newFile.id + '" class="grab-pointer file-wrap" style="width: 700px;' + ' top:' + 400 + 'px; left: calc(50% - 350px); z-index:' + HIGHEST_Z_INDEX + ';">' +
                                 '<div class="function-wrapper">' +
                                 '<div class="resize-wrapper"></div>' +
                                 '<div class="rotate-wrapper"></div>' +
@@ -130,8 +130,9 @@
                                     tabName = 'Playlist : Enqueued ' + jsonData.pageInfo.totalResults + ' videos';
                                 }
                                 // console.log('tabName', tabName);
+
                                 iframeTag = '<iframe src="https://www.youtube.com/embed/' + youtubeID + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-                                assertFile = '<div id="' + newFile.id + '" class="grab-pointer file-wrap" style="width: 700px; top: 33%; left: calc(50% - 350px); z-index:' + HIGHEST_Z_INDEX + ';">' +
+                                assertFile = '<div id="' + newFile.id + '" class="grab-pointer file-wrap" style="width: 700px;' + ' top:' + $('#add-youtube').offset().top + 'px; left:' + $('#add-youtube').offset().left + 'px; z-index:' + HIGHEST_Z_INDEX + ';">' +
                                     '<div class="function-wrapper">' +
                                     '<div class="resize-wrapper"></div>' +
                                     '<div class="rotate-wrapper"></div>' +

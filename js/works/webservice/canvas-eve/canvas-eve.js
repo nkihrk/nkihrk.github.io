@@ -447,6 +447,13 @@
                     let resTop = (h - file.fileIdHeight) / 2 + targetPosTop;
 
 
+                    // Set the #reset-res at a mouse pos
+                    $('#reset-res').css({
+                        'left': pClientX - 50 + 'px',
+                        'top': pClientY - 50 + 'px'
+                    });
+
+
                     if (flgs.drag_flg == true && flgs.resize_flg == false && flgs.rotate_flg == false) {
                         file.$fileId.css('left', resLeft + 'px');
                         file.$fileId.css('top', resTop + 'px');
