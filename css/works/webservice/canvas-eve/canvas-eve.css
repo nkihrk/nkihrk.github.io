@@ -25,7 +25,7 @@
     /* transform: rotate(60deg); */
 
     /* transition: all .1s; */
-    transition: width .1s, height .1s, top .1s, left .1s;
+    /* transition: width .1s, height .1s, top .1s, left .1s; */
 }
 
 .is-flipped video {
