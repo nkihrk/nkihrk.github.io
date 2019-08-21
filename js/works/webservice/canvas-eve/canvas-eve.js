@@ -77,13 +77,12 @@
             '<div class="ro-right-bottom"></div>' +
             '<div class="ro-left-bottom"></div>';
 
-
-        ///
+        //////
 
 
         // Prefix for pasted-images. Initialize the values
         const init = function () {
-            $(document).on('mousedown', '.file-wrap', function (e) {
+            $(document).on(EVENTNAME_TOUCHSTART, '.file-wrap', function (e) {
                 console.log('mousedown .file-wrap is detected.');
 
                 // To restrict preferred functions
@@ -144,15 +143,24 @@
                     file.rotatedSize.height = file.fileIdHeight * Math.abs(Math.cos(file.fileIdTheta)) + file.fileIdWidth * Math.abs(Math.sin(file.fileIdTheta));
 
                     file.fileIdPos = file.$fileId.offset();
+                    console.log('file.fileIdPos', file.fileIdPos);
+
                     // Image-space mouse coordinates
-                    file.fileIdRelPosX = e.clientX - file.fileIdPos.left;
-                    file.fileIdRelPosY = e.clientY - file.fileIdPos.top;
+                    if (e.originalEvent.changedTouches) {
+                        clientX = e.originalEvent.changedTouches[0].clientX;
+                        clientY = e.originalEvent.changedTouches[0].clientY;
+                    } else {
+                        clientX = e.clientX;
+                        clientY = e.clientY;
+                    }
+                    file.fileIdRelPosX = clientX - file.fileIdPos.left;
+                    file.fileIdRelPosY = clientY - file.fileIdPos.top;
                     // debugCircle('test-pos_1', 'blue', file.fileIdPos.left, file.fileIdPos.top);
                     // debugCircle('test-pos_4', 'white', file.fileIdRelPosX, file.fileIdRelPosY);
 
                     // Initialize file.rotatedCenterPos
-                    file.rotatedCenterPos.left = (e.clientX - file.fileIdRelPosX) + file.rotatedSize.width / 2;
-                    file.rotatedCenterPos.top = (e.clientY - file.fileIdRelPosY) + file.rotatedSize.height / 2;
+                    file.rotatedCenterPos.left = ((clientX - $('#plain').offset().left) - file.fileIdRelPosX) + file.rotatedSize.width / 2;
+                    file.rotatedCenterPos.top = ((clientY - $('#plain').offset().top) - file.fileIdRelPosY) + file.rotatedSize.height / 2;
 
                     // Initialize the initRads for a rotating function
                     tmp.ro.left_top_initRad = calcRadians(-file.fileIdWidth / 2, -file.fileIdHeight / 2);
@@ -172,7 +180,6 @@
                     file.$fileId.css('z-index', HIGHEST_Z_INDEX);
                     flgs.drag_flg = true;
                     console.log('flgs.drag_flg is ' + flgs.drag_flg);
-                    console.log('mousedown-left : ' + file.fileIdPos.left + ', mousedown-top : ' + file.fileIdPos.top + ', e.clientX : ' + e.clientX + ', e.clientY : ' + e.clientY + ', file.fileIdRelPosX : ' + file.fileIdRelPosX + ', file.fileIdRelPosY : ' + file.fileIdRelPosY);
                 }
             });
         }
@@ -181,7 +188,7 @@
 
         // Reset a selected area
         const reset = function () {
-            $(document).on('mousedown', '#reset-res', function () {
+            $(document).on(EVENTNAME_TOUCHSTART, '#reset-res', function () {
                 console.log('mousedown #reset-res is detected.');
                 $('div').removeClass('selected');
                 $('div').removeClass('resize-icon');
@@ -210,7 +217,7 @@
                 // Configuring flags for resizing function
                 const resize = function () {
                     const whichResizeBox = function (b, n) {
-                        $(document).on('mousedown', b, function (e) {
+                        $(document).on(EVENTNAME_TOUCHSTART, b, function (e) {
                             console.log('mousedown ' + b + ' is detected');
                             iframePointerNone();
 
@@ -250,7 +257,7 @@
                 // Configuring flags for a rotating function and a reset function
                 const rotate = function () {
                     const whichRotateBox = function (b, n) {
-                        $(document).on('mousedown', b, function (e) {
+                        $(document).on(EVENTNAME_TOUCHSTART, b, function (e) {
                             console.log('mousedown ' + b + ' is detected');
                             e.stopPropagation();
                             iframePointerNone();
@@ -294,7 +301,7 @@
             activateFlgs();
 
             // Reset flags
-            $(document).mouseup(function () {
+            $(document).on(EVENTNAME_TOUCHEND, function () {
                 iframePointerReset();
 
                 // A flag for drag event
@@ -337,16 +344,13 @@
         configFlgs();
 
 
-        // just for the tmp debug
-        var test_flg = false;
-
         // Execute if flags are true
         const main = function () {
 
             // Show icons to be active, and do something if needed
             const clickedIcon = function () {
                 // Activate resizing
-                $(document).on('mousedown', '.resize-wrapper', function (e) {
+                $(document).on(EVENTNAME_TOUCHSTART, '.resize-wrapper', function (e) {
                     console.log('mousedown .resize-wrapper is detected.');
 
                     e.stopPropagation();
@@ -366,7 +370,7 @@
 
 
                 //Activate rotating
-                $(document).on('mousedown', '.rotate-wrapper', function (e) {
+                $(document).on(EVENTNAME_TOUCHSTART, '.rotate-wrapper', function (e) {
                     console.log('mousedown .rotate-wrapper is detected.');
 
                     e.stopPropagation();
@@ -388,7 +392,7 @@
 
 
                 // Activate flipping
-                $(document).on('mousedown', '.flip-wrapper', function (e) {
+                $(document).on(EVENTNAME_TOUCHSTART, '.flip-wrapper', function (e) {
                     console.log('mousedown .flip-wrapper is detected.');
 
                     e.stopPropagation();
@@ -402,7 +406,7 @@
 
 
                 // Trash the selected element
-                $(document).on('mousedown', '.trash-wrapper', function (e) {
+                $(document).on(EVENTNAME_TOUCHSTART, '.trash-wrapper', function (e) {
                     console.log('mousedown .trash-wrapper is detected.');
 
                     e.stopPropagation();
@@ -417,15 +421,26 @@
             clickedIcon();
 
             // Allow events when flags are in specific values
-            $(document).mousemove(function (e) {
+            $(document).on(EVENTNAME_TOUCHMOVE, function (e) {
                 // Prevent from the default drag events
                 e.preventDefault();
+
+                // #plain-space mouse-pointer coordinates
+                if (e.originalEvent.changedTouches) {
+                    clientX = e.originalEvent.changedTouches[0].clientX;
+                    clientY = e.originalEvent.changedTouches[0].clientY;
+                } else {
+                    clientX = e.clientX;
+                    clientY = e.clientY;
+                }
+                var pClientX = clientX - $('#plain').offset().left;
+                var pClientY = clientY - $('#plain').offset().top;
 
 
                 // When an image is dragged
                 const dragged = function () {
-                    let targetPosLeft = e.clientX - file.fileIdRelPosX;
-                    let targetPosTop = e.clientY - file.fileIdRelPosY;
+                    let targetPosLeft = pClientX - file.fileIdRelPosX;
+                    let targetPosTop = pClientY - file.fileIdRelPosY;
                     let w = file.rotatedSize.width;
                     let h = file.rotatedSize.height;
                     let resLeft = (w - file.fileIdWidth) / 2 + targetPosLeft;
@@ -437,13 +452,9 @@
                         file.$fileId.css('top', resTop + 'px');
 
                         // Update file.rotatedCenterPos for the later-use in rotating function
-                        file.rotatedCenterPos.left = (e.clientX - file.fileIdRelPosX) + w / 2;
-                        file.rotatedCenterPos.top = (e.clientY - file.fileIdRelPosY) + h / 2;
+                        file.rotatedCenterPos.left = (pClientX - file.fileIdRelPosX) + w / 2;
+                        file.rotatedCenterPos.top = (pClientY - file.fileIdRelPosY) + h / 2;
                         // debugCircle('test-pos_3', 'orange', e.clientX - file.fileIdRelPosX, e.clientY - file.fileIdRelPosY);
-                        if (test_flg == false) {
-                            console.log('file.$fileId.css("left") : ' + file.$fileId.css('left') + ', file.$fileId.css("top") : ' + file.$fileId.css('top') + ', e.clientX : ' + e.clientX + ', e.clientY : ' + e.clientY + ', file.fileIdRelPosX : ' + file.fileIdRelPosX + ', file.fileIdRelPosY : ' + file.fileIdRelPosY);
-                            test_flg = true;
-                        }
                         console.log('drag function is called');
                     }
                 };
@@ -455,7 +466,7 @@
                     let fileCenterPosY = file.rotatedCenterPos.top;
                     // debugCircle('test-pos_5', 'purple', fileCenterPosX, fileCenterPosY);
                     // A current radian value of the mouse
-                    let rad = calcRadians(e.clientX - fileCenterPosX, e.clientY - fileCenterPosY);
+                    let rad = calcRadians(pClientX - fileCenterPosX, pClientY - fileCenterPosY);
                     // debugCircle('test-pos_6', 'black', 50 * Math.cos(rad) + fileCenterPosX, 50 * Math.sin(rad) + fileCenterPosY);
 
                     if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.left_top_flg == true) {
@@ -499,9 +510,9 @@
                 const resized = function () {
                     if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_top_flg == true) {
                         file.$fileId.css({
-                            'top': file.fileIdPos.top + (file.fileIdHeight - (file.fileIdWidth - (e.clientX - file.fileIdPos.left)) * file.fileIdRatio) + 'px',
-                            'left': e.clientX + 'px',
-                            'width': file.fileIdWidth - (e.clientX - file.fileIdPos.left) + 'px',
+                            'top': (file.fileIdPos.top - $('#plain').offset().top) + (file.fileIdHeight - (file.fileIdWidth - (clientX - file.fileIdPos.left)) * file.fileIdRatio) + 'px',
+                            'left': (clientX - $('#plain').offset().left) + 'px',
+                            'width': file.fileIdWidth - (clientX - file.fileIdPos.left) + 'px',
                         });
                         console.log('mousedown is called');
                     }
@@ -509,9 +520,9 @@
 
                     if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_top_flg == true) {
                         file.$fileId.css({
-                            'top': file.fileIdPos.top + (file.fileIdHeight - (e.clientX - file.fileIdPos.left) * file.fileIdRatio) + 'px',
-                            'left': file.fileIdPos.left + 'px',
-                            'width': e.clientX - file.fileIdPos.left + 'px',
+                            'top': (file.fileIdPos.top - $('#plain').offset().top) + (file.fileIdHeight - (clientX - file.fileIdPos.left) * file.fileIdRatio) + 'px',
+                            'left': (file.fileIdPos.left - $('#plain').offset().left) + 'px',
+                            'width': clientX - file.fileIdPos.left + 'px',
                         });
                         // console.log('down one is called');
                     }
@@ -519,9 +530,9 @@
 
                     if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_bottom_flg == true) {
                         file.$fileId.css({
-                            'top': file.fileIdPos.top + 'px',
-                            'left': file.fileIdPos.left + 'px',
-                            'width': e.clientX - file.fileIdPos.left + 'px',
+                            'top': (file.fileIdPos.top - $('#plain').offset().top) + 'px',
+                            'left': (file.fileIdPos.left - $('#plain').offset().left) + 'px',
+                            'width': clientX - file.fileIdPos.left + 'px',
                         });
                         // console.log('down one is called');
                     }
@@ -529,9 +540,9 @@
 
                     if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_bottom_flg == true) {
                         file.$fileId.css({
-                            'top': file.fileIdPos.top + 'px',
-                            'left': file.fileIdPos.left + (e.clientX - file.fileIdPos.left) + 'px',
-                            'width': file.fileIdWidth - (e.clientX - file.fileIdPos.left) + 'px',
+                            'top': (file.fileIdPos.top - $('#plain').offset().top) + 'px',
+                            'left': (file.fileIdPos.left - $('#plain').offset().left) + (clientX - file.fileIdPos.left) + 'px',
+                            'width': file.fileIdWidth - (clientX - file.fileIdPos.left) + 'px',
                         });
                         // console.log('down one is called');
                     }

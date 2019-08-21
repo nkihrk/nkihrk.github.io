@@ -16,8 +16,8 @@
             e.stopPropagation();
             e.preventDefault();
 
-            var clientX = e.clientX;
-            var clientY = e.clientY;
+            var clientX = e.clientX - $('#plain').offset().left;
+            var clientY = e.clientY - $('#plain').offset().top;
 
             const files = e.dataTransfer.files;
             const readAndPreview = function (file) {

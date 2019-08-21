@@ -1,8 +1,17 @@
 @charset "UTF-8";
 
 #plain {
-    width: 100%;
-    height: 100vh;
+    /* width: 100%;
+    height: 100vh; */
+    background: rgba(255, 0, 0, 0.2);
+    /* width: 20000px;
+    height: 20000px; */
+    /* width: 500px;
+    height: 500px; */
+
+    transition: all .1s;
+    transform-origin: top left;
+    transform: scale(1);
 }
 
 /* A wrapper for a pasted image */

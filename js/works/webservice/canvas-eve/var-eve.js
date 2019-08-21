@@ -1,3 +1,68 @@
+/////
+///// The template code for each -eve.js
+/////
+// (function (window, $) {
+//     const hogeEve = () => {
+//         // Flags
+//         const flgs = {
+//             'hoge_flg': false,
+//         };
+
+
+//         ///
+
+
+//         // Initialize values
+//         const init = () => {};
+//         init();
+
+
+//         // Configuring flags
+//         const configFlgs = () => {
+//             // Activate flags
+//             const activate = () => {
+//                 $(document).on('mousedown', function (e) {
+//                     if (e.button == 1) {
+//                         flgs.hoge_flg = true;
+//                         console.log('flgs.hoge_flg', flgs.hoge_flg);
+//                     }
+//                 })
+//             };
+//             activate();
+
+//             // Reset flags
+//             $(document).on('mouseup', function (e) {
+//                 if (flgs.hoge_flg == true) {
+//                     flgs.hoge_flg = false;
+//                     console.log('flgs.hoge_flg', flgs.hoge_flg);
+//                 }
+//             });
+//         };
+//         configFlgs();
+
+
+//         // Execute if flags are true
+//         const main = () => {
+//             $(document).mousemove(function (e) {
+//                 // Prevent from the default drag events
+//                 e.preventDefault();
+
+//                 if (flgs.hoge_flg == true) {
+
+//                 }
+//             });
+//         };
+//         main();
+
+
+//     };
+//     hogeEve();
+// })(window, jQuery);
+
+
+///
+
+
 // Variables
 var newFile = {
     'id': 0,
@@ -94,3 +159,34 @@ const iframePointerReset = function () {
 
 // Just for separation
 const sep = () => console.log('-------------------------------------');
+
+
+///
+
+
+// Implement touch events for smart-phone
+// To check whether we can use the touch event or not
+var supportTouch = 'ontouchend' in document;
+
+var EVENTNAME_TOUCHSTART = supportTouch ? 'touchstart' : 'mousedown';
+var EVENTNAME_TOUCHMOVE = supportTouch ? 'touchmove' : 'mousemove';
+var EVENTNAME_TOUCHEND = supportTouch ? 'touchend' : 'mouseup';
+
+// Get a clientX of mouse or touch
+var clientX = (event) => {
+    var original = event.originalEvent;
+    if (original.changedTouches) {
+        return original.changedTouches[0].clientX;
+    } else {
+        return e.clientX;
+    }
+};
+
+var clientY = (e) => {
+    var original = e.originalEvent;
+    if (original.changedTouches) {
+        return original.changedTouches[0].clientY;
+    } else {
+        return e.clientY;
+    }
+}
