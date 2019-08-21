@@ -172,21 +172,12 @@ var EVENTNAME_TOUCHSTART = supportTouch ? 'touchstart' : 'mousedown';
 var EVENTNAME_TOUCHMOVE = supportTouch ? 'touchmove' : 'mousemove';
 var EVENTNAME_TOUCHEND = supportTouch ? 'touchend' : 'mouseup';
 
-// Get a clientX of mouse or touch
-var clientX = (event) => {
-    var original = event.originalEvent;
-    if (original.changedTouches) {
-        return original.changedTouches[0].clientX;
-    } else {
-        return e.clientX;
-    }
+const preventDefault = (e) => {
+    e.preventDefault();
 };
-
-var clientY = (e) => {
-    var original = e.originalEvent;
-    if (original.changedTouches) {
-        return original.changedTouches[0].clientY;
-    } else {
-        return e.clientY;
-    }
-}
+window.addEventListener('touchmove', preventDefault, {
+    passive: false
+});
+window.removeEventListener('touchmove', preventDefault, {
+    passive: false
+});
