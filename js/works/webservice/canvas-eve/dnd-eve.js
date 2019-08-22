@@ -34,7 +34,7 @@
                             '</video>';
                         const resTag = /\.(jpe?g|png|gif)$/i.test(file.name) ? imgTag : videoTag;
                         const funcTags = '<div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>'
-                        const assertFile = '<div id ="' + newFile.id + '" class="grab-pointer file-wrap"><div class="function-wrapper">' + funcTags + '</div><div class="is-flipped">' + resTag + '</div></div>';
+                        const assertFile = '<div id ="' + newFile.id + '" class="grab-pointer file-wrap" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="is-flipped">' + resTag + '</div></div>';
                         $('#add-files').append(assertFile);
                         // console.log('reader.onload is successfully executed');
                     };

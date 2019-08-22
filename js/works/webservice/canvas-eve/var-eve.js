@@ -172,6 +172,9 @@ var EVENTNAME_TOUCHSTART = supportTouch ? 'touchstart' : 'mousedown';
 var EVENTNAME_TOUCHMOVE = supportTouch ? 'touchmove' : 'mousemove';
 var EVENTNAME_TOUCHEND = supportTouch ? 'touchend' : 'mouseup';
 
+var IS_TRANSITION = supportTouch ? '' : 'width .1s, height .1s, top .1s, left .1s';
+$('.file-wrap').css('transition', IS_TRANSITION);
+
 const preventDefault = (e) => {
     e.preventDefault();
 };
