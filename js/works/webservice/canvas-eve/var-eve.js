@@ -173,6 +173,8 @@ const sep = () => console.log('-------------------------------------');
 // Implement touch events for smart-phone
 // To check whether we can use the touch event or not
 var supportTouch = 'ontouchend' in document;
+console.log('supportTouch', supportTouch);
+
 
 var EVENTNAME_TOUCHSTART = supportTouch ? 'touchstart' : 'mousedown';
 var EVENTNAME_TOUCHMOVE = supportTouch ? 'touchmove' : 'mousemove';

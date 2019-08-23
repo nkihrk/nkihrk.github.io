@@ -34,11 +34,11 @@
                 // Image-space mouse coordinates
                 plain.relPos.left = e.clientX - plain.pos.left;
                 plain.relPos.top = e.clientY - plain.pos.top;
-                if (e.button == 1 && !supportTouch) {
+                if (e.button == 1 && supportTouch == false) {
                     glFlgs.mousewheel_avail_flg = true;
                     console.log('glFlgs.mousewheel_avail_flg', glFlgs.mousewheel_avail_flg);
                 }
-                if (supportTouch == 1) {
+                if (supportTouch == true) {
                     glFlgs.mousewheel_avail_flg = true;
                     console.log('glFlgs.mousewheel_avail_flg', glFlgs.mousewheel_avail_flg);
                 }
