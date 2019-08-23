@@ -1,9 +1,6 @@
 (function (window, $) {
     const plainEve = () => {
         // Flags
-        const flgs = {
-            'mousewheel_avail_flg': false,
-        };
 
         const plain = {
             'size': {
@@ -26,7 +23,7 @@
 
         // Initialize values
         const init = () => {
-            $(document).on('mousedown', '', function (e) {
+            $(document).on(EVENTNAME_TOUCHSTART, '#reset-res', function (e) {
                 var $plain = $('#plain');
 
                 plain.size.width = $plain.outerWidth();
@@ -37,9 +34,13 @@
                 // Image-space mouse coordinates
                 plain.relPos.left = e.clientX - plain.pos.left;
                 plain.relPos.top = e.clientY - plain.pos.top;
-                if (e.button == 1) {
-                    flgs.mousewheel_avail_flg = true;
-                    console.log('flgs.mousewheel_avail_flg', flgs.mousewheel_avail_flg);
+                if (e.button == 1 && !supportTouch) {
+                    glFlgs.mousewheel_avail_flg = true;
+                    console.log('glFlgs.mousewheel_avail_flg', glFlgs.mousewheel_avail_flg);
+                }
+                if (supportTouch == 1) {
+                    glFlgs.mousewheel_avail_flg = true;
+                    console.log('glFlgs.mousewheel_avail_flg', glFlgs.mousewheel_avail_flg);
                 }
             });
         };
@@ -50,20 +51,20 @@
         const configFlgs = () => {
             // Activate flags
             const activate = () => {
-                $(document).on('mousedown', function (e) {
+                $(document).on(EVENTNAME_TOUCHSTART, function (e) {
                     // if (e.button == 1) {
-                    //     flgs.mousewheel_avail_flg = true;
-                    //     console.log('flgs.mousewheel_avail_flg', flgs.mousewheel_avail_flg);
+                    //     glFlgs.mousewheel_avail_flg = true;
+                    //     console.log('glFlgs.mousewheel_avail_flg', glFlgs.mousewheel_avail_flg);
                     // }
                 });
             };
             activate();
 
             // Reset flags
-            $(document).on('mouseup', function (e) {
-                if (flgs.mousewheel_avail_flg == true) {
-                    flgs.mousewheel_avail_flg = false;
-                    console.log('flgs.mousewheel_avail_flg', flgs.mousewheel_avail_flg);
+            $(document).on(EVENTNAME_TOUCHEND, function (e) {
+                if (glFlgs.mousewheel_avail_flg == true) {
+                    glFlgs.mousewheel_avail_flg = false;
+                    console.log('glFlgs.mousewheel_avail_flg', glFlgs.mousewheel_avail_flg);
                 }
             });
         };
@@ -72,11 +73,11 @@
 
         // Execute if flags are true
         const main = () => {
-            $(document).mousemove(function (e) {
+            $(document).on(EVENTNAME_TOUCHMOVE, function (e) {
                 // Prevent from the default drag events
                 e.preventDefault();
 
-                if (flgs.mousewheel_avail_flg == true) {
+                if (glFlgs.mousewheel_avail_flg == true) {
                     let resPosLeft = e.clientX - plain.relPos.left;
                     let resPosTop = e.clientY - plain.relPos.top;
                     $('#plain').css({

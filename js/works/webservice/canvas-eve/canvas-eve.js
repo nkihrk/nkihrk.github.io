@@ -454,7 +454,7 @@
                     });
 
 
-                    if (flgs.drag_flg == true && flgs.resize_flg == false && flgs.rotate_flg == false) {
+                    if (glFlgs.mousewheel_avail_flg == false && flgs.drag_flg == true && flgs.resize_flg == false && flgs.rotate_flg == false) {
                         file.$fileId.css('left', resLeft + 'px');
                         file.$fileId.css('top', resTop + 'px');
 
@@ -476,7 +476,7 @@
                     let rad = calcRadians(pClientX - fileCenterPosX, pClientY - fileCenterPosY);
                     // debugCircle('test-pos_6', 'black', 50 * Math.cos(rad) + fileCenterPosX, 50 * Math.sin(rad) + fileCenterPosY);
 
-                    if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.left_top_flg == true) {
+                    if (glFlgs.mousewheel_avail_flg == false && flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.left_top_flg == true) {
                         let resRad = rad - tmp.ro.left_top_initRad;
                         console.log('tmp.ro.left_top_initRad : ' + tmp.ro.left_top_initRad);
 
@@ -485,7 +485,7 @@
                     }
 
 
-                    if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.right_top_flg == true) {
+                    if (glFlgs.mousewheel_avail_flg == false && flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.right_top_flg == true) {
                         let resRad = rad - tmp.ro.right_top_initRad;
                         console.log('tmp.ro.right_top_initRad : ' + tmp.ro.right_top_initRad);
 
@@ -494,7 +494,7 @@
                     }
 
 
-                    if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.right_bottom_flg == true) {
+                    if (glFlgs.mousewheel_avail_flg == false && flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.right_bottom_flg == true) {
                         let resRad = rad - tmp.ro.right_bottom_initRad;
                         console.log('tmp.ro.right_bottom_initRad : ' + tmp.ro.right_bottom_initRad);
 
@@ -503,7 +503,7 @@
                     }
 
 
-                    if (flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.left_bottom_flg == true) {
+                    if (glFlgs.mousewheel_avail_flg == false && flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.left_bottom_flg == true) {
                         let resRad = rad - tmp.ro.left_bottom_initRad;
                         console.log('tmp.ro.left_bottom_initRad : ' + tmp.ro.left_bottom_initRad);
 
@@ -515,7 +515,7 @@
 
                 // When resizing-boxes are clicked
                 const resized = function () {
-                    if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_top_flg == true) {
+                    if (glFlgs.mousewheel_avail_flg == false && flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_top_flg == true) {
                         file.$fileId.css({
                             'top': (file.fileIdPos.top - $('#plain').offset().top) + (file.fileIdHeight - (file.fileIdWidth - (clientX - file.fileIdPos.left)) * file.fileIdRatio) + 'px',
                             'left': (clientX - $('#plain').offset().left) + 'px',
@@ -525,7 +525,7 @@
                     }
 
 
-                    if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_top_flg == true) {
+                    if (glFlgs.mousewheel_avail_flg == false && flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_top_flg == true) {
                         file.$fileId.css({
                             'top': (file.fileIdPos.top - $('#plain').offset().top) + (file.fileIdHeight - (clientX - file.fileIdPos.left) * file.fileIdRatio) + 'px',
                             'left': (file.fileIdPos.left - $('#plain').offset().left) + 'px',
@@ -535,7 +535,7 @@
                     }
 
 
-                    if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_bottom_flg == true) {
+                    if (glFlgs.mousewheel_avail_flg == false && flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_bottom_flg == true) {
                         file.$fileId.css({
                             'top': (file.fileIdPos.top - $('#plain').offset().top) + 'px',
                             'left': (file.fileIdPos.left - $('#plain').offset().left) + 'px',
@@ -545,7 +545,7 @@
                     }
 
 
-                    if (flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_bottom_flg == true) {
+                    if (glFlgs.mousewheel_avail_flg == false && flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_bottom_flg == true) {
                         file.$fileId.css({
                             'top': (file.fileIdPos.top - $('#plain').offset().top) + 'px',
                             'left': (file.fileIdPos.left - $('#plain').offset().left) + (clientX - file.fileIdPos.left) + 'px',

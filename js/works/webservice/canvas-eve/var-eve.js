@@ -70,6 +70,12 @@ var newFile = {
     // To identify whether being dropped or not
     'flg': 0,
 };
+
+// Global flags
+const glFlgs = {
+    'mousewheel_avail_flg': false,
+};
+
 // A max length of the HIGHEST_Z_INDEX is 2147483647
 var HIGHEST_Z_INDEX = 1;
 
