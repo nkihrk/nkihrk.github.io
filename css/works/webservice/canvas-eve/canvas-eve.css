@@ -162,6 +162,41 @@
 }
 
 
+/* Added resizing-box. Another version */
+/* .re-left-top,
+.re-right-top,
+.re-right-bottom,
+.re-left-bottom {
+    position: absolute;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 20px;
+    height: 20px;
+
+    cursor: pointer;
+}
+
+.re-left-top {
+    top: -30px;
+    left: -30px;
+}
+
+.re-right-top {
+    top: -30px;
+    right: -30px;
+}
+
+.re-right-bottom {
+    bottom: -30px;
+    right: -30px;
+}
+
+.re-left-bottom {
+    bottom: -30px;
+    left: -30px;
+} */
+
+
 /* Flipped an image */
 .flip-icon {
     position: relative;
