@@ -23,7 +23,7 @@
 
         // Initialize values
         const init = () => {
-            $(document).on(EVENTNAME_TOUCHSTART, '#reset-res', function (e) {
+            $(document).on(EVENTNAME_TOUCHSTART, function (e) {
                 var $plain = $('#plain');
 
                 plain.size.width = $plain.outerWidth();
