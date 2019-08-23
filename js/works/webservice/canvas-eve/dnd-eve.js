@@ -36,11 +36,13 @@
                         var fileIdHeight = $fileId.outerHeight();
                         // console.log('clientX : ' + clientX + ', clientY : ' + clientY + ', fileWidth : ' + fileWidth + ', fileHeight : ' + fileHeight);
 
+                        var fileTop = clientY - fileIdHeight / 2 - $('#plain').offset().top;
+                        var fileLeft = clientX - fileIdWidth / 2 - $('#plain').offset().left;
                         HIGHEST_Z_INDEX += 1;
                         if (newFile.flg == 0) {
                             $fileId.css({
-                                'top': clientY - fileIdHeight / 2 + 'px',
-                                'left': clientX - fileIdWidth / 2 + 'px',
+                                'top': fileTop + 'px',
+                                'left': fileLeft + 'px',
                                 'z-index': HIGHEST_Z_INDEX,
                             });
                             newFile.flg = 1;
