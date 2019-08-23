@@ -89,7 +89,7 @@
             "content": {
                 "linkName": "VIEW CODE",
                 "date": "July 20, 2019",
-                "text": "Burning effect is all calcurated in screen-space. That`s the keypoint of this shader. Push the surface polygons a bit to the same direction as normal vector in screen-space, which we can only concentrate on x and y coordinate, and no need to care about z coordinate for calcuration, only for adjustment.",
+                "text": "The burning effect is calculated in screen-space. That`s the key point of this shader. Push the surface polygons a bit to the same direction as a normal vector in screen-space, which we can only concentrate on x and y coordinate, and no need to care about z coordinate for calculation, only for adjustment.",
                 "size": [{
                         "width": 1000,
                         "height": 548
