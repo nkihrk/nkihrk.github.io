@@ -1,6 +1,5 @@
 (function (window, $) {
     const plainEve = () => {
-        // Flags
 
         const plain = {
             'size': {
@@ -16,6 +15,9 @@
                 'top': 0
             }
         }
+
+        // For the zoom function
+        var prevMousePosX, prevMousePosY;
 
 
         ///
@@ -45,6 +47,16 @@
             });
         };
         init();
+
+
+        // Update variables everytime a mousemove event is called on wherever
+        const Update = function () {
+            $(document).on(EVENTNAME_TOUCHMOVE, function (e) {
+                // prevMousePosX = clientX - $('#plain').offset().left;
+                // prevMousePosY = clientY - $('#plain').offset().top;
+            });
+        };
+        Update();
 
 
         // Configuring flags
@@ -96,7 +108,10 @@
                 $(document).on(mousewheelevent, function (e) {
                     var delta = e.originalEvent.deltaY ? -(e.originalEvent.deltaY) : e.originalEvent.wheelDelta ? e.originalEvent.wheelDelta : -(e.originalEvent.detail);
                     if (delta < 0) {
-                        if (i > 0.9) {
+                        if (i > 2) {
+                            i = 2;
+                            i -= 0.09;
+                        } else if (i > 0.9) {
                             i -= 0.09;
                         } else if (i > 0.8) {
                             i -= 0.08;
@@ -123,7 +138,9 @@
                             'transform': 'scale(' + i + ')',
                         });
                     } else {
-                        if (i > 0.9) {
+                        if (i > 2) {
+                            i = 2.09;
+                        } else if (i > 0.9) {
                             i += 0.09;
                         } else if (i > 0.8) {
                             i += 0.08;
@@ -151,6 +168,18 @@
                             'transform': 'scale(' + i + ')',
                         });
                     }
+
+                    // var diffPosX = (clientX - $('#plain').offset().left) - ((clientX - $('#plain').offset().left) / mouseWheelVal);
+                    // var diffPosY = (clientY - $('#plain').offset().top) - ((clientY - $('#plain').offset().top) / mouseWheelVal);
+                    // console.log('diffPosX', diffPosX, 'diffPosY', diffPosY);
+
+                    // var plainPosX = diffPosX + $('#plain').offset().left;
+                    // var plainPosY = diffPosY + $('#plain').offset().top;
+
+                    // $('#plain').css({
+                    //     'top': plainPosY + 'px',
+                    //     'left': plainPosX + 'px',
+                    // });
                 });
             };
             setZoom();

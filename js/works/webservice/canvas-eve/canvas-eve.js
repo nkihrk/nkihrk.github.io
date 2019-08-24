@@ -196,7 +196,7 @@
         reset();
 
 
-        // Update variables everytime a mousedown event is called on wherever
+        // Update variables everytime a mousemove event is called on wherever
         const Update = function () {
             $(document).on(EVENTNAME_TOUCHMOVE, function () {
                 // Set the #reset-res at a mouse pos
@@ -446,7 +446,7 @@
                             // Update file.rotatedCenterPos for the later-use in rotating function
                             file.rotatedCenterPos.left = (clientX - file.fileIdRelPosX) + (w / 2) / mouseWheelVal;
                             file.rotatedCenterPos.top = (clientY - file.fileIdRelPosY) + (h / 2) / mouseWheelVal;
-                            debugCircle('test-pos_3', 'orange', file.rotatedCenterPos.left, file.rotatedCenterPos.top);
+                            // debugCircle('test-pos_3', 'orange', file.rotatedCenterPos.left, file.rotatedCenterPos.top);
                             console.log('drag function is called');
                         }
                     }
@@ -457,7 +457,7 @@
                 const rotated = function () {
                     let fileCenterPosX = file.rotatedCenterPos.left;
                     let fileCenterPosY = file.rotatedCenterPos.top;
-                    debugCircle('test-pos_5', 'purple', fileCenterPosX, fileCenterPosY);
+                    // debugCircle('test-pos_5', 'purple', fileCenterPosX, fileCenterPosY);
                     // A current radian value of the mouse
                     let rad = calcRadians(clientX - fileCenterPosX, clientY - fileCenterPosY);
                     // debugCircle('test-pos_6', 'black', 50 * Math.cos(rad) + fileCenterPosX, 50 * Math.sin(rad) + fileCenterPosY);
