@@ -6,8 +6,10 @@
     background: rgba(255, 0, 0, 0.2);
     /* width: 20000px;
     height: 20000px; */
-    /* width: 500px;
-    height: 500px; */
+    width: 1000px;
+    height: 1000px;
+
+    scroll-behavior: auto;
 
     transition: all .1s;
     transform-origin: top left;

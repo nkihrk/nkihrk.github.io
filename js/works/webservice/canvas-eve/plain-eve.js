@@ -73,6 +73,7 @@
 
         // Execute if flags are true
         const main = () => {
+            // Move the canvas
             $(document).on(EVENTNAME_TOUCHMOVE, function (e) {
                 // Prevent from the default drag events
                 e.preventDefault();
@@ -86,6 +87,73 @@
                     });
                 }
             });
+
+
+            // Implement zoom-in and zoom-out
+            const setZoom = () => {
+                var i = parseInt(transformValue($('#plain').css('transform')).scaleX);
+                const mousewheelevent = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
+                $(document).on(mousewheelevent, function (e) {
+                    var delta = e.originalEvent.deltaY ? -(e.originalEvent.deltaY) : e.originalEvent.wheelDelta ? e.originalEvent.wheelDelta : -(e.originalEvent.detail);
+                    if (delta < 0) {
+                        if (i > 0.9) {
+                            i -= 0.09;
+                        } else if (i > 0.8) {
+                            i -= 0.08;
+                        } else if (i > 0.7) {
+                            i -= 0.07;
+                        } else if (i > 0.6) {
+                            i -= 0.06;
+                        } else if (i > 0.5) {
+                            i -= 0.05;
+                        } else if (i > 0.4) {
+                            i -= 0.04;
+                        } else if (i > 0.3) {
+                            i -= 0.03;
+                        } else if (i > 0.2) {
+                            i -= 0.02;
+                        } else if (i >= 0.1) {
+                            i -= 0.01;
+                        } else {
+                            i = 0.09;
+                        }
+                        console.log('i', i);
+                        mouseWheelVal = 1 / i;
+                        $('#plain').css({
+                            'transform': 'scale(' + i + ')',
+                        });
+                    } else {
+                        if (i > 0.9) {
+                            i += 0.09;
+                        } else if (i > 0.8) {
+                            i += 0.08;
+                        } else if (i > 0.7) {
+                            i += 0.07;
+                        } else if (i > 0.6) {
+                            i += 0.06;
+                        } else if (i > 0.5) {
+                            i += 0.05;
+                        } else if (i > 0.4) {
+                            i += 0.04;
+                        } else if (i > 0.3) {
+                            i += 0.03;
+                        } else if (i > 0.2) {
+                            i += 0.02;
+                        } else if (i > 0.1) {
+                            i += 0.01;
+                        } else {
+                            i = 0.1;
+                            i += 0.01;
+                        }
+                        console.log('i', i);
+                        mouseWheelVal = 1 / i;
+                        $('#plain').css({
+                            'transform': 'scale(' + i + ')',
+                        });
+                    }
+                });
+            };
+            setZoom();
         };
         main();
 

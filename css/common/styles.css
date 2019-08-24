@@ -817,6 +817,8 @@ footer {
     border-top: solid 1px rgba(255, 255, 255, 0.3);
     display: inline-block;
     margin-top: 20px;
+
+    transition: all .5s;
 }
 
 /* For loader animation */

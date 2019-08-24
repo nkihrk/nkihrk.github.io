@@ -91,6 +91,12 @@ var config = {
     }
 };
 
+// The global variables of the real-time coordinates of a mouse pointer
+var clientX, clientY;
+
+// The value of a current mouse wheel
+var mouseWheelVal = 1;
+
 
 ///
 
@@ -175,7 +181,6 @@ const sep = () => console.log('-------------------------------------');
 var supportTouch = 'ontouchend' in document;
 console.log('supportTouch', supportTouch);
 
-
 var EVENTNAME_TOUCHSTART = supportTouch ? 'touchstart' : 'mousedown';
 var EVENTNAME_TOUCHMOVE = supportTouch ? 'touchmove' : 'mousemove';
 var EVENTNAME_TOUCHEND = supportTouch ? 'touchend' : 'mouseup';
@@ -191,4 +196,16 @@ window.addEventListener('touchmove', preventDefault, {
 });
 window.removeEventListener('touchmove', preventDefault, {
     passive: false
+});
+
+
+// Update the coordinates of a mouse pointer
+$(document).on(EVENTNAME_TOUCHMOVE, function (e) {
+    if (e.originalEvent.changedTouches) {
+        clientX = e.originalEvent.changedTouches[0].clientX;
+        clientY = e.originalEvent.changedTouches[0].clientY;
+    } else {
+        clientX = e.clientX;
+        clientY = e.clientY;
+    }
 });

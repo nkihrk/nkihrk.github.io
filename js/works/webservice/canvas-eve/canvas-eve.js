@@ -145,34 +145,20 @@
                     file.fileIdPos = file.$fileId.offset();
                     console.log('file.fileIdPos', file.fileIdPos);
 
-                    // Image-space mouse coordinates
-                    if (e.originalEvent.changedTouches) {
-                        clientX = e.originalEvent.changedTouches[0].clientX;
-                        clientY = e.originalEvent.changedTouches[0].clientY;
-                    } else {
-                        clientX = e.clientX;
-                        clientY = e.clientY;
-                    }
                     file.fileIdRelPosX = clientX - file.fileIdPos.left;
                     file.fileIdRelPosY = clientY - file.fileIdPos.top;
                     // debugCircle('test-pos_1', 'blue', file.fileIdPos.left, file.fileIdPos.top);
                     // debugCircle('test-pos_4', 'white', file.fileIdRelPosX, file.fileIdRelPosY);
 
                     // Initialize file.rotatedCenterPos
-                    file.rotatedCenterPos.left = ((clientX - $('#plain').offset().left) - file.fileIdRelPosX) + file.rotatedSize.width / 2;
-                    file.rotatedCenterPos.top = ((clientY - $('#plain').offset().top) - file.fileIdRelPosY) + file.rotatedSize.height / 2;
+                    file.rotatedCenterPos.left = (clientX - file.fileIdRelPosX) + (file.rotatedSize.width / 2) / mouseWheelVal;
+                    file.rotatedCenterPos.top = (clientY - file.fileIdRelPosY) + (file.rotatedSize.height / 2) / mouseWheelVal;
 
                     // Initialize the initRads for a rotating function
                     tmp.ro.left_top_initRad = calcRadians(-file.fileIdWidth / 2, -file.fileIdHeight / 2);
                     tmp.ro.right_top_initRad = calcRadians(file.fileIdWidth / 2, -file.fileIdHeight / 2);
                     tmp.ro.right_bottom_initRad = calcRadians(file.fileIdWidth / 2, file.fileIdHeight / 2);
                     tmp.ro.left_bottom_initRad = calcRadians(-file.fileIdWidth / 2, file.fileIdHeight / 2);
-                    sep();
-                    console.log('tmp.ro.left_top_initRad : ' + tmp.ro.left_top_initRad);
-                    console.log('tmp.ro.right_top_initRad : ' + tmp.ro.right_top_initRad);
-                    console.log('tmp.ro.right_bottom_initRad : ' + tmp.ro.right_bottom_initRad);
-                    console.log('tmp.ro.left_bottom_initRad : ' + tmp.ro.left_bottom_initRad);
-                    sep();
 
                     // Set the $fileId to be the highest of all the other unselected elements
                     // file.$fileId.appendTo('#add-files');
@@ -208,6 +194,19 @@
             });
         }
         reset();
+
+
+        // Update variables everytime a mousedown event is called on wherever
+        const Update = function () {
+            $(document).on(EVENTNAME_TOUCHMOVE, function () {
+                // Set the #reset-res at a mouse pos
+                $('#reset-res').css({
+                    'left': (clientX - $('#plain').offset().left) * mouseWheelVal - 50 + 'px',
+                    'top': (clientY - $('#plain').offset().top) * mouseWheelVal - 50 + 'px'
+                });
+            });
+        };
+        Update();
 
 
         // Configuring flags
@@ -425,44 +424,31 @@
                 // Prevent from the default drag events
                 e.preventDefault();
 
-                // #plain-space mouse-pointer coordinates
-                if (e.originalEvent.changedTouches) {
-                    clientX = e.originalEvent.changedTouches[0].clientX;
-                    clientY = e.originalEvent.changedTouches[0].clientY;
-                } else {
-                    clientX = e.clientX;
-                    clientY = e.clientY;
-                }
-                var pClientX = clientX - $('#plain').offset().left;
-                var pClientY = clientY - $('#plain').offset().top;
+                var pClientX = (clientX - $('#plain').offset().left) * mouseWheelVal;
+                var pClientY = (clientY - $('#plain').offset().top) * mouseWheelVal;
 
 
                 // When an image is dragged
                 const dragged = function () {
-                    let targetPosLeft = pClientX - file.fileIdRelPosX;
-                    let targetPosTop = pClientY - file.fileIdRelPosY;
+                    let targetPosLeft = pClientX - file.fileIdRelPosX * mouseWheelVal;
+                    let targetPosTop = pClientY - file.fileIdRelPosY * mouseWheelVal;
                     let w = file.rotatedSize.width;
                     let h = file.rotatedSize.height;
                     let resLeft = (w - file.fileIdWidth) / 2 + targetPosLeft;
                     let resTop = (h - file.fileIdHeight) / 2 + targetPosTop;
 
 
-                    // Set the #reset-res at a mouse pos
-                    $('#reset-res').css({
-                        'left': pClientX - 50 + 'px',
-                        'top': pClientY - 50 + 'px'
-                    });
+                    if (glFlgs.mousewheel_avail_flg == false && flgs.resize_flg == false && flgs.rotate_flg == false) {
+                        if (flgs.drag_flg == true) {
+                            file.$fileId.css('left', resLeft + 'px');
+                            file.$fileId.css('top', resTop + 'px');
 
-
-                    if (glFlgs.mousewheel_avail_flg == false && flgs.drag_flg == true && flgs.resize_flg == false && flgs.rotate_flg == false) {
-                        file.$fileId.css('left', resLeft + 'px');
-                        file.$fileId.css('top', resTop + 'px');
-
-                        // Update file.rotatedCenterPos for the later-use in rotating function
-                        file.rotatedCenterPos.left = (pClientX - file.fileIdRelPosX) + w / 2;
-                        file.rotatedCenterPos.top = (pClientY - file.fileIdRelPosY) + h / 2;
-                        // debugCircle('test-pos_3', 'orange', e.clientX - file.fileIdRelPosX, e.clientY - file.fileIdRelPosY);
-                        console.log('drag function is called');
+                            // Update file.rotatedCenterPos for the later-use in rotating function
+                            file.rotatedCenterPos.left = (clientX - file.fileIdRelPosX) + (w / 2) / mouseWheelVal;
+                            file.rotatedCenterPos.top = (clientY - file.fileIdRelPosY) + (h / 2) / mouseWheelVal;
+                            debugCircle('test-pos_3', 'orange', file.rotatedCenterPos.left, file.rotatedCenterPos.top);
+                            console.log('drag function is called');
+                        }
                     }
                 };
 
@@ -471,87 +457,91 @@
                 const rotated = function () {
                     let fileCenterPosX = file.rotatedCenterPos.left;
                     let fileCenterPosY = file.rotatedCenterPos.top;
-                    // debugCircle('test-pos_5', 'purple', fileCenterPosX, fileCenterPosY);
+                    debugCircle('test-pos_5', 'purple', fileCenterPosX, fileCenterPosY);
                     // A current radian value of the mouse
-                    let rad = calcRadians(pClientX - fileCenterPosX, pClientY - fileCenterPosY);
+                    let rad = calcRadians(clientX - fileCenterPosX, clientY - fileCenterPosY);
                     // debugCircle('test-pos_6', 'black', 50 * Math.cos(rad) + fileCenterPosX, 50 * Math.sin(rad) + fileCenterPosY);
 
-                    if (glFlgs.mousewheel_avail_flg == false && flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.left_top_flg == true) {
-                        let resRad = rad - tmp.ro.left_top_initRad;
-                        console.log('tmp.ro.left_top_initRad : ' + tmp.ro.left_top_initRad);
+                    if (glFlgs.mousewheel_avail_flg == false && flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true) {
+                        if (flgs.ro.left_top_flg == true) {
+                            let resRad = rad - tmp.ro.left_top_initRad;
+                            console.log('tmp.ro.left_top_initRad : ' + tmp.ro.left_top_initRad);
 
-                        file.$fileId.css('transform', 'rotate(' + resRad + 'rad)');
-                        console.log('rotate function is called');
-                    }
-
-
-                    if (glFlgs.mousewheel_avail_flg == false && flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.right_top_flg == true) {
-                        let resRad = rad - tmp.ro.right_top_initRad;
-                        console.log('tmp.ro.right_top_initRad : ' + tmp.ro.right_top_initRad);
-
-                        file.$fileId.css('transform', 'rotate(' + resRad + 'rad)');
-                        console.log('rotate function is called');
-                    }
+                            file.$fileId.css('transform', 'rotate(' + resRad + 'rad)');
+                            console.log('rotate function is called');
+                        }
 
 
-                    if (glFlgs.mousewheel_avail_flg == false && flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.right_bottom_flg == true) {
-                        let resRad = rad - tmp.ro.right_bottom_initRad;
-                        console.log('tmp.ro.right_bottom_initRad : ' + tmp.ro.right_bottom_initRad);
+                        if (flgs.ro.right_top_flg == true) {
+                            let resRad = rad - tmp.ro.right_top_initRad;
+                            console.log('tmp.ro.right_top_initRad : ' + tmp.ro.right_top_initRad);
 
-                        file.$fileId.css('transform', 'rotate(' + resRad + 'rad)');
-                        console.log('rotate function is called');
-                    }
+                            file.$fileId.css('transform', 'rotate(' + resRad + 'rad)');
+                            console.log('rotate function is called');
+                        }
 
 
-                    if (glFlgs.mousewheel_avail_flg == false && flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true && flgs.ro.left_bottom_flg == true) {
-                        let resRad = rad - tmp.ro.left_bottom_initRad;
-                        console.log('tmp.ro.left_bottom_initRad : ' + tmp.ro.left_bottom_initRad);
+                        if (flgs.ro.right_bottom_flg == true) {
+                            let resRad = rad - tmp.ro.right_bottom_initRad;
+                            console.log('tmp.ro.right_bottom_initRad : ' + tmp.ro.right_bottom_initRad);
 
-                        file.$fileId.css('transform', 'rotate(' + resRad + 'rad)');
-                        console.log('rotate function is called');
+                            file.$fileId.css('transform', 'rotate(' + resRad + 'rad)');
+                            console.log('rotate function is called');
+                        }
+
+
+                        if (flgs.ro.left_bottom_flg == true) {
+                            let resRad = rad - tmp.ro.left_bottom_initRad;
+                            console.log('tmp.ro.left_bottom_initRad : ' + tmp.ro.left_bottom_initRad);
+
+                            file.$fileId.css('transform', 'rotate(' + resRad + 'rad)');
+                            console.log('rotate function is called');
+                        }
                     }
                 };
 
 
                 // When resizing-boxes are clicked
                 const resized = function () {
-                    if (glFlgs.mousewheel_avail_flg == false && flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_top_flg == true) {
-                        file.$fileId.css({
-                            'top': (file.fileIdPos.top - $('#plain').offset().top) + (file.fileIdHeight - (file.fileIdWidth - (clientX - file.fileIdPos.left)) * file.fileIdRatio) + 'px',
-                            'left': (clientX - $('#plain').offset().left) + 'px',
-                            'width': file.fileIdWidth - (clientX - file.fileIdPos.left) + 'px',
-                        });
-                        console.log('mousedown is called');
-                    }
+                    if (glFlgs.mousewheel_avail_flg == false && flgs.mousedown_flg == true && flgs.resize_flg == true) {
+                        if (flgs.re.left_top_flg == true) {
+                            file.$fileId.css({
+                                'top': (file.fileIdPos.top - $('#plain').offset().top) * mouseWheelVal + (file.fileIdHeight - (file.fileIdWidth - (clientX - file.fileIdPos.left) * mouseWheelVal) * file.fileIdRatio) + 'px',
+                                'left': ((file.fileIdPos.left - $('#plain').offset().left) + (clientX - file.fileIdPos.left)) * mouseWheelVal + 'px',
+                                'width': file.fileIdWidth - (clientX - file.fileIdPos.left) * mouseWheelVal + 'px',
+                            });
+                            console.log('mousedown is called');
+                        }
 
 
-                    if (glFlgs.mousewheel_avail_flg == false && flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_top_flg == true) {
-                        file.$fileId.css({
-                            'top': (file.fileIdPos.top - $('#plain').offset().top) + (file.fileIdHeight - (clientX - file.fileIdPos.left) * file.fileIdRatio) + 'px',
-                            'left': (file.fileIdPos.left - $('#plain').offset().left) + 'px',
-                            'width': clientX - file.fileIdPos.left + 'px',
-                        });
-                        // console.log('down one is called');
-                    }
+                        if (flgs.re.right_top_flg == true) {
+                            file.$fileId.css({
+                                'top': (file.fileIdPos.top - $('#plain').offset().top) * mouseWheelVal + (file.fileIdHeight - (clientX - file.fileIdPos.left) * file.fileIdRatio * mouseWheelVal) + 'px',
+                                'left': (file.fileIdPos.left - $('#plain').offset().left) * mouseWheelVal + 'px',
+                                'width': (clientX - file.fileIdPos.left) * mouseWheelVal + 'px',
+                            });
+                            // console.log('down one is called');
+                        }
 
 
-                    if (glFlgs.mousewheel_avail_flg == false && flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.right_bottom_flg == true) {
-                        file.$fileId.css({
-                            'top': (file.fileIdPos.top - $('#plain').offset().top) + 'px',
-                            'left': (file.fileIdPos.left - $('#plain').offset().left) + 'px',
-                            'width': clientX - file.fileIdPos.left + 'px',
-                        });
-                        // console.log('down one is called');
-                    }
+                        if (flgs.re.right_bottom_flg == true) {
+                            file.$fileId.css({
+                                'top': (file.fileIdPos.top - $('#plain').offset().top) * mouseWheelVal + 'px',
+                                'left': (file.fileIdPos.left - $('#plain').offset().left) * mouseWheelVal + 'px',
+                                'width': (clientX - file.fileIdPos.left) * mouseWheelVal + 'px',
+                            });
+                            // console.log('down one is called');
+                        }
 
 
-                    if (glFlgs.mousewheel_avail_flg == false && flgs.mousedown_flg == true && flgs.resize_flg == true && flgs.re.left_bottom_flg == true) {
-                        file.$fileId.css({
-                            'top': (file.fileIdPos.top - $('#plain').offset().top) + 'px',
-                            'left': (file.fileIdPos.left - $('#plain').offset().left) + (clientX - file.fileIdPos.left) + 'px',
-                            'width': file.fileIdWidth - (clientX - file.fileIdPos.left) + 'px',
-                        });
-                        // console.log('down one is called');
+                        if (flgs.re.left_bottom_flg == true) {
+                            file.$fileId.css({
+                                'top': (file.fileIdPos.top - $('#plain').offset().top) * mouseWheelVal + 'px',
+                                'left': ((file.fileIdPos.left - $('#plain').offset().left) + (clientX - file.fileIdPos.left)) * mouseWheelVal + 'px',
+                                'width': file.fileIdWidth - (clientX - file.fileIdPos.left) * mouseWheelVal + 'px',
+                            });
+                            // console.log('down one is called');
+                        }
                     }
                 };
 
