@@ -16,9 +16,6 @@
             }
         }
 
-        // For the zoom function
-        var prevMousePosX, prevMousePosY;
-
 
         ///
 
@@ -40,10 +37,6 @@
                     glFlgs.mousewheel_avail_flg = true;
                     console.log('glFlgs.mousewheel_avail_flg', glFlgs.mousewheel_avail_flg);
                 }
-                // if (supportTouch == true) {
-                //     glFlgs.mousewheel_avail_flg = true;
-                //     console.log('glFlgs.mousewheel_avail_flg', glFlgs.mousewheel_avail_flg);
-                // }
             });
         };
         init();
@@ -52,8 +45,7 @@
         // Update variables everytime a mousemove event is called on wherever
         const Update = function () {
             $(document).on(EVENTNAME_TOUCHMOVE, function (e) {
-                // prevMousePosX = clientX - $('#plain').offset().left;
-                // prevMousePosY = clientY - $('#plain').offset().top;
+
             });
         };
         Update();
@@ -64,10 +56,7 @@
             // Activate flags
             const activate = () => {
                 $(document).on(EVENTNAME_TOUCHSTART, function (e) {
-                    // if (e.button == 1) {
-                    //     glFlgs.mousewheel_avail_flg = true;
-                    //     console.log('glFlgs.mousewheel_avail_flg', glFlgs.mousewheel_avail_flg);
-                    // }
+
                 });
             };
             activate();
@@ -109,7 +98,7 @@
                 $(document).on('mousewheel', function (e) {
                     // var delta = e.originalEvent.deltaY ? -(e.originalEvent.deltaY) : e.originalEvent.wheelDelta ? e.originalEvent.wheelDelta : -(e.originalEvent.detail);
                     var delta = e.deltaY;
-                    if (delta > 0) {
+                    if (delta < 0) {
                         if (i > 2) {
                             i = 2;
                             i -= 0.09;
