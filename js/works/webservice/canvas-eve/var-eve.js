@@ -34,7 +34,7 @@
 //                         flgs.hoge_flg = true;
 //                         console.log('flgs.hoge_flg', flgs.hoge_flg);
 //                     }
-//                 })
+//                 });
 //             };
 //             activate();
 

@@ -33,7 +33,6 @@
 
                 plain.relPos.left = clientX - plain.pos.left;
                 plain.relPos.top = clientY - plain.pos.top;
-
                 // Image-space mouse coordinates
                 if (e.button == 1) {
                     glFlgs.mousewheel_avail_flg = true;
@@ -46,7 +45,11 @@
 
         // Update variables everytime a mousemove event is called on wherever
         const Update = function () {
-            $(document).on(EVENTNAME_TOUCHMOVE, function (e) {});
+            $(document).on(EVENTNAME_TOUCHMOVE, function (e) {
+                debugCircle('plainPos', 'orange', $('#plain').offset().left, $('#plain').offset().top);
+                debugCircle('filePos', 'red', $('.file-wrap').offset().left, $('.file-wrap').offset().top);
+                debugCircle('origin', 'yellow', 0, 0);
+            });
         };
         Update();
 
@@ -60,7 +63,7 @@
             activate();
 
             // Reset flags
-            $(document).on(EVENTNAME_TOUCHEND, function (e) {
+            $(document).on('mouseup', function (e) {
                 if (glFlgs.mousewheel_avail_flg == true) {
                     glFlgs.mousewheel_avail_flg = false;
                     console.log('glFlgs.mousewheel_avail_flg', glFlgs.mousewheel_avail_flg);
@@ -84,81 +87,6 @@
                     });
                 }
             });
-
-
-            // Implement zoom-in and zoom-out
-            const setZoom = () => {
-                var i = parseInt(transformValue($('#plain').css('transform')).scaleX);
-                // const mousewheelevent = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
-                // $(document).on(mousewheelevent, function (e) {
-                $(document).on('mousewheel', function (e) {
-                    console.log("$('#plain').css('transform-origin')", parseInt($('#plain').css('transform-origin')));
-                    // var delta = e.originalEvent.deltaY ? -(e.originalEvent.deltaY) : e.originalEvent.wheelDelta ? e.originalEvent.wheelDelta : -(e.originalEvent.detail);
-                    var delta = e.deltaY;
-                    if (delta < 0) {
-                        if (i > 2) {
-                            i = 2;
-                            i -= 0.09;
-                        } else if (i > 0.9) {
-                            i -= 0.09;
-                        } else if (i > 0.8) {
-                            i -= 0.08;
-                        } else if (i > 0.7) {
-                            i -= 0.07;
-                        } else if (i > 0.6) {
-                            i -= 0.06;
-                        } else if (i > 0.5) {
-                            i -= 0.05;
-                        } else if (i > 0.4) {
-                            i -= 0.04;
-                        } else if (i > 0.3) {
-                            i -= 0.03;
-                        } else if (i > 0.2) {
-                            i -= 0.02;
-                        } else if (i >= 0.1) {
-                            i -= 0.01;
-                        } else {
-                            i = 0.09;
-                        }
-                        console.log('i', i);
-                        mouseWheelVal = 1 / i;
-                        $('#plain').css({
-                            'transform': 'scale(' + i + ')',
-                        });
-                    } else {
-                        if (i > 2) {
-                            i = 2.09;
-                        } else if (i > 0.9) {
-                            i += 0.09;
-                        } else if (i > 0.8) {
-                            i += 0.08;
-                        } else if (i > 0.7) {
-                            i += 0.07;
-                        } else if (i > 0.6) {
-                            i += 0.06;
-                        } else if (i > 0.5) {
-                            i += 0.05;
-                        } else if (i > 0.4) {
-                            i += 0.04;
-                        } else if (i > 0.3) {
-                            i += 0.03;
-                        } else if (i > 0.2) {
-                            i += 0.02;
-                        } else if (i > 0.1) {
-                            i += 0.01;
-                        } else {
-                            i = 0.1;
-                            i += 0.01;
-                        }
-                        console.log('i', i);
-                        mouseWheelVal = 1 / i;
-                        $('#plain').css({
-                            'transform': 'scale(' + i + ')',
-                        });
-                    }
-                });
-            };
-            setZoom();
         };
         main();
 
