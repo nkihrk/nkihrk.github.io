@@ -30,9 +30,11 @@
 
                 plain.pos.left = $plain.offset().left;
                 plain.pos.top = $plain.offset().top;
+
+                plain.relPos.left = clientX - plain.pos.left;
+                plain.relPos.top = clientY - plain.pos.top;
+
                 // Image-space mouse coordinates
-                plain.relPos.left = e.clientX - plain.pos.left;
-                plain.relPos.top = e.clientY - plain.pos.top;
                 if (e.button == 1) {
                     glFlgs.mousewheel_avail_flg = true;
                     console.log('glFlgs.mousewheel_avail_flg', glFlgs.mousewheel_avail_flg);
@@ -44,9 +46,7 @@
 
         // Update variables everytime a mousemove event is called on wherever
         const Update = function () {
-            $(document).on(EVENTNAME_TOUCHMOVE, function (e) {
-
-            });
+            $(document).on(EVENTNAME_TOUCHMOVE, function (e) {});
         };
         Update();
 
@@ -55,9 +55,7 @@
         const configFlgs = () => {
             // Activate flags
             const activate = () => {
-                $(document).on(EVENTNAME_TOUCHSTART, function (e) {
-
-                });
+                $(document).on(EVENTNAME_TOUCHSTART, function (e) {});
             };
             activate();
 
@@ -80,11 +78,9 @@
                 e.preventDefault();
 
                 if (glFlgs.mousewheel_avail_flg == true) {
-                    let resPosLeft = e.clientX - plain.relPos.left;
-                    let resPosTop = e.clientY - plain.relPos.top;
                     $('#plain').css({
-                        'left': resPosLeft + 'px',
-                        'top': resPosTop + 'px'
+                        'left': clientX - plain.relPos.left + 'px',
+                        'top': clientY - plain.relPos.top + 'px'
                     });
                 }
             });
@@ -96,6 +92,7 @@
                 // const mousewheelevent = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
                 // $(document).on(mousewheelevent, function (e) {
                 $(document).on('mousewheel', function (e) {
+                    console.log("$('#plain').css('transform-origin')", parseInt($('#plain').css('transform-origin')));
                     // var delta = e.originalEvent.deltaY ? -(e.originalEvent.deltaY) : e.originalEvent.wheelDelta ? e.originalEvent.wheelDelta : -(e.originalEvent.detail);
                     var delta = e.deltaY;
                     if (delta < 0) {
@@ -159,18 +156,6 @@
                             'transform': 'scale(' + i + ')',
                         });
                     }
-
-                    // var diffPosX = (clientX - $('#plain').offset().left) - ((clientX - $('#plain').offset().left) / mouseWheelVal);
-                    // var diffPosY = (clientY - $('#plain').offset().top) - ((clientY - $('#plain').offset().top) / mouseWheelVal);
-                    // console.log('diffPosX', diffPosX, 'diffPosY', diffPosY);
-
-                    // var plainPosX = diffPosX + $('#plain').offset().left;
-                    // var plainPosY = diffPosY + $('#plain').offset().top;
-
-                    // $('#plain').css({
-                    //     'top': plainPosY + 'px',
-                    //     'left': plainPosX + 'px',
-                    // });
                 });
             };
             setZoom();

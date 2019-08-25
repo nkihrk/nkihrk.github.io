@@ -8,11 +8,12 @@
     height: 20000px; */
     width: 600px;
     height: 600px;
+    border: solid 3px red;
 
     scroll-behavior: auto;
 
     transition: all .1s;
-    transform-origin: top left;
+    transform-origin: left top;
     transform: scale(1);
 }
 

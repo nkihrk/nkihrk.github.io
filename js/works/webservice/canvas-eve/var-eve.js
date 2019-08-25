@@ -1,6 +1,6 @@
-/////
-///// The template code for each -eve.js
-/////
+///
+/// The template code for each -eve.js
+///
 // (function (window, $) {
 //     const hogeEve = () => {
 //         // Flags
@@ -13,8 +13,16 @@
 
 
 //         // Initialize values
-//         const init = () => {};
+//         const init = () => {
+//             $(document).on(EVENTNAME_TOUCHSTART, function (e) {});
+//         };
 //         init();
+
+
+//         const Update = function () {
+//             $(document).on(EVENTNAME_TOUCHMOVE, function (e) {});
+//         };
+//         Update();
 
 
 //         // Configuring flags
