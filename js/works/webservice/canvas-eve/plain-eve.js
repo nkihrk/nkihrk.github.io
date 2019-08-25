@@ -104,10 +104,12 @@
             // Implement zoom-in and zoom-out
             const setZoom = () => {
                 var i = parseInt(transformValue($('#plain').css('transform')).scaleX);
-                const mousewheelevent = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
-                $(document).on(mousewheelevent, function (e) {
-                    var delta = e.originalEvent.deltaY ? -(e.originalEvent.deltaY) : e.originalEvent.wheelDelta ? e.originalEvent.wheelDelta : -(e.originalEvent.detail);
-                    if (delta < 0) {
+                // const mousewheelevent = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
+                // $(document).on(mousewheelevent, function (e) {
+                $(document).on('mousewheel', function (e) {
+                    // var delta = e.originalEvent.deltaY ? -(e.originalEvent.deltaY) : e.originalEvent.wheelDelta ? e.originalEvent.wheelDelta : -(e.originalEvent.detail);
+                    var delta = e.deltaY;
+                    if (delta > 0) {
                         if (i > 2) {
                             i = 2;
                             i -= 0.09;
