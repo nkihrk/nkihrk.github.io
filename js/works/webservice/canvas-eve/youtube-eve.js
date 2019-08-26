@@ -94,9 +94,25 @@
                         if (jsonYt == -1) {
                             tabName = 'The API Key is missing; the key is needed to show a name of the now-playing video properly.';
                             iframeTag = '<iframe src="https://www.youtube.com/embed/' + youtubeID + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-                            var childTop = ($('#add-youtube').offset().top - $('#plain').offset().top + 300);
-                            var childLeft = ($('#add-youtube').offset().left - $('#plain').offset().left) + $('#add-youtube').outerWidth() / 2 - 350;
-                            assertFile = '<div id="' + newFile.id + '" class="grab-pointer file-wrap" style="width: 700px;' + ' top:' + childTop + 'px; left:' + childLeft + 'px; z-index:' + HIGHEST_Z_INDEX + '; transition: ' + IS_TRANSITION + ';">' +
+                            var childTop = ($('#add-youtube').offset().top - $('#zoom').offset().top) * mouseWheelVal + 300;
+                            var childLeft = ($('#add-youtube').offset().left - $('#zoom').offset().left) * mouseWheelVal + $('#add-youtube').outerWidth() / 2 - 350;
+                            var childTranslate = 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')';
+                            var childTransformOrigin = xImage + 'px ' + yImage + 'px';
+                            var childStyle = 'width: 700px;' +
+                                ' top:' +
+                                childTop +
+                                'px; left:' +
+                                childLeft +
+                                'px; z-index:' +
+                                HIGHEST_Z_INDEX +
+                                '; transition:' +
+                                IS_TRANSITION +
+                                '; transform:' +
+                                childTranslate +
+                                '; transform:' +
+                                childTransformOrigin +
+                                ';';
+                            assertFile = '<div id="' + newFile.id + '" class="grab-pointer file-wrap" style="' + childStyle + '">' +
                                 '<div class="function-wrapper">' +
                                 '<div class="resize-wrapper"></div>' +
                                 '<div class="rotate-wrapper"></div>' +
@@ -134,9 +150,25 @@
                                 // console.log('tabName', tabName);
 
                                 iframeTag = '<iframe src="https://www.youtube.com/embed/' + youtubeID + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-                                var childTop = ($('#add-youtube').offset().top - $('#plain').offset().top) * mouseWheelVal + 300;
-                                var childLeft = ($('#add-youtube').offset().left - $('#plain').offset().left) + $('#add-youtube').outerWidth() / 2 - 350;
-                                assertFile = '<div id="' + newFile.id + '" class="grab-pointer file-wrap" style="width: 700px;' + ' top:' + childTop + 'px; left:' + childLeft + 'px; z-index:' + HIGHEST_Z_INDEX + '; transition: ' + IS_TRANSITION + ';">' +
+                                var childTop = ($('#add-youtube').offset().top - $('#zoom').offset().top) * mouseWheelVal + 300;
+                                var childLeft = ($('#add-youtube').offset().left - $('#zoom').offset().left) * mouseWheelVal + $('#add-youtube').outerWidth() / 2 - 350;
+                                var childTranslate = 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')';
+                                var childTransformOrigin = xImage + 'px ' + yImage + 'px';
+                                var childStyle = 'width: 700px;' +
+                                    ' top:' +
+                                    childTop +
+                                    'px; left:' +
+                                    childLeft +
+                                    'px; z-index:' +
+                                    HIGHEST_Z_INDEX +
+                                    '; transition:' +
+                                    IS_TRANSITION +
+                                    '; transform:' +
+                                    childTranslate +
+                                    '; transform:' +
+                                    childTransformOrigin +
+                                    ';';
+                                assertFile = '<div id="' + newFile.id + '" class="grab-pointer file-wrap" style="' + childStyle + '">' +
                                     '<div class="function-wrapper">' +
                                     '<div class="resize-wrapper"></div>' +
                                     '<div class="rotate-wrapper"></div>' +

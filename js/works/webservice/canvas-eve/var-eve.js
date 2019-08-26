@@ -99,11 +99,19 @@ var config = {
     }
 };
 
-// The global variables of the real-time coordinates of a mouse pointer
+// The global variables of the real-time coordinates of a mouse pointer. It will change its value depending on the devices: Smartphone or PC
 var clientX, clientY;
 
 // The value of a current mouse wheel
 var mouseWheelVal = 1;
+var xNew, yNew;
+var xNewMinus = -xNew;
+var yNewMinus = -yNew;
+
+var xImage, yImage;
+
+// The scree-space mouse coordinates from a zoom coordinate
+var clientFromZoomX, clientFromZoomY;
 
 
 ///
@@ -152,12 +160,15 @@ const calcRadians = function (x, y) {
     return rad / 180 * Math.PI;
 };
 
-const debugCircle = function (name, col, posX, posY) {
-    $('#canvas-eve').append('<div id="' + name + '"></div>')
+const debugCircle = function (name, col, posX, posY, insertToWhichTag) {
+    if (insertToWhichTag) {
+        $('#' + insertToWhichTag).append('<div id="' + name + '"></div>')
+    } else {
+        $('#canvas-eve').append('<div id="' + name + '"></div>');
+    }
     $('#' + name).css({
-        // For -1, it is a prefix due to a border-width and -height(1px each)
-        'top': posY - 1 + 'px',
-        'left': posX - 1 + 'px',
+        'top': posY + 'px',
+        'left': posX + 'px',
         'width': 14 + 'px',
         'height': 14 + 'px',
         'background': col,
@@ -216,4 +227,7 @@ $(document).on(EVENTNAME_TOUCHMOVE, function (e) {
         clientX = e.clientX;
         clientY = e.clientY;
     }
+
+    clientFromZoomX = clientX - $('#zoom').offset().left;
+    clientFromZoomY = clientY - $('#zoom').offset().top;
 });

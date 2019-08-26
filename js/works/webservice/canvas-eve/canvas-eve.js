@@ -201,8 +201,10 @@
             $(document).on(EVENTNAME_TOUCHMOVE, function () {
                 // Set the #reset-res at a mouse pos
                 $('#reset-res').css({
-                    'left': (clientX - $('#plain').offset().left) - 50 + 'px',
-                    'top': (clientY - $('#plain').offset().top) - 50 + 'px'
+                    'left': ((clientX - $('#zoom').offset().left)) * mouseWheelVal - 50 + 'px',
+                    'top': ((clientY - $('#zoom').offset().top)) * mouseWheelVal - 50 + 'px',
+                    'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
+                    'transform-origin': xImage + 'px ' + yImage + 'px',
                 });
             });
         };

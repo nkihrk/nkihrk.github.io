@@ -15,42 +15,49 @@
                 return;
             }
 
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                newFile.prevId = newFile.id;
-                newFile.id += 1;
-                // console.log('newFile.id : ' + newFile.id + ', newFile.flg  : ' + newFile.flg);
-                const imgTag = '<img src="' + e.target.result + '" style="width: 100%;">';
-                const funcTags = '<div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>'
-                const assertFile = '<div id ="' + newFile.id + '" class="grab-pointer file-wrap" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="is-flipped">' + imgTag + '</div></div>';
-                $('#add-files').append(assertFile);
-                // console.log('reader.onload is successfully executed');
-            };
-            reader.onloadend = function (e) {
-                if (e.target.readyState == FileReader.DONE) {
-                    for (let i = newFile.prevId + 1; i < newFile.id + 1; i++) {
-                        newFile.flg = 0;
-                        var fileId = '#' + i;
-                        var $fileId = $(fileId);
-                        var fileIdWidth = $fileId.outerWidth();
-                        var fileIdHeight = $fileId.outerHeight();
-                        console.log('clientX : ' + clientX + ', clientY : ' + clientY + ', fileWidth : ' + fileIdWidth + ', fileHeight : ' + fileIdHeight);
+            // Init the values before executing the readAndPreview()
+            const left = clientFromZoomX;
+            const top = clientFromZoomY;
 
-                        var fileTop = (clientY - $('#plain').offset().top) - fileIdHeight / 2;
-                        var fileLeft = (clientX - $('#plain').offset().left) - fileIdWidth / 2;
-                        HIGHEST_Z_INDEX += 1;
-                        if (newFile.flg == 0) {
-                            $fileId.css({
-                                'top': fileTop + 'px',
-                                'left': fileLeft + 'px',
-                                'z-index': HIGHEST_Z_INDEX,
-                            });
-                            newFile.flg = 1;
+            const readAndPreview = function () {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    newFile.prevId = newFile.id;
+                    newFile.id += 1;
+                    // console.log('newFile.id : ' + newFile.id + ', newFile.flg  : ' + newFile.flg);
+                    const imgTag = '<img src="' + e.target.result + '" style="width: 100%;">';
+                    const funcTags = '<div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>'
+                    const assertFile = '<div id ="' + newFile.id + '" class="grab-pointer file-wrap" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="is-flipped">' + imgTag + '</div></div>';
+                    $('#add-files').append(assertFile);
+                    // console.log('reader.onload is successfully executed');
+                };
+                reader.onloadend = function (e) {
+                    if (e.target.readyState == FileReader.DONE) {
+                        for (let i = newFile.prevId + 1; i < newFile.id + 1; i++) {
+                            newFile.flg = 0;
+                            var fileId = '#' + i;
+                            var $fileId = $(fileId);
+                            var fileIdWidth = $fileId.outerWidth();
+                            var fileIdHeight = $fileId.outerHeight();
+                            console.log('clientX : ' + clientX + ', clientY : ' + clientY + ', fileWidth : ' + fileIdWidth + ', fileHeight : ' + fileIdHeight);
+
+                            HIGHEST_Z_INDEX += 1;
+                            if (newFile.flg == 0) {
+                                $fileId.css({
+                                    'left': left * mouseWheelVal - fileIdWidth / 2 + 'px',
+                                    'top': top * mouseWheelVal - fileIdHeight / 2 + 'px',
+                                    'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
+                                    'transform-origin': xImage + 'px ' + yImage + 'px',
+                                    'z-index': HIGHEST_Z_INDEX,
+                                });
+                                newFile.flg = 1;
+                            }
                         }
                     }
-                }
-            };
-            reader.readAsDataURL(imgFile);
+                };
+                reader.readAsDataURL(imgFile);
+            }
+            readAndPreview();
         }, false);
     };
     cnpEve();
@@ -74,8 +81,17 @@
             e.stopPropagation();
             e.preventDefault();
 
-            var clientX = (e.clientX - $('#plain').offset().left);
-            var clientY = (e.clientY - $('#plain').offset().top);
+            // Init the values before executing the readAndPreview()
+            let x, y;
+            if (e.changedTouches) {
+                x = e.changedTouches[0].clientX;
+                y = e.changedTouches[0].clientY;
+            } else {
+                x = e.clientX;
+                y = e.clientY;
+            }
+            const left = x - $('#zoom').offset().left;
+            const top = y - $('#zoom').offset().top;
 
             const files = e.dataTransfer.files;
             const readAndPreview = function (file) {
@@ -109,8 +125,10 @@
                                 HIGHEST_Z_INDEX += 1;
                                 if (newFile.flg == 0) {
                                     $fileId.css({
-                                        'top': clientY - fileIdHeight / 2 + 'px',
-                                        'left': clientX - fileIdWidth / 2 + 'px',
+                                        'left': left * mouseWheelVal - fileIdWidth / 2 + 'px',
+                                        'top': top * mouseWheelVal - fileIdHeight / 2 + 'px',
+                                        'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
+                                        'transform-origin': xImage + 'px ' + yImage + 'px',
                                         'z-index': HIGHEST_Z_INDEX,
                                     });
                                     newFile.flg = 1;

@@ -53,10 +53,12 @@
                 // Prevent from the default drag events
                 e.preventDefault();
 
-                // $('#zoom').css({
-                //     'left': clientX - $('#plain').offset().left + 'px',
-                //     'top': clientY - $('#plain').offset().top + 'px',
-                // });
+                var zoomOrigin = $('#zoom').css('transform-origin');
+                var zoomScaleX = transformValue($('#zoom').css('transform')).scaleX;
+                var zoomScaleY = transformValue($('#zoom').css('transform')).scaleY;
+                var zoomOffset = $('#zoom').offset();
+                console.log('zoomOrigin', zoomOrigin, 'zoomScaleX', zoomScaleX, 'zoomScaleY', zoomScaleY, 'zoomOffset', zoomOffset);
+
             });
 
 
@@ -64,8 +66,8 @@
             const setZoom = () => {
                 // var i = parseInt(transformValue($('#zoom').css('transform')).scaleX);
                 var i = 1;
-                xLast = 0; // last x location on the screen
-                yLast = 0; // last y location on the screen
+                var xLast = 0; // last x location on the screen
+                var yLast = 0; // last y location on the screen
                 xImage = 0; // last x location on the image
                 yImage = 0; // last y location on the image
                 $(document).on('mousewheel', function (e) {

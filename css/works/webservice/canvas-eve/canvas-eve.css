@@ -20,6 +20,7 @@
     position: relative;
     /* transform-origin: right bottom; */
     transform: scale(1);
+    border: solid 2px red;
 
     background: rgba(255, 0, 0, 0.2);
     width: 600px;
