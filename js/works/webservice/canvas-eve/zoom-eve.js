@@ -52,13 +52,33 @@
             $(document).mousemove(function (e) {
                 // Prevent from the default drag events
                 e.preventDefault();
+
+                // $('#zoom').css({
+                //     'left': clientX - $('#plain').offset().left + 'px',
+                //     'top': clientY - $('#plain').offset().top + 'px',
+                // });
             });
 
 
             // Implement zoom-in and zoom-out
             const setZoom = () => {
-                var i = parseInt(transformValue($('#zoom').css('transform')).scaleX);
+                // var i = parseInt(transformValue($('#zoom').css('transform')).scaleX);
+                var i = 1;
+                xLast = 0; // last x location on the screen
+                yLast = 0; // last y location on the screen
+                xImage = 0; // last x location on the image
+                yImage = 0; // last y location on the image
                 $(document).on('mousewheel', function (e) {
+                    // find current location on screen 
+                    xScreen = e.clientX - $('#plain').offset().left;
+                    yScreen = e.clientY - $('#plain').offset().top;
+
+                    // find current location on the image at the current scale
+                    xImage = xImage + ((xScreen - xLast) / i);
+                    yImage = yImage + ((yScreen - yLast) / i);
+                    console.log('xImage', xImage, 'yImage', yImage);
+
+
                     var delta = e.deltaY;
                     if (delta < 0) {
                         if (i > 2) {
@@ -85,11 +105,6 @@
                         } else {
                             i = 0.09;
                         }
-                        console.log('i', i);
-                        mouseWheelVal = 1 / i;
-                        $('#zoom').css({
-                            'transform': 'scale(' + i + ')',
-                        });
                     } else {
                         if (i > 2) {
                             i = 2.09;
@@ -115,12 +130,24 @@
                             i = 0.1;
                             i += 0.01;
                         }
-                        console.log('i', i);
-                        mouseWheelVal = 1 / i;
-                        $('#zoom').css({
-                            'transform': 'scale(' + i + ')',
-                        });
                     }
+
+                    // determine the location on the screen at the new scale
+                    xNew = (xScreen - xImage) / i;
+                    yNew = (yScreen - yImage) / i;
+                    console.log('xNew', xNew, 'yNew', yNew);
+
+
+                    // save the current screen location
+                    xLast = xScreen;
+                    yLast = yScreen;
+
+                    console.log('i', i);
+                    mouseWheelVal = 1 / i;
+                    $('#zoom').css({
+                        'transform': 'scale(' + i + ')' + 'translate(' + xNew + 'px, ' + yNew + 'px' + ')',
+                        'transform-origin': xImage + 'px ' + yImage + 'px',
+                    });
                 });
             };
             setZoom();

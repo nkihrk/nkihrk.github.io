@@ -36,8 +36,8 @@
                         var fileIdHeight = $fileId.outerHeight();
                         console.log('clientX : ' + clientX + ', clientY : ' + clientY + ', fileWidth : ' + fileIdWidth + ', fileHeight : ' + fileIdHeight);
 
-                        var fileTop = (clientY - $('#plain').offset().top) * mouseWheelVal - fileIdHeight / 2;
-                        var fileLeft = (clientX - $('#plain').offset().left) * mouseWheelVal - fileIdWidth / 2;
+                        var fileTop = (clientY - $('#plain').offset().top) - fileIdHeight / 2;
+                        var fileLeft = (clientX - $('#plain').offset().left) - fileIdWidth / 2;
                         HIGHEST_Z_INDEX += 1;
                         if (newFile.flg == 0) {
                             $fileId.css({
@@ -74,8 +74,8 @@
             e.stopPropagation();
             e.preventDefault();
 
-            var clientX = (e.clientX - $('#plain').offset().left) * mouseWheelVal;
-            var clientY = (e.clientY - $('#plain').offset().top) * mouseWheelVal;
+            var clientX = (e.clientX - $('#plain').offset().left);
+            var clientY = (e.clientY - $('#plain').offset().top);
 
             const files = e.dataTransfer.files;
             const readAndPreview = function (file) {
