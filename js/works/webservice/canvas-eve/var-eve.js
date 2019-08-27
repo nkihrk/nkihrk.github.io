@@ -104,7 +104,8 @@ var clientX, clientY;
 
 // The value of a current mouse wheel
 var mouseWheelVal = 1;
-var xNew, yNew;
+var xNew = 0;
+var yNew = 0;
 var xNewMinus = -xNew;
 var yNewMinus = -yNew;
 

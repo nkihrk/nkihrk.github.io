@@ -57,7 +57,7 @@
                 var zoomScaleX = transformValue($('#zoom').css('transform')).scaleX;
                 var zoomScaleY = transformValue($('#zoom').css('transform')).scaleY;
                 var zoomOffset = $('#zoom').offset();
-                console.log('zoomOrigin', zoomOrigin, 'zoomScaleX', zoomScaleX, 'zoomScaleY', zoomScaleY, 'zoomOffset', zoomOffset);
+                // console.log('zoomOrigin', zoomOrigin, 'zoomScaleX', zoomScaleX, 'zoomScaleY', zoomScaleY, 'zoomOffset', zoomOffset);
 
             });
 

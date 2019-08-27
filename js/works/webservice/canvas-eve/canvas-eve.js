@@ -150,9 +150,9 @@
                     // debugCircle('test-pos_1', 'blue', file.fileIdPos.left, file.fileIdPos.top);
                     // debugCircle('test-pos_4', 'white', file.fileIdRelPosX, file.fileIdRelPosY);
 
-                    // Initialize file.rotatedCenterPos
-                    file.rotatedCenterPos.left = (clientX - file.fileIdRelPosX) + (file.rotatedSize.width / 2);
-                    file.rotatedCenterPos.top = (clientY - file.fileIdRelPosY) + (file.rotatedSize.height / 2);
+                    // Initialize file.rotatedCenterPos. These are screen-space coordinates
+                    file.rotatedCenterPos.left = file.$fileId.offset().left + (file.rotatedSize.width / 2) / mouseWheelVal;
+                    file.rotatedCenterPos.top = file.$fileId.offset().top + (file.rotatedSize.height / 2) / mouseWheelVal;
 
                     // Initialize the initRads for a rotating function
                     tmp.ro.left_top_initRad = calcRadians(-file.fileIdWidth / 2, -file.fileIdHeight / 2);
@@ -201,8 +201,8 @@
             $(document).on(EVENTNAME_TOUCHMOVE, function () {
                 // Set the #reset-res at a mouse pos
                 $('#reset-res').css({
-                    'left': ((clientX - $('#zoom').offset().left)) * mouseWheelVal - 50 + 'px',
-                    'top': ((clientY - $('#zoom').offset().top)) * mouseWheelVal - 50 + 'px',
+                    'left': clientFromZoomX * mouseWheelVal - 50 + 'px',
+                    'top': clientFromZoomY * mouseWheelVal - 50 + 'px',
                     'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
                     'transform-origin': xImage + 'px ' + yImage + 'px',
                 });
@@ -426,28 +426,28 @@
                 // Prevent from the default drag events
                 e.preventDefault();
 
-                var pClientX = (clientX - $('#plain').offset().left);
-                var pClientY = (clientY - $('#plain').offset().top);
+                var pClientX = clientFromZoomX;
+                var pClientY = clientFromZoomY;
 
 
                 // When an image is dragged
                 const dragged = function () {
                     let targetPosLeft = pClientX - file.fileIdRelPosX;
                     let targetPosTop = pClientY - file.fileIdRelPosY;
-                    let w = file.rotatedSize.width;
-                    let h = file.rotatedSize.height;
-                    let resLeft = (w - file.fileIdWidth) / 2 + targetPosLeft;
-                    let resTop = (h - file.fileIdHeight) / 2 + targetPosTop;
+                    let resLeft = (file.rotatedSize.width - file.fileIdWidth) / 2 + targetPosLeft * mouseWheelVal;
+                    let resTop = (file.rotatedSize.height - file.fileIdHeight) / 2 + targetPosTop * mouseWheelVal;
 
 
                     if (glFlgs.mousewheel_avail_flg == false && flgs.resize_flg == false && flgs.rotate_flg == false) {
                         if (flgs.drag_flg == true) {
-                            file.$fileId.css('left', resLeft + 'px');
-                            file.$fileId.css('top', resTop + 'px');
+                            file.$fileId.css({
+                                'left': resLeft + 'px',
+                                'top': resTop + 'px',
+                            });
 
                             // Update file.rotatedCenterPos for the later-use in rotating function
-                            file.rotatedCenterPos.left = (clientX - file.fileIdRelPosX) + (w / 2);
-                            file.rotatedCenterPos.top = (clientY - file.fileIdRelPosY) + (h / 2);
+                            file.rotatedCenterPos.left = file.$fileId.offset().left + (file.rotatedSize.width / 2) / mouseWheelVal;
+                            file.rotatedCenterPos.top = file.$fileId.offset().top + (file.rotatedSize.height / 2) / mouseWheelVal;
                             // debugCircle('test-pos_3', 'orange', file.rotatedCenterPos.left, file.rotatedCenterPos.top);
                             console.log('drag function is called');
                         }
@@ -479,6 +479,7 @@
                             console.log('tmp.ro.right_top_initRad : ' + tmp.ro.right_top_initRad);
 
                             file.$fileId.css('transform', 'rotate(' + resRad + 'rad)');
+
                             console.log('rotate function is called');
                         }
 
@@ -508,9 +509,9 @@
                     if (glFlgs.mousewheel_avail_flg == false && flgs.mousedown_flg == true && flgs.resize_flg == true) {
                         if (flgs.re.left_top_flg == true) {
                             file.$fileId.css({
-                                'top': (file.fileIdPos.top - $('#plain').offset().top) + (file.fileIdHeight - (file.fileIdWidth - (clientX - file.fileIdPos.left)) * file.fileIdRatio) + 'px',
-                                'left': ((file.fileIdPos.left - $('#plain').offset().left) + (clientX - file.fileIdPos.left)) + 'px',
-                                'width': file.fileIdWidth - (clientX - file.fileIdPos.left) + 'px',
+                                'top': (file.fileIdPos.top - $('#zoom').offset().top) * mouseWheelVal + (file.fileIdHeight - (file.fileIdWidth - (clientX - file.fileIdPos.left) * mouseWheelVal) * file.fileIdRatio) + 'px',
+                                'left': ((file.fileIdPos.left - $('#zoom').offset().left) * mouseWheelVal + (clientX - file.fileIdPos.left) * mouseWheelVal) + 'px',
+                                'width': file.fileIdWidth - (clientX - file.fileIdPos.left) * mouseWheelVal + 'px',
                             });
                             console.log('mousedown is called');
                         }
@@ -518,9 +519,9 @@
 
                         if (flgs.re.right_top_flg == true) {
                             file.$fileId.css({
-                                'top': (file.fileIdPos.top - $('#plain').offset().top) + (file.fileIdHeight - (clientX - file.fileIdPos.left) * file.fileIdRatio) + 'px',
-                                'left': (file.fileIdPos.left - $('#plain').offset().left) + 'px',
-                                'width': (clientX - file.fileIdPos.left) + 'px',
+                                'top': (file.fileIdPos.top - $('#zoom').offset().top) * mouseWheelVal + (file.fileIdHeight - (clientX - file.fileIdPos.left) * mouseWheelVal * file.fileIdRatio) + 'px',
+                                'left': (file.fileIdPos.left - $('#zoom').offset().left) * mouseWheelVal + 'px',
+                                'width': (clientX - file.fileIdPos.left) * mouseWheelVal + 'px',
                             });
                             // console.log('down one is called');
                         }
@@ -528,9 +529,9 @@
 
                         if (flgs.re.right_bottom_flg == true) {
                             file.$fileId.css({
-                                'top': (file.fileIdPos.top - $('#plain').offset().top) + 'px',
-                                'left': (file.fileIdPos.left - $('#plain').offset().left) + 'px',
-                                'width': (clientX - file.fileIdPos.left) + 'px',
+                                'top': (file.fileIdPos.top - $('#zoom').offset().top) * mouseWheelVal + 'px',
+                                'left': (file.fileIdPos.left - $('#zoom').offset().left) * mouseWheelVal + 'px',
+                                'width': (clientX - file.fileIdPos.left) * mouseWheelVal + 'px',
                             });
                             // console.log('down one is called');
                         }
@@ -538,9 +539,9 @@
 
                         if (flgs.re.left_bottom_flg == true) {
                             file.$fileId.css({
-                                'top': (file.fileIdPos.top - $('#plain').offset().top) + 'px',
-                                'left': ((file.fileIdPos.left - $('#plain').offset().left) + (clientX - file.fileIdPos.left)) + 'px',
-                                'width': file.fileIdWidth - (clientX - file.fileIdPos.left) + 'px',
+                                'top': (file.fileIdPos.top - $('#zoom').offset().top) * mouseWheelVal + 'px',
+                                'left': ((file.fileIdPos.left - $('#zoom').offset().left) + (clientX - file.fileIdPos.left)) * mouseWheelVal + 'px',
+                                'width': file.fileIdWidth - (clientX - file.fileIdPos.left) * mouseWheelVal + 'px',
                             });
                             // console.log('down one is called');
                         }

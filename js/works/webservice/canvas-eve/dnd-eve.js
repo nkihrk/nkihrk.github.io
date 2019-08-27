@@ -47,7 +47,7 @@
                                     'left': left * mouseWheelVal - fileIdWidth / 2 + 'px',
                                     'top': top * mouseWheelVal - fileIdHeight / 2 + 'px',
                                     'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
-                                    'transform-origin': xImage + 'px ' + yImage + 'px',
+                                    // 'transform-origin': xImage + 'px ' + yImage + 'px',
                                     'z-index': HIGHEST_Z_INDEX,
                                 });
                                 newFile.flg = 1;
@@ -128,7 +128,7 @@
                                         'left': left * mouseWheelVal - fileIdWidth / 2 + 'px',
                                         'top': top * mouseWheelVal - fileIdHeight / 2 + 'px',
                                         'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
-                                        'transform-origin': xImage + 'px ' + yImage + 'px',
+                                        // 'transform-origin': xImage + 'px ' + yImage + 'px',
                                         'z-index': HIGHEST_Z_INDEX,
                                     });
                                     newFile.flg = 1;

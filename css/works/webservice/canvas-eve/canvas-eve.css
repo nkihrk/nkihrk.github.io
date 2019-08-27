@@ -1,16 +1,7 @@
 @charset "UTF-8";
 
 #plain {
-    /* width: 100%;
-    height: 100vh; */
-    /* width: 20000px;
-    height: 20000px; */
-    /* width: 600px;
-    height: 600px; */
-    /* border: solid 3px red; */
-
     scroll-behavior: auto;
-
     transition: all .1s;
 }
 
@@ -18,13 +9,11 @@
     width: 100%;
     height: 100%;
     position: relative;
-    /* transform-origin: right bottom; */
     transform: scale(1);
-    border: solid 2px red;
 
-    background: rgba(255, 0, 0, 0.2);
+    /* background: rgba(255, 0, 0, 0.2);
     width: 600px;
-    height: 600px;
+    height: 600px; */
 }
 
 /* A wrapper for a pasted image */
@@ -35,10 +24,6 @@
     min-width: 192px;
     border: solid 1px rgba(255, 0, 0, 0);
     transform-origin: center;
-    /* transform: rotate(60deg); */
-
-    /* transition: all .1s; */
-    /* transition: width .1s, height .1s, top .1s, left .1s; */
 }
 
 .is-flipped video {

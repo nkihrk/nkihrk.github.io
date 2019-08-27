@@ -46,9 +46,9 @@
         // Update variables everytime a mousemove event is called on wherever
         const Update = function () {
             $(document).on(EVENTNAME_TOUCHMOVE, function (e) {
-                debugCircle('plainPos', 'orange', $('#plain').offset().left, $('#plain').offset().top);
-                debugCircle('zoomPos', 'white', $('#zoom').offset().left, $('#zoom').offset().top);
-                debugCircle('filePos', 'red', $('.file-wrap').offset().left, $('.file-wrap').offset().top);
+                // debugCircle('plainPos', 'orange', $('#plain').offset().left, $('#plain').offset().top);
+                // debugCircle('zoomPos', 'white', $('#zoom').offset().left, $('#zoom').offset().top);
+                // debugCircle('filePos', 'red', $('.file-wrap').offset().left, $('.file-wrap').offset().top);
             });
         };
         Update();
