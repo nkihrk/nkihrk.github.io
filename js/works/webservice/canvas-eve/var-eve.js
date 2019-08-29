@@ -232,3 +232,9 @@ $(document).on(EVENTNAME_TOUCHMOVE, function (e) {
     clientFromZoomX = clientX - $('#zoom').offset().left;
     clientFromZoomY = clientY - $('#zoom').offset().top;
 });
+
+
+// Prevent a default right-click event for the time being
+document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+}, false);

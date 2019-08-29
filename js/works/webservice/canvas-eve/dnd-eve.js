@@ -95,7 +95,7 @@
 
             const files = e.dataTransfer.files;
             const readAndPreview = function (file) {
-                if (/\.(jpe?g|png|gif|webm|mp4)$/i.test(file.name)) {
+                if (/\.(jpe?g|png|gif|svg|webm|mp4)$/i.test(file.name)) {
                     const reader = new FileReader();
                     reader.onload = function (e) {
                         newFile.prevId = newFile.id;
@@ -106,7 +106,7 @@
                             '<source src="' + e.target.result + '" type="video/webm">' +
                             '<source src="' + e.target.result + '" type="video/mp4">' +
                             '</video>';
-                        const resTag = /\.(jpe?g|png|gif)$/i.test(file.name) ? imgTag : videoTag;
+                        const resTag = /\.(jpe?g|png|gif|svg)$/i.test(file.name) ? imgTag : videoTag;
                         const funcTags = '<div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>'
                         const assertFile = '<div id ="' + newFile.id + '" class="grab-pointer file-wrap" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="is-flipped">' + resTag + '</div></div>';
                         $('#add-files').append(assertFile);

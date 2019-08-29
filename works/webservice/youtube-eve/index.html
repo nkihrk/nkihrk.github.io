@@ -54,18 +54,15 @@
         </div>
     </div>
 
+
     <div id="canvas-eve"
         style="position: fixed; z-index: 0; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden;">
 
 
-        <div id="plain" style="position: relative;">
+        <div id="plain" style="position: relative; z-index: 2;">
             <div id="zoom">
                 <!-- For inserting elements only -->
                 <div id="add-files">
-
-                    <!-- #reset-res will reset files-related functions when clicked -->
-                    <div id="reset-res" style="position: absolute; z-index: 0 !important; width: 100px; height: 100px;">
-                    </div>
 
                     <!-- youtube -->
                     <div id="add-youtube" class="grab-pointer file-wrap"
@@ -98,8 +95,13 @@
         </div>
 
 
+        <!-- .reset-res will reset files-related functions when clicked -->
+        <div id="reset-res">
+        </div>
+
+
         <footer class="half-opacity bold agency-fb"
-            style="position: absolute; width: 100%; line-height: 70px; bottom: 0; border: none; text-align: center; font-size: 1.1rem;">
+            style="position: absolute; z-index: 0; bottom: 35px; border: none; text-align: center; font-size: 1.1rem;">
             2019 © NkiHrk
         </footer>
     </div>

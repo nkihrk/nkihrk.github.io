@@ -77,6 +77,7 @@
             '<div class="ro-right-bottom"></div>' +
             '<div class="ro-left-bottom"></div>';
 
+
         //////
 
 
@@ -93,79 +94,83 @@
                 }
 
 
-                $('div').removeClass('selected');
-                $('div').removeClass('resize-icon');
-                $('div').removeClass('rotate-icon');
-                $('div').removeClass('flip-icon');
-                $('div').removeClass('trash-icon');
+                // This if argument is the prefix for the plain.js
+                if (e.button != 1) {
+                    $('div').removeClass('selected');
+                    $('div').removeClass('resize-icon');
+                    $('div').removeClass('rotate-icon');
+                    $('div').removeClass('flip-icon');
+                    $('div').removeClass('trash-icon');
 
-                $('div').remove('.re-left-top');
-                $('div').remove('.re-right-top');
-                $('div').remove('.re-right-bottom');
-                $('div').remove('.re-left-bottom');
+                    $('div').remove('.re-left-top');
+                    $('div').remove('.re-right-top');
+                    $('div').remove('.re-right-bottom');
+                    $('div').remove('.re-left-bottom');
 
-                $('div').remove('.ro-left-top');
-                $('div').remove('.ro-right-top');
-                $('div').remove('.ro-right-bottom');
-                $('div').remove('.ro-left-bottom');
+                    $('div').remove('.ro-left-top');
+                    $('div').remove('.ro-right-top');
+                    $('div').remove('.ro-right-bottom');
+                    $('div').remove('.ro-left-bottom');
 
-                $(this).addClass('selected'); // A selected border
-                // Added selected symbols and other functions
-                if (flgs.only_draggable_flg == false) {
-                    // $(this).prepend(resizeBox); // Resizing boxes
 
-                    // Resizing boxes
-                    if ($(this).find('.resize-wrapper').hasClass('active')) {
-                        $(this).prepend(resizeBox);
+                    $(this).addClass('selected'); // A selected border
+                    // Added selected symbols and other functions
+                    if (flgs.only_draggable_flg == false) {
+                        // $(this).prepend(resizeBox); // Resizing boxes
+
+                        // Resizing boxes
+                        if ($(this).find('.resize-wrapper').hasClass('active')) {
+                            $(this).prepend(resizeBox);
+                        }
+                        if ($(this).find('.rotate-wrapper').hasClass('active')) $(this).prepend(rotateBox); // Rotating circles
+
+                        $(this).find('.resize-wrapper').addClass('resize-icon'); // Add a resizing icon
+                        $(this).find('.rotate-wrapper').addClass('rotate-icon'); // Add a rotating icon
+                        $(this).find('.flip-wrapper').addClass('flip-icon'); // Add a flipping icon
+                        $(this).find('.trash-wrapper').addClass('trash-icon'); // Add a trash icon
                     }
-                    if ($(this).find('.rotate-wrapper').hasClass('active')) $(this).prepend(rotateBox); // Rotating circles
-
-                    $(this).find('.resize-wrapper').addClass('resize-icon'); // Add a resizing icon
-                    $(this).find('.rotate-wrapper').addClass('rotate-icon'); // Add a rotating icon
-                    $(this).find('.flip-wrapper').addClass('flip-icon'); // Add a flipping icon
-                    $(this).find('.trash-wrapper').addClass('trash-icon'); // Add a trash icon
-                }
 
 
-                // Add #id to #image, and initialize its values
-                if (flgs.drag_flg == false) {
-                    file.fileId = '#' + $(this).attr('id');
-                    file.$fileId = $(file.fileId);
-                    console.log('id : ' + $(this).attr('id'));
+                    // Add #id to #image, and initialize its values
+                    if (flgs.drag_flg == false) {
+                        file.fileId = '#' + $(this).attr('id');
+                        file.$fileId = $(file.fileId);
+                        console.log('id : ' + $(this).attr('id'));
 
-                    file.fileIdWidth = file.$fileId.outerWidth();
-                    file.fileIdHeight = file.$fileId.outerHeight();
-                    file.fileIdRatio = file.fileIdHeight / file.fileIdWidth;
+                        file.fileIdWidth = file.$fileId.outerWidth();
+                        file.fileIdHeight = file.$fileId.outerHeight();
+                        file.fileIdRatio = file.fileIdHeight / file.fileIdWidth;
 
-                    file.fileIdTheta = getRotationRad(file.$fileId);
-                    console.log('file.fileIdTheta : ' + file.fileIdTheta);
-                    file.rotatedSize.width = file.fileIdWidth * Math.abs(Math.cos(file.fileIdTheta)) + file.fileIdHeight * Math.abs(Math.sin(file.fileIdTheta));
-                    file.rotatedSize.height = file.fileIdHeight * Math.abs(Math.cos(file.fileIdTheta)) + file.fileIdWidth * Math.abs(Math.sin(file.fileIdTheta));
+                        file.fileIdTheta = getRotationRad(file.$fileId);
+                        console.log('file.fileIdTheta : ' + file.fileIdTheta);
+                        file.rotatedSize.width = file.fileIdWidth * Math.abs(Math.cos(file.fileIdTheta)) + file.fileIdHeight * Math.abs(Math.sin(file.fileIdTheta));
+                        file.rotatedSize.height = file.fileIdHeight * Math.abs(Math.cos(file.fileIdTheta)) + file.fileIdWidth * Math.abs(Math.sin(file.fileIdTheta));
 
-                    file.fileIdPos = file.$fileId.offset();
-                    console.log('file.fileIdPos', file.fileIdPos);
+                        file.fileIdPos = file.$fileId.offset();
+                        console.log('file.fileIdPos', file.fileIdPos);
 
-                    file.fileIdRelPosX = clientX - file.fileIdPos.left;
-                    file.fileIdRelPosY = clientY - file.fileIdPos.top;
-                    // debugCircle('test-pos_1', 'blue', file.fileIdPos.left, file.fileIdPos.top);
-                    // debugCircle('test-pos_4', 'white', file.fileIdRelPosX, file.fileIdRelPosY);
+                        file.fileIdRelPosX = clientX - file.fileIdPos.left;
+                        file.fileIdRelPosY = clientY - file.fileIdPos.top;
+                        // debugCircle('test-pos_1', 'blue', file.fileIdPos.left, file.fileIdPos.top);
+                        // debugCircle('test-pos_4', 'white', file.fileIdRelPosX, file.fileIdRelPosY);
 
-                    // Initialize file.rotatedCenterPos. These are screen-space coordinates
-                    file.rotatedCenterPos.left = file.$fileId.offset().left + (file.rotatedSize.width / 2) / mouseWheelVal;
-                    file.rotatedCenterPos.top = file.$fileId.offset().top + (file.rotatedSize.height / 2) / mouseWheelVal;
+                        // Initialize file.rotatedCenterPos. These are screen-space coordinates
+                        file.rotatedCenterPos.left = file.$fileId.offset().left + (file.rotatedSize.width / 2) / mouseWheelVal;
+                        file.rotatedCenterPos.top = file.$fileId.offset().top + (file.rotatedSize.height / 2) / mouseWheelVal;
 
-                    // Initialize the initRads for a rotating function
-                    tmp.ro.left_top_initRad = calcRadians(-file.fileIdWidth / 2, -file.fileIdHeight / 2);
-                    tmp.ro.right_top_initRad = calcRadians(file.fileIdWidth / 2, -file.fileIdHeight / 2);
-                    tmp.ro.right_bottom_initRad = calcRadians(file.fileIdWidth / 2, file.fileIdHeight / 2);
-                    tmp.ro.left_bottom_initRad = calcRadians(-file.fileIdWidth / 2, file.fileIdHeight / 2);
+                        // Initialize the initRads for a rotating function
+                        tmp.ro.left_top_initRad = calcRadians(-file.fileIdWidth / 2, -file.fileIdHeight / 2);
+                        tmp.ro.right_top_initRad = calcRadians(file.fileIdWidth / 2, -file.fileIdHeight / 2);
+                        tmp.ro.right_bottom_initRad = calcRadians(file.fileIdWidth / 2, file.fileIdHeight / 2);
+                        tmp.ro.left_bottom_initRad = calcRadians(-file.fileIdWidth / 2, file.fileIdHeight / 2);
 
-                    // Set the $fileId to be the highest of all the other unselected elements
-                    // file.$fileId.appendTo('#add-files');
-                    HIGHEST_Z_INDEX += 1;
-                    file.$fileId.css('z-index', HIGHEST_Z_INDEX);
-                    flgs.drag_flg = true;
-                    console.log('flgs.drag_flg is ' + flgs.drag_flg);
+                        // Set the $fileId to be the highest of all the other unselected elements
+                        // file.$fileId.appendTo('#add-files');
+                        HIGHEST_Z_INDEX += 1;
+                        file.$fileId.css('z-index', HIGHEST_Z_INDEX);
+                        flgs.drag_flg = true;
+                        console.log('flgs.drag_flg is ' + flgs.drag_flg);
+                    }
                 }
             });
         }
@@ -174,23 +179,28 @@
 
         // Reset a selected area
         const reset = function () {
-            $(document).on(EVENTNAME_TOUCHSTART, '#reset-res', function () {
+            $(document).on(EVENTNAME_TOUCHSTART, '#reset-res', function (e) {
                 console.log('mousedown #reset-res is detected.');
-                $('div').removeClass('selected');
-                $('div').removeClass('resize-icon');
-                $('div').removeClass('rotate-icon');
-                $('div').removeClass('flip-icon');
-                $('div').removeClass('trash-icon');
+                // For #reset-res to be excluded if e.button == 1. Go check the plain-eve.js
+                if (e.button != 1) {
+                    e.stopPropagation();
 
-                $('div').remove('.re-left-top');
-                $('div').remove('.re-right-top');
-                $('div').remove('.re-right-bottom');
-                $('div').remove('.re-left-bottom');
+                    $('div').removeClass('selected');
+                    $('div').removeClass('resize-icon');
+                    $('div').removeClass('rotate-icon');
+                    $('div').removeClass('flip-icon');
+                    $('div').removeClass('trash-icon');
 
-                $('div').remove('.ro-left-top');
-                $('div').remove('.ro-right-top');
-                $('div').remove('.ro-right-bottom');
-                $('div').remove('.ro-left-bottom');
+                    $('div').remove('.re-left-top');
+                    $('div').remove('.re-right-top');
+                    $('div').remove('.re-right-bottom');
+                    $('div').remove('.re-left-bottom');
+
+                    $('div').remove('.ro-left-top');
+                    $('div').remove('.ro-right-top');
+                    $('div').remove('.ro-right-bottom');
+                    $('div').remove('.ro-left-bottom');
+                }
             });
         }
         reset();
@@ -200,12 +210,14 @@
         const Update = function () {
             $(document).on(EVENTNAME_TOUCHMOVE, function () {
                 // Set the #reset-res at a mouse pos
-                $('#reset-res').css({
-                    'left': clientFromZoomX * mouseWheelVal - 50 + 'px',
-                    'top': clientFromZoomY * mouseWheelVal - 50 + 'px',
-                    'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
-                    'transform-origin': xImage + 'px ' + yImage + 'px',
-                });
+                // $('#reset-res').css({
+                //     'left': clientX - 50 + 'px',
+                //     'top': clientY - 50 + 'px',
+                //     // 'left': clientFromZoomX * mouseWheelVal - 50 + 'px',
+                //     // 'top': clientFromZoomY * mouseWheelVal - 50 + 'px',
+                //     // 'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
+                //     // 'transform-origin': xImage + 'px ' + yImage + 'px',
+                // });
             });
         };
         Update();
@@ -354,18 +366,20 @@
                 $(document).on(EVENTNAME_TOUCHSTART, '.resize-wrapper', function (e) {
                     console.log('mousedown .resize-wrapper is detected.');
 
-                    e.stopPropagation();
-                    $(this).toggleClass('active');
+                    if (e.button != 1) {
+                        e.stopPropagation();
+                        $(this).toggleClass('active');
 
-                    if ($(this).hasClass('active')) {
-                        if (!file.$fileId.hasClass('ro-left-top')) {
-                            file.$fileId.prepend(resizeBox);
+                        if ($(this).hasClass('active')) {
+                            if (!file.$fileId.hasClass('ro-left-top')) {
+                                file.$fileId.prepend(resizeBox);
+                            }
+                        } else {
+                            file.$fileId.children('.re-left-top').remove();
+                            file.$fileId.children('.re-right-top').remove();
+                            file.$fileId.children('.re-right-bottom').remove();
+                            file.$fileId.children('.re-left-bottom').remove();
                         }
-                    } else {
-                        file.$fileId.children('.re-left-top').remove();
-                        file.$fileId.children('.re-right-top').remove();
-                        file.$fileId.children('.re-right-bottom').remove();
-                        file.$fileId.children('.re-left-bottom').remove();
                     }
                 });
 
@@ -374,20 +388,22 @@
                 $(document).on(EVENTNAME_TOUCHSTART, '.rotate-wrapper', function (e) {
                     console.log('mousedown .rotate-wrapper is detected.');
 
-                    e.stopPropagation();
-                    $(this).toggleClass('active');
+                    if (e.button != 1) {
+                        e.stopPropagation();
+                        $(this).toggleClass('active');
 
-                    if ($(this).hasClass('active')) {
-                        if (!file.$fileId.hasClass('ro-left-top')) {
-                            file.$fileId.removeClass('not-rotated');
-                            file.$fileId.prepend(rotateBox);
+                        if ($(this).hasClass('active')) {
+                            if (!file.$fileId.hasClass('ro-left-top')) {
+                                file.$fileId.removeClass('not-rotated');
+                                file.$fileId.prepend(rotateBox);
+                            }
+                        } else {
+                            file.$fileId.addClass('not-rotated');
+                            file.$fileId.children('.ro-left-top').remove();
+                            file.$fileId.children('.ro-right-top').remove();
+                            file.$fileId.children('.ro-right-bottom').remove();
+                            file.$fileId.children('.ro-left-bottom').remove();
                         }
-                    } else {
-                        file.$fileId.addClass('not-rotated');
-                        file.$fileId.children('.ro-left-top').remove();
-                        file.$fileId.children('.ro-right-top').remove();
-                        file.$fileId.children('.ro-right-bottom').remove();
-                        file.$fileId.children('.ro-left-bottom').remove();
                     }
                 });
 
@@ -396,12 +412,14 @@
                 $(document).on(EVENTNAME_TOUCHSTART, '.flip-wrapper', function (e) {
                     console.log('mousedown .flip-wrapper is detected.');
 
-                    e.stopPropagation();
-                    $(this).toggleClass('active');
-                    if ($(this).hasClass('active')) {
-                        $(file.fileId + ' .is-flipped').addClass('flipped');
-                    } else {
-                        $(file.fileId + ' .is-flipped').removeClass('flipped');
+                    if (e.button != 1) {
+                        e.stopPropagation();
+                        $(this).toggleClass('active');
+                        if ($(this).hasClass('active')) {
+                            $(file.fileId + ' .is-flipped').addClass('flipped');
+                        } else {
+                            $(file.fileId + ' .is-flipped').removeClass('flipped');
+                        }
                     }
                 });
 
@@ -410,10 +428,12 @@
                 $(document).on(EVENTNAME_TOUCHSTART, '.trash-wrapper', function (e) {
                     console.log('mousedown .trash-wrapper is detected.');
 
-                    e.stopPropagation();
-                    $(this).toggleClass('active');
-                    if ($(this).hasClass('active')) {
-                        $(file.fileId).remove();
+                    if (e.button != 1) {
+                        e.stopPropagation();
+                        $(this).toggleClass('active');
+                        if ($(this).hasClass('active')) {
+                            $(file.fileId).remove();
+                        }
                     }
                 });
 

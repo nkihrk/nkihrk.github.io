@@ -65,6 +65,10 @@
             // Reset flags
             $(document).on('mouseup', function (e) {
                 if (glFlgs.mousewheel_avail_flg == true) {
+                    iframePointerReset();
+
+                    $('#canvas-eve').removeClass('active-mousewheel');
+
                     glFlgs.mousewheel_avail_flg = false;
                     console.log('glFlgs.mousewheel_avail_flg', glFlgs.mousewheel_avail_flg);
                 }
@@ -81,10 +85,15 @@
                 e.preventDefault();
 
                 if (glFlgs.mousewheel_avail_flg == true) {
+                    iframePointerNone();
+
                     $('#plain').css({
                         'left': clientX - plain.relPos.left + 'px',
                         'top': clientY - plain.relPos.top + 'px'
                     });
+
+                    // Change a mouse pointer to a grabbing
+                    $('#canvas-eve').addClass('active-mousewheel');
                 }
             });
         };

@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+#col-board {
+    position: absolute;
+    left: 0;
+}
+
+#colpick-button {
+    position: absolute;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: white;
+}
+
+#colpick-button::before {
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background-image: url(/img/works/webservice/canvas-eve/red_spuit.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    z-index: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+    transition: all .1s ease-in-out;
+}
