@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+#add-youtube {
+    width: 880px;
+    z-index: 0;
+    top: 3%;
+    left: calc(50% - 440px);
+}
+
 /* Prefix for youtube functions */
 .youtube-wrapper {
     width: 880px;
