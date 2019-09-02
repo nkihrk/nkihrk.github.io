@@ -109,8 +109,6 @@ var yNew = 0;
 var xNewMinus = -xNew;
 var yNewMinus = -yNew;
 
-var xImage, yImage;
-
 // The scree-space mouse coordinates from a zoom coordinate
 var clientFromZoomX, clientFromZoomY;
 
@@ -234,7 +232,7 @@ $(document).on(EVENTNAME_TOUCHMOVE, function (e) {
 });
 
 
-// Prevent a default right-click event for the time being
+// Prevent default right-click events for the time being
 document.addEventListener('contextmenu', function (e) {
     e.preventDefault();
 }, false);

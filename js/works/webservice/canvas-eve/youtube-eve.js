@@ -100,7 +100,6 @@
                                 var childTop = ($('#add-youtube').offset().top - $('#zoom').offset().top) * mouseWheelVal + 300;
                                 var childLeft = ($('#add-youtube').offset().left - $('#zoom').offset().left) * mouseWheelVal + $('#add-youtube').outerWidth() / 2 - 350;
                                 var childTranslate = 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')';
-                                var childTransformOrigin = xImage + 'px ' + yImage + 'px';
                                 var childStyle = 'width: 700px;' +
                                     ' top:' +
                                     childTop +
@@ -112,8 +111,6 @@
                                     IS_TRANSITION +
                                     '; transform:' +
                                     childTranslate +
-                                    '; transform:' +
-                                    childTransformOrigin +
                                     ';';
                                 assertFile = '<div id="' + newFile.id + '" class="grab-pointer file-wrap" style="' + childStyle + '">' +
                                     '<div class="function-wrapper">' +
@@ -156,7 +153,6 @@
                                     var childTop = ($('#add-youtube').offset().top - $('#zoom').offset().top) * mouseWheelVal + 300;
                                     var childLeft = ($('#add-youtube').offset().left - $('#zoom').offset().left) * mouseWheelVal + $('#add-youtube').outerWidth() / 2 - 350;
                                     var childTranslate = 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')';
-                                    var childTransformOrigin = xImage + 'px ' + yImage + 'px';
                                     var childStyle = 'width: 700px;' +
                                         ' top:' +
                                         childTop +
@@ -168,8 +164,6 @@
                                         IS_TRANSITION +
                                         '; transform:' +
                                         childTranslate +
-                                        '; transform:' +
-                                        childTransformOrigin +
                                         ';';
                                     assertFile = '<div id="' + newFile.id + '" class="grab-pointer file-wrap" style="' + childStyle + '">' +
                                         '<div class="function-wrapper">' +

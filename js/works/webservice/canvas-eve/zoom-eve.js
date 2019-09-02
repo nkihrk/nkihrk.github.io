@@ -68,8 +68,8 @@
                 var i = 1;
                 var xLast = 0; // last x location on the screen
                 var yLast = 0; // last y location on the screen
-                xImage = 0; // last x location on the image
-                yImage = 0; // last y location on the image
+                var xImage = 0; // last x location on the image
+                var yImage = 0; // last y location on the image
                 $(document).on('mousewheel', function (e) {
                     // find current location on screen 
                     xScreen = e.clientX - $('#plain').offset().left;

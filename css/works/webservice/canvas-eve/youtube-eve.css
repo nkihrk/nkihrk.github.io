@@ -131,6 +131,24 @@
     color: rgba(255, 255, 255, 0.3);
 }
 
+/* Change the color of border when focused */
+.search-box-youtube:focus {
+    outline: 0;
+    border-color: #e56470;
+}
+
+/* input[type="text"]:focus {
+    outline: 0;
+    border-color: #e56470;
+} */
+
+/* Delete a cross icon */
+/* input[type="text"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+} */
+
 /* Prefix for a search button */
 .search-button-youtube {
     width: 17%;
@@ -202,20 +220,6 @@
     transform: translateX(-50%);
     transform: translateY(-50%);
 }
-
-/* Change the color of border when focused */
-input[type="text"]:focus {
-    outline: 0;
-    border-color: #e56470;
-}
-
-/* Delete a cross icon */
-/* input[type="text"]::-webkit-search-cancel-button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-} */
-
 
 
 /* A wrapper for the tab and its background cover */

@@ -33,6 +33,7 @@
             'mousedown_flg': false,
             'resize_flg': false,
             'only_draggable_flg': false,
+            'no_zooming_flg': false,
             'iframe_draggable_flg': false,
             're': {
                 'left_top_flg': false,
@@ -92,9 +93,15 @@
                 } else {
                     flgs.only_draggable_flg = false;
                 }
+                // To restrict zooming
+                if ($(this).children().hasClass('no-zooming')) {
+                    flgs.no_zooming_flg = true;
+                } else {
+                    flgs.no_zooming_flg = false;
+                }
 
 
-                // This if argument is the prefix for the plain.js
+                // This if argument is the prefix for plain.js
                 if (e.button != 1) {
                     $('div').removeClass('selected');
                     $('div').removeClass('resize-icon');
@@ -216,7 +223,6 @@
                 //     // 'left': clientFromZoomX * mouseWheelVal - 50 + 'px',
                 //     // 'top': clientFromZoomY * mouseWheelVal - 50 + 'px',
                 //     // 'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
-                //     // 'transform-origin': xImage + 'px ' + yImage + 'px',
                 // });
             });
         };
@@ -452,10 +458,24 @@
 
                 // When an image is dragged
                 const dragged = function () {
-                    let targetPosLeft = pClientX - file.fileIdRelPosX;
-                    let targetPosTop = pClientY - file.fileIdRelPosY;
-                    let resLeft = (file.rotatedSize.width - file.fileIdWidth) / 2 + targetPosLeft * mouseWheelVal;
-                    let resTop = (file.rotatedSize.height - file.fileIdHeight) / 2 + targetPosTop * mouseWheelVal;
+                    let targetPosLeft, targetPosTop;
+                    let resLeft, resTop;
+
+
+                    // The element has a class .no_zooming
+                    if (flgs.no_zooming_flg == true) {
+                        targetPosLeft = clientX - file.fileIdRelPosX;
+                        targetPosTop = clientY - file.fileIdRelPosY;
+
+                        resLeft = (file.rotatedSize.width - file.fileIdWidth) / 2 + targetPosLeft;
+                        resTop = (file.rotatedSize.height - file.fileIdHeight) / 2 + targetPosTop;
+                    } else {
+                        targetPosLeft = pClientX - file.fileIdRelPosX;
+                        targetPosTop = pClientY - file.fileIdRelPosY;
+
+                        resLeft = (file.rotatedSize.width - file.fileIdWidth) / 2 + targetPosLeft * mouseWheelVal;
+                        resTop = (file.rotatedSize.height - file.fileIdHeight) / 2 + targetPosTop * mouseWheelVal;
+                    }
 
 
                     if (glFlgs.mousewheel_avail_flg == false && flgs.resize_flg == false && flgs.rotate_flg == false) {
