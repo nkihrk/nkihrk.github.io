@@ -24,4 +24,13 @@
         }
         loadingLast();
     });
+
+
+    // When loading is finished and is resized
+    $(window).on('load resize', function () {
+        $('#footer').css({
+            'top': window.innerHeight - 60 + 'px',
+            'left': window.innerWidth / 2 + 'px'
+        });
+    });
 })(window, jQuery);

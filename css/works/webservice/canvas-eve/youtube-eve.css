@@ -132,7 +132,8 @@
 }
 
 /* Change the color of border when focused */
-.search-box-youtube:focus {
+.search-box-youtube:focus,
+.child-search-box-youtube:focus {
     outline: 0;
     border-color: #e56470;
 }

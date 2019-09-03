@@ -54,57 +54,58 @@
         </div><!-- #loading -->
     </div><!-- #loader-bg -->
 
+    <!-- To prevent scrolling -->
+    <div id="canvas-eve-wrapper" style="position: fixed; z-index: 0;">
 
-    <div id="canvas-eve" style="position: fixed; z-index: 0;">
+        <div id="footer" class="bold agency-fb" style="position: absolute; z-index: 1;">2019 © NkiHrk</div>
 
-        <div id="plain" style="position: relative; z-index: 2;">
-            <div id="zoom">
 
-                <!-- For inserting elements only -->
-                <div id="add-files">
+        <div id="canvas-eve" style="position: fixed; z-index: 0;">
 
-                    <!-- youtube -->
-                    <div id="add-youtube" class="grab-pointer file-wrap" style="z-index: 0;">
-                        <div class="only-draggable youtube-wrapper" style="width: 100%;">
-                            <div class="title-youtube" style="position: relative;">
-                                <h1>
-                                    <span class="youtube-icon sep-right bold agency-fb"
-                                        style="font-size: 4.5rem;">YouTube</span><span class="half-opacity"
-                                        style="font-size: 1.8rem; color: rgba(255, 255, 255, 0.3);">Add
-                                        any videos on the
-                                        canvas</span>
-                                </h1>
-                            </div>
-                            <div class="search-youtube" style="position: relative;">
-                                <div class="search-box-wrapper" style="position: relative;">
-                                    <input class="ellipsis search-box-youtube"
-                                        placeholder="Paste a URL of any YouTube videos here." type="text"
-                                        spellcheck="false" style="position: relative;">
-                                    <div class="backspace-icon"></div>
+            <div id="plain" style="position: relative; z-index: 2;">
+                <div id="zoom">
+
+                    <!-- For inserting elements only -->
+                    <div id="add-files">
+
+                        <!-- youtube -->
+                        <div id="add-youtube" class="grab-pointer file-wrap" style="z-index: 0;">
+                            <div class="only-draggable youtube-wrapper" style="width: 100%;">
+                                <div class="title-youtube" style="position: relative;">
+                                    <h1>
+                                        <span class="youtube-icon sep-right bold agency-fb"
+                                            style="font-size: 4.5rem;">YouTube</span><span class="half-opacity"
+                                            style="font-size: 1.8rem; color: rgba(255, 255, 255, 0.3);">Add
+                                            any videos on the
+                                            canvas</span>
+                                    </h1>
                                 </div>
-                                <div class="hover-shadow-single search-button-youtube" style="position: relative;">
+                                <div class="search-youtube" style="position: relative;">
+                                    <div class="search-box-wrapper" style="position: relative;">
+                                        <input class="ellipsis search-box-youtube"
+                                            placeholder="Paste a URL of any YouTube videos here." type="text"
+                                            spellcheck="false" style="position: relative;">
+                                        <div class="backspace-icon"></div>
+                                    </div>
+                                    <div class="hover-shadow-single search-button-youtube" style="position: relative;">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div><!-- #add-youtube -->
+                        </div><!-- #add-youtube -->
 
-                </div><!-- #add-files -->
+                    </div><!-- #add-files -->
 
-            </div><!-- #zoom -->
-        </div><!-- #plain -->
-
-
-        <!-- #reset-res will reset files-related functions when clicked -->
-        <div id="reset-res">
-        </div>
+                </div><!-- #zoom -->
+            </div><!-- #plain -->
 
 
-        <footer class="half-opacity bold agency-fb"
-            style="position: absolute; z-index: 0; bottom: 35px; border: none; text-align: center; font-size: 1.1rem;">
-            2019 © NkiHrk
-        </footer>
+            <!-- #reset-res will reset files-related functions when clicked -->
+            <div id="reset-res"></div>
 
-    </div><!-- #canvas-eve -->
+
+        </div><!-- #canvas-eve -->
+
+    </div><!-- #canvas-eve-wrapper -->
 
 
     <script src="/js/common/jquery-3.4.0.min.js"></script>

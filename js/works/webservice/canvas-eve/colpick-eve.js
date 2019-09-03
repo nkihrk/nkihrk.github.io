@@ -1,8 +1,11 @@
 (function (window, $) {
     const hogeEve = () => {
         // Flags
-        const flgs = {};
+        const flgs = {
+            'wheeling_flg': false,
+        };
 
+        // Convert RGB to HEX
         const rgb2hex = function (rgb) {
             return '#' + rgb.map(function (value) {
                 return ('0' + value.toString(16)).slice(-2);
@@ -15,13 +18,43 @@
 
         // Initialize values
         const init = () => {
-            $(document).on(EVENTNAME_TOUCHSTART, function (e) {
-                flgs.clicked_canvas_flg = true;
-            });
-
+            // Initialize a value
             document.getElementById('input-colpick').value = '#32303f';
+
+            // https: //stackoverflow.com/questions/3515446/jquery-mousewheel-detecting-when-the-wheel-stops
+            // Detect if it`s wheeling or not
+            const detectWheeling = () => {
+                var wheeldelta = {
+                    x: 0,
+                    y: 0
+                };
+                var wheeling;
+                $(document).on('mousewheel', function (e) {
+                    if (!wheeling) {
+                        console.log('start wheeling!');
+                        flgs.wheeling_flg = true;
+                    }
+
+                    clearTimeout(wheeling);
+                    wheeling = setTimeout(function () {
+                        console.log('stop wheeling!');
+                        flgs.wheeling_flg = false;
+                        wheeling = undefined;
+
+                        // reset wheeldelta
+                        wheeldelta.x = 0;
+                        wheeldelta.y = 0;
+                    }, 250);
+
+                    wheeldelta.x += e.deltaFactor * e.deltaX;
+                    wheeldelta.y += e.deltaFactor * e.deltaY;
+                    console.log(wheeldelta);
+                });
+            };
+            detectWheeling();
         };
         init();
+
 
         // Reset a selected area
         const reset = function () {
@@ -57,7 +90,6 @@
 
         // Execute if flags are true
         const main = () => {
-
             $('#toggle-colpick').on('mousedown', function () {
                 $('#toggle-colpick').toggleClass('active');
 
@@ -66,9 +98,39 @@
                         document.getElementById('preview-canvas').appendChild(canvas);
                     });
                 } else {
-                    $('canvas').remove();
+                    $('#preview-canvas canvas').remove();
                 }
             });
+
+
+            $(document).on('mouseup', function (e) {
+                if ($('#toggle-colpick').hasClass('active')) {
+                    if (e.button == 1) {
+                        html2canvas(document.getElementById('canvas-eve')).then(function (canvas) {
+                            document.getElementById('preview-canvas').appendChild(canvas);
+                        });
+                    }
+                }
+            });
+
+            var done = false;
+            $(document).on('mousemove', function (e) {
+                if ($('#toggle-colpick').hasClass('active')) {
+                    if (glFlgs.mousewheel_avail_flg == true) {
+                        $('#preview-canvas canvas').remove();
+                    }
+                }
+            });
+
+
+            $(document).on('mousewheel', function (e) {
+                if ($('#toggle-colpick').hasClass('active')) {
+                    // if (flgs.wheeling_flg == true) {
+                    //     $('#preview-canvas canvas').remove();
+                    // }
+                } else {}
+            });
+
 
             $(document).on('mousedown', 'canvas', function (e) {
                 var context = $(this)[0].getContext('2d');
