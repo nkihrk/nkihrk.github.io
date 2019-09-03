@@ -1,14 +1,12 @@
 (function (window, $) {
     const hogeEve = () => {
         // Flags
-        const flgs = {
-            'clicked_canvas_flg': false,
-        };
+        const flgs = {};
 
         const rgb2hex = function (rgb) {
-            return "#" + rgb.map(function (value) {
-                return ("0" + value.toString(16)).slice(-2);
-            }).join("");
+            return '#' + rgb.map(function (value) {
+                return ('0' + value.toString(16)).slice(-2);
+            }).join('');
         };
 
 
@@ -20,6 +18,8 @@
             $(document).on(EVENTNAME_TOUCHSTART, function (e) {
                 flgs.clicked_canvas_flg = true;
             });
+
+            document.getElementById('input-colpick').value = '#32303f';
         };
         init();
 
@@ -45,22 +45,12 @@
         const configFlgs = () => {
             // Activate flags
             const activate = () => {
-                $(document).on('mousedown', function (e) {
-                    if (e.button == 1) {
-                        flgs.hoge_flg = true;
-                        console.log('flgs.hoge_flg', flgs.hoge_flg);
-                    }
-                });
+                $(document).on('mousedown', function (e) {});
             };
             activate();
 
             // Reset flags
-            $(document).on('mouseup', function (e) {
-                if (flgs.clicked_canvas_flg == true) {
-                    flgs.clicked_canvas_flg = false;
-                    console.log('flgs.hoge_flg', flgs.hoge_flg);
-                }
-            });
+            $(document).on('mouseup', function (e) {});
         };
         configFlgs();
 
@@ -68,10 +58,16 @@
         // Execute if flags are true
         const main = () => {
 
-            $('#button-colpick').on('click', function () {
-                html2canvas(document.getElementById('canvas-eve')).then(function (canvas) {
-                    document.getElementById('preview-canvas').appendChild(canvas);
-                });
+            $('#toggle-colpick').on('mousedown', function () {
+                $('#toggle-colpick').toggleClass('active');
+
+                if ($('#toggle-colpick').hasClass('active')) {
+                    html2canvas(document.getElementById('canvas-eve')).then(function (canvas) {
+                        document.getElementById('preview-canvas').appendChild(canvas);
+                    });
+                } else {
+                    $('canvas').remove();
+                }
             });
 
             $(document).on('mousedown', 'canvas', function (e) {
