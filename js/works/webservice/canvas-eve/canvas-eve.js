@@ -224,6 +224,28 @@
                 //     // 'top': clientFromZoomY * mouseWheelVal - 50 + 'px',
                 //     // 'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
                 // });
+
+                // if (file.$fileId.find('canvas')) {
+                //     file.$fileId.find('canvas').attr('width', file.$fileId.width());
+                //     file.$fileId.find('canvas').attr('height', file.$fileId.height());
+                // }
+            });
+
+            $(document).on(EVENTNAME_TOUCHEND, function () {
+                // Refrash the rendering result of canvas
+                if (file.$fileId != null) {
+                    if (file.$fileId.find('canvas').length) {
+                        setTimeout(function () {
+                            var img = new Image();
+                            img.src = file.$fileId.find('img').attr('src');
+                            img.onload = () => {
+                                file.$fileId.find('canvas')[0].getContext('2d').drawImage(img, 0, 0, file.$fileId.width(), file.$fileId.height());
+                            }
+                            file.$fileId.find('canvas').attr('width', file.$fileId.width());
+                            file.$fileId.find('canvas').attr('height', file.$fileId.height());
+                        }, 100);
+                    }
+                }
             });
         };
         Update();
@@ -480,10 +502,20 @@
 
                     if (glFlgs.mousewheel_avail_flg == false && flgs.resize_flg == false && flgs.rotate_flg == false) {
                         if (flgs.drag_flg == true) {
-                            file.$fileId.css({
-                                'left': resLeft + 'px',
-                                'top': resTop + 'px',
-                            });
+                            // For colpick-eve.js
+                            if ($('#toggle-colpick').length) {
+                                if (!$('#toggle-colpick').hasClass('active')) {
+                                    file.$fileId.css({
+                                        'left': resLeft + 'px',
+                                        'top': resTop + 'px',
+                                    });
+                                }
+                            } else {
+                                file.$fileId.css({
+                                    'left': resLeft + 'px',
+                                    'top': resTop + 'px',
+                                });
+                            }
 
                             // Update file.rotatedCenterPos for the later-use in rotating function
                             file.rotatedCenterPos.left = file.$fileId.offset().left + (file.rotatedSize.width / 2) / mouseWheelVal;

@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+.spuit-pointer {
+    cursor: url(/img/works/webservice/canvas-eve/spuit.png) 0 21, pointer;
+}
+
+.spuit-pointer:active {
+    cursor: url(/img/works/webservice/canvas-eve/spuited.png) 0 21, pointer;
+}
+
 /* Color board */
 #board-colpick {
     /* Overwrite the HIGHEST_Z_INDEX */
@@ -79,7 +87,7 @@
     padding-left: 10px;
 }
 
-/* Prefix for the placeholder */
+/* Prefix for placeholder */
 #input-colpick::placeholder {
     font-family: agency-fb;
     font-weight: bold;
@@ -92,6 +100,7 @@
     /* border-color: #c1125b; */
 }
 
+/* Copy button */
 #copy-colpick {
     position: relative;
     width: 35%;
@@ -140,7 +149,7 @@
     padding: 20px 0;
 }
 
-/* Prefix for the space of each child-element in the #rgb-colpick */
+/* Prefix for space of each child-element in the #rgb-colpick */
 #rgb-colpick>div:not(:last-of-type) {
     margin-bottom: 10px;
 }
@@ -167,7 +176,7 @@
     color: #959bc8;
 }
 
-/* Prefix for a color bar */
+/* Prefix for color bars */
 .bar-colpick {
     position: relative;
     display: inline-block;

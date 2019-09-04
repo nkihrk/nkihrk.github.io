@@ -1,7 +1,7 @@
 (function ($) {
     // Copy and Paste events
     const cnpEve = () => {
-        const canvasEve = document.getElementById("canvas-eve");
+        const canvasEve = document.getElementById("canvas-eve-wrapper");
         canvasEve.addEventListener('paste', function (e) {
             var imgFile = null;
             var items = e.clipboardData.items;
@@ -26,8 +26,9 @@
                     newFile.id += 1;
                     // console.log('newFile.id : ' + newFile.id + ', newFile.flg  : ' + newFile.flg);
                     const imgTag = '<img src="' + e.target.result + '" style="width: 100%;">';
-                    const funcTags = '<div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>'
-                    const assertFile = '<div id ="' + newFile.id + '" class="grab-pointer file-wrap" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="is-flipped">' + imgTag + '</div></div>';
+                    const canvas = '<canvas></canvas>';
+                    const funcTags = '<div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>';
+                    const assertFile = '<div id ="' + newFile.id + '" class="file-wrap" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="is-flipped">' + imgTag + canvas + '</div></div>';
                     $('#add-files').append(assertFile);
                     // console.log('reader.onload is successfully executed');
                 };
@@ -43,12 +44,30 @@
 
                             HIGHEST_Z_INDEX += 1;
                             if (newFile.flg == 0) {
+                                var imgCavans = new Image();
+                                imgCavans.src = e.target.result;
+                                imgCavans.onload = () => {
+                                    $(fileId + ' canvas')[0].getContext('2d').drawImage(imgCavans, 0, 0, $fileId.width(), $fileId.height());
+                                }
+                                $(fileId + ' canvas').attr('width', $fileId.width());
+                                $(fileId + ' canvas').attr('height', $fileId.height());
+
                                 $fileId.css({
                                     'left': left * mouseWheelVal - fileIdWidth / 2 + 'px',
                                     'top': top * mouseWheelVal - fileIdHeight / 2 + 'px',
                                     'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
                                     'z-index': HIGHEST_Z_INDEX,
                                 });
+
+                                // For colpick-eve.js
+                                if ($('#toggle-colpick').length) {
+                                    if (!$('#toggle-colpick').hasClass('active')) {
+                                        $fileId.addClass('grab-pointer');
+                                    }
+                                } else {
+                                    $fileId.addClass('grab-pointer');
+                                }
+
                                 newFile.flg = 1;
                             }
                         }
@@ -72,8 +91,8 @@
             $('iframe').css('pointer-events', 'none');
         };
 
-        // The canvas-eve area to paste
-        const canvasEve = document.getElementById("canvas-eve");
+        // The canvas-eve-wrapper area to paste
+        const canvasEve = document.getElementById("canvas-eve-wrapper");
         canvasEve.addEventListener('dragover', handleDragEvent, false);
         canvasEve.addEventListener('drop', function (e) {
 
@@ -106,8 +125,9 @@
                             '<source src="' + e.target.result + '" type="video/mp4">' +
                             '</video>';
                         const resTag = /\.(jpe?g|png|gif|svg)$/i.test(file.name) ? imgTag : videoTag;
-                        const funcTags = '<div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>'
-                        const assertFile = '<div id ="' + newFile.id + '" class="grab-pointer file-wrap" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="is-flipped">' + resTag + '</div></div>';
+                        const canvas = '<canvas></canvas>';
+                        const funcTags = '<div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>';
+                        const assertFile = '<div id ="' + newFile.id + '" class="file-wrap" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="is-flipped">' + resTag + canvas + '</div></div>';
                         $('#add-files').append(assertFile);
                         // console.log('reader.onload is successfully executed');
                     };
@@ -123,12 +143,30 @@
 
                                 HIGHEST_Z_INDEX += 1;
                                 if (newFile.flg == 0) {
+                                    var imgCavans = new Image();
+                                    imgCavans.src = e.target.result;
+                                    imgCavans.onload = () => {
+                                        $(fileId + ' canvas')[0].getContext('2d').drawImage(imgCavans, 0, 0, $fileId.width(), $fileId.height());
+                                    }
+                                    $(fileId + ' canvas').attr('width', $fileId.width());
+                                    $(fileId + ' canvas').attr('height', $fileId.height());
+
                                     $fileId.css({
                                         'left': left * mouseWheelVal - fileIdWidth / 2 + 'px',
                                         'top': top * mouseWheelVal - fileIdHeight / 2 + 'px',
                                         'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
                                         'z-index': HIGHEST_Z_INDEX,
                                     });
+
+                                    // For colpick-eve.js
+                                    if ($('#toggle-colpick').length) {
+                                        if (!$('#toggle-colpick').hasClass('active')) {
+                                            $fileId.addClass('grab-pointer');
+                                        }
+                                    } else {
+                                        $fileId.addClass('grab-pointer');
+                                    }
+
                                     newFile.flg = 1;
                                 }
                             }
