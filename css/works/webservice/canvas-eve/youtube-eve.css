@@ -233,6 +233,7 @@
 /* Just for optical adjustment */
 .fix-top-border {
     width: 30%;
+    max-width: 500px;
     border-radius: 6px 6px 0px 0px;
     overflow: hidden;
 }
@@ -305,6 +306,7 @@
 /* Prefix for a search button */
 .child-search-button-youtube {
     width: 17%;
+    /* max-width: 200px; */
     background-color: #e56470;
     border-radius: 6px;
     padding: 20px 30px;

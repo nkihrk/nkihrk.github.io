@@ -16,6 +16,8 @@
             }
         }
 
+        var mousewheel_avail_flg = false;
+
 
         ///
 
@@ -35,8 +37,8 @@
                 plain.relPos.top = clientY - plain.pos.top;
                 // Image-space mouse coordinates
                 if (e.button == 1) {
-                    glFlgs.mousewheel_avail_flg = true;
-                    console.log('glFlgs.mousewheel_avail_flg', glFlgs.mousewheel_avail_flg);
+                    mousewheel_avail_flg = true;
+                    console.log('mousewheel_avail_flg', mousewheel_avail_flg);
                 }
             });
         };
@@ -64,13 +66,13 @@
 
             // Reset flags
             $(document).on('mouseup', function (e) {
-                if (glFlgs.mousewheel_avail_flg == true) {
+                if (mousewheel_avail_flg == true) {
                     iframePointerReset();
 
                     $('#canvas-eve').removeClass('active-mousewheel');
 
-                    glFlgs.mousewheel_avail_flg = false;
-                    console.log('glFlgs.mousewheel_avail_flg', glFlgs.mousewheel_avail_flg);
+                    mousewheel_avail_flg = false;
+                    console.log('mousewheel_avail_flg', mousewheel_avail_flg);
                 }
             });
         };
@@ -84,7 +86,7 @@
                 // Prevent from the default drag events
                 e.preventDefault();
 
-                if (glFlgs.mousewheel_avail_flg == true) {
+                if (mousewheel_avail_flg == true) {
                     iframePointerNone();
 
                     $('#plain').css({

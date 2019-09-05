@@ -1,5 +1,5 @@
 (function (window, $) {
-    const hogeEve = () => {
+    const zoomEve = () => {
 
         const zoom = {
             'size': {
@@ -158,5 +158,5 @@
 
 
     };
-    hogeEve();
+    zoomEve();
 })(window, jQuery);

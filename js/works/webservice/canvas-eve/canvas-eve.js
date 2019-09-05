@@ -35,6 +35,8 @@
             'only_draggable_flg': false,
             'no_zooming_flg': false,
             'iframe_draggable_flg': false,
+            'colpick_active_flg': false,
+            'colpick_circle_flg': false,
             're': {
                 'left_top_flg': false,
                 'right_top_flg': false,
@@ -79,11 +81,97 @@
             '<div class="ro-left-bottom"></div>';
 
 
+        const updateUiVal = function () {
+            // Update values according to a mouseWheelVal
+            // A selected
+            $('#canvas-eve .selected').css({
+                'border-width': 1 * mouseWheelVal + 'px',
+            });
+
+            // Icons
+            $('.resize-icon').css({
+                'width': 30 * mouseWheelVal + 'px',
+                'height': 30 * mouseWheelVal + 'px',
+            });
+            $('.rotate-icon').css({
+                'width': 30 * mouseWheelVal + 'px',
+                'height': 30 * mouseWheelVal + 'px',
+            });
+            $('.flip-icon').css({
+                'width': 30 * mouseWheelVal + 'px',
+                'height': 26 * mouseWheelVal + 'px',
+            });
+            $('.trash-icon').css({
+                'width': 30 * mouseWheelVal + 'px',
+                'height': 35 * mouseWheelVal + 'px',
+            });
+
+            // Function wrapper
+            $('.function-wrapper').css({
+                'right': -70 * mouseWheelVal + 'px',
+            });
+            $('.function-wrapper>div:not(:last-of-type)').css({
+                'margin-bottom': 15 * mouseWheelVal + 'px',
+            });
+
+            // Resize
+            $('.re-left-top, .re-right-top, .re-right-bottom, .re-left-bottom').css({
+                'width': 10 * mouseWheelVal + 'px',
+                'height': 10 * mouseWheelVal + 'px',
+                'border-width': 1 * mouseWheelVal + 'px',
+            });
+            $('.re-left-top').css({
+                'top': -6 * mouseWheelVal + 'px',
+                'left': -6 * mouseWheelVal + 'px',
+            });
+            $('.re-right-top').css({
+                'top': -6 * mouseWheelVal + 'px',
+                'right': -6 * mouseWheelVal + 'px',
+            });
+            $('.re-right-bottom').css({
+                'bottom': -6 * mouseWheelVal + 'px',
+                'right': -6 * mouseWheelVal + 'px',
+            });
+            $('.re-left-bottom').css({
+                'bottom': -6 * mouseWheelVal + 'px',
+                'left': -6 * mouseWheelVal + 'px',
+            });
+
+            // Rotate
+            $('.ro-left-top, .ro-right-top, .ro-right-bottom, .ro-left-bottom').css({
+                'width': 20 * mouseWheelVal + 'px',
+                'height': 20 * mouseWheelVal + 'px',
+            });
+            $('.ro-left-top').css({
+                'top': -30 * mouseWheelVal + 'px',
+                'left': -30 * mouseWheelVal + 'px',
+            });
+            $('.ro-right-top').css({
+                'top': -30 * mouseWheelVal + 'px',
+                'right': -30 * mouseWheelVal + 'px',
+            });
+            $('.ro-right-bottom').css({
+                'bottom': -30 * mouseWheelVal + 'px',
+                'right': -30 * mouseWheelVal + 'px',
+            });
+            $('.ro-left-bottom').css({
+                'bottom': -30 * mouseWheelVal + 'px',
+                'left': -30 * mouseWheelVal + 'px',
+            });
+        };
+
+
         //////
 
 
         // Prefix for pasted-images. Initialize the values
         const init = function () {
+            // Initialize a flag for colpick circles. colpick-eve.js
+            $(document).on(EVENTNAME_TOUCHSTART, '#red-cir-colpick, #green-cir-colpick, #blue-cir-colpick', function () {
+                flgs.colpick_circle_flg = true;
+            });
+
+
             $(document).on(EVENTNAME_TOUCHSTART, '.file-wrap', function (e) {
                 console.log('mousedown .file-wrap is detected.');
 
@@ -101,8 +189,17 @@
                 }
 
 
+                flgs.colpick_active_flg = false;
+                // Check whether there exists #toggle-colpick or not. colpick-eve.js
+                if ($(this).find('#toggle-colpick').length == 0) {
+                    if ($('#toggle-colpick').hasClass('active')) {
+                        flgs.colpick_active_flg = true;
+                    }
+                }
+
+
                 // This if argument is the prefix for plain.js
-                if (e.button != 1) {
+                if (e.button != 1 && flgs.colpick_active_flg == false) {
                     $('div').removeClass('selected');
                     $('div').removeClass('resize-icon');
                     $('div').removeClass('rotate-icon');
@@ -135,6 +232,9 @@
                         $(this).find('.rotate-wrapper').addClass('rotate-icon'); // Add a rotating icon
                         $(this).find('.flip-wrapper').addClass('flip-icon'); // Add a flipping icon
                         $(this).find('.trash-wrapper').addClass('trash-icon'); // Add a trash icon
+
+                        // Update values according to a mouseWheelVal
+                        updateUiVal();
                     }
 
 
@@ -231,8 +331,9 @@
                 // }
             });
 
+
             $(document).on(EVENTNAME_TOUCHEND, function () {
-                // Refrash the rendering result of canvas
+                // Refrash the rendering result of each canvas
                 if (file.$fileId != null) {
                     if (file.$fileId.find('canvas').length) {
                         setTimeout(function () {
@@ -246,6 +347,14 @@
                         }, 100);
                     }
                 }
+            });
+
+
+            $(document).on('mousewheel', function () {
+                // Update values according to a mouseWheelVal
+                setTimeout(function () {
+                    updateUiVal();
+                }, 1);
             });
         };
         Update();
@@ -357,6 +466,12 @@
                     console.log('flgs.mousedown_flg is ' + flgs.mousedown_flg);
                 }
 
+                // A flag for colpick circles. colpick-eve.js
+                if (flgs.colpick_circle_flg == true) {
+                    flgs.colpick_circle_flg = false;
+                    console.log('flgs.colpick_circle_flg is ' + flgs.colpick_circle_flg);
+                }
+
                 // Flags for resizing
                 if (flgs.resize_flg == true) {
                     flgs.resize_flg = false;
@@ -401,6 +516,9 @@
                         if ($(this).hasClass('active')) {
                             if (!file.$fileId.hasClass('ro-left-top')) {
                                 file.$fileId.prepend(resizeBox);
+
+                                // Update values according to a mouseWheelVal
+                                updateUiVal();
                             }
                         } else {
                             file.$fileId.children('.re-left-top').remove();
@@ -424,6 +542,9 @@
                             if (!file.$fileId.hasClass('ro-left-top')) {
                                 file.$fileId.removeClass('not-rotated');
                                 file.$fileId.prepend(rotateBox);
+
+                                // Update values according to a mouseWheelVal
+                                updateUiVal();
                             }
                         } else {
                             file.$fileId.addClass('not-rotated');
@@ -445,6 +566,9 @@
                         $(this).toggleClass('active');
                         if ($(this).hasClass('active')) {
                             $(file.fileId + ' .is-flipped').addClass('flipped');
+
+                            // Update values according to a mouseWheelVal
+                            updateUiVal();
                         } else {
                             $(file.fileId + ' .is-flipped').removeClass('flipped');
                         }
@@ -476,6 +600,10 @@
 
                 var pClientX = clientFromZoomX;
                 var pClientY = clientFromZoomY;
+                var mousewheel_avail_flg = false;
+                if (e.button == 1) {
+                    mousewheel_avail_flg = true;
+                }
 
 
                 // When an image is dragged
@@ -500,21 +628,16 @@
                     }
 
 
-                    if (glFlgs.mousewheel_avail_flg == false && flgs.resize_flg == false && flgs.rotate_flg == false) {
+                    if (mousewheel_avail_flg == false && flgs.resize_flg == false && flgs.rotate_flg == false) {
                         if (flgs.drag_flg == true) {
-                            // For colpick-eve.js
-                            if ($('#toggle-colpick').length) {
-                                if (!$('#toggle-colpick').hasClass('active')) {
+
+                            if (flgs.colpick_active_flg == false) {
+                                if (flgs.colpick_circle_flg == false) {
                                     file.$fileId.css({
                                         'left': resLeft + 'px',
                                         'top': resTop + 'px',
                                     });
                                 }
-                            } else {
-                                file.$fileId.css({
-                                    'left': resLeft + 'px',
-                                    'top': resTop + 'px',
-                                });
                             }
 
                             // Update file.rotatedCenterPos for the later-use in rotating function
@@ -536,7 +659,7 @@
                     let rad = calcRadians(clientX - fileCenterPosX, clientY - fileCenterPosY);
                     // debugCircle('test-pos_6', 'black', 50 * Math.cos(rad) + fileCenterPosX, 50 * Math.sin(rad) + fileCenterPosY);
 
-                    if (glFlgs.mousewheel_avail_flg == false && flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true) {
+                    if (mousewheel_avail_flg == false && flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true) {
                         if (flgs.ro.left_top_flg == true) {
                             let resRad = rad - tmp.ro.left_top_initRad;
                             console.log('tmp.ro.left_top_initRad : ' + tmp.ro.left_top_initRad);
@@ -578,7 +701,7 @@
 
                 // When resizing-boxes are clicked
                 const resized = function () {
-                    if (glFlgs.mousewheel_avail_flg == false && flgs.mousedown_flg == true && flgs.resize_flg == true) {
+                    if (mousewheel_avail_flg == false && flgs.mousedown_flg == true && flgs.resize_flg == true) {
                         if (flgs.re.left_top_flg == true) {
                             file.$fileId.css({
                                 'top': (file.fileIdPos.top - $('#zoom').offset().top) * mouseWheelVal + (file.fileIdHeight - (file.fileIdWidth - (clientX - file.fileIdPos.left) * mouseWheelVal) * file.fileIdRatio) + 'px',

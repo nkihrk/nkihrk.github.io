@@ -112,7 +112,7 @@
                                     '; transform:' +
                                     childTranslate +
                                     ';';
-                                assertFile = '<div id="' + newFile.id + '" class="grab-pointer file-wrap" style="' + childStyle + '">' +
+                                assertFile = '<div id="' + newFile.id + '" class="grab-pointer file-wrap limit-size" style="' + childStyle + '">' +
                                     '<div class="function-wrapper">' +
                                     '<div class="resize-wrapper"></div>' +
                                     '<div class="rotate-wrapper"></div>' +
@@ -165,7 +165,7 @@
                                         '; transform:' +
                                         childTranslate +
                                         ';';
-                                    assertFile = '<div id="' + newFile.id + '" class="grab-pointer file-wrap" style="' + childStyle + '">' +
+                                    assertFile = '<div id="' + newFile.id + '" class="grab-pointer file-wrap limit-size" style="' + childStyle + '">' +
                                         '<div class="function-wrapper">' +
                                         '<div class="resize-wrapper"></div>' +
                                         '<div class="rotate-wrapper"></div>' +
