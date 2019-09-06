@@ -58,10 +58,13 @@
     <!-- To prevent scrolling -->
     <div id="canvas-eve-wrapper" style="position: fixed; z-index: 0;">
 
+        <!-- dnd-eve.js -->
+        <div id="progress-bar" style="position: absolute; z-index: 4;"></div>
+
         <div id="footer" class="bold agency-fb" style="position: absolute; z-index: 3;">2019 © NkiHrk</div>
 
 
-        <!-- Color Picker -->
+        <!-- Color Picker. colpick-eve.js -->
         <div id="colpick" style="position: relative; z-index: 2;">
             <!-- Color board -->
             <div id="board-colpick" class="grab-pointer file-wrap" style="position: absolute;">
@@ -117,8 +120,8 @@
         </div><!-- #colpick -->
 
 
+        <!-- canvas-eve.js -->
         <div id="canvas-eve" style="position: fixed; z-index: 0;">
-
 
             <div id="plain" style="position: relative; z-index: 2;">
                 <div id="zoom">
@@ -126,7 +129,7 @@
                     <!-- For inserting elements only -->
                     <div id="add-files">
 
-                        <!-- youtube -->
+                        <!-- youtube. youtube-eve.js -->
                         <div id="add-youtube" class="grab-pointer file-wrap limit-size" style="z-index: 0;">
                             <div class="only-draggable youtube-wrapper" style="width: 100%;">
                                 <div class="title-youtube" style="position: relative;">

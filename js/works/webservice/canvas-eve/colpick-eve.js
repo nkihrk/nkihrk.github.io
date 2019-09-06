@@ -82,11 +82,37 @@
 
         // Initialize values
         const init = () => {
-            // Initialize a value
-            $('#input-colpick').val('#32303f');
-            $('#r-colpick input').val(50);
-            $('#g-colpick input').val(48);
-            $('#b-colpick input').val(63);
+            const initColpick = () => {
+                var hex = '#32303f';
+                var r = hex2rgb(hex)[0];
+                var g = hex2rgb(hex)[1];
+                var b = hex2rgb(hex)[2];
+
+                // Update bar-related values
+                var rBar = r / 255 * 100;
+                var gBar = g / 255 * 100;
+                var bBar = b / 255 * 100;
+
+                // Initialize a value
+                $('#input-colpick').val('#32303f');
+
+                // Update a color palette
+                $('#color-colpick').css('background-color', hex);
+
+                $('#r-colpick .colbar-colpick').css('width', rBar + '%');
+                $('#g-colpick .colbar-colpick').css('width', gBar + '%');
+                $('#b-colpick .colbar-colpick').css('width', bBar + '%');
+
+                $('#red-cir-colpick').css('left', rBar + '%');
+                $('#green-cir-colpick').css('left', gBar + '%');
+                $('#blue-cir-colpick').css('left', bBar + '%');
+
+                // Update rgb values
+                $('#r-colpick input').val(r);
+                $('#g-colpick input').val(g);
+                $('#b-colpick input').val(b);
+            };
+            initColpick();
 
 
             $(document).on(EVENTNAME_TOUCHSTART, '#red-cir-colpick, #green-cir-colpick, #blue-cir-colpick', function () {
@@ -146,10 +172,10 @@
                 $('#toggle-colpick').toggleClass('active');
 
                 if ($('#toggle-colpick').hasClass('active')) {
-                    $('div').removeClass('grab-pointer');
+                    $('#canvas-eve div').removeClass('grab-pointer');
                     $('#canvas-eve').addClass('spuit-pointer');
                 } else {
-                    $('div').removeClass('spuit-pointer');
+                    $('#canvas-eve div').removeClass('spuit-pointer');
                     $('.file-wrap').addClass('grab-pointer');
                 }
             });

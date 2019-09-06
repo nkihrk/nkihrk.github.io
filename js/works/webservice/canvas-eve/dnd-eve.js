@@ -103,8 +103,8 @@
         }
 
         function handleDropEvent(e) {
-            e.stopPropagation();
             e.preventDefault();
+            e.stopPropagation();
 
             // Init the values before executing the readAndPreview()
             let x, y;
@@ -169,7 +169,7 @@
                                     });
 
                                     // For colpick-eve.js
-                                    if ($('#toggle-colpick').length) {
+                                    if ($('#toggle-colpick').length > 0) {
                                         if (!$('#toggle-colpick').hasClass('active')) {
                                             $fileId.addClass('grab-pointer');
                                         }
