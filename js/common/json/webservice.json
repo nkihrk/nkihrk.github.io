@@ -1,5 +1,5 @@
 [{
-        "name": "COLPICK EVE -β-",
+        "name": "COLPICK EVE",
         "url": {
             "link": "/works/webservice/colpick-eve/",
             "image": [
@@ -21,7 +21,7 @@
         ]
     },
     {
-        "name": "YOUTUBE EVE -β-",
+        "name": "YOUTUBE EVE",
         "url": {
             "link": "/works/webservice/youtube-eve/",
             "image": [
@@ -31,7 +31,7 @@
         "content": {
             "linkName": "VISIT",
             "date": "August 19, 2019",
-            "text": "The YOUTUBE EVE is a module function of the 'CANVAS EVE'. Add any youtube videos on the canvas, and do some transforms to them.",
+            "text": "The YOUTUBE EVE is a module function of the 'CANVAS EVE'. Add any youtube videos on the canvas, and do some transforms on them.",
             "size": [{
                 "width": 1200,
                 "height": 630
