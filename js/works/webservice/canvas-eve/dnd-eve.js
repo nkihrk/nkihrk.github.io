@@ -160,6 +160,7 @@
             const top = y - $('#zoom').offset().top;
 
             const $prog = $('#progress-bar');
+            const progress = document.getElementById('progress-bar');
 
             const PSD = require('psd');
 
@@ -183,7 +184,7 @@
                                     var percentLoaded = Math.round((e.loaded / e.total) * eachProg);
                                     if (percentLoaded < eachProg) {
                                         var progWidth = percentLoaded + totalProg;
-                                        document.getElementById('progress-bar').style.width = progWidth + '%';
+                                        progress.style.width = progWidth + '%';
                                         // $prog.css('width', progWidth + '%');
                                     }
                                 }
@@ -194,11 +195,11 @@
 
                                 if (iterate < fileCount) {
                                     totalProg = eachProg * iterate;
-                                    document.getElementById('progress-bar').style.width = totalProg + '%';
+                                    progress.style.width = totalProg + '%';
                                     // $prog.css('width', totalProg + '%');
 
                                 } else {
-                                    document.getElementById('progress-bar').style.width = '100%';
+                                    progress.style.width = '100%';
                                     // $prog.css('width', 100 + '%');
                                     setTimeout(function () {
                                         $prog.removeClass('loading');

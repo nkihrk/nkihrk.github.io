@@ -1,0 +1,14 @@
+{
+    "webservice": [{
+            "name": "COLPICK EVE -β-",
+            "url": "/works/webservice/colpick-eve/"
+        }, {
+            "name": "YOUTUBE EVE -β-",
+            "url": "/works/webservice/youtube-eve/"
+        },
+        {
+            "name": "CANVAS EVE -β-",
+            "url": "/works/webservice/canvas-eve/"
+        }
+    ]
+}

@@ -132,4 +132,20 @@
     };
 
 
+    // Insert a JSON data to #webservice-sub-menu
+    insertMenuWebservice = function (json) {
+        for (var i in json) {
+            let subMenu = '<li>' +
+                '<a href="' + json[i].url + '" target="_blank">' +
+                '<span class="sub-menu-li-common">' +
+                json[i].name +
+                '</span>' +
+                '</a>' +
+                '</li>'
+
+            $('#webservice-sub-menu').append(subMenu);
+        }
+    };
+
+
 })(window, jQuery);
