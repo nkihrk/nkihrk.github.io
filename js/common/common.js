@@ -85,9 +85,8 @@
 
 
         // Insert a JSON data to post-columns
-        $.getJSON("/js/common/json/menu.json", function (menu_list) {
-            const webservice = menu_list.webservice;
-            insertMenuWebservice(webservice);
+        $.getJSON("/js/common/json/webservice.json", function (menu_list) {
+            insertMenuWebservice(menu_list);
         });
 
 

@@ -136,7 +136,7 @@
     insertMenuWebservice = function (json) {
         for (var i in json) {
             let subMenu = '<li>' +
-                '<a href="' + json[i].url + '" target="_blank">' +
+                '<a href="' + json[i].url.link + '" target="_blank">' +
                 '<span class="sub-menu-li-common">' +
                 json[i].name +
                 '</span>' +

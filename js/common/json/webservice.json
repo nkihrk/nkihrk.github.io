@@ -1,4 +1,26 @@
 [{
+        "name": "COLPICK EVE -β-",
+        "url": {
+            "link": "/works/webservice/colpick-eve/",
+            "image": [
+                "/img/common/colpick_eve_ogp.png"
+            ]
+        },
+        "content": {
+            "linkName": "VISIT",
+            "date": "September 8, 2019",
+            "text": "The COLPICK EVE is a module function of the 'CANVAS EVE'. Drop any images and PSD files on the canvas, and get preferred colors from a selected image with spuit.",
+            "size": [{
+                "width": 1200,
+                "height": 630
+            }]
+        },
+        "tag": [
+            "#COLPICK EVE",
+            "#CANVAS EVE"
+        ]
+    },
+    {
         "name": "YOUTUBE EVE -β-",
         "url": {
             "link": "/works/webservice/youtube-eve/",
@@ -9,15 +31,15 @@
         "content": {
             "linkName": "VISIT",
             "date": "August 19, 2019",
-            "text": "The YOUTUBE EVE is a module function of the 'CANVAS EVE'. This service is separated due to test purpose.",
+            "text": "The YOUTUBE EVE is a module function of the 'CANVAS EVE'. Add any youtube videos on the canvas, and do some transforms to them.",
             "size": [{
                 "width": 1200,
                 "height": 630
             }]
         },
         "tag": [
-            "#eve series",
-            "#YOUTUBE EVE"
+            "#YOUTUBE EVE",
+            "#CANVAS EVE"
         ]
     },
     {
@@ -31,14 +53,13 @@
         "content": {
             "linkName": "VISIT",
             "date": "August 19, 2019",
-            "text": "The CANVAS EVE will help you assist in your daily works, especially for those of you who are engaging in creating. Pasting any medias including images, 3D models, text files, PDFs and many other stuffs to the canvas, and use it as references.",
+            "text": "The CANVAS EVE will help you assist in your daily works, especially for those of you who are engaging in creating. Pasting any medias including images, 3D models, text files, PDFs and many other stuffs on the canvas, and use it as references.",
             "size": [{
                 "width": 1200,
                 "height": 630
             }]
         },
         "tag": [
-            "#eve series",
             "#CANVAS EVE"
         ]
     }
