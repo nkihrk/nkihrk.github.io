@@ -6,7 +6,7 @@
 
         function handlePasteEvent(e) {
             var imgFile = null;
-            var items = e.clipboardData.items;
+            var items = (e.clipboardData || e.originalEvent.clipboardData).items;
             for (let i = 0; i < items.length; i++) {
                 if (items[i].kind === "file") {
                     imgFile = items[i].getAsFile();
@@ -21,63 +21,106 @@
             const left = clientFromZoomX;
             const top = clientFromZoomY;
 
-            const readAndPreview = function () {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    newFile.prevId = newFile.id;
-                    newFile.id += 1;
-                    // console.log('newFile.id : ' + newFile.id + ', newFile.flg  : ' + newFile.flg);
-                    const imgTag = '<img src="' + e.target.result + '" style="width: 100%;">';
-                    const canvas = '<canvas></canvas>';
-                    const funcTags = '<div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>';
-                    const assertFile = '<div id ="' + newFile.id + '" class="file-wrap" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="is-flipped">' + imgTag + canvas + '</div></div>';
-                    $('#add-files').append(assertFile);
-                    // console.log('reader.onload is successfully executed');
-                };
-                reader.onloadend = function (e) {
-                    if (e.target.readyState == FileReader.DONE) {
-                        for (let i = newFile.prevId + 1; i < newFile.id + 1; i++) {
-                            newFile.flg = 0;
-                            var fileId = '#' + i;
-                            var $fileId = $(fileId);
-                            var fileIdWidth = $fileId.outerWidth();
-                            var fileIdHeight = $fileId.outerHeight();
-                            console.log('clientX : ' + clientX + ', clientY : ' + clientY + ', fileWidth : ' + fileIdWidth + ', fileHeight : ' + fileIdHeight);
+            const $prog = $('#progress-bar');
 
-                            HIGHEST_Z_INDEX += 1;
-                            if (newFile.flg == 0) {
-                                var imgCavans = new Image();
-                                imgCavans.src = e.target.result;
-                                imgCavans.onload = () => {
-                                    $(fileId + ' canvas')[0].getContext('2d').drawImage(imgCavans, 0, 0, $fileId.width(), $fileId.height());
-                                }
-                                $(fileId + ' canvas').attr('width', $fileId.width());
-                                $(fileId + ' canvas').attr('height', $fileId.height());
+            const PSD = require('psd');
 
-                                $fileId.css({
-                                    'left': left * mouseWheelVal - fileIdWidth / 2 + 'px',
-                                    'top': top * mouseWheelVal - fileIdHeight / 2 + 'px',
-                                    'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
-                                    'z-index': HIGHEST_Z_INDEX,
-                                });
-
-                                // For colpick-eve.js
-                                if ($('#toggle-colpick').length) {
-                                    if (!$('#toggle-colpick').hasClass('active')) {
-                                        $fileId.addClass('grab-pointer');
+            const readAndPreview = function (file) {
+                if (/\.(jpe?g|png|gif|svg|psd)$/i.test(file.name)) {
+                    const fileReader = function (file) {
+                        return new Promise(function (resolve, reject) {
+                            var reader = new FileReader();
+                            reader.onloadstart = function (e) {
+                                $prog.addClass('loading');
+                            };
+                            reader.onprogress = function (e) {
+                                if (e.lengthComputable) {
+                                    var percentLoaded = Math.round((e.loaded / e.total) * 100);
+                                    if (percentLoaded < 100) {
+                                        $prog.css('width', percentLoaded + '%');
                                     }
+                                }
+                            };
+                            reader.onload = function (e) {
+                                $prog.css('width', 100 + '%');
+                                setTimeout(function () {
+                                    $prog.removeClass('loading');
+                                }, 1000);
+
+                                const img = new Image();
+                                img.style.cssText = 'width: 100%;'
+                                if (/\.(psd)$/i.test(file.name)) {
+                                    var psd = new PSD(new Uint8Array(e.target.result));
+                                    psd.parse();
+                                    img.src = psd.image.toBase64();
                                 } else {
-                                    $fileId.addClass('grab-pointer');
+                                    img.src = e.target.result;
                                 }
 
-                                newFile.flg = 1;
+                                return resolve(img);
+                            };
+                            reader.onerror = reject;
+                            if (/\.(psd)$/i.test(file.name)) {
+                                return reader.readAsArrayBuffer(file);
+                            } else {
+                                return reader.readAsDataURL(file);
                             }
+                        });
+                    };
+
+                    fileReader(file).then(function (img) {
+                        newFile.id += 1;
+                        HIGHEST_Z_INDEX += 1;
+
+
+                        const canvas = '<canvas></canvas>';
+                        const funcTags = '<div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>';
+                        const assertFile = '<div id ="' + newFile.id + '" class="file-wrap" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="is-flipped">' + canvas + '</div></div>';
+                        $('#add-files').append(assertFile);
+
+
+                        const imgWidth = img.width;
+                        const imgHeight = img.height;
+                        const imgRatio = imgHeight / imgWidth;
+
+
+                        const fileId = '#' + newFile.id;
+                        const $fileId = $(fileId);
+
+
+                        $(fileId + ' canvas').attr('width', 598);
+                        $(fileId + ' canvas').attr('height', 598 * imgRatio);
+                        $(fileId + ' canvas')[0].getContext('2d').drawImage(img, 0, 0, 598, 598 * imgRatio);
+
+
+                        $fileId.css({
+                            'left': left * mouseWheelVal - 600 / 2 + 'px',
+                            'top': top * mouseWheelVal - 600 * imgRatio / 2 + 'px',
+                            'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
+                            'z-index': HIGHEST_Z_INDEX,
+                        });
+
+
+
+                        // For colpick-eve.js
+                        if ($('#toggle-colpick').length > 0) {
+                            if (!$('#toggle-colpick').hasClass('active')) {
+                                $fileId.addClass('grab-pointer');
+                            }
+                        } else {
+                            $fileId.addClass('grab-pointer');
                         }
-                    }
-                };
-                reader.readAsDataURL(imgFile);
+
+
+                        $('#' + newFile.id + ' .is-flipped').prepend(img);
+
+
+                    });
+                } else {
+                    return;
+                }
             }
-            readAndPreview();
+            readAndPreview(imgFile);
         }
 
 
@@ -166,6 +209,7 @@
 
                     fileReader(file).then(function (img) {
                         newFile.id += 1;
+                        HIGHEST_Z_INDEX += 1;
 
                         // Currently not supporting video
                         // const videoTag = '<video controls playsinline preload="metadata" style="width: 100%;">' +
@@ -187,11 +231,10 @@
                         const fileId = '#' + newFile.id;
                         const $fileId = $(fileId);
 
-                        HIGHEST_Z_INDEX += 1;
 
-                        $(fileId + ' canvas').attr('width', imgWidth);
-                        $(fileId + ' canvas').attr('height', imgHeight);
-                        $(fileId + ' canvas')[0].getContext('2d').drawImage(img, 0, 0, imgWidth, imgHeight);
+                        $(fileId + ' canvas').attr('width', 598);
+                        $(fileId + ' canvas').attr('height', 598 * imgRatio);
+                        $(fileId + ' canvas')[0].getContext('2d').drawImage(img, 0, 0, 598, 598 * imgRatio);
 
 
                         $fileId.css({
@@ -204,7 +247,7 @@
 
 
                         // For colpick-eve.js
-                        if ($('#toggle-colpick').length) {
+                        if ($('#toggle-colpick').length > 0) {
                             if (!$('#toggle-colpick').hasClass('active')) {
                                 $fileId.addClass('grab-pointer');
                             }
@@ -221,8 +264,10 @@
                     return;
                 }
             };
-            if (files) {
+            if (files.length > 0) {
                 [].forEach.call(files, readAndPreview);
+            } else {
+                return;
             }
         }
 
