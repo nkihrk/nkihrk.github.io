@@ -164,27 +164,47 @@
             const PSD = require('psd');
 
             const files = e.dataTransfer.files;
+            const fileCount = files.length;
+            const eachProg = 100 / fileCount;
+            var totalProg = 0;
+            var iterate = 0;
             const readAndPreview = function (file) {
                 if (/\.(jpe?g|png|gif|svg|psd)$/i.test(file.name)) {
                     const fileReader = function (file) {
                         return new Promise(function (resolve, reject) {
                             var reader = new FileReader();
                             reader.onloadstart = function (e) {
-                                $prog.addClass('loading');
+                                if (iterate == 0) {
+                                    $prog.addClass('loading');
+                                }
                             };
                             reader.onprogress = function (e) {
                                 if (e.lengthComputable) {
-                                    var percentLoaded = Math.round((e.loaded / e.total) * 100);
-                                    if (percentLoaded < 100) {
-                                        $prog.css('width', percentLoaded + '%');
+                                    var percentLoaded = Math.round((e.loaded / e.total) * eachProg);
+                                    if (percentLoaded < eachProg) {
+                                        var progWidth = percentLoaded + totalProg;
+                                        document.getElementById('progress-bar').style.width = progWidth + '%';
+                                        // $prog.css('width', progWidth + '%');
                                     }
                                 }
                             };
                             reader.onload = function (e) {
-                                $prog.css('width', 100 + '%');
-                                setTimeout(function () {
-                                    $prog.removeClass('loading');
-                                }, 1000);
+                                iterate++;
+                                console.log('iterate', iterate);
+
+                                if (iterate < fileCount) {
+                                    totalProg = eachProg * iterate;
+                                    document.getElementById('progress-bar').style.width = totalProg + '%';
+                                    // $prog.css('width', totalProg + '%');
+
+                                } else {
+                                    document.getElementById('progress-bar').style.width = '100%';
+                                    // $prog.css('width', 100 + '%');
+                                    setTimeout(function () {
+                                        $prog.removeClass('loading');
+                                    }, 1000);
+                                }
+
 
                                 const img = new Image();
                                 img.style.cssText = 'width: 100%;'
@@ -219,7 +239,7 @@
                         // const resTag = /\.(jpe?g|png|gif|svg)$/i.test(file.name) ? imgTag : videoTag;
                         const canvas = '<canvas></canvas>';
                         const funcTags = '<div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>';
-                        const assertFile = '<div id ="' + newFile.id + '" class="file-wrap" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="is-flipped">' + canvas + '</div></div>';
+                        const assertFile = '<div id ="' + newFile.id + '" class="file-wrap transparent" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="is-flipped">' + canvas + '</div></div>';
                         $('#add-files').append(assertFile);
 
 
@@ -257,6 +277,11 @@
 
 
                         $('#' + newFile.id + ' .is-flipped').prepend(img);
+
+
+                        if (iterate == fileCount) {
+                            $('div').removeClass('transparent');
+                        }
 
 
                     });
