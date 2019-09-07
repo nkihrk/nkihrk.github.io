@@ -176,7 +176,7 @@
                 console.log('mousedown .file-wrap is detected.');
 
                 // To restrict preferred functions
-                if ($(this).children().hasClass('only-draggable')) {
+                if ($(this).find('only-draggable').length > 0) {
                     flgs.only_draggable_flg = true;
                 } else {
                     flgs.only_draggable_flg = false;
@@ -194,6 +194,7 @@
                 if ($(this).find('#toggle-colpick').length == 0) {
                     if ($('#toggle-colpick').hasClass('active')) {
                         flgs.colpick_active_flg = true;
+                        console.log('flgs.colpick_active_flg', flgs.colpick_active_flg);
                     }
                 }
 
@@ -201,10 +202,10 @@
                 // This if argument is the prefix for plain.js
                 if (e.button != 1 && flgs.colpick_active_flg == false) {
                     $('div').removeClass('selected');
-                    $('div').removeClass('resize-icon');
-                    $('div').removeClass('rotate-icon');
-                    $('div').removeClass('flip-icon');
-                    $('div').removeClass('trash-icon');
+                    $('div').remove('.resize-icon');
+                    $('div').remove('.rotate-icon');
+                    $('div').remove('.flip-icon');
+                    $('div').remove('.trash-icon');
 
                     $('div').remove('.re-left-top');
                     $('div').remove('.re-right-top');
@@ -228,10 +229,10 @@
                         }
                         if ($(this).find('.rotate-wrapper').hasClass('active')) $(this).prepend(rotateBox); // Rotating circles
 
-                        $(this).find('.resize-wrapper').addClass('resize-icon'); // Add a resizing icon
-                        $(this).find('.rotate-wrapper').addClass('rotate-icon'); // Add a rotating icon
-                        $(this).find('.flip-wrapper').addClass('flip-icon'); // Add a flipping icon
-                        $(this).find('.trash-wrapper').addClass('trash-icon'); // Add a trash icon
+                        $(this).find('.resize-wrapper').prepend('<div class="resize-icon"></div>'); // Add a resizing icon
+                        $(this).find('.rotate-wrapper').prepend('<div class="rotate-icon"></div>'); // Add a rotating icon
+                        $(this).find('.flip-wrapper').prepend('<div class="flip-icon"></div>'); // Add a flipping icon
+                        $(this).find('.trash-wrapper').prepend('<div class="trash-icon"></div>'); // Add a trash icon
 
                         // Update values according to a mouseWheelVal
                         updateUiVal();
@@ -293,10 +294,11 @@
                     e.stopPropagation();
 
                     $('div').removeClass('selected');
-                    $('div').removeClass('resize-icon');
-                    $('div').removeClass('rotate-icon');
-                    $('div').removeClass('flip-icon');
-                    $('div').removeClass('trash-icon');
+
+                    $('div').remove('.resize-icon');
+                    $('div').remove('.rotate-icon');
+                    $('div').remove('.flip-icon');
+                    $('div').remove('.trash-icon');
 
                     $('div').remove('.re-left-top');
                     $('div').remove('.re-right-top');
@@ -506,14 +508,15 @@
             // Show icons to be active, and do something if needed
             const clickedIcon = function () {
                 // Activate resizing
-                $(document).on(EVENTNAME_TOUCHSTART, '.resize-wrapper', function (e) {
-                    console.log('mousedown .resize-wrapper is detected.');
+                $(document).on(EVENTNAME_TOUCHSTART, '.resize-icon', function (e) {
+                    console.log('mousedown .resize-icon is detected.');
+                    e.stopPropagation();
 
                     if (e.button != 1) {
                         e.stopPropagation();
-                        $(this).toggleClass('active');
+                        $(this).parents('.resize-wrapper').toggleClass('active');
 
-                        if ($(this).hasClass('active')) {
+                        if ($(this).parents('.resize-wrapper').hasClass('active')) {
                             if (!file.$fileId.hasClass('ro-left-top')) {
                                 file.$fileId.prepend(resizeBox);
 
@@ -531,14 +534,14 @@
 
 
                 //Activate rotating
-                $(document).on(EVENTNAME_TOUCHSTART, '.rotate-wrapper', function (e) {
-                    console.log('mousedown .rotate-wrapper is detected.');
+                $(document).on(EVENTNAME_TOUCHSTART, '.rotate-icon', function (e) {
+                    console.log('mousedown .rotate-icon is detected.');
 
                     if (e.button != 1) {
                         e.stopPropagation();
-                        $(this).toggleClass('active');
+                        $(this).parents('.rotate-wrapper').toggleClass('active');
 
-                        if ($(this).hasClass('active')) {
+                        if ($(this).parents('.rotate-wrapper').hasClass('active')) {
                             if (!file.$fileId.hasClass('ro-left-top')) {
                                 file.$fileId.removeClass('not-rotated');
                                 file.$fileId.prepend(rotateBox);
@@ -558,13 +561,13 @@
 
 
                 // Activate flipping
-                $(document).on(EVENTNAME_TOUCHSTART, '.flip-wrapper', function (e) {
-                    console.log('mousedown .flip-wrapper is detected.');
+                $(document).on(EVENTNAME_TOUCHSTART, '.flip-icon', function (e) {
+                    console.log('mousedown .flip-icon is detected.');
 
                     if (e.button != 1) {
                         e.stopPropagation();
-                        $(this).toggleClass('active');
-                        if ($(this).hasClass('active')) {
+                        $(this).parents('.flip-wrapper').toggleClass('active');
+                        if ($(this).parents('.flip-wrapper').hasClass('active')) {
                             $(file.fileId + ' .is-flipped').addClass('flipped');
 
                             // Update values according to a mouseWheelVal
@@ -577,13 +580,13 @@
 
 
                 // Trash the selected element
-                $(document).on(EVENTNAME_TOUCHSTART, '.trash-wrapper', function (e) {
-                    console.log('mousedown .trash-wrapper is detected.');
+                $(document).on(EVENTNAME_TOUCHSTART, '.trash-icon', function (e) {
+                    console.log('mousedown .trash-icon is detected.');
 
                     if (e.button != 1) {
                         e.stopPropagation();
-                        $(this).toggleClass('active');
-                        if ($(this).hasClass('active')) {
+                        $(this).parents('.trash-wrapper').toggleClass('active');
+                        if ($(this).parents('.trash-wrapper').hasClass('active')) {
                             $(file.fileId).remove();
                         }
                     }

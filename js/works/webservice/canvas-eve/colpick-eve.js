@@ -73,6 +73,39 @@
         };
 
 
+        // Initialize colpick values
+        const initColpick = () => {
+            var hex = '#32303f';
+            var r = hex2rgb(hex)[0];
+            var g = hex2rgb(hex)[1];
+            var b = hex2rgb(hex)[2];
+
+            // Update bar-related values
+            var rBar = r / 255 * 100;
+            var gBar = g / 255 * 100;
+            var bBar = b / 255 * 100;
+
+            // Initialize a value
+            $('#input-colpick').val('#32303f');
+
+            // Update a color palette
+            $('#color-colpick').css('background-color', hex);
+
+            $('#r-colpick .colbar-colpick').css('width', rBar + '%');
+            $('#g-colpick .colbar-colpick').css('width', gBar + '%');
+            $('#b-colpick .colbar-colpick').css('width', bBar + '%');
+
+            $('#red-cir-colpick').css('left', rBar + '%');
+            $('#green-cir-colpick').css('left', gBar + '%');
+            $('#blue-cir-colpick').css('left', bBar + '%');
+
+            // Update rgb values
+            $('#r-colpick input').val(r);
+            $('#g-colpick input').val(g);
+            $('#b-colpick input').val(b);
+        };
+
+
         var circleRelPosX;
         var $barTop = null;
 
@@ -82,38 +115,7 @@
 
         // Initialize values
         const init = () => {
-            const initColpick = () => {
-                var hex = '#32303f';
-                var r = hex2rgb(hex)[0];
-                var g = hex2rgb(hex)[1];
-                var b = hex2rgb(hex)[2];
-
-                // Update bar-related values
-                var rBar = r / 255 * 100;
-                var gBar = g / 255 * 100;
-                var bBar = b / 255 * 100;
-
-                // Initialize a value
-                $('#input-colpick').val('#32303f');
-
-                // Update a color palette
-                $('#color-colpick').css('background-color', hex);
-
-                $('#r-colpick .colbar-colpick').css('width', rBar + '%');
-                $('#g-colpick .colbar-colpick').css('width', gBar + '%');
-                $('#b-colpick .colbar-colpick').css('width', bBar + '%');
-
-                $('#red-cir-colpick').css('left', rBar + '%');
-                $('#green-cir-colpick').css('left', gBar + '%');
-                $('#blue-cir-colpick').css('left', bBar + '%');
-
-                // Update rgb values
-                $('#r-colpick input').val(r);
-                $('#g-colpick input').val(g);
-                $('#b-colpick input').val(b);
-            };
             initColpick();
-
 
             $(document).on(EVENTNAME_TOUCHSTART, '#red-cir-colpick, #green-cir-colpick, #blue-cir-colpick', function () {
                 circleRelPosX = clientX - $(this).offset().left;
@@ -175,8 +177,8 @@
                     $('#canvas-eve div').removeClass('grab-pointer');
                     $('#canvas-eve').addClass('spuit-pointer');
                 } else {
-                    $('#canvas-eve div').removeClass('spuit-pointer');
-                    $('.file-wrap').addClass('grab-pointer');
+                    $('#canvas-eve').removeClass('spuit-pointer');
+                    $('#canvas-eve .file-wrap').addClass('grab-pointer');
                 }
             });
 
@@ -267,51 +269,57 @@
 
 
             $(document).on(EVENTNAME_TOUCHSTART, '.file-wrap', function (e) {
-                if ($('#toggle-colpick').hasClass('active')) {
-                    if ($(this).find('canvas').length) {
-                        if (e.button != 1) {
-                            var context = $(this).find('canvas')[0].getContext('2d');
-                            var relPosX = clientX - $(this).offset().left;
-                            var relPosY = clientY - $(this).offset().top;
-                            var imagedata = context.getImageData(relPosX * mouseWheelVal, relPosY * mouseWheelVal, 1, 1);
-                            if ($(this).has('.flipped').length > 0) {
-                                imagedata = context.getImageData($(this).find('img').width() - relPosX * mouseWheelVal, relPosY * mouseWheelVal, 1, 1);
-                            }
-                            var r = imagedata.data[0];
-                            var g = imagedata.data[1];
-                            var b = imagedata.data[2];
-                            var a = imagedata.data[3];
-
-                            var rBar = r / 255 * 100;
-                            var gBar = g / 255 * 100;
-                            var bBar = b / 255 * 100;
-
-                            var hex = rgb2hex([r, g, b]);
-
-
-                            $("#input-colpick").val(hex);
-
-
-                            // Update a color palette
-                            $('#color-colpick').css('background-color', hex);
-
-
-                            $('#r-colpick .colbar-colpick').css('width', rBar + '%');
-                            $('#g-colpick .colbar-colpick').css('width', gBar + '%');
-                            $('#b-colpick .colbar-colpick').css('width', bBar + '%');
-
-
-                            $('#red-cir-colpick').css('left', rBar + '%');
-                            $('#green-cir-colpick').css('left', gBar + '%');
-                            $('#blue-cir-colpick').css('left', bBar + '%');
-
-
-                            // Update rgb values
-                            $('#r-colpick input').val(r);
-                            $('#g-colpick input').val(g);
-                            $('#b-colpick input').val(b);
-                        }
+                if ($('#toggle-colpick').hasClass('active') && $(this).find('canvas').length > 0 && e.button != 1) {
+                    var context = $(this).find('canvas')[0].getContext('2d');
+                    var relPosX = clientX - $(this).offset().left;
+                    var relPosY = clientY - $(this).offset().top;
+                    var imagedata = context.getImageData(relPosX * mouseWheelVal, relPosY * mouseWheelVal, 1, 1);
+                    if ($(this).has('.flipped').length > 0) {
+                        imagedata = context.getImageData($(this).find('img').width() - relPosX * mouseWheelVal, relPosY * mouseWheelVal, 1, 1);
                     }
+                    var r = imagedata.data[0];
+                    var g = imagedata.data[1];
+                    var b = imagedata.data[2];
+                    var a = imagedata.data[3];
+
+                    var rBar = r / 255 * 100;
+                    var gBar = g / 255 * 100;
+                    var bBar = b / 255 * 100;
+
+                    var hex = rgb2hex([r, g, b]);
+
+                    if (a > 0) {
+                        $("#input-colpick").val(hex);
+
+
+                        // Update a color palette
+                        $('#color-colpick').css('background-color', hex);
+
+
+                        $('#r-colpick .colbar-colpick').css('width', rBar + '%');
+                        $('#g-colpick .colbar-colpick').css('width', gBar + '%');
+                        $('#b-colpick .colbar-colpick').css('width', bBar + '%');
+
+
+                        $('#red-cir-colpick').css('left', rBar + '%');
+                        $('#green-cir-colpick').css('left', gBar + '%');
+                        $('#blue-cir-colpick').css('left', bBar + '%');
+
+
+                        // Update rgb values
+                        $('#r-colpick input').val(r);
+                        $('#g-colpick input').val(g);
+                        $('#b-colpick input').val(b);
+                    } else {
+                        initColpick();
+                    }
+                }
+            });
+
+
+            $(document).on(EVENTNAME_TOUCHSTART, '#reset-res', function (e) {
+                if ($('#toggle-colpick').hasClass('active') && e.button != 1) {
+                    initColpick();
                 }
             });
         };
