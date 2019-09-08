@@ -84,9 +84,16 @@
         const updateUiVal = function () {
             // Update values according to a mouseWheelVal
             // A selected
-            $('#canvas-eve .selected').css({
-                'border-width': 1 * mouseWheelVal + 'px',
-            });
+            // $('#canvas-eve .selected').css({
+            //     'border-width': mouseWheelVal + 'px',
+            // });
+
+            // $('.file-wrap').each(function () {
+            //     $(this).css({
+            //         'border-width': mouseWheelVal + 'px',
+            //     });
+            // });
+
 
             // Icons
             $('.resize-icon').css({
@@ -327,9 +334,9 @@
                 //     // 'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
                 // });
 
-                // if (file.$fileId.find('canvas')) {
-                //     file.$fileId.find('canvas').attr('width', file.$fileId.width());
-                //     file.$fileId.find('canvas').attr('height', file.$fileId.height());
+                // if (file.$fileId.find('.canvas-colpick')) {
+                //     file.$fileId.find('.canvas-colpick').attr('width', file.$fileId.width());
+                //     file.$fileId.find('.canvas-colpick').attr('height', file.$fileId.height());
                 // }
             });
 
@@ -337,15 +344,15 @@
             $(document).on(EVENTNAME_TOUCHEND, function () {
                 // Refrash the rendering result of each canvas
                 if (file.$fileId != null) {
-                    if (file.$fileId.find('canvas').length) {
+                    if (file.$fileId.find('.canvas-colpick').length > 0) {
                         setTimeout(function () {
                             var img = new Image();
                             img.src = file.$fileId.find('img').attr('src');
                             img.onload = () => {
-                                file.$fileId.find('canvas')[0].getContext('2d').drawImage(img, 0, 0, file.$fileId.width(), file.$fileId.height());
+                                file.$fileId.find('.canvas-colpick')[0].getContext('2d').drawImage(img, 0, 0, file.$fileId.width(), file.$fileId.height());
                             }
-                            file.$fileId.find('canvas').attr('width', file.$fileId.width());
-                            file.$fileId.find('canvas').attr('height', file.$fileId.height());
+                            file.$fileId.find('.canvas-colpick').attr('width', file.$fileId.width());
+                            file.$fileId.find('.canvas-colpick').attr('height', file.$fileId.height());
                         }, 100);
                     }
                 }

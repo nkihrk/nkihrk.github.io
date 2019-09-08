@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+
+/*———————————————————————————————————————————————————————
+
+Common
+
+—————————————————————————————————————————————————————————*/
+
+/* Spuit cursor */
 .spuit-pointer {
     cursor: url(/img/works/webservice/canvas-eve/spuit.png) 0 21, pointer;
 }
@@ -29,6 +37,13 @@
     /* border-color: #c1125b; */
 }
 
+
+/*———————————————————————————————————————————————————————
+
+#board-colpick
+
+—————————————————————————————————————————————————————————*/
+
 /* Color board */
 #board-colpick {
     /* Overwrite the HIGHEST_Z_INDEX */
@@ -42,6 +57,13 @@
     /* background-color: #2f2d3b; */
     background-color: rgba(38, 37, 51, 0.5);
 }
+
+
+/*———————————————————————————————————————————————————————
+
+#toggle-colpick
+
+—————————————————————————————————————————————————————————*/
 
 /* Wrapper for a toggling button of colpick */
 #toggle-colpick {
@@ -82,6 +104,13 @@
     background-image: url(/img/works/webservice/canvas-eve/dark_spuit.png);
 }
 
+
+/*———————————————————————————————————————————————————————
+
+#code-colpick / Parent of #input-colpick and #copy-colpick
+
+—————————————————————————————————————————————————————————*/
+
 /* Wrapper for color code */
 #code-colpick {
     float: right;
@@ -90,6 +119,13 @@
     margin: 0 15px;
 }
 
+
+/*———————————————————————————————————————————————————————
+
+#input-colpick < #code-colpick
+
+—————————————————————————————————————————————————————————*/
+
 #input-colpick {
     width: 65%;
     font-size: 1.2rem;
@@ -97,6 +133,13 @@
     border-radius: 6px 0 0 6px;
     background-color: rgba(38, 37, 51, 0.5);
 }
+
+
+/*———————————————————————————————————————————————————————
+
+#copy-colpick < #code-colpick
+
+—————————————————————————————————————————————————————————*/
 
 /* Copy button */
 #copy-colpick {
@@ -133,6 +176,13 @@
     opacity: 0.8;
 }
 
+
+/*———————————————————————————————————————————————————————
+
+#color-colpick
+
+—————————————————————————————————————————————————————————*/
+
 /* Show color */
 #color-colpick {
     width: 300px;
@@ -142,6 +192,13 @@
     /* background-color: #b21f24; */
     background-color: rgba(50, 48, 63, 1);
 }
+
+
+/*———————————————————————————————————————————————————————
+
+#rgb-colpick
+
+—————————————————————————————————————————————————————————*/
 
 /* Set RGB */
 #rgb-colpick {

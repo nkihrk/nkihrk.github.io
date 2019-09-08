@@ -203,6 +203,10 @@ svg {
     vertical-align: middle;
 }
 
+canvas {
+    vertical-align: bottom;
+}
+
 table {
     border-collapse: collapse;
 }
