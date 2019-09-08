@@ -84,16 +84,13 @@
         const updateUiVal = function () {
             // Update values according to a mouseWheelVal
             // A selected
-            // $('#canvas-eve .selected').css({
-            //     'border-width': mouseWheelVal + 'px',
-            // });
-
-            // $('.file-wrap').each(function () {
-            //     $(this).css({
-            //         'border-width': mouseWheelVal + 'px',
-            //     });
-            // });
-
+            $('#canvas-eve .selected').css({
+                'top': -1 * mouseWheelVal + 'px',
+                'left': -1 * mouseWheelVal + 'px',
+                // 'width': 'calc(100% + ' + 2 * mouseWheelVal + 'px)',
+                // 'height': 'calc(100% + ' + 2 * mouseWheelVal + 'px)',
+                'border-width': mouseWheelVal + 'px',
+            });
 
             // Icons
             $('.resize-icon').css({
@@ -165,6 +162,9 @@
                 'bottom': -30 * mouseWheelVal + 'px',
                 'left': -30 * mouseWheelVal + 'px',
             });
+
+            console.log('mouseWheelVal', mouseWheelVal);
+
         };
 
 
@@ -208,7 +208,8 @@
 
                 // This if argument is the prefix for plain.js
                 if (e.button != 1 && flgs.colpick_active_flg == false) {
-                    $('div').removeClass('selected');
+                    // $('div').removeClass('selected');
+                    $('div').remove('.selected');
                     $('div').remove('.resize-icon');
                     $('div').remove('.rotate-icon');
                     $('div').remove('.flip-icon');
@@ -225,7 +226,8 @@
                     $('div').remove('.ro-left-bottom');
 
 
-                    $(this).addClass('selected'); // A selected border
+                    // $(this).addClass('selected'); // A selected border
+                    $(this).prepend('<div class="selected"></div>');
                     // Added selected symbols and other functions
                     if (flgs.only_draggable_flg == false) {
                         // $(this).prepend(resizeBox); // Resizing boxes
@@ -300,7 +302,8 @@
                 if (e.button != 1) {
                     e.stopPropagation();
 
-                    $('div').removeClass('selected');
+                    // $('div').removeClass('selected');
+                    $('div').remove('.selected');
 
                     $('div').remove('.resize-icon');
                     $('div').remove('.rotate-icon');
