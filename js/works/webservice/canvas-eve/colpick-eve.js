@@ -103,7 +103,7 @@
                 $('#toggle-colpick').toggleClass('active');
 
                 if ($('#toggle-colpick').hasClass('active')) {
-                    $('#canvas-eve div').removeClass('grab-pointer');
+                    $('#canvas-eve .file-wrap').removeClass('grab-pointer');
                     $('#canvas-eve').addClass('spuit-pointer');
                 } else {
                     $('#canvas-eve').removeClass('spuit-pointer');

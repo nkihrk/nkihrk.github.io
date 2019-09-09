@@ -658,7 +658,6 @@
                             console.log('tmp.ro.right_top_initRad : ' + tmp.ro.right_top_initRad);
 
                             file.$fileId.css('transform', 'rotate(' + resRad + 'rad)');
-
                             console.log('rotate function is called');
                         }
 
