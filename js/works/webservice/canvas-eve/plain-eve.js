@@ -1,4 +1,4 @@
-(function (window, $) {
+(function ($) {
     const plainEve = () => {
 
         const plain = {
@@ -58,12 +58,6 @@
 
         // Configuring flags
         const configFlgs = () => {
-            // Activate flags
-            const activate = () => {
-                $(document).on(EVENTNAME_TOUCHSTART, function (e) {});
-            };
-            activate();
-
             // Reset flags
             $(document).on('mouseup', function (e) {
                 if (mousewheel_avail_flg == true) {
@@ -104,4 +98,4 @@
 
     };
     plainEve();
-})(window, jQuery);
+})(jQuery);

@@ -1,4 +1,4 @@
-(function (window, $) {
+(function ($) {
     // Drag-and-Paste event
     const canvasEve = function () {
         const file = {
@@ -26,35 +26,8 @@
             },
         };
 
-        // Flags
-        const flgs = {
-            'drag_flg': false,
-            'rotate_flg': false,
-            'mousedown_flg': false,
-            'resize_flg': false,
-            'only_draggable_flg': false,
-            'no_zooming_flg': false,
-            'iframe_draggable_flg': false,
-            'colpick_active_flg': false,
-            'colpick_circle_flg': false,
-            're': {
-                'left_top_flg': false,
-                'right_top_flg': false,
-                'right_bottom_flg': false,
-                'left_bottom_flg': false,
-            },
-            'ro': {
-                'left_top_flg': false,
-                'right_top_flg': false,
-                'right_bottom_flg': false,
-                'left_bottom_flg': false,
-            }
-        };
-
         // Stored datas temporarily
         const tmp = {
-            // The max length of highest_z_index is 2147483647
-            // 'highest_z_index': 0,
             'ro': {
                 'left_top_initRad': null,
                 'right_top_initRad': null,
@@ -83,7 +56,7 @@
 
         const updateUiVal = function () {
             // Update values according to a mouseWheelVal
-            // A selected
+            // A selected area
             $('#canvas-eve .selected').css({
                 'top': -1 * mouseWheelVal + 'px',
                 'left': -1 * mouseWheelVal + 'px',
@@ -162,9 +135,6 @@
                 'bottom': -30 * mouseWheelVal + 'px',
                 'left': -30 * mouseWheelVal + 'px',
             });
-
-            console.log('mouseWheelVal', mouseWheelVal);
-
         };
 
 
@@ -173,41 +143,36 @@
 
         // Prefix for pasted-images. Initialize the values
         const init = function () {
-            // Initialize a flag for colpick circles. colpick-eve.js
-            $(document).on(EVENTNAME_TOUCHSTART, '#red-cir-colpick, #green-cir-colpick, #blue-cir-colpick', function () {
-                flgs.colpick_circle_flg = true;
-            });
-
-
             $(document).on(EVENTNAME_TOUCHSTART, '.file-wrap', function (e) {
                 console.log('mousedown .file-wrap is detected.');
 
                 // To restrict preferred functions
                 if ($(this).find('only-draggable').length > 0) {
-                    flgs.only_draggable_flg = true;
+                    glFlgs.config.only_draggable_flg = true;
                 } else {
-                    flgs.only_draggable_flg = false;
+                    glFlgs.config.only_draggable_flg = false;
                 }
                 // To restrict zooming
                 if ($(this).children().hasClass('no-zooming')) {
-                    flgs.no_zooming_flg = true;
+                    glFlgs.config.no_zooming_flg = true;
                 } else {
-                    flgs.no_zooming_flg = false;
+                    glFlgs.config.no_zooming_flg = false;
                 }
 
 
-                flgs.colpick_active_flg = false;
-                // Check whether there exists #toggle-colpick or not. colpick-eve.js
-                if ($(this).find('#toggle-colpick').length == 0) {
-                    if ($('#toggle-colpick').hasClass('active')) {
-                        flgs.colpick_active_flg = true;
-                        console.log('flgs.colpick_active_flg', flgs.colpick_active_flg);
-                    }
+                // Update the flag if spuit is active. colpick-eve.js
+                // Initialize the flag first
+                glFlgs.colpick.active_spuit_flg = false;
+                // Check whether there exists #toggle-colpick or not at first, and check whether spuit is active or not next.
+                // "$(this).find('#toggle-colpick').length == 0" means that this .file-wrap is not a colpick board
+                if ($(this).find('#toggle-colpick').length == 0 && $('#toggle-colpick').hasClass('active')) {
+                    glFlgs.colpick.active_spuit_flg = true;
+                    console.log('glFlgs.colpick.active_spuit_flg', glFlgs.colpick.active_spuit_flg);
                 }
 
 
-                // This if argument is the prefix for plain.js
-                if (e.button != 1 && flgs.colpick_active_flg == false) {
+                // This if argument is the prefix for plain-eve.js
+                if (e.button != 1) {
                     // $('div').removeClass('selected');
                     $('div').remove('.selected');
                     $('div').remove('.resize-icon');
@@ -226,68 +191,69 @@
                     $('div').remove('.ro-left-bottom');
 
 
-                    // $(this).addClass('selected'); // A selected border
-                    $(this).prepend('<div class="selected"></div>');
-                    // Added selected symbols and other functions
-                    if (flgs.only_draggable_flg == false) {
-                        // $(this).prepend(resizeBox); // Resizing boxes
+                    // This if argument is the prefix for colpick-eve.js
+                    if (glFlgs.colpick.active_spuit_flg == false) {
+                        $(this).prepend('<div class="selected"></div>');
+                        // Added selected symbols and other functions
+                        if (glFlgs.config.only_draggable_flg == false) {
+                            // Resizing boxes
+                            if ($(this).find('.resize-wrapper').hasClass('active')) {
+                                $(this).prepend(resizeBox);
+                            }
+                            if ($(this).find('.rotate-wrapper').hasClass('active')) $(this).prepend(rotateBox); // Rotating circles
 
-                        // Resizing boxes
-                        if ($(this).find('.resize-wrapper').hasClass('active')) {
-                            $(this).prepend(resizeBox);
+                            $(this).find('.resize-wrapper').prepend('<div class="resize-icon"></div>'); // Add a resizing icon
+                            $(this).find('.rotate-wrapper').prepend('<div class="rotate-icon"></div>'); // Add a rotating icon
+                            $(this).find('.flip-wrapper').prepend('<div class="flip-icon"></div>'); // Add a flipping icon
+                            $(this).find('.trash-wrapper').prepend('<div class="trash-icon"></div>'); // Add a trash icon
+
+                            // Update values according to a mouseWheelVal
+                            updateUiVal();
                         }
-                        if ($(this).find('.rotate-wrapper').hasClass('active')) $(this).prepend(rotateBox); // Rotating circles
 
-                        $(this).find('.resize-wrapper').prepend('<div class="resize-icon"></div>'); // Add a resizing icon
-                        $(this).find('.rotate-wrapper').prepend('<div class="rotate-icon"></div>'); // Add a rotating icon
-                        $(this).find('.flip-wrapper').prepend('<div class="flip-icon"></div>'); // Add a flipping icon
-                        $(this).find('.trash-wrapper').prepend('<div class="trash-icon"></div>'); // Add a trash icon
 
-                        // Update values according to a mouseWheelVal
-                        updateUiVal();
+                        // Add #id to #image, and initialize its values
+                        if (glFlgs.canvas.drag_flg == false) {
+                            file.fileId = '#' + $(this).attr('id');
+                            file.$fileId = $(file.fileId);
+                            console.log('id : ' + $(this).attr('id'));
+
+                            file.fileIdWidth = file.$fileId.outerWidth();
+                            file.fileIdHeight = file.$fileId.outerHeight();
+                            file.fileIdRatio = file.fileIdHeight / file.fileIdWidth;
+
+                            file.fileIdTheta = getRotationRad(file.$fileId);
+                            console.log('file.fileIdTheta : ' + file.fileIdTheta);
+                            file.rotatedSize.width = file.fileIdWidth * Math.abs(Math.cos(file.fileIdTheta)) + file.fileIdHeight * Math.abs(Math.sin(file.fileIdTheta));
+                            file.rotatedSize.height = file.fileIdHeight * Math.abs(Math.cos(file.fileIdTheta)) + file.fileIdWidth * Math.abs(Math.sin(file.fileIdTheta));
+
+                            file.fileIdPos = file.$fileId.offset();
+                            console.log('file.fileIdPos', file.fileIdPos);
+
+                            file.fileIdRelPosX = clientX - file.fileIdPos.left;
+                            file.fileIdRelPosY = clientY - file.fileIdPos.top;
+                            // debugCircle('test-pos_1', 'blue', file.fileIdPos.left, file.fileIdPos.top);
+                            // debugCircle('test-pos_4', 'white', file.fileIdRelPosX, file.fileIdRelPosY);
+
+                            // Initialize file.rotatedCenterPos. These are screen-space coordinates
+                            file.rotatedCenterPos.left = file.$fileId.offset().left + (file.rotatedSize.width / 2) / mouseWheelVal;
+                            file.rotatedCenterPos.top = file.$fileId.offset().top + (file.rotatedSize.height / 2) / mouseWheelVal;
+
+                            // Initialize the initRads for a rotating function
+                            tmp.ro.left_top_initRad = calcRadians(-file.fileIdWidth / 2, -file.fileIdHeight / 2);
+                            tmp.ro.right_top_initRad = calcRadians(file.fileIdWidth / 2, -file.fileIdHeight / 2);
+                            tmp.ro.right_bottom_initRad = calcRadians(file.fileIdWidth / 2, file.fileIdHeight / 2);
+                            tmp.ro.left_bottom_initRad = calcRadians(-file.fileIdWidth / 2, file.fileIdHeight / 2);
+
+                            // Set the $fileId to be the highest of all the other unselected elements
+                            HIGHEST_Z_INDEX += 1;
+                            file.$fileId.css('z-index', HIGHEST_Z_INDEX);
+                            glFlgs.canvas.drag_flg = true;
+                            console.log('glFlgs.canvas.drag_flg is ' + glFlgs.canvas.drag_flg);
+                        }
                     }
 
 
-                    // Add #id to #image, and initialize its values
-                    if (flgs.drag_flg == false) {
-                        file.fileId = '#' + $(this).attr('id');
-                        file.$fileId = $(file.fileId);
-                        console.log('id : ' + $(this).attr('id'));
-
-                        file.fileIdWidth = file.$fileId.outerWidth();
-                        file.fileIdHeight = file.$fileId.outerHeight();
-                        file.fileIdRatio = file.fileIdHeight / file.fileIdWidth;
-
-                        file.fileIdTheta = getRotationRad(file.$fileId);
-                        console.log('file.fileIdTheta : ' + file.fileIdTheta);
-                        file.rotatedSize.width = file.fileIdWidth * Math.abs(Math.cos(file.fileIdTheta)) + file.fileIdHeight * Math.abs(Math.sin(file.fileIdTheta));
-                        file.rotatedSize.height = file.fileIdHeight * Math.abs(Math.cos(file.fileIdTheta)) + file.fileIdWidth * Math.abs(Math.sin(file.fileIdTheta));
-
-                        file.fileIdPos = file.$fileId.offset();
-                        console.log('file.fileIdPos', file.fileIdPos);
-
-                        file.fileIdRelPosX = clientX - file.fileIdPos.left;
-                        file.fileIdRelPosY = clientY - file.fileIdPos.top;
-                        // debugCircle('test-pos_1', 'blue', file.fileIdPos.left, file.fileIdPos.top);
-                        // debugCircle('test-pos_4', 'white', file.fileIdRelPosX, file.fileIdRelPosY);
-
-                        // Initialize file.rotatedCenterPos. These are screen-space coordinates
-                        file.rotatedCenterPos.left = file.$fileId.offset().left + (file.rotatedSize.width / 2) / mouseWheelVal;
-                        file.rotatedCenterPos.top = file.$fileId.offset().top + (file.rotatedSize.height / 2) / mouseWheelVal;
-
-                        // Initialize the initRads for a rotating function
-                        tmp.ro.left_top_initRad = calcRadians(-file.fileIdWidth / 2, -file.fileIdHeight / 2);
-                        tmp.ro.right_top_initRad = calcRadians(file.fileIdWidth / 2, -file.fileIdHeight / 2);
-                        tmp.ro.right_bottom_initRad = calcRadians(file.fileIdWidth / 2, file.fileIdHeight / 2);
-                        tmp.ro.left_bottom_initRad = calcRadians(-file.fileIdWidth / 2, file.fileIdHeight / 2);
-
-                        // Set the $fileId to be the highest of all the other unselected elements
-                        // file.$fileId.appendTo('#add-files');
-                        HIGHEST_Z_INDEX += 1;
-                        file.$fileId.css('z-index', HIGHEST_Z_INDEX);
-                        flgs.drag_flg = true;
-                        console.log('flgs.drag_flg is ' + flgs.drag_flg);
-                    }
                 }
             });
         }
@@ -302,7 +268,6 @@
                 if (e.button != 1) {
                     e.stopPropagation();
 
-                    // $('div').removeClass('selected');
                     $('div').remove('.selected');
 
                     $('div').remove('.resize-icon');
@@ -346,18 +311,16 @@
 
             $(document).on(EVENTNAME_TOUCHEND, function () {
                 // Refrash the rendering result of each canvas
-                if (file.$fileId != null) {
-                    if (file.$fileId.find('.canvas-colpick').length > 0) {
-                        setTimeout(function () {
-                            var img = new Image();
-                            img.src = file.$fileId.find('img').attr('src');
-                            img.onload = () => {
-                                file.$fileId.find('.canvas-colpick')[0].getContext('2d').drawImage(img, 0, 0, file.$fileId.width(), file.$fileId.height());
-                            }
-                            file.$fileId.find('.canvas-colpick').attr('width', file.$fileId.width());
-                            file.$fileId.find('.canvas-colpick').attr('height', file.$fileId.height());
-                        }, 100);
-                    }
+                if (file.$fileId != null && file.$fileId.find('.canvas-colpick').length > 0) {
+                    setTimeout(function () {
+                        var img = new Image();
+                        img.src = file.$fileId.find('img').attr('src');
+                        img.onload = () => {
+                            file.$fileId.find('.canvas-colpick')[0].getContext('2d').drawImage(img, 0, 0, file.$fileId.width(), file.$fileId.height());
+                        }
+                        file.$fileId.find('.canvas-colpick').attr('width', file.$fileId.width());
+                        file.$fileId.find('.canvas-colpick').attr('height', file.$fileId.height());
+                    }, 100);
                 }
             });
 
@@ -374,8 +337,8 @@
 
         // Configuring flags
         const configFlgs = function () {
-            const activateFlgs = function () {
 
+            const activateFlgs = function () {
                 // Configuring flags for resizing function
                 const resize = function () {
                     const whichResizeBox = function (b, n) {
@@ -383,27 +346,27 @@
                             console.log('mousedown ' + b + ' is detected');
                             iframePointerNone();
 
-                            if (flgs.mousedown_flg == false) {
-                                flgs.mousedown_flg = true;
-                                flgs.resize_flg = true;
-                                console.log('flgs.mousedown_flg is ' + flgs.mousedown_flg);
-                                console.log('flgs.resize_flg is ' + flgs.resize_flg);
+                            if (glFlgs.canvas.mousedown_flg == false) {
+                                glFlgs.canvas.mousedown_flg = true;
+                                glFlgs.canvas.resize_flg = true;
+                                console.log('glFlgs.canvas.mousedown_flg is ' + glFlgs.canvas.mousedown_flg);
+                                console.log('glFlgs.canvas.resize_flg is ' + glFlgs.canvas.resize_flg);
 
                                 if (n == 0) {
-                                    flgs.re.left_top_flg = true;
-                                    console.log('flgs.re.left_top_flg is ' + flgs.re.left_top_flg);
+                                    glFlgs.canvas.re.left_top_flg = true;
+                                    console.log('glFlgs.canvas.re.left_top_flg is ' + glFlgs.canvas.re.left_top_flg);
                                 }
                                 if (n == 1) {
-                                    flgs.re.right_top_flg = true;
-                                    console.log('flgs.re.right_top_flg is ' + flgs.re.right_top_flg);
+                                    glFlgs.canvas.re.right_top_flg = true;
+                                    console.log('glFlgs.canvas.re.right_top_flg is ' + glFlgs.canvas.re.right_top_flg);
                                 }
                                 if (n == 2) {
-                                    flgs.re.right_bottom_flg = true;
-                                    console.log('flgs.re.right_bottom_flg is ' + flgs.re.right_bottom_flg);
+                                    glFlgs.canvas.re.right_bottom_flg = true;
+                                    console.log('glFlgs.canvas.re.right_bottom_flg is ' + glFlgs.canvas.re.right_bottom_flg);
                                 }
                                 if (n == 3) {
-                                    flgs.re.left_bottom_flg = true;
-                                    console.log('flgs.re.left_bottom_flg is ' + flgs.re.left_bottom_flg);
+                                    glFlgs.canvas.re.left_bottom_flg = true;
+                                    console.log('glFlgs.canvas.re.left_bottom_flg is ' + glFlgs.canvas.re.left_bottom_flg);
                                 }
                             }
                         });
@@ -424,29 +387,29 @@
                             e.stopPropagation();
                             iframePointerNone();
 
-                            if (flgs.rotate_flg == false) {
-                                flgs.mousedown_flg = true;
-                                flgs.drag_flg = false;
-                                flgs.rotate_flg = true;
-                                console.log('flgs.mousedown_flg is ' + flgs.mousedown_flg);
-                                console.log('flgs.drag_flg is ' + flgs.drag_flg);
-                                console.log('flgs.rotate_flg is ' + flgs.rotate_flg);
+                            if (glFlgs.canvas.rotate_flg == false) {
+                                glFlgs.canvas.mousedown_flg = true;
+                                glFlgs.canvas.drag_flg = false;
+                                glFlgs.canvas.rotate_flg = true;
+                                console.log('glFlgs.canvas.mousedown_flg is ' + glFlgs.canvas.mousedown_flg);
+                                console.log('glFlgs.canvas.drag_flg is ' + glFlgs.canvas.drag_flg);
+                                console.log('glFlgs.canvas.rotate_flg is ' + glFlgs.canvas.rotate_flg);
 
                                 if (n == 0) {
-                                    flgs.ro.left_top_flg = true;
-                                    console.log('flgs.ro.left_top_flg is ' + flgs.ro.left_top_flg);
+                                    glFlgs.canvas.ro.left_top_flg = true;
+                                    console.log('glFlgs.canvas.ro.left_top_flg is ' + glFlgs.canvas.ro.left_top_flg);
                                 }
                                 if (n == 1) {
-                                    flgs.ro.right_top_flg = true;
-                                    console.log('flgs.ro.right_top_flg is ' + flgs.ro.right_top_flg);
+                                    glFlgs.canvas.ro.right_top_flg = true;
+                                    console.log('glFlgs.canvas.ro.right_top_flg is ' + glFlgs.canvas.ro.right_top_flg);
                                 }
                                 if (n == 2) {
-                                    flgs.ro.right_bottom_flg = true;
-                                    console.log('flgs.ro.right_bottom_flg is ' + flgs.ro.right_bottom_flg);
+                                    glFlgs.canvas.ro.right_bottom_flg = true;
+                                    console.log('glFlgs.canvas.ro.right_bottom_flg is ' + glFlgs.canvas.ro.right_bottom_flg);
                                 }
                                 if (n == 3) {
-                                    flgs.ro.left_bottom_flg = true;
-                                    console.log('flgs.ro.left_bottom_flg is ' + flgs.ro.left_bottom_flg);
+                                    glFlgs.canvas.ro.left_bottom_flg = true;
+                                    console.log('glFlgs.canvas.ro.left_bottom_flg is ' + glFlgs.canvas.ro.left_bottom_flg);
                                 }
                             }
                         });
@@ -459,53 +422,63 @@
                 };
                 rotate();
 
+
+                // A flag for colpick`s bar circle. colpick-eve.js
+                $(document).on(EVENTNAME_TOUCHSTART, '#red-cir-colpick, #green-cir-colpick, #blue-cir-colpick', function () {
+                    glFlgs.colpick.move_circle_flg = true;
+                });
+
+
             };
             activateFlgs();
 
-            // Reset flags
-            $(document).on(EVENTNAME_TOUCHEND, function () {
-                iframePointerReset();
 
-                // A flag for drag event
-                if (flgs.drag_flg == true) {
-                    flgs.drag_flg = false;
-                    console.log('flgs.drag_flg is ' + flgs.drag_flg);
-                }
+            const resetFlgs = function () {
+                $(document).on(EVENTNAME_TOUCHEND, function () {
+                    iframePointerReset();
 
-                // A flag for mousedown event
-                if (flgs.mousedown_flg == true) {
-                    flgs.mousedown_flg = false;
-                    console.log('flgs.mousedown_flg is ' + flgs.mousedown_flg);
-                }
+                    // A flag for colpick`s bar circle. colpick-eve.js
+                    if (glFlgs.colpick.move_circle_flg == true) {
+                        glFlgs.colpick.move_circle_flg = false;
+                        console.log('glFlgs.colpick.move_circle_flg is ' + glFlgs.colpick.move_circle_flg);
+                    }
 
-                // A flag for colpick circles. colpick-eve.js
-                if (flgs.colpick_circle_flg == true) {
-                    flgs.colpick_circle_flg = false;
-                    console.log('flgs.colpick_circle_flg is ' + flgs.colpick_circle_flg);
-                }
+                    // A flag for drag event
+                    if (glFlgs.canvas.drag_flg == true) {
+                        glFlgs.canvas.drag_flg = false;
+                        console.log('glFlgs.canvas.drag_flg is ' + glFlgs.canvas.drag_flg);
+                    }
 
-                // Flags for resizing
-                if (flgs.resize_flg == true) {
-                    flgs.resize_flg = false;
-                    console.log('flgs.resize_flg is ' + flgs.resize_flg);
-                }
-                if (flgs.re.left_top_flg == true) flgs.re.left_top_flg = false;
-                if (flgs.re.right_top_flg == true) flgs.re.right_top_flg = false;
-                if (flgs.re.right_bottom_flg == true) flgs.re.right_bottom_flg = false;
-                if (flgs.re.left_bottom_flg == true) flgs.re.left_bottom_flg = false;
+                    // A flag for mousedown event
+                    if (glFlgs.canvas.mousedown_flg == true) {
+                        glFlgs.canvas.mousedown_flg = false;
+                        console.log('glFlgs.canvas.mousedown_flg is ' + glFlgs.canvas.mousedown_flg);
+                    }
 
-                // A flag for rotating
-                if (flgs.rotate_flg == true) {
-                    flgs.rotate_flg = false;
-                    console.log('flgs.rotate_flg is ' + flgs.rotate_flg);
-                }
-                if (flgs.ro.left_top_flg == true) flgs.ro.left_top_flg = false;
-                if (flgs.ro.right_top_flg == true) flgs.ro.right_top_flg = false;
-                if (flgs.ro.right_bottom_flg == true) flgs.ro.right_bottom_flg = false;
-                if (flgs.ro.left_bottom_flg == true) flgs.ro.left_bottom_flg = false;
+                    // Flags for resizing
+                    if (glFlgs.canvas.resize_flg == true) {
+                        glFlgs.canvas.resize_flg = false;
+                        console.log('glFlgs.canvas.resize_flg is ' + glFlgs.canvas.resize_flg);
+                    }
+                    if (glFlgs.canvas.re.left_top_flg == true) glFlgs.canvas.re.left_top_flg = false;
+                    if (glFlgs.canvas.re.right_top_flg == true) glFlgs.canvas.re.right_top_flg = false;
+                    if (glFlgs.canvas.re.right_bottom_flg == true) glFlgs.canvas.re.right_bottom_flg = false;
+                    if (glFlgs.canvas.re.left_bottom_flg == true) glFlgs.canvas.re.left_bottom_flg = false;
 
-                sep();
-            });
+                    // A flag for rotating
+                    if (glFlgs.canvas.rotate_flg == true) {
+                        glFlgs.canvas.rotate_flg = false;
+                        console.log('glFlgs.canvas.rotate_flg is ' + glFlgs.canvas.rotate_flg);
+                    }
+                    if (glFlgs.canvas.ro.left_top_flg == true) glFlgs.canvas.ro.left_top_flg = false;
+                    if (glFlgs.canvas.ro.right_top_flg == true) glFlgs.canvas.ro.right_top_flg = false;
+                    if (glFlgs.canvas.ro.right_bottom_flg == true) glFlgs.canvas.ro.right_bottom_flg = false;
+                    if (glFlgs.canvas.ro.left_bottom_flg == true) glFlgs.canvas.ro.left_bottom_flg = false;
+
+                    sep();
+                });
+            };
+            resetFlgs();
 
 
         };
@@ -626,7 +599,7 @@
 
 
                     // The element has a class .no_zooming
-                    if (flgs.no_zooming_flg == true) {
+                    if (glFlgs.config.no_zooming_flg == true) {
                         targetPosLeft = clientX - file.fileIdRelPosX;
                         targetPosTop = clientY - file.fileIdRelPosY;
 
@@ -641,16 +614,14 @@
                     }
 
 
-                    if (mousewheel_avail_flg == false && flgs.resize_flg == false && flgs.rotate_flg == false) {
-                        if (flgs.drag_flg == true) {
+                    if (mousewheel_avail_flg == false && glFlgs.canvas.resize_flg == false && glFlgs.canvas.rotate_flg == false) {
+                        if (glFlgs.canvas.drag_flg == true) {
 
-                            if (flgs.colpick_active_flg == false) {
-                                if (flgs.colpick_circle_flg == false) {
-                                    file.$fileId.css({
-                                        'left': resLeft + 'px',
-                                        'top': resTop + 'px',
-                                    });
-                                }
+                            if (glFlgs.colpick.active_spuit_flg == false && glFlgs.colpick.move_circle_flg == false) {
+                                file.$fileId.css({
+                                    'left': resLeft + 'px',
+                                    'top': resTop + 'px',
+                                });
                             }
 
                             // Update file.rotatedCenterPos for the later-use in rotating function
@@ -672,8 +643,8 @@
                     let rad = calcRadians(clientX - fileCenterPosX, clientY - fileCenterPosY);
                     // debugCircle('test-pos_6', 'black', 50 * Math.cos(rad) + fileCenterPosX, 50 * Math.sin(rad) + fileCenterPosY);
 
-                    if (mousewheel_avail_flg == false && flgs.drag_flg == false && flgs.resize_flg == false && flgs.rotate_flg == true) {
-                        if (flgs.ro.left_top_flg == true) {
+                    if (mousewheel_avail_flg == false && glFlgs.canvas.drag_flg == false && glFlgs.canvas.resize_flg == false && glFlgs.canvas.rotate_flg == true) {
+                        if (glFlgs.canvas.ro.left_top_flg == true) {
                             let resRad = rad - tmp.ro.left_top_initRad;
                             console.log('tmp.ro.left_top_initRad : ' + tmp.ro.left_top_initRad);
 
@@ -682,7 +653,7 @@
                         }
 
 
-                        if (flgs.ro.right_top_flg == true) {
+                        if (glFlgs.canvas.ro.right_top_flg == true) {
                             let resRad = rad - tmp.ro.right_top_initRad;
                             console.log('tmp.ro.right_top_initRad : ' + tmp.ro.right_top_initRad);
 
@@ -692,7 +663,7 @@
                         }
 
 
-                        if (flgs.ro.right_bottom_flg == true) {
+                        if (glFlgs.canvas.ro.right_bottom_flg == true) {
                             let resRad = rad - tmp.ro.right_bottom_initRad;
                             console.log('tmp.ro.right_bottom_initRad : ' + tmp.ro.right_bottom_initRad);
 
@@ -701,7 +672,7 @@
                         }
 
 
-                        if (flgs.ro.left_bottom_flg == true) {
+                        if (glFlgs.canvas.ro.left_bottom_flg == true) {
                             let resRad = rad - tmp.ro.left_bottom_initRad;
                             console.log('tmp.ro.left_bottom_initRad : ' + tmp.ro.left_bottom_initRad);
 
@@ -714,8 +685,8 @@
 
                 // When resizing-boxes are clicked
                 const resized = function () {
-                    if (mousewheel_avail_flg == false && flgs.mousedown_flg == true && flgs.resize_flg == true) {
-                        if (flgs.re.left_top_flg == true) {
+                    if (mousewheel_avail_flg == false && glFlgs.canvas.mousedown_flg == true && glFlgs.canvas.resize_flg == true) {
+                        if (glFlgs.canvas.re.left_top_flg == true) {
                             file.$fileId.css({
                                 'top': (file.fileIdPos.top - $('#zoom').offset().top) * mouseWheelVal + (file.fileIdHeight - (file.fileIdWidth - (clientX - file.fileIdPos.left) * mouseWheelVal) * file.fileIdRatio) + 'px',
                                 'left': ((file.fileIdPos.left - $('#zoom').offset().left) * mouseWheelVal + (clientX - file.fileIdPos.left) * mouseWheelVal) + 'px',
@@ -725,7 +696,7 @@
                         }
 
 
-                        if (flgs.re.right_top_flg == true) {
+                        if (glFlgs.canvas.re.right_top_flg == true) {
                             file.$fileId.css({
                                 'top': (file.fileIdPos.top - $('#zoom').offset().top) * mouseWheelVal + (file.fileIdHeight - (clientX - file.fileIdPos.left) * mouseWheelVal * file.fileIdRatio) + 'px',
                                 'left': (file.fileIdPos.left - $('#zoom').offset().left) * mouseWheelVal + 'px',
@@ -735,7 +706,7 @@
                         }
 
 
-                        if (flgs.re.right_bottom_flg == true) {
+                        if (glFlgs.canvas.re.right_bottom_flg == true) {
                             file.$fileId.css({
                                 'top': (file.fileIdPos.top - $('#zoom').offset().top) * mouseWheelVal + 'px',
                                 'left': (file.fileIdPos.left - $('#zoom').offset().left) * mouseWheelVal + 'px',
@@ -745,7 +716,7 @@
                         }
 
 
-                        if (flgs.re.left_bottom_flg == true) {
+                        if (glFlgs.canvas.re.left_bottom_flg == true) {
                             file.$fileId.css({
                                 'top': (file.fileIdPos.top - $('#zoom').offset().top) * mouseWheelVal + 'px',
                                 'left': ((file.fileIdPos.left - $('#zoom').offset().left) + (clientX - file.fileIdPos.left)) * mouseWheelVal + 'px',
@@ -772,4 +743,4 @@
 
     };
     canvasEve();
-})(window, jQuery);
+})(jQuery);

@@ -72,15 +72,40 @@
 
 
 // Variables
+// Update the newFile when adding a new file
 var newFile = {
     'id': 0,
-    'prevId': 0,
-    // To identify whether being dropped or not
-    'flg': 0,
 };
 
 // Global flags
-const glFlgs = {};
+const glFlgs = {
+    'config': {
+        'only_draggable_flg': false,
+        'no_zooming_flg': false,
+    },
+    'canvas': {
+        'drag_flg': false,
+        'rotate_flg': false,
+        'mousedown_flg': false,
+        'resize_flg': false,
+        're': {
+            'left_top_flg': false,
+            'right_top_flg': false,
+            'right_bottom_flg': false,
+            'left_bottom_flg': false,
+        },
+        'ro': {
+            'left_top_flg': false,
+            'right_top_flg': false,
+            'right_bottom_flg': false,
+            'left_bottom_flg': false,
+        }
+    },
+    'colpick': {
+        'active_spuit_flg': false,
+        'move_circle_flg': false,
+    },
+};
 
 // A max length of the HIGHEST_Z_INDEX is 2147483647
 var HIGHEST_Z_INDEX = 1;
@@ -113,6 +138,37 @@ var clientFromZoomX, clientFromZoomY;
 
 ///
 
+
+// https: //stackoverflow.com/questions/3515446/jquery-mousewheel-detecting-when-the-wheel-stops
+// Detect if it`s wheeling or not
+const detectWheeling = () => {
+    var wheeldelta = {
+        x: 0,
+        y: 0
+    };
+    var wheeling;
+    $(document).on('mousewheel', function (e) {
+        if (!wheeling) {
+            console.log('start wheeling!');
+        }
+
+        if ($('#toggle-colpick').hasClass('active')) {
+            clearTimeout(wheeling);
+            wheeling = setTimeout(function () {
+                console.log('stop wheeling!');
+                wheeling = undefined;
+
+                // reset wheeldelta
+                wheeldelta.x = 0;
+                wheeldelta.y = 0;
+            }, 100);
+        }
+
+        wheeldelta.x += e.deltaFactor * e.deltaX;
+        wheeldelta.y += e.deltaFactor * e.deltaY;
+        console.log(wheeldelta);
+    });
+};
 
 // Functions
 // Get transform values of a specific selector

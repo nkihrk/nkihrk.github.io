@@ -1,52 +1,5 @@
-(function (window, $) {
+(function ($) {
     const zoomEve = () => {
-
-        const zoom = {
-            'size': {
-                'width': 0,
-                'height': 0
-            },
-            'pos': {
-                'left': 0,
-                'top': 0
-            },
-            'relPos': {
-                'left': 0,
-                'top': 0
-            }
-        }
-
-
-        ///
-
-
-        // Initialize values
-        const init = () => {
-            $(document).on(EVENTNAME_TOUCHSTART, function (e) {});
-        };
-        init();
-
-
-        const Update = function () {
-            $(document).on(EVENTNAME_TOUCHMOVE, function (e) {});
-        };
-        Update();
-
-
-        // Configuring flags
-        const configFlgs = () => {
-            // Activate flags
-            const activate = () => {
-                $(document).on('mousedown', function (e) {});
-            };
-            activate();
-
-            // Reset flags
-            $(document).on('mouseup', function (e) {});
-        };
-        configFlgs();
-
-
         // Execute if flags are true
         const main = () => {
             $(document).mousemove(function (e) {
@@ -159,4 +112,4 @@
 
     };
     zoomEve();
-})(window, jQuery);
+})(jQuery);

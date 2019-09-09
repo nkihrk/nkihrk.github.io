@@ -89,7 +89,6 @@
                                 }
                             }
 
-                            newFile.prevId = newFile.id;
                             newFile.id += 1;
                             HIGHEST_Z_INDEX += 1;
 

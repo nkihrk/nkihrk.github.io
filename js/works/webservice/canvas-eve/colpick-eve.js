@@ -1,10 +1,5 @@
-(function (window, $) {
+(function ($) {
     const colpickEve = () => {
-        // Flags
-        const flgs = {
-            'wheeling_flg': false,
-            'move_circle_flg': false,
-        };
 
         // Convert RGB to HEX
         const rgb2hex = function (rgb) {
@@ -37,39 +32,6 @@
             var retVal = document.execCommand('copy');
             bodyElm.removeChild(copyFrom);
             return retVal;
-        };
-
-        // https: //stackoverflow.com/questions/3515446/jquery-mousewheel-detecting-when-the-wheel-stops
-        // Detect if it`s wheeling or not
-        const detectWheeling = () => {
-            var wheeldelta = {
-                x: 0,
-                y: 0
-            };
-            var wheeling;
-            $(document).on('mousewheel', function (e) {
-                if (!wheeling) {
-                    console.log('start wheeling!');
-                    flgs.wheeling_flg = true;
-                }
-
-                if ($('#toggle-colpick').hasClass('active')) {
-                    clearTimeout(wheeling);
-                    wheeling = setTimeout(function () {
-                        console.log('stop wheeling!');
-                        flgs.wheeling_flg = false;
-                        wheeling = undefined;
-
-                        // reset wheeldelta
-                        wheeldelta.x = 0;
-                        wheeldelta.y = 0;
-                    }, 100);
-                }
-
-                wheeldelta.x += e.deltaFactor * e.deltaX;
-                wheeldelta.y += e.deltaFactor * e.deltaY;
-                console.log(wheeldelta);
-            });
         };
 
 
@@ -119,43 +81,10 @@
 
             $(document).on(EVENTNAME_TOUCHSTART, '#red-cir-colpick, #green-cir-colpick, #blue-cir-colpick', function () {
                 circleRelPosX = clientX - $(this).offset().left;
-                circleRelPosY = clientY - $(this).offset().top;
                 $barTop = $(this);
-                flgs.move_circle_flg = true;
             });
         };
         init();
-
-
-        // Reset a selected area
-        const reset = function () {
-            $(document).on(EVENTNAME_TOUCHEND, function () {
-                if (flgs.move_circle_flg == true) {
-                    flgs.move_circle_flg = false;
-                }
-            });
-        }
-        reset();
-
-
-        const Update = function () {
-            $(document).on(EVENTNAME_TOUCHMOVE, function (e) {});
-        };
-        Update();
-
-
-        // Configuring flags
-        const configFlgs = () => {
-            // Activate flags
-            const activate = () => {
-                $(document).on('mousedown', function (e) {});
-            };
-            activate();
-
-            // Reset flags
-            $(document).on('mouseup', function (e) {});
-        };
-        configFlgs();
 
 
         // Execute if flags are true
@@ -163,7 +92,7 @@
             $(document).on(EVENTNAME_TOUCHSTART, '#copy-colpick', function () {
                 var hex = $("#input-colpick").val();
                 if (hex.match(/#/)) {
-                    hex = hex.slice(1);
+                    hex = hex.split('#').join('');
                 }
                 copyTextToClipboard(hex);
             });
@@ -187,6 +116,9 @@
                 var hex = $(this).val();
                 if (!$(this).val().match(/#/)) {
                     hex = '#' + $(this).val();
+                    $("#input-colpick").val(hex);
+                } else {
+                    hex = '#' + hex.split('#').join('');
                     $("#input-colpick").val(hex);
                 }
                 var r = hex2rgb(hex)[0];
@@ -246,7 +178,7 @@
 
 
             $(document).on(EVENTNAME_TOUCHMOVE, function (e) {
-                if (flgs.move_circle_flg == true) {
+                if (glFlgs.colpick.move_circle_flg == true) {
                     // Syncing rgb values with sliders
                     var x = clientX - circleRelPosX - $('.bar-colpick').offset().left;
                     x = x >= -$barTop.width() / 2 ? (x >= $('.bar-colpick').width() - $barTop.width() / 2 ? $('.bar-colpick').width() - $barTop.width() / 2 : x) : -$barTop.width() / 2;
@@ -328,4 +260,4 @@
 
     };
     colpickEve();
-})(window, jQuery);
+})(jQuery);
