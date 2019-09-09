@@ -155,7 +155,8 @@
                 }]
             },
             "tag": [
-                "#ShaderLab",
+                "#Compute Shader",
+                "Ray Tracing",
                 "#HLSL",
                 "#Shader",
                 "#Unity"
