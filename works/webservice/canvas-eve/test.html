@@ -56,6 +56,14 @@
             border: solid 1px red;
             transition: all .1s ease-in-out;
         }
+
+        #glsl .selected {
+            z-index: -1;
+        }
+
+        /* #glsl canvas {
+            pointer-events: none;
+        } */
     </style>
 </head>
 
@@ -88,6 +96,7 @@
 
                         <div id="glsl" class="grab-pointer file-wrap" style="z-index: 0;">
                             <div class="function-wrapper">
+                                <div class="thumbtack-wrapper"></div>
                                 <div class="resize-wrapper"></div>
                                 <div class="rotate-wrapper"></div>
                                 <div class="flip-wrapper"></div>
@@ -119,16 +128,6 @@
     <script src="/js/works/webservice/canvas-eve/html2canvas.min.js"></script>
     <script src="/js/works/webservice/canvas-eve/psd.min.js"></script>
 
-
-    <!-- Three.js -->
-    <script src="/js/works/webservice/canvas-eve/three/three.min.js"></script>
-    <script src="/js/works/webservice/canvas-eve/three/module/stats.min.js"></script>
-    <script src="/js/works/webservice/canvas-eve/three/module/inflate.min.js"></script>
-    <script src="/js/works/webservice/canvas-eve/three/module/FBXLoader.js"></script>
-    <script src="/js/works/webservice/canvas-eve/three/module/GLTFLoader.js"></script>
-    <script src="/js/works/webservice/canvas-eve/three/module/OrbitControls.js"></script>
-
-
     <script src="/js/works/webservice/common/common.js"></script>
     <script src="/js/works/webservice/canvas-eve/var-eve.js"></script>
     <script src="/js/common/config.js"></script>
@@ -138,6 +137,15 @@
     <script src="/js/works/webservice/canvas-eve/zoom-eve.js"></script>
     <script src="/js/works/webservice/canvas-eve/youtube-eve.js"></script>
     <script src="/js/works/webservice/canvas-eve/colpick-eve.js"></script>
+
+    <!-- Three.js -->
+    <script src="/js/works/webservice/canvas-eve/three/three.min.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/stats.min.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/inflate.min.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/FBXLoader.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/GLTFLoader.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/OBJLoader.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/OrbitControls.js"></script>
     <!-- <script src="/js/works/webservice/canvas-eve/three-eve.js"></script> -->
     <script src="/js/works/webservice/canvas-eve/three/test/test_three.js"></script>
 

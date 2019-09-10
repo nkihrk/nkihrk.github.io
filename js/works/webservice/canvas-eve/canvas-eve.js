@@ -66,6 +66,10 @@
             });
 
             // Icons
+            $('.thumbtack-icon').css({
+                'width': 30 * mouseWheelVal + 'px',
+                'height': 40 * mouseWheelVal + 'px',
+            });
             $('.resize-icon').css({
                 'width': 30 * mouseWheelVal + 'px',
                 'height': 30 * mouseWheelVal + 'px',
@@ -167,14 +171,23 @@
                 // "$(this).find('#toggle-colpick').length == 0" means that this .file-wrap is not a colpick board
                 if ($(this).find('#toggle-colpick').length == 0 && $('#toggle-colpick').hasClass('active')) {
                     glFlgs.colpick.active_spuit_flg = true;
-                    console.log('glFlgs.colpick.active_spuit_flg', glFlgs.colpick.active_spuit_flg);
                 }
+                console.log('glFlgs.colpick.active_spuit_flg is', glFlgs.colpick.active_spuit_flg);
+
+
+                // Initialize a thumbtack flag, and insert a boolean value if pinning is active
+                glFlgs.canvas.thumbtack_flg = false;
+                if ($(this).find('.thumbtack-wrapper').hasClass('active')) {
+                    glFlgs.canvas.thumbtack_flg = true;
+                }
+                console.log('glFlgs.canvas.thumbtack_flg is', glFlgs.canvas.thumbtack_flg);
 
 
                 // This if argument is the prefix for plain-eve.js
                 if (e.button != 1) {
                     // $('div').removeClass('selected');
                     $('div').remove('.selected');
+                    $('div').remove('.thumbtack-icon');
                     $('div').remove('.resize-icon');
                     $('div').remove('.rotate-icon');
                     $('div').remove('.flip-icon');
@@ -202,6 +215,7 @@
                             }
                             if ($(this).find('.rotate-wrapper').hasClass('active')) $(this).prepend(rotateBox); // Rotating circles
 
+                            $(this).find('.thumbtack-wrapper').prepend('<div class="thumbtack-icon"></div>'); // Add a thumbtack icon
                             $(this).find('.resize-wrapper').prepend('<div class="resize-icon"></div>'); // Add a resizing icon
                             $(this).find('.rotate-wrapper').prepend('<div class="rotate-icon"></div>'); // Add a rotating icon
                             $(this).find('.flip-wrapper').prepend('<div class="flip-icon"></div>'); // Add a flipping icon
@@ -270,6 +284,7 @@
 
                     $('div').remove('.selected');
 
+                    $('div').remove('.thumbtack-icon');
                     $('div').remove('.resize-icon');
                     $('div').remove('.rotate-icon');
                     $('div').remove('.flip-icon');
@@ -310,7 +325,7 @@
 
 
             $(document).on(EVENTNAME_TOUCHEND, function () {
-                // Refrash the rendering result of each canvas
+                // Refrash the rendering result of each canvas when changing its size. This canvas is for color picking. colpick-eve.js
                 if (file.$fileId != null && file.$fileId.find('.canvas-colpick').length > 0) {
                     setTimeout(function () {
                         var img = new Image();
@@ -335,7 +350,7 @@
         Update();
 
 
-        // Configuring flags
+        // Configuring flags and icons
         const configFlgs = function () {
 
             const activateFlgs = function () {
@@ -481,15 +496,28 @@
             resetFlgs();
 
 
-        };
-        configFlgs();
-
-
-        // Execute if flags are true
-        const main = function () {
-
             // Show icons to be active, and do something if needed
             const clickedIcon = function () {
+                // Activate pinning
+                $(document).on(EVENTNAME_TOUCHSTART, '.thumbtack-icon', function (e) {
+                    console.log('mousedown .thumbtack-icon is detected.');
+
+                    if (e.button != 1) {
+                        e.stopPropagation();
+                        $(this).parents('.thumbtack-wrapper').toggleClass('active');
+
+                        if ($(this).parents('.thumbtack-wrapper').hasClass('active')) {
+                            glFlgs.canvas.thumbtack_flg = true;
+
+                            // Update values according to a mouseWheelVal
+                            updateUiVal();
+                        } else {
+                            glFlgs.canvas.thumbtack_flg = false;
+                        }
+                    }
+                });
+
+
                 // Activate resizing
                 $(document).on(EVENTNAME_TOUCHSTART, '.resize-icon', function (e) {
                     console.log('mousedown .resize-icon is detected.');
@@ -550,6 +578,7 @@
                     if (e.button != 1) {
                         e.stopPropagation();
                         $(this).parents('.flip-wrapper').toggleClass('active');
+
                         if ($(this).parents('.flip-wrapper').hasClass('active')) {
                             $(file.fileId + ' .is-flipped').addClass('flipped');
 
@@ -569,6 +598,7 @@
                     if (e.button != 1) {
                         e.stopPropagation();
                         $(this).parents('.trash-wrapper').toggleClass('active');
+
                         if ($(this).parents('.trash-wrapper').hasClass('active')) {
                             $(file.fileId).remove();
                         }
@@ -579,6 +609,13 @@
             };
             clickedIcon();
 
+
+        };
+        configFlgs();
+
+
+        // Execute if flags are true
+        const main = function () {
             // Allow events when flags are in specific values
             $(document).on(EVENTNAME_TOUCHMOVE, function (e) {
                 // Prevent from the default drag events
@@ -614,7 +651,7 @@
                     }
 
 
-                    if (mousewheel_avail_flg == false && glFlgs.canvas.resize_flg == false && glFlgs.canvas.rotate_flg == false) {
+                    if (mousewheel_avail_flg == false && glFlgs.canvas.thumbtack_flg == false && glFlgs.canvas.resize_flg == false && glFlgs.canvas.rotate_flg == false) {
                         if (glFlgs.canvas.drag_flg == true) {
 
                             if (glFlgs.colpick.active_spuit_flg == false && glFlgs.colpick.move_circle_flg == false) {
@@ -691,7 +728,7 @@
                                 'left': ((file.fileIdPos.left - $('#zoom').offset().left) * mouseWheelVal + (clientX - file.fileIdPos.left) * mouseWheelVal) + 'px',
                                 'width': file.fileIdWidth - (clientX - file.fileIdPos.left) * mouseWheelVal + 'px',
                             });
-                            console.log('mousedown is called');
+                            // console.log('mousedown is called');
                         }
 
 

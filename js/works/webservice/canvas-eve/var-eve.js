@@ -88,6 +88,7 @@ const glFlgs = {
         'rotate_flg': false,
         'mousedown_flg': false,
         'resize_flg': false,
+        'thumbtack_flg': false,
         're': {
             'left_top_flg': false,
             'right_top_flg': false,

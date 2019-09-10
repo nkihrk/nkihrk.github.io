@@ -52,7 +52,7 @@
 
             // model
             var loader = new THREE.FBXLoader();
-            loader.load('/js/works/webservice/canvas-eve/three/model/fbx/oka_miko.fbx', function (object) {
+            loader.load('/js/works/webservice/canvas-eve/three/model/fbx/miko/oka_miko.fbx', function (object) {
 
                 mixer = new THREE.AnimationMixer(object);
 
@@ -63,7 +63,7 @@
 
                     if (child.isMesh) {
 
-                        child.castShadow = true;
+                        // child.castShadow = true;
                         child.receiveShadow = true;
 
                     }
@@ -94,12 +94,38 @@
             // stats
             stats = new Stats();
             // glsl.appendChild(stats.dom);
+
+
+            $(document).on(EVENTNAME_TOUCHMOVE, function (e) {
+                // Resize its size according to #glsl
+                if (glFlgs.canvas.re.left_top_flg == true || glFlgs.canvas.re.right_top_flg == true || glFlgs.canvas.re.right_bottom_flg == true || glFlgs.canvas.re.left_bottom_flg == true) {
+                    setTimeout(function () {
+                        renderer.setSize($('#glsl').width(), $('#glsl').width());
+                    }, 1);
+                }
+            });
+
+            $(document).on(EVENTNAME_TOUCHMOVE, '.file-wrap', function () {
+                // Check whether it is pinned or not
+                if ($(this).find('.thumbtack-wrapper').hasClass('active')) {
+                    // $('#glsl').find('canvas').removeClass('pointer-events-none');
+                    controls.enabled = true;
+                    // controls.enableZoom = false;
+                } else {
+                    // $('#glsl').find('canvas').addClass('pointer-events-none');
+                    controls.enabled = false;
+                }
+            });
+
+            $(document).on(EVENTNAME_TOUCHEND, function () {
+                renderer.setSize($('#glsl').width(), $('#glsl').width());
+            });
         }
 
         function onWindowResize() {
 
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.aspect = window.innerWidth / window.innerHeight;
+            // camera.aspect = window.innerWidth / window.innerHeight;
+            camera.aspect = 1;
             camera.updateProjectionMatrix();
 
             renderer.setSize(window.innerWidth, window.innerHeight);

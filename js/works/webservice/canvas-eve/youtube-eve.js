@@ -113,6 +113,7 @@
                                     ';';
                                 assertFile = '<div id="' + newFile.id + '" class="grab-pointer file-wrap limit-size" style="' + childStyle + '">' +
                                     '<div class="function-wrapper">' +
+                                    '<div class="thumbtack-wrapper"></div>' +
                                     '<div class="resize-wrapper"></div>' +
                                     '<div class="rotate-wrapper"></div>' +
                                     '<div class="flip-wrapper"></div>' +
@@ -166,6 +167,7 @@
                                         ';';
                                     assertFile = '<div id="' + newFile.id + '" class="grab-pointer file-wrap limit-size" style="' + childStyle + '">' +
                                         '<div class="function-wrapper">' +
+                                        '<div class="thumbtack-wrapper"></div>' +
                                         '<div class="resize-wrapper"></div>' +
                                         '<div class="rotate-wrapper"></div>' +
                                         '<div class="flip-wrapper"></div>' +
