@@ -50,29 +50,127 @@
             grid.material.transparent = true;
             // scene.add(grid);
 
-            // model
-            var loader = new THREE.FBXLoader();
-            loader.load('/js/works/webservice/canvas-eve/three/model/fbx/miko/oka_miko.fbx', function (object) {
 
-                mixer = new THREE.AnimationMixer(object);
+            // The canvas-eve-wrapper area to paste
+            const canvasEveWrap = document.getElementById("canvas-eve-wrapper");
+            canvasEveWrap.addEventListener('dragover', handleDragEvent, false);
+            canvasEveWrap.addEventListener('drop', handleDropEvent, false);
 
-                // var action = mixer.clipAction(object.animations[0]);
-                // action.play();
+            function handleDragEvent(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.dataTransfer.dropEffect = 'copy';
+                // Not clear why this will help. Should have to reset pointer-events, but still works fine
+                $('iframe').css('pointer-events', 'none');
+            }
 
-                object.traverse(function (child) {
+            function handleDropEvent(e) {
+                e.stopPropagation();
+                e.preventDefault();
 
-                    if (child.isMesh) {
+                const files = e.dataTransfer.files;
+                console.log('files', files);
 
-                        // child.castShadow = true;
-                        child.receiveShadow = true;
+                var rootFileName;
+                var filePath;
+                var baseURL;
 
+                console.log('Array.from(files)', Array.from(files));
+
+                var blobs = {};
+                var objectURLs = [];
+                Array.from(files).forEach((file) => {
+                    if (file.name.match(/\.(fbx)$/)) {
+                        filePath = URL.createObjectURL(file);
+                        baseURL = THREE.LoaderUtils.extractUrlBase(filePath).toString();
+                        rootFileName = filePath.replace(baseURL, '');
+                        blobs[rootFileName] = file;
+                        // rootPath = path.replace(file.name, '');
+                        // console.log('rootFile', rootFile, 'filePath', filePath);
+                        console.log('blobs', blobs, 'baseURL', baseURL);
+
+                    } else {
+                        blobs[file.name] = file;
+                        console.log('blobs', blobs);
                     }
+                });
+
+
+                var manager = new THREE.LoadingManager();
+                // Initialize loading manager with URL callback.
+                manager.setURLModifier((url) => {
+
+                    var fileName = url.replace(baseURL, '');
+                    console.log('url', url, 'fileName', fileName, 'blobs[fileName]', blobs[fileName]);
+
+                    url = URL.createObjectURL(blobs[fileName]);
+
+                    // if (url.match(/\.(fbx)$/)) {
+                    //     rootFile = URL.createObjectURL(url);
+                    //     console.log('rootFile', rootFile);
+                    // } else {
+
+                    // }
+
+                    // url = URL.createObjectURL(url);
+
+                    // objectURLs.push(url);
+
+                    console.log('url', url);
+
+
+                    return url;
 
                 });
 
-                scene.add(object);
 
-            });
+                // manager.onStart = function (url, itemsLoaded, itemsTotal) {
+                //     console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+                // };
+
+                // manager.onLoad = function () {
+                //     console.log('Loading complete!');
+                // };
+
+
+                // manager.onProgress = function (url, itemsLoaded, itemsTotal) {
+                //     console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+                // };
+
+                // manager.onError = function (url) {
+                //     console.log('There was an error loading ' + url);
+                // };
+
+
+                // model
+                var loader = new THREE.FBXLoader(manager);
+                loader.load(filePath, function (object) {
+                    // loader.load('/js/works/webservice/canvas-eve/three/model/fbx/miko/oka_miko.fbx', function (object) {
+
+                    mixer = new THREE.AnimationMixer(object);
+
+                    // var action = mixer.clipAction(object.animations[0]);
+                    // action.play();
+
+                    object.traverse(function (child) {
+
+                        if (child.isMesh) {
+
+                            // child.castShadow = true;
+                            child.receiveShadow = true;
+
+                        }
+
+                    });
+
+                    scene.add(object);
+
+                    objectURLs.forEach((url) => URL.revokeObjectURL(url));
+
+                });
+            }
+
+            //
 
             renderer = new THREE.WebGLRenderer({
                 antialias: true,
