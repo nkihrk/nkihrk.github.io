@@ -229,6 +229,12 @@ input[type=checkbox]:checked~.expand:before {
         padding-bottom: 0px;
     }
 
+    /* Don`t forget to add .content-x when adding new columns */
+    .content-illustration,
+    .content-shader {
+        width: 100%;
+    }
+
     .dot-line-intro {
         visibility: hidden;
     }
