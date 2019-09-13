@@ -170,7 +170,7 @@
             var totalProg = 0;
             var iterate = 0;
             const readAndPreview = function (file) {
-                if (/\.(jpe?g|png|gif|svg|psd)$/i.test(file.name)) {
+                if (/\.(jpe?g|png|gif|svg|psd|bmp)$/i.test(file.name)) {
                     const fileReader = function (file) {
                         return new Promise(function (resolve, reject) {
                             var reader = new FileReader();
@@ -291,7 +291,16 @@
                 }
             };
             if (files.length > 0) {
-                [].forEach.call(files, readAndPreview);
+                // Disable texture loading when it is a model
+                var fbxFlag = false;
+                Array.from(files).forEach((file) => {
+                    if (file.name.match(/\.(fbx)$/)) {
+                        fbxFlag = true;
+                    }
+                });
+                if (fbxFlag == false) {
+                    [].forEach.call(files, readAndPreview);
+                }
             } else {
                 return;
             }
