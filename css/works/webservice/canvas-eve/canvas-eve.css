@@ -114,7 +114,7 @@ video:focus {
 
 /* Make it transparent at first when a drop event is called. dnd-eve.js  */
 .file-wrap.transparent {
-    opacity: 0;
+    /* opacity: 0; */
 }
 
 /* Prefix for canvas. colpick-eve.js */

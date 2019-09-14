@@ -57,7 +57,7 @@
             transition: all .1s ease-in-out;
         }
 
-        #glsl .selected {
+        .glsl .selected {
             z-index: -1;
         }
 
@@ -81,7 +81,7 @@
 
     <div id="canvas-eve-wrapper" style="position: fixed; z-index: -1;">
 
-        <!-- dnd-eve.js -->
+        <!-- add-eve.js -->
         <div id="progress-bar" style="position: absolute; z-index: 4;"></div>
 
         <div id="footer" class="bold agency-fb" style="position: absolute; z-index: 3;">2019 © NkiHrk</div>
@@ -93,21 +93,6 @@
 
                     <!-- For inserting elements only -->
                     <div id="add-files">
-
-                        <div id="glsl" class="grab-pointer file-wrap" style="z-index: 0;">
-                            <div class="function-wrapper">
-                                <div class="thumbtack-wrapper"></div>
-                                <div class="resize-wrapper"></div>
-                                <div class="rotate-wrapper"></div>
-                                <div class="flip-wrapper"></div>
-                                <div class="trash-wrapper"></div>
-                            </div>
-                            <div id="add-glsl" class="is-flipped">
-
-                                <!-- Add anything here -->
-
-                            </div>
-                        </div>
 
                     </div><!-- #add-files -->
 
@@ -132,7 +117,7 @@
     <script src="/js/works/webservice/canvas-eve/var-eve.js"></script>
     <script src="/js/common/config.js"></script>
     <script src="/js/works/webservice/canvas-eve/canvas-eve.js"></script>
-    <script src="/js/works/webservice/canvas-eve/dnd-eve.js"></script>
+    <script src="/js/works/webservice/canvas-eve/add-eve.js"></script>
     <script src="/js/works/webservice/canvas-eve/plain-eve.js"></script>
     <script src="/js/works/webservice/canvas-eve/zoom-eve.js"></script>
     <script src="/js/works/webservice/canvas-eve/youtube-eve.js"></script>

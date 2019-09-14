@@ -77,6 +77,9 @@ var newFile = {
     'id': 0,
 };
 
+// A current selected .file-wrap
+var currentId = null;
+
 // Global flags
 const glFlgs = {
     'config': {

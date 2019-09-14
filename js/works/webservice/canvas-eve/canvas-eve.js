@@ -230,6 +230,8 @@
                         if (glFlgs.canvas.drag_flg == false) {
                             file.fileId = '#' + $(this).attr('id');
                             file.$fileId = $(file.fileId);
+                            // Global value for the selected ID
+                            currentId = $(this).attr('id');
                             console.log('id : ' + $(this).attr('id'));
 
                             file.fileIdWidth = file.$fileId.outerWidth();
