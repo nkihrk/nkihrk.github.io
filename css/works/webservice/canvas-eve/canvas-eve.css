@@ -58,7 +58,8 @@ video:focus {
 
 #canvas-eve,
 #canvas-eve-wrapper {
-    background-color: #32303f;
+    /* Disable it to show glsl canvas */
+    /* background-color: #32303f; */
 }
 
 /* Change a mouse pointer to a grabbing */

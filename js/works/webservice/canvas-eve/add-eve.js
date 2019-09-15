@@ -1,7 +1,7 @@
 (function ($) {
 
     const initFileEve = {
-        fileReader: function (file, mousePos, progSet, PSD) {
+        fileReader: (file, mousePos, progSet, PSD) => {
 
             read(file).then(function (img) {
                 initFileEve.readerPromise(img, mousePos, progSet);
@@ -60,9 +60,9 @@
                     };
                     reader.onerror = reject;
                     if (/\.(psd)$/i.test(file.name)) {
-                        return reader.readAsArrayBuffer(file);
+                        reader.readAsArrayBuffer(file);
                     } else {
-                        return reader.readAsDataURL(file);
+                        reader.readAsDataURL(file);
                     }
                 });
             };
@@ -72,7 +72,7 @@
         //
 
 
-        blobReader: function (file, mousePos, progSet) {
+        blobReader: (file, mousePos, progSet) => {
 
             read(file).then(function (img) {
                 initFileEve.readerPromise(img, mousePos, progSet);
@@ -124,7 +124,7 @@
         //
 
 
-        readerPromise: function (img, mousePos, progSet) {
+        readerPromise: (img, mousePos, progSet) => {
             newFile.id += 1;
             HIGHEST_Z_INDEX += 1;
 
@@ -136,7 +136,7 @@
             // const resTag = /\.(jpe?g|png|gif|svg)$/i.test(file.name) ? imgTag : videoTag;
             const canvas = '<canvas class="canvas-colpick"></canvas>';
             const funcTags = '<div class="thumbtack-wrapper"></div><div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>';
-            const assertFile = '<div id ="' + newFile.id + '" class="file-wrap transparent" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="is-flipped">' + canvas + '</div></div>';
+            const assertFile = '<div id ="' + newFile.id + '" class="file-wrap transparent" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="eve-main is-flipped">' + canvas + '</div></div>';
             $('#add-files').append(assertFile);
 
 
@@ -172,7 +172,7 @@
             }
 
 
-            $('#' + newFile.id + ' .is-flipped').prepend(img);
+            $('#' + newFile.id + ' .eve-main').prepend(img);
 
 
             if (progSet.iterate == progSet.fileCount) {
@@ -186,7 +186,7 @@
         //
 
 
-        handleDragEvent: function (e) {
+        handleDragEvent: (e) => {
             e.preventDefault();
             e.stopPropagation();
             e.dataTransfer.dropEffect = 'copy';
@@ -207,7 +207,7 @@
         //
 
 
-        handlePasteEvent: function (e) {
+        handlePasteEvent: (e) => {
             var file = null;
             var items = (e.clipboardData || e.originalEvent.clipboardData).items;
             for (let i = 0; i < items.length; i++) {
@@ -258,7 +258,7 @@
         //
 
 
-        handleDropEvent: function (e) {
+        handleDropEvent: (e) => {
             e.stopPropagation();
             e.preventDefault();
 

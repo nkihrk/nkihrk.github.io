@@ -61,6 +61,19 @@
             z-index: -1;
         }
 
+        .glsl .eve-main {
+            width: 598px;
+            height: 598px;
+        }
+
+        #c {
+            position: absolute;
+            z-index: -1;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
         /* #glsl canvas {
             pointer-events: none;
         } */
@@ -85,6 +98,9 @@
         <div id="progress-bar" style="position: absolute; z-index: 4;"></div>
 
         <div id="footer" class="bold agency-fb" style="position: absolute; z-index: 3;">2019 © NkiHrk</div>
+
+        <!-- Compute its outputs of three.js -->
+        <canvas id="c"></canvas>
 
 
         <div id="canvas-eve" style="position: fixed; z-index: 0;">
@@ -131,8 +147,8 @@
     <script src="/js/works/webservice/canvas-eve/three/module/GLTFLoader.js"></script>
     <script src="/js/works/webservice/canvas-eve/three/module/OBJLoader.js"></script>
     <script src="/js/works/webservice/canvas-eve/three/module/OrbitControls.js"></script>
-    <!-- <script src="/js/works/webservice/canvas-eve/three-eve.js"></script> -->
-    <script src="/js/works/webservice/canvas-eve/three/test/test_three.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three-eve.js"></script>
+    <!-- <script src="/js/works/webservice/canvas-eve/three/test/test_three.js"></script> -->
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-101863956-2"></script>

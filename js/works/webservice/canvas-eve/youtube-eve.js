@@ -119,7 +119,7 @@
                                     '<div class="flip-wrapper"></div>' +
                                     '<div class="trash-wrapper"></div>' +
                                     '</div>' +
-                                    '<div class="is-flipped" style="width: 100%;">' +
+                                    '<div class="eve-main is-flipped" style="width: 100%;">' +
                                     '<div class="tab-block-youtube" style="position: relative;">' +
                                     '<div class="fix-top-border">' +
                                     '<div class="ellipsis tab-youtube bold agency-fb">' +
@@ -173,7 +173,7 @@
                                         '<div class="flip-wrapper"></div>' +
                                         '<div class="trash-wrapper"></div>' +
                                         '</div>' +
-                                        '<div class="is-flipped" style="width: 100%;">' +
+                                        '<div class="eve-main is-flipped" style="width: 100%;">' +
                                         '<div class="tab-block-youtube" style="position: relative;">' +
                                         '<div class="fix-top-border">' +
                                         '<div class="ellipsis tab-youtube bold agency-fb">' +
