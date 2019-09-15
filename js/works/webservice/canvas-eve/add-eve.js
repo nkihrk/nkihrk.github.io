@@ -198,7 +198,7 @@
         //
 
 
-        paste: function () {
+        paste: () => {
             const canvasEveWrap = document.getElementById("canvas-eve-wrapper");
             canvasEveWrap.addEventListener('paste', initFileEve.handlePasteEvent, false);
         },
@@ -236,9 +236,9 @@
 
             const PSD = require('psd');
 
-            if (/\.(psd)$/i.test(file.name)) {
+            if (initFileEve.isSupported.fileReader(file.name)) {
                 initFileEve.fileReader(file, mousePos, progSet, PSD);
-            } else if (/\.(jpe?g|png|gif|svg|bmp)$/i.test(file.name)) {
+            } else if (initFileEve.isSupported.blobReader(file.name)) {
                 initFileEve.blobReader(file, mousePos, progSet);
             }
         },
@@ -247,7 +247,7 @@
         //
 
 
-        drop: function () {
+        drop: () => {
             // The canvas-eve-wrapper area to paste
             const canvasEveWrap = document.getElementById("canvas-eve-wrapper");
             canvasEveWrap.addEventListener('dragover', initFileEve.handleDragEvent, false);
@@ -303,9 +303,9 @@
                 if (fbx_flg == false) {
                     for (var i in files) {
                         if (i < progSet.fileCount) {
-                            if (/\.(psd)$/i.test(files[i].name)) {
+                            if (initFileEve.isSupported.fileReader(files[i].name)) {
                                 initFileEve.fileReader(files[i], mousePos, progSet, PSD);
-                            } else if (/\.(jpe?g|png|gif|svg|bmp)$/i.test(files[i].name)) {
+                            } else if (initFileEve.isSupported.blobReader(files[i].name)) {
                                 initFileEve.blobReader(files[i], mousePos, progSet);
                             }
                             console.log('i', i, 'files[i]', files[i]);
@@ -315,15 +315,26 @@
             } else {
                 return;
             }
+        },
+
+
+        //
+
+
+        isSupported: {
+            fileReader: (fileName) => {
+                return /\.(psd)$/i.test(fileName);
+            },
+
+            blobReader: (fileName) => {
+                return /\.(jpe?g|png|gif|svg|bmp)$/i.test(fileName);
+            }
         }
     };
 
 
-    const executed = () => {
-        initFileEve.paste();
-        initFileEve.drop();
-    };
-    executed();
+    initFileEve.paste();
+    initFileEve.drop();
 
 
 })(jQuery);

@@ -4,8 +4,6 @@
 
         var clock = new THREE.Clock();
 
-        var mixer;
-
         init();
 
 
@@ -169,6 +167,7 @@
 
 
                         // model
+                        var mixer;
                         var loader = new THREE.FBXLoader(manager);
                         loader.load(filePath, function (object) {
                             mixer = new THREE.AnimationMixer(object);
@@ -247,7 +246,7 @@
                         controls.target.set(0, 90, 0);
                         controls.update();
 
-                        animate();
+                        animate(renderer, mixer, scene, camera);
 
                     }
                 });
@@ -256,7 +255,7 @@
         }
 
 
-        function animate() {
+        function animate(renderer, mixer, scene, camera) {
             requestAnimationFrame(animate);
             var delta = clock.getDelta();
             if (mixer) mixer.update(delta);
@@ -274,21 +273,21 @@
             }
         });
 
-        $(document).on(EVENTNAME_TOUCHEND, function () {
-            renderer.setSize($('#' + currentId).width(), $('#' + currentId).width());
-            console.log('currentId', currentId);
+        // $(document).on(EVENTNAME_TOUCHEND, function () {
+        //     renderer.setSize($('#' + currentId).width(), $('#' + currentId).width());
+        //     console.log('currentId', currentId);
 
-        });
+        // });
 
-        $(document).on(EVENTNAME_TOUCHMOVE, '.file-wrap', function () {
-            // Check whether it is pinned or not
-            if ($(this).find('.thumbtack-wrapper').hasClass('active')) {
-                controls.enabled = true;
-                // controls.enableZoom = false;
-            } else {
-                controls.enabled = false;
-            }
-        });
+        // $(document).on(EVENTNAME_TOUCHMOVE, '.file-wrap', function () {
+        //     // Check whether it is pinned or not
+        //     if ($(this).find('.thumbtack-wrapper').hasClass('active')) {
+        //         controls.enabled = true;
+        //         // controls.enableZoom = false;
+        //     } else {
+        //         controls.enabled = false;
+        //     }
+        // });
 
 
     };
