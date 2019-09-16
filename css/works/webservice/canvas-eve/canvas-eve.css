@@ -16,6 +16,35 @@ video:focus {
     pointer-events: none;
 }
 
+
+/*———————————————————————————————————————————————————————
+
+GLSL
+
+—————————————————————————————————————————————————————————*/
+
+/* A multiple rendering canvas */
+#c {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* To make OrbirControls work */
+.glsl .selected {
+    z-index: -1;
+}
+
+/* initialize the size */
+.glsl .eve-main {
+    display: block;
+    height: 0;
+    width: 100%;
+    padding-bottom: 100%;
+}
+
+
 /*———————————————————————————————————————————————————————
 
 #canvas-eve-wrapper / #canvas-eve

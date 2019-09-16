@@ -844,7 +844,7 @@ THREE.OrbitControls = function (object, domElement) {
 
 						if (scope.enableZoom === false) return;
 
-						// handleMouseDownDolly( event );
+						// handleMouseDownDolly(event);
 
 						// state = STATE.DOLLY;
 						// To disable this action

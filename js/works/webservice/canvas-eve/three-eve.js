@@ -42,7 +42,6 @@
             function read() {
                 return new Promise(function (resolve, reject) {
                     var rootFileName, rootFilePath;
-                    var fileName, filePath;
                     var baseURL;
 
                     var blobs = {},
@@ -103,9 +102,6 @@
                             progSet.progress.classList.remove('loading');
                         }, 1000);
 
-                        setTimeout(function () {
-                            $('div').removeClass('transparent');
-                        }, 1000);
                         console.log('------------------------------------------');
                     };
 
@@ -134,8 +130,8 @@
             HIGHEST_Z_INDEX += 1;
 
 
-            const funcTags = '<div class="thumbtack-wrapper"></div><div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>';
-            const assertFile = '<div id ="' + newFile.id + '" class="glsl file-wrap transparent" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="eve-main is-flipped"></div></div>';
+            const funcTags = '<div class="thumbtack-wrapper"></div><div class="resize-wrapper"></div><div class="trash-wrapper"></div>';
+            const assertFile = '<div id ="' + newFile.id + '" class="glsl file-wrap" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="eve-main"></div></div>';
             $('#add-files').append(assertFile);
 
 
@@ -269,7 +265,8 @@
             renderer = new THREE.WebGLRenderer({
                 canvas: canvas,
                 antialias: true,
-                alpha: true
+                alpha: true,
+                preserveDrawingBuffer: true
             });
             renderer.setClearColor(0x000000, 0);
             renderer.setPixelRatio(window.devicePixelRatio);
@@ -291,6 +288,9 @@
 
             var controls = new THREE.OrbitControls(scene.userData.camera, scene.userData.element);
             controls.target.set(0, 90, 0);
+            // controls.enableZoom = false;
+            controls.enableKeys = false;
+            controls.screenSpacePanning = true;
             controls.update();
             scene.userData.controls = controls;
 
@@ -319,13 +319,37 @@
 
 
         updateSize: () => {
-            var width = canvas.clientWidth;
-            var height = canvas.clientHeight;
+            var cWidth = canvas.clientWidth;
+            var cHeight = canvas.clientHeight;
 
-            if (canvas.width !== width || canvas.height !== height) {
+            if (canvas.width !== cWidth || canvas.height !== cHeight) {
+                renderer.setSize(cWidth, cHeight, false);
+            }
+        },
 
-                renderer.setSize(width, height, false);
 
+        //
+
+
+        renderImg: (element) => {
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+
+            var rect = element.getBoundingClientRect();
+
+            var width = rect.right - rect.left;
+            var height = rect.bottom - rect.top;
+            var left = rect.left;
+            var top = rect.top;
+
+            canvas.setAttribute('width', width);
+            canvas.setAttribute('height', height);
+
+            var img = new Image();
+            img.src = renderer.domElement.toDataURL();
+            img.onload = function () {
+                ctx.drawImage(img, left, top, width, height);
+                element.innerHTML = img;
             }
         },
 
@@ -340,15 +364,15 @@
             renderer.clear(true, true);
             renderer.setScissorTest(true);
 
-
             scenes.forEach(function (scene) {
 
                 var element = scene.userData.element;
 
                 var controls = scene.userData.controls;
+                controls.rotateSpeed = 1 * mouseWheelVal;
+                controls.panSpeed = 1 * mouseWheelVal;
                 if ($('#' + currentId).find('.thumbtack-wrapper').hasClass('active')) {
                     controls.enabled = true;
-                    // controls.enableZoom = false;
                 } else {
                     controls.enabled = false;
                 }
@@ -373,7 +397,7 @@
                 var camera = scene.userData.camera;
 
                 renderer.render(scene, camera);
-
+                renderer.autoClear = false;
             });
         }
     };
