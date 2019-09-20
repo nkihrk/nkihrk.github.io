@@ -345,6 +345,7 @@
                 progSet.progress.style.width = '100%';
                 setTimeout(function () {
                     progSet.progress.classList.remove('loading');
+                    $('div').remove('.hide-scissor');
                 }, 1000);
 
                 console.log('------------------------------------------');
@@ -371,6 +372,14 @@
             const funcTags = '<div class="thumbtack-wrapper"></div><div class="resize-wrapper"></div><div class="trash-wrapper"></div>';
             const assertFile = '<div id ="' + newFile.id + '" class="glsl file-wrap" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="eve-main"></div></div>';
             $('#add-files').append(assertFile);
+
+
+            const hide = $('<div class="hide-scissor"></div>').css({
+                'left': mousePos.left * mouseWheelVal - 600 / 2 + 'px',
+                'top': mousePos.top * mouseWheelVal - 600 / 2 + 'px',
+                'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
+            });
+            $('#add-files').append(hide);
 
 
             const fileId = '#' + newFile.id;
@@ -525,18 +534,6 @@
             var scene = new THREE.Scene();
 
             scene.userData.element = document.getElementById(newFileId).getElementsByClassName('eve-main')[0];
-
-            // var camera = new THREE.PerspectiveCamera(40, 1, 1, 20000);
-            // camera.position.set(0, 100, 300);
-            // scene.userData.camera = camera;
-
-            // var controls = new THREE.OrbitControls(scene.userData.camera, scene.userData.element);
-            // controls.target.set(0, 90, 0);
-            // // controls.enableZoom = false;
-            // controls.enableKeys = false;
-            // controls.screenSpacePanning = true;
-            // controls.update();
-            // scene.userData.controls = controls;
 
             scene.add(new THREE.HemisphereLight(0xaaaaaa, 0x444444));
 

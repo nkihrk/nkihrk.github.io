@@ -44,6 +44,14 @@ GLSL
     padding-bottom: 100%;
 }
 
+.hide-scissor {
+    position: absolute;
+    z-index: -999;
+    width: 600px;
+    height: 600px;
+    background-color: #32303f;
+}
+
 
 /*———————————————————————————————————————————————————————
 
