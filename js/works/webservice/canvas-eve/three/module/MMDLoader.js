@@ -1299,6 +1299,7 @@ THREE.MMDLoader = (function () {
 
 			var fullPath;
 
+
 			if (params.isDefaultToonTexture === true) {
 
 				var index;
@@ -1306,6 +1307,8 @@ THREE.MMDLoader = (function () {
 				try {
 
 					index = parseInt(filePath.match('toon([0-9]{2})\.bmp$')[1]);
+					console.log('index', index);
+
 
 				} catch (e) {
 
@@ -1317,12 +1320,19 @@ THREE.MMDLoader = (function () {
 				}
 
 				fullPath = DEFAULT_TOON_TEXTURES[index];
+				console.log('this.resourcePath', this.resourcePath, 'filePath', filePath, 'fullPath', fullPath);
+
 
 			} else {
 
-				fullPath = this.resourcePath + filePath;
+				// fullPath = this.resourcePath + filePath;
+				fullPath = this.resourcePath + filePath.split('\\').slice(-1)[0];;
+				console.log('this.resourcePath', this.resourcePath, 'filePath', filePath, 'fullPath', fullPath);
 
 			}
+
+			console.log('textures[fullPath]', textures[fullPath]);
+
 
 			if (textures[fullPath] !== undefined) return textures[fullPath];
 
