@@ -1,4 +1,7 @@
 (function (window, $) {
+    //
+    // Model`s directories => /js/works/webservice/canvas-eve/three/model/
+    //
 
     var scenes = [],
         renderer;
@@ -7,22 +10,111 @@
 
 
     const loaderEve = {
-        FBXLoader: (manager, rootFilePath, scene, blobURLs) => {
+
+        OBJLoader: (manager, rootFilePath, scene, materials) => {
+            var loader = new THREE.OBJLoader(manager);
+            loader.setMaterials(materials);
+            loader.load(
+
+                rootFilePath,
+
+                function (obj) {
+
+                    obj.traverse(function (child) {
+                        if (child.isMesh) {
+                            // child.material.map = texture;
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                        }
+                    });
+                    scene.add(obj);
+
+                }
+
+            );
+        },
+
+
+        //
+
+
+        MTLLoader: (manager, rootFilePath, scene, mtlFilePath) => {
+            var mtlLoader = new THREE.MTLLoader();
+            mtlLoader.load(
+
+                mtlFilePath,
+
+                function (materials) {
+
+                    materials.preload();
+                    materials.materials.default.map.magFilter = THREE.NearestFilter;
+                    materials.materials.default.map.minFilter = THREE.LinearFilter;
+
+                    loaderEve.OBJLoader(manager, rootFilePath, scene, materials);
+
+                }
+
+            );
+        },
+
+
+        //
+
+
+        FBXLoader: (manager, rootFilePath, scene) => {
             var loader = new THREE.FBXLoader(manager);
-            loader.load(rootFilePath, function (object) {
+            loader.load(
 
-                object.traverse(function (child) {
-                    if (child.isMesh) {
-                        child.castShadow = true;
-                        child.receiveShadow = true;
-                    }
-                });
+                rootFilePath,
 
-                scene.add(object);
-                // blobURLs.forEach((url) => URL.revokeObjectURL(url));
+                function (fbx) {
 
-            });
-        }
+                    fbx.traverse(function (child) {
+                        if (child.isMesh) {
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            child.material.transparent = false;
+                            child.material.alphaTest = 0.5;
+                        }
+                    });
+
+                    scene.add(fbx);
+                    // blobURLs.forEach((url) => URL.revokeObjectURL(url));
+
+                }
+
+            );
+        },
+
+
+        //
+
+
+        MMDLoader: (manager, rootFilePath, scene, modelFormat) => {
+            var loader = new THREE.MMDLoader(manager);
+            loader.modelFormat = modelFormat;
+            loader.load(
+
+                rootFilePath,
+
+                function (mmd) {
+
+                    // mmd.traverse(function (child) {
+                    //     if (child.isMesh) {
+                    //         child.castShadow = true;
+                    //         child.receiveShadow = true;
+                    //         child.material.transparent = false;
+                    //         child.material.alphaTest = 0.5;
+                    //     }
+                    // });
+
+                    scene.add(mmd);
+                    // blobURLs.forEach((url) => URL.revokeObjectURL(url));
+
+                }
+
+            );
+        },
 
 
     };
@@ -30,8 +122,7 @@
 
     const readFileEve = {
 
-        // To visualize current loading state
-        blobReader: (files, mousePos, progSet) => {
+        OBJReader: (files, mousePos, progSet) => {
 
             read().then(function () {
                 // readFileEve.readerPromise(progSet);
@@ -42,18 +133,25 @@
             function read() {
                 return new Promise(function (resolve, reject) {
                     var rootFileName, rootFilePath;
+                    var mtlFileName, mtlFilePath;
                     var baseURL;
 
                     var blobs = {},
                         blobURLs = [];
 
                     Array.from(files).forEach((file) => {
-                        if (readFileEve.isSupported(file.name)) {
+                        if (/\.(obj)$/i.test(file.name)) {
                             rootFilePath = URL.createObjectURL(file);
                             baseURL = THREE.LoaderUtils.extractUrlBase(rootFilePath);
                             rootFileName = rootFilePath.replace(baseURL, '');
                             blobs[rootFileName] = file;
                             console.log('blobs', blobs, 'baseURL', baseURL);
+                        } else if (/\.(mtl)$/i.test(file.name)) {
+                            mtlFilePath = URL.createObjectURL(file);
+                            baseURL = THREE.LoaderUtils.extractUrlBase(mtlFilePath);
+                            mtlFileName = mtlFilePath.replace(baseURL, '');
+                            blobs[mtlFileName] = file;
+                            console.log('blobs', blobs);
                         } else {
                             blobs[file.name] = file;
                             console.log('blobs', blobs);
@@ -113,11 +211,179 @@
 
                     var id = readFileEve.addFileWrap(mousePos);
                     var scene = threeEve.setScene(id);
-                    loaderEve.FBXLoader(manager, rootFilePath, scene, blobURLs);
+
+
+                    // loaderEve.OBJLoader(manager, rootFilePath, scene);
+                    loaderEve.MTLLoader(manager, rootFilePath, scene, mtlFilePath);
+
 
                 });
             };
 
+
+        },
+
+
+        //
+
+
+        FBXReader: (files, mousePos, progSet) => {
+            var rootFileName, rootFilePath;
+            var baseURL;
+
+            var blobs = {};
+
+            Array.from(files).forEach((file) => {
+                if (/\.(fbx)$/i.test(file.name)) {
+                    rootFilePath = URL.createObjectURL(file);
+                    baseURL = THREE.LoaderUtils.extractUrlBase(rootFilePath);
+                    rootFileName = rootFilePath.replace(baseURL, '');
+                    blobs[rootFileName] = file;
+                    console.log('blobs', blobs, 'baseURL', baseURL);
+                } else {
+                    blobs[file.name] = file;
+                    console.log('blobs', blobs);
+                }
+            });
+
+
+            var manager = new THREE.LoadingManager();
+            manager.setURLModifier((url) => {
+                var n = url.replace(baseURL, '');
+                url = URL.createObjectURL(blobs[n]);
+
+                console.log('url', url, 'fileName', n, 'blobs[n]', blobs[n]);
+                return url;
+            });
+
+
+            manager.onStart = function (url, itemsLoaded, itemsTotal) {
+                console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+
+                if (progSet.iterate == 0) {
+                    progSet.progress.classList.add('loading');
+                }
+            };
+
+            manager.onProgress = function (url, itemsLoaded, itemsTotal) {
+                console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+
+                progSet.iterate++;
+                console.log('progSet.iterate', progSet.iterate);
+
+                if (progSet.iterate < progSet.fileCount) {
+                    progSet.totalProg = progSet.eachProg * progSet.iterate;
+                    progSet.progress.style.width = progSet.totalProg + '%';
+                    console.log('progSet.totalProg', progSet.totalProg);
+                }
+            };
+
+            manager.onLoad = function () {
+                console.log('Loading complete!');
+
+                progSet.progress.style.width = '100%';
+                setTimeout(function () {
+                    progSet.progress.classList.remove('loading');
+                }, 1000);
+
+                console.log('------------------------------------------');
+            };
+
+            manager.onError = function (url) {
+                console.log('There was an error loading ' + url);
+            };
+
+
+            var id = readFileEve.addFileWrap(mousePos);
+            var scene = threeEve.setScene(id);
+
+
+            loaderEve.FBXLoader(manager, rootFilePath, scene);
+
+        },
+
+
+        //
+
+
+        MMDReader: (files, mousePos, progSet) => {
+            var rootFileName, rootFilePath;
+            var baseURL;
+            var modelFormat;
+
+            var blobs = {};
+
+            Array.from(files).forEach((file) => {
+                if (/\.(pmx|pmd)$/i.test(file.name)) {
+                    rootFilePath = URL.createObjectURL(file);
+                    baseURL = THREE.LoaderUtils.extractUrlBase(rootFilePath);
+                    rootFileName = rootFilePath.replace(baseURL, '');
+                    blobs[rootFileName] = file;
+                    modelFormat = file.name.split('.').slice(-1)[0];
+                    console.log('blobs', blobs, 'baseURL', baseURL, 'rootFilePath', rootFilePath);
+                } else {
+                    blobs[file.name] = file;
+                    console.log('blobs', blobs);
+                }
+            });
+
+
+            var manager = new THREE.LoadingManager();
+            manager.setURLModifier((url) => {
+                console.log('url', url);
+                console.log('---------------------------');
+
+                if (!url.match(/base64/)) {
+                    var n = url.replace(baseURL, '');
+                    url = URL.createObjectURL(blobs[n]);
+                }
+
+                // console.log('url', url, 'fileName', n, 'blobs[n]', blobs[n]);
+                return url;
+            });
+
+            manager.onStart = function (url, itemsLoaded, itemsTotal) {
+                console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+
+                if (progSet.iterate == 0) {
+                    progSet.progress.classList.add('loading');
+                }
+            };
+
+            manager.onProgress = function (url, itemsLoaded, itemsTotal) {
+                console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+
+                progSet.iterate++;
+                console.log('progSet.iterate', progSet.iterate);
+
+                if (progSet.iterate < progSet.fileCount) {
+                    progSet.totalProg = progSet.eachProg * progSet.iterate;
+                    progSet.progress.style.width = progSet.totalProg + '%';
+                    console.log('progSet.totalProg', progSet.totalProg);
+                }
+            };
+
+            manager.onLoad = function () {
+                console.log('Loading complete!');
+
+                progSet.progress.style.width = '100%';
+                setTimeout(function () {
+                    progSet.progress.classList.remove('loading');
+                }, 1000);
+
+                console.log('------------------------------------------');
+            };
+
+            manager.onError = function (url) {
+                console.log('There was an error loading ' + url);
+            };
+
+
+            var id = readFileEve.addFileWrap(mousePos);
+            var scene = threeEve.setScene(id);
+
+
+            loaderEve.MMDLoader(manager, rootFilePath, scene, modelFormat);
 
         },
 
@@ -159,21 +425,6 @@
 
             return newFile.id;
         },
-
-
-        //
-
-
-        // readerPromise: (progSet) => {
-
-        //     if (progSet.iterate == progSet.fileCount) {
-        //         setTimeout(function () {
-        //             $('div').removeClass('transparent');
-        //         }, 0);
-        //     }
-
-
-        // },
 
 
         //
@@ -233,14 +484,36 @@
 
             if (progSet.fileCount > 0) {
                 var supported_model_flg = false;
+                var modelFormat;
                 Array.from(files).forEach((file) => {
                     if (readFileEve.isSupported(file.name)) {
                         supported_model_flg = true;
+                        modelFormat = file.name.split('.').slice(-1)[0];
+                        console.log('modelFormat', modelFormat);
                     }
                 });
                 if (supported_model_flg == true) {
-                    readFileEve.blobReader(files, mousePos, progSet);
-                    console.log('files', files);
+
+                    switch (modelFormat) {
+                        case 'obj':
+                            readFileEve.OBJReader(files, mousePos, progSet);
+                            break;
+
+                        case 'fbx':
+                            readFileEve.FBXReader(files, mousePos, progSet);
+                            break;
+
+                        case 'pmx':
+                            readFileEve.MMDReader(files, mousePos, progSet);
+                            break;
+
+                        case 'pmd':
+                            readFileEve.MMDReader(files, mousePos, progSet);
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
             } else {
                 return;
@@ -252,7 +525,7 @@
 
 
         isSupported: (fileName) => {
-            return /\.(fbx)$/i.test(fileName);
+            return /\.(obj|fbx|pmx|pmd)$/i.test(fileName);
         }
 
     };
@@ -266,7 +539,6 @@
                 canvas: canvas,
                 antialias: true,
                 alpha: true,
-                preserveDrawingBuffer: true
             });
             renderer.setClearColor(0x000000, 0);
             renderer.setPixelRatio(window.devicePixelRatio);
@@ -331,32 +603,6 @@
         //
 
 
-        renderImg: (element) => {
-            var canvas = document.createElement('canvas');
-            var ctx = canvas.getContext('2d');
-
-            var rect = element.getBoundingClientRect();
-
-            var width = rect.right - rect.left;
-            var height = rect.bottom - rect.top;
-            var left = rect.left;
-            var top = rect.top;
-
-            canvas.setAttribute('width', width);
-            canvas.setAttribute('height', height);
-
-            var img = new Image();
-            img.src = renderer.domElement.toDataURL();
-            img.onload = function () {
-                ctx.drawImage(img, left, top, width, height);
-                element.innerHTML = img;
-            }
-        },
-
-
-        //
-
-
         render: () => {
             threeEve.updateSize();
 
@@ -389,7 +635,7 @@
                 var left = rect.left;
                 var bottom = renderer.domElement.clientHeight - rect.bottom;
 
-                console.log('width', width, 'height', height, 'left', left, 'bottom', bottom);
+                // console.log('width', width, 'height', height, 'left', left, 'bottom', bottom);
 
                 renderer.setViewport(left, bottom, width, height);
                 renderer.setScissor(left, bottom, width, height);

@@ -294,13 +294,13 @@
 
             if (progSet.fileCount > 0) {
                 // Disable texture loading when it is a model
-                var fbx_flg = false;
+                var model_flg = false;
                 Array.from(files).forEach((file) => {
-                    if (file.name.match(/\.(fbx)$/)) {
-                        fbx_flg = true;
+                    if (!initFileEve.isSupported.checkAll(file.name)) {
+                        model_flg = true;
                     }
                 });
-                if (fbx_flg == false) {
+                if (model_flg == false) {
                     for (var i in files) {
                         if (i < progSet.fileCount) {
                             if (initFileEve.isSupported.fileReader(files[i].name)) {
@@ -328,6 +328,10 @@
 
             blobReader: (fileName) => {
                 return /\.(jpe?g|png|gif|svg|bmp)$/i.test(fileName);
+            },
+
+            checkAll: (fileName) => {
+                return /\.(jpe?g|png|gif|svg|bmp|psd)$/i.test(fileName);
             }
         }
     };
