@@ -98,7 +98,7 @@
                         console.log('progSet.iterate', progSet.iterate);
 
                         // This will cause console errors
-                        URL.revokeObjectURL(this.src);
+                        // URL.revokeObjectURL(this.src);
 
 
                         if (progSet.iterate < progSet.fileCount) {
