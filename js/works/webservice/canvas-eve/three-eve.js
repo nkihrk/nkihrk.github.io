@@ -11,8 +11,11 @@
 
     const loaderEve = {
 
-        OBJLoader: (manager, rootFilePath, scene) => {
+        OBJLoader: (manager, scene, rootFilePath, materials) => {
             var loader = new THREE.OBJLoader(manager);
+            if (materials) {
+                loader.setMaterials(materials);
+            }
             loader.load(
 
                 rootFilePath,
@@ -40,8 +43,8 @@
         //
 
 
-        MTLLoader: (manager, rootFilePath, scene, mtlFilePath) => {
-            var mtlLoader = new THREE.MTLLoader();
+        MTLLoader: (manager, scene, rootFilePath, mtlFilePath) => {
+            var mtlLoader = new THREE.MTLLoader(manager);
             mtlLoader.load(
 
                 mtlFilePath,
@@ -49,10 +52,8 @@
                 function (materials) {
 
                     materials.preload();
-                    materials.materials.default.map.magFilter = THREE.NearestFilter;
-                    materials.materials.default.map.minFilter = THREE.LinearFilter;
 
-                    loaderEve.OBJLoader(manager, rootFilePath, scene, materials);
+                    loaderEve.OBJLoader(manager, scene, rootFilePath, materials);
 
                 }
 
@@ -63,7 +64,7 @@
         //
 
 
-        FBXLoader: (manager, rootFilePath, scene) => {
+        FBXLoader: (manager, scene, rootFilePath) => {
             var loader = new THREE.FBXLoader(manager);
             loader.load(
 
@@ -93,7 +94,7 @@
         //
 
 
-        MMDLoader: (manager, rootFilePath, scene, modelFormat) => {
+        MMDLoader: (manager, scene, rootFilePath, modelFormat) => {
             var loader = new THREE.MMDLoader(manager);
             loader.modelFormat = modelFormat;
             loader.load(
@@ -123,6 +124,7 @@
         OBJReader: (files, mousePos, progSet) => {
 
             var rootFileName, rootFilePath;
+            var mtlFileName, mtlFilePath;
             var baseURL;
 
             var blobs = {};
@@ -137,6 +139,12 @@
                     rootFileName = rootFilePath.replace(baseURL, '');
                     blobs[rootFileName] = file;
                     console.log('blobs', blobs, 'baseURL', baseURL);
+                } else if (/\.(mtl)$/i.test(file.name)) {
+                    mtlFilePath = URL.createObjectURL(file);
+                    baseURL = THREE.LoaderUtils.extractUrlBase(mtlFilePath);
+                    mtlFileName = mtlFilePath.replace(baseURL, '');
+                    blobs[mtlFileName] = file;
+                    console.log('blobs', blobs);
                 } else {
                     blobs[file.name] = file;
                     console.log('blobs', blobs);
@@ -194,7 +202,11 @@
             };
 
 
-            loaderEve.OBJLoader(manager, rootFilePath, scene);
+            if (mtlFileName) {
+                loaderEve.MTLLoader(manager, scene, rootFilePath, mtlFilePath);
+            } else {
+                loaderEve.OBJLoader(manager, scene, rootFilePath);
+            }
 
         },
 
@@ -273,7 +285,7 @@
             };
 
 
-            loaderEve.FBXLoader(manager, rootFilePath, scene);
+            loaderEve.FBXLoader(manager, scene, rootFilePath);
 
         },
 
@@ -297,7 +309,7 @@
                     baseURL = THREE.LoaderUtils.extractUrlBase(rootFilePath);
                     rootFileName = rootFilePath.replace(baseURL, '');
                     blobs[rootFileName] = file;
-                    modelFormat = file.name.split('.').slice(-1)[0];
+                    modelFormat = file.name.split('.').pop();
                     console.log('blobs', blobs, 'baseURL', baseURL, 'rootFilePath', rootFilePath);
                 } else {
                     blobs[file.name] = file;
@@ -358,7 +370,7 @@
             };
 
 
-            loaderEve.MMDLoader(manager, rootFilePath, scene, modelFormat);
+            loaderEve.MMDLoader(manager, scene, rootFilePath, modelFormat);
 
         },
 
@@ -426,7 +438,7 @@
             e.preventDefault();
             e.stopPropagation();
             e.dataTransfer.dropEffect = 'copy';
-            // Not clear why this will help. Should have to reset pointer-events, but still works fine
+            // Not clear why this will help. I should have to reset pointer-events, but still works fine
             $('iframe').css('pointer-events', 'none');
         },
 
@@ -471,7 +483,7 @@
                 Array.from(files).forEach((file) => {
                     if (readFileEve.isSupported(file.name)) {
                         supported_model_flg = true;
-                        modelFormat = file.name.split('.').slice(-1)[0].toLowerCase();
+                        modelFormat = file.name.split('.').pop().toLowerCase();
                         console.log('modelFormat', modelFormat);
                     }
                 });
@@ -529,10 +541,10 @@
         //
 
 
-        setScene: (newFileId) => {
+        setScene: (id) => {
             var scene = new THREE.Scene();
 
-            scene.userData.element = document.getElementById(newFileId).getElementsByClassName('eve-main')[0];
+            scene.userData.element = document.getElementById(id).getElementsByClassName('eve-main')[0];
 
             scene.add(new THREE.HemisphereLight(0xaaaaaa, 0x444444));
 
@@ -622,7 +634,6 @@
                 }
 
                 var rect = element.getBoundingClientRect();
-
                 if (rect.bottom < 0 || rect.top > renderer.domElement.clientHeight ||
                     rect.right < 0 || rect.left > renderer.domElement.clientWidth) {
                     return;
