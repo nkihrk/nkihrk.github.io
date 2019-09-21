@@ -101,8 +101,6 @@ THREE.MMDLoader = (function () {
 
 			// var modelExtension = this._extractExtension(url).toLowerCase();
 
-			// Currentl1y supported only pmx model
-
 			var modelExtension = this.modelFormat;
 			console.log('modelExtension', modelExtension);
 
@@ -1200,7 +1198,8 @@ THREE.MMDLoader = (function () {
 
 					}
 
-					params.emissive.multiplyScalar(0.2);
+					// 0.2 is too bright for some models actually
+					params.emissive.multiplyScalar(0.1);
 
 				}
 
@@ -1326,7 +1325,7 @@ THREE.MMDLoader = (function () {
 			} else {
 
 				// fullPath = this.resourcePath + filePath;
-				fullPath = this.resourcePath + filePath.split('\\').slice(-1)[0];;
+				fullPath = this.resourcePath + filePath.split('\\').pop();
 				console.log('this.resourcePath', this.resourcePath, 'filePath', filePath, 'fullPath', fullPath);
 
 			}

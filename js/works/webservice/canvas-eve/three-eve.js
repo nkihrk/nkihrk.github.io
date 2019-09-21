@@ -182,6 +182,7 @@
                 progSet.progress.style.width = '100%';
                 setTimeout(function () {
                     progSet.progress.classList.remove('loading');
+                    $('div').remove('.hide-scissor');
                 }, 1000);
 
                 console.log('------------------------------------------');
@@ -261,6 +262,7 @@
                 progSet.progress.style.width = '100%';
                 setTimeout(function () {
                     progSet.progress.classList.remove('loading');
+                    $('div').remove('.hide-scissor');
                 }, 1000);
 
                 console.log('------------------------------------------');
@@ -469,7 +471,7 @@
                 Array.from(files).forEach((file) => {
                     if (readFileEve.isSupported(file.name)) {
                         supported_model_flg = true;
-                        modelFormat = file.name.split('.').slice(-1)[0];
+                        modelFormat = file.name.split('.').slice(-1)[0].toLowerCase();
                         console.log('modelFormat', modelFormat);
                     }
                 });
@@ -485,9 +487,6 @@
                             break;
 
                         case 'pmx':
-                            readFileEve.MMDReader(files, mousePos, progSet);
-                            break;
-
                         case 'pmd':
                             readFileEve.MMDReader(files, mousePos, progSet);
                             break;
@@ -552,7 +551,7 @@
 
         fit2Scene: (scene, object) => {
             var fovy = 40;
-            var camera = new THREE.PerspectiveCamera(fovy, 1, 0.1, 1000);
+            var camera = new THREE.PerspectiveCamera(fovy, 1, 0.1, 20000);
 
             var BB = new THREE.Box3().setFromObject(object);
             var centerpoint = BB.getCenter();

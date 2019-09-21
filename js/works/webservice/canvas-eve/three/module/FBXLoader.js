@@ -204,6 +204,8 @@ THREE.FBXLoader = (function () {
 					var id = parseInt(nodeID);
 
 					images[id] = videoNode.RelativeFilename || videoNode.Filename;
+					console.log('images[id]', images[id]);
+
 
 					// raw image data is in videoNode.Content
 					if ('Content' in videoNode) {
@@ -233,6 +235,8 @@ THREE.FBXLoader = (function () {
 				else images[id] = images[id].split('\\').pop();
 
 			}
+
+			console.log('images', images);
 
 			return images;
 
@@ -272,11 +276,11 @@ THREE.FBXLoader = (function () {
 
 				case 'tga':
 
-					if (this.manager.getHandler('.tga') === null) {
+					// if (this.manager.getHandler('.tga') === null) {
 
-						console.warn('FBXLoader: TGA loader not found, skipping ', fileName);
+					// 	console.warn('FBXLoader: TGA loader not found, skipping ', fileName);
 
-					}
+					// }
 
 					type = 'image/tga';
 					break;
@@ -372,6 +376,8 @@ THREE.FBXLoader = (function () {
 			if (children !== undefined && children.length > 0 && images[children[0].ID] !== undefined) {
 
 				fileName = images[children[0].ID];
+				console.log('fileName', fileName);
+
 
 				if (fileName.indexOf('blob:') === 0 || fileName.indexOf('data:') === 0) {
 
@@ -385,20 +391,25 @@ THREE.FBXLoader = (function () {
 
 			var extension = textureNode.FileName.slice(-3).toLowerCase();
 
+
 			if (extension === 'tga') {
 
-				var loader = this.manager.getHandler('.tga');
+				// var loader = this.manager.getHandler('.tga');
 
-				if (loader === null) {
+				// if (loader === null) {
 
-					console.warn('FBXLoader: TGA loader not found, creating placeholder texture for', textureNode.RelativeFilename);
-					texture = new THREE.Texture();
+				// 	console.warn('FBXLoader: TGA loader not found, creating placeholder texture for', textureNode.RelativeFilename);
+				// 	texture = new THREE.Texture();
 
-				} else {
+				// } else {
 
-					texture = loader.load(fileName);
+				// 	texture = loader.load(fileName);
 
-				}
+				// }
+
+				console.log('fileName', fileName, 'extension', extension);
+				var tgaLoader = new THREE.TGALoader(this.manager);
+				texture = tgaLoader.load(fileName);
 
 			} else if (extension === 'psd') {
 
@@ -408,6 +419,7 @@ THREE.FBXLoader = (function () {
 			} else {
 
 				texture = this.textureLoader.load(fileName);
+
 
 			}
 
