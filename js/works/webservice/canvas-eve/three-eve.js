@@ -11,6 +11,31 @@
 
     const loaderEve = {
 
+        VRMLoader: (manager, scene, rootFilePath) => {
+            var loader = new THREE.GLTFLoader(manager);
+            loader.load(
+
+                rootFilePath,
+
+                function (gltf) {
+
+                    THREE.VRM.from(gltf).then((vrm) => {
+
+                        threeEve.fit2Scene(scene, vrm.scene);
+
+                        scene.add(vrm.scene);
+
+                    });
+
+                }
+
+            );
+        },
+
+
+        //
+
+
         GLTFLoader: (manager, scene, rootFilePath) => {
             var loader = new THREE.GLTFLoader(manager);
             var dracoLoader = new THREE.DRACOLoader(manager);
@@ -145,346 +170,6 @@
 
     const readFileEve = {
 
-        GLTFReader: (files, mousePos, progSet) => {
-            var rootFileName, rootFilePath;
-            var baseURL;
-
-            var blobs = {};
-
-            var id = readFileEve.addFileWrap(mousePos);
-            var scene = threeEve.setScene(id);
-
-            Array.from(files).forEach((file) => {
-                if (/\.(gltf)$/i.test(file.name)) {
-                    rootFilePath = URL.createObjectURL(file);
-                    baseURL = THREE.LoaderUtils.extractUrlBase(rootFilePath);
-                    rootFileName = rootFilePath.replace(baseURL, '');
-                    blobs[rootFileName] = file;
-                    modelFormat = file.name.split('.').pop();
-                    console.log('blobs', blobs, 'baseURL', baseURL, 'rootFilePath', rootFilePath);
-                } else {
-                    blobs[file.name] = file;
-                    console.log('blobs', blobs);
-                }
-            });
-
-
-            var manager = new THREE.LoadingManager();
-            manager.setURLModifier((url) => {
-                console.log('url', url);
-                // console.log('---------------------------');
-
-                if (!url.match(/canvas-eve/)) {
-                    var n = url.replace(baseURL, '');
-                    url = URL.createObjectURL(blobs[n]);
-                }
-
-                console.log('url', url, 'fileName', n, 'blobs[n]', blobs[n]);
-                return url;
-            });
-
-            manager.onStart = function (url, itemsLoaded, itemsTotal) {
-                console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
-
-                if (progSet.iterate == 0) {
-                    progSet.progress.classList.add('loading');
-                }
-            };
-
-            manager.onProgress = function (url, itemsLoaded, itemsTotal) {
-                console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
-
-                progSet.iterate++;
-                console.log('progSet.iterate', progSet.iterate);
-
-                if (progSet.iterate < progSet.fileCount) {
-                    progSet.totalProg = progSet.eachProg * progSet.iterate;
-                    progSet.progress.style.width = progSet.totalProg + '%';
-                    console.log('progSet.totalProg', progSet.totalProg);
-                }
-            };
-
-            manager.onLoad = function () {
-                console.log('Loading complete!');
-
-                progSet.progress.style.width = '100%';
-                setTimeout(function () {
-                    progSet.progress.classList.remove('loading');
-                    $('div').remove('.hide-scissor');
-                }, 1000);
-
-                console.log('------------------------------------------');
-            };
-
-            manager.onError = function (url) {
-                console.log('There was an error loading ' + url);
-            };
-
-
-            loaderEve.GLTFLoader(manager, scene, rootFilePath);
-
-        },
-
-
-        //
-
-
-        OBJReader: (files, mousePos, progSet) => {
-
-            var rootFileName, rootFilePath;
-            var mtlFileName, mtlFilePath;
-            var baseURL;
-
-            var blobs = {};
-
-            var id = readFileEve.addFileWrap(mousePos);
-            var scene = threeEve.setScene(id);
-
-            Array.from(files).forEach((file) => {
-                if (/\.(obj)$/i.test(file.name)) {
-                    rootFilePath = URL.createObjectURL(file);
-                    baseURL = THREE.LoaderUtils.extractUrlBase(rootFilePath);
-                    rootFileName = rootFilePath.replace(baseURL, '');
-                    blobs[rootFileName] = file;
-                    console.log('blobs', blobs, 'baseURL', baseURL);
-                } else if (/\.(mtl)$/i.test(file.name)) {
-                    mtlFilePath = URL.createObjectURL(file);
-                    baseURL = THREE.LoaderUtils.extractUrlBase(mtlFilePath);
-                    mtlFileName = mtlFilePath.replace(baseURL, '');
-                    blobs[mtlFileName] = file;
-                    console.log('blobs', blobs);
-                } else {
-                    blobs[file.name] = file;
-                    console.log('blobs', blobs);
-                }
-            });
-
-
-            var manager = new THREE.LoadingManager();
-            manager.setURLModifier((url) => {
-                var n = url.replace(baseURL, '');
-                url = URL.createObjectURL(blobs[n]);
-
-                // console.log('url', url, 'fileName', n, 'blobs[n]', blobs[n]);
-                return url;
-            });
-
-
-            manager.onStart = function (url, itemsLoaded, itemsTotal) {
-                console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
-
-                if (progSet.iterate == 0) {
-                    progSet.progress.classList.add('loading');
-                }
-            };
-
-            manager.onProgress = function (url, itemsLoaded, itemsTotal) {
-                console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
-
-                progSet.iterate++;
-                console.log('progSet.iterate', progSet.iterate);
-
-                if (progSet.iterate < progSet.fileCount) {
-                    progSet.totalProg = progSet.eachProg * progSet.iterate;
-                    progSet.progress.style.width = progSet.totalProg + '%';
-                    console.log('progSet.totalProg', progSet.totalProg);
-                }
-            };
-
-            manager.onLoad = function () {
-                console.log('Loading complete!');
-
-                progSet.progress.style.width = '100%';
-                setTimeout(function () {
-                    progSet.progress.classList.remove('loading');
-                    $('div').remove('.hide-scissor');
-                }, 1000);
-
-                console.log('------------------------------------------');
-            };
-
-            manager.onError = function (url) {
-                console.log('There was an error loading ' + url);
-                console.log('blobURLs', blobURLs);
-            };
-
-
-            if (mtlFileName) {
-                loaderEve.MTLLoader(manager, scene, rootFilePath, mtlFilePath);
-            } else {
-                loaderEve.OBJLoader(manager, scene, rootFilePath);
-            }
-
-        },
-
-
-        //
-
-
-        FBXReader: (files, mousePos, progSet) => {
-            var rootFileName, rootFilePath;
-            var baseURL;
-
-            var blobs = {};
-
-            var id = readFileEve.addFileWrap(mousePos);
-            var scene = threeEve.setScene(id);
-
-            Array.from(files).forEach((file) => {
-                if (/\.(fbx)$/i.test(file.name)) {
-                    rootFilePath = URL.createObjectURL(file);
-                    baseURL = THREE.LoaderUtils.extractUrlBase(rootFilePath);
-                    rootFileName = rootFilePath.replace(baseURL, '');
-                    blobs[rootFileName] = file;
-                    console.log('blobs', blobs, 'baseURL', baseURL);
-                } else {
-                    blobs[file.name] = file;
-                    console.log('blobs', blobs);
-                }
-            });
-
-
-            var manager = new THREE.LoadingManager();
-            manager.setURLModifier((url) => {
-                var n = url.replace(baseURL, '');
-                url = URL.createObjectURL(blobs[n]);
-
-                console.log('url', url, 'fileName', n, 'blobs[n]', blobs[n]);
-                return url;
-            });
-
-
-            manager.onStart = function (url, itemsLoaded, itemsTotal) {
-                console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
-
-                if (progSet.iterate == 0) {
-                    progSet.progress.classList.add('loading');
-                }
-            };
-
-            manager.onProgress = function (url, itemsLoaded, itemsTotal) {
-                console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
-
-                progSet.iterate++;
-                console.log('progSet.iterate', progSet.iterate);
-
-                if (progSet.iterate < progSet.fileCount) {
-                    progSet.totalProg = progSet.eachProg * progSet.iterate;
-                    progSet.progress.style.width = progSet.totalProg + '%';
-                    console.log('progSet.totalProg', progSet.totalProg);
-                }
-            };
-
-            manager.onLoad = function () {
-                console.log('Loading complete!');
-
-                progSet.progress.style.width = '100%';
-                setTimeout(function () {
-                    progSet.progress.classList.remove('loading');
-                    $('div').remove('.hide-scissor');
-                }, 1000);
-
-                console.log('------------------------------------------');
-            };
-
-            manager.onError = function (url) {
-                console.log('There was an error loading ' + url);
-            };
-
-
-            loaderEve.FBXLoader(manager, scene, rootFilePath);
-
-        },
-
-
-        //
-
-
-        MMDReader: (files, mousePos, progSet) => {
-            var rootFileName, rootFilePath;
-            var baseURL;
-            var modelFormat;
-
-            var blobs = {};
-
-            var id = readFileEve.addFileWrap(mousePos);
-            var scene = threeEve.setScene(id);
-
-            Array.from(files).forEach((file) => {
-                if (/\.(pmx|pmd)$/i.test(file.name)) {
-                    rootFilePath = URL.createObjectURL(file);
-                    baseURL = THREE.LoaderUtils.extractUrlBase(rootFilePath);
-                    rootFileName = rootFilePath.replace(baseURL, '');
-                    blobs[rootFileName] = file;
-                    modelFormat = file.name.split('.').pop();
-                    console.log('blobs', blobs, 'baseURL', baseURL, 'rootFilePath', rootFilePath);
-                } else {
-                    blobs[file.name] = file;
-                    console.log('blobs', blobs);
-                }
-            });
-
-
-            var manager = new THREE.LoadingManager();
-            manager.setURLModifier((url) => {
-                console.log('url', url);
-                console.log('---------------------------');
-
-                if (!url.match(/base64/)) {
-                    var n = url.replace(baseURL, '');
-                    url = URL.createObjectURL(blobs[n]);
-                }
-
-                // console.log('url', url, 'fileName', n, 'blobs[n]', blobs[n]);
-                return url;
-            });
-
-            manager.onStart = function (url, itemsLoaded, itemsTotal) {
-                console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
-
-                if (progSet.iterate == 0) {
-                    progSet.progress.classList.add('loading');
-                }
-            };
-
-            manager.onProgress = function (url, itemsLoaded, itemsTotal) {
-                console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
-
-                progSet.iterate++;
-                console.log('progSet.iterate', progSet.iterate);
-
-                if (progSet.iterate < progSet.fileCount) {
-                    progSet.totalProg = progSet.eachProg * progSet.iterate;
-                    progSet.progress.style.width = progSet.totalProg + '%';
-                    console.log('progSet.totalProg', progSet.totalProg);
-                }
-            };
-
-            manager.onLoad = function () {
-                console.log('Loading complete!');
-
-                progSet.progress.style.width = '100%';
-                setTimeout(function () {
-                    progSet.progress.classList.remove('loading');
-                    $('div').remove('.hide-scissor');
-                }, 1000);
-
-                console.log('------------------------------------------');
-            };
-
-            manager.onError = function (url) {
-                console.log('There was an error loading ' + url);
-            };
-
-
-            loaderEve.MMDLoader(manager, scene, rootFilePath, modelFormat);
-
-        },
-
-
-        //
-
-
         reader: (files, mousePos, progSet) => {
             var rootFileName, rootFilePath;
             var mtlFileName, mtlFilePath;
@@ -500,11 +185,7 @@
                 if (readFileEve.isSupported(file.name)) {
                     initTarget(file);
                 } else if (/\.(mtl)$/i.test(file.name)) {
-                    mtlFilePath = URL.createObjectURL(file);
-                    baseURL = THREE.LoaderUtils.extractUrlBase(mtlFilePath);
-                    mtlFileName = mtlFilePath.replace(baseURL, '');
-                    blobs[mtlFileName] = file;
-                    console.log('blobs', blobs);
+                    initMtl(file);
                 } else {
                     blobs[file.name] = file;
                     console.log('blobs', blobs);
@@ -522,26 +203,31 @@
             }
 
 
+            function initMtl(file) {
+                mtlFilePath = URL.createObjectURL(file);
+                baseURL = THREE.LoaderUtils.extractUrlBase(mtlFilePath);
+                mtlFileName = mtlFilePath.replace(baseURL, '');
+                blobs[mtlFileName] = file;
+                console.log('blobs', blobs);
+            }
+
+
+            var mmd_flg = modelFormat == 'pmx' | modelFormat == 'pmd' ? 1 : 0;
+            var fbx_flg = modelFormat == 'fbx' ? 1 : 0;
+            var obj_flg = modelFormat == 'obj' ? 1 : 0;
+            var gltf_flg = modelFormat == 'gltf' ? 1 : 0;
+            var vrm_flg = modelFormat == 'vmr' ? 1 : 0;
+
+
             var manager = new THREE.LoadingManager();
             manager.setURLModifier((url) => {
                 console.log('url', url);
-                console.log('---------------------------');
 
-                var isMMD = modelFormat == 'pmx' | modelFormat == 'pmd' ? 1 : 0;
-                var isFBX = modelFormat == 'fbx' ? 1 : 0;
-                var isOBJ = modelFormat == 'obj' ? 1 : 0;
-                var isGLTF = modelFormat == 'gltf' ? 1 : 0;
+                var isMMD = mmd_flg && !url.match(/base64/);
+                var isGLTF = gltf_flg && !url.match(/canvas-eve/);
+                var isVRM = vrm_flg && !url.match(/canvas-eve/);
 
-                if (isMMD && !url.match(/base64/)) {
-                    var n = url.replace(baseURL, '');
-                    url = URL.createObjectURL(blobs[n]);
-                } else if (isFBX) {
-                    var n = url.replace(baseURL, '');
-                    url = URL.createObjectURL(blobs[n]);
-                } else if (isOBJ) {
-                    var n = url.replace(baseURL, '');
-                    url = URL.createObjectURL(blobs[n]);
-                } else if (isGLTF && !url.match(/canvas-eve/)) {
+                if (isMMD | isGLTF | isVRM | fbx_flg | obj_flg) {
                     var n = url.replace(baseURL, '');
                     url = URL.createObjectURL(blobs[n]);
                 }
@@ -579,16 +265,12 @@
                     progSet.progress.classList.remove('loading');
                     $('div').remove('.hide-scissor');
                 }, 1000);
-
-                console.log('------------------------------------------');
             };
 
             manager.onError = function (url) {
                 console.log('There was an error loading ' + url);
             };
 
-
-            loaderEve.MMDLoader(manager, scene, rootFilePath, modelFormat);
 
             switch (modelFormat) {
                 case 'obj':
@@ -610,6 +292,10 @@
 
                 case 'gltf':
                     loaderEve.GLTFLoader(manager, scene, rootFilePath);
+                    break;
+
+                case 'vrm':
+                    loaderEve.VRMLoader(manager, scene, rootFilePath);
                     break;
 
                 default:
@@ -733,29 +419,8 @@
                 });
                 if (supported_model_flg == true) {
 
-                    // switch (modelFormat) {
-                    //     case 'obj':
-                    //         readFileEve.OBJReader(files, mousePos, progSet);
-                    //         break;
-
-                    //     case 'fbx':
-                    //         readFileEve.FBXReader(files, mousePos, progSet);
-                    //         break;
-
-                    //     case 'pmx':
-                    //     case 'pmd':
-                    //         readFileEve.MMDReader(files, mousePos, progSet);
-                    //         break;
-
-                    //     case 'gltf':
-                    //         readFileEve.GLTFReader(files, mousePos, progSet);
-                    //         break;
-
-                    //     default:
-                    //         break;
-                    // }
-
                     readFileEve.reader(files, mousePos, progSet);
+
                 }
             } else {
                 return;
@@ -767,7 +432,7 @@
 
 
         isSupported: (fileName) => {
-            return /\.(obj|fbx|pmx|pmd|gltf)$/i.test(fileName);
+            return /\.(obj|fbx|pmx|pmd|gltf|vrm)$/i.test(fileName);
         }
 
     };
