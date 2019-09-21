@@ -21,7 +21,7 @@
 
                     THREE.VRM.from(gltf).then((vrm) => {
 
-                        threeEve.fit2Scene(scene, vrm.scene);
+                        threeEve.fit2Scene(scene, vrm.scene, true);
 
                         scene.add(vrm.scene);
 
@@ -47,7 +47,7 @@
 
                 function (gltf) {
 
-                    threeEve.fit2Scene(scene, gltf.scene);
+                    threeEve.fit2Scene(scene, gltf.scene, false);
 
                     scene.add(gltf.scene);
 
@@ -79,7 +79,7 @@
                         }
                     });
 
-                    threeEve.fit2Scene(scene, obj);
+                    threeEve.fit2Scene(scene, obj, false);
 
                     scene.add(obj);
 
@@ -130,7 +130,7 @@
                         }
                     });
 
-                    threeEve.fit2Scene(scene, fbx);
+                    threeEve.fit2Scene(scene, fbx, false);
 
                     scene.add(fbx);
 
@@ -152,7 +152,7 @@
 
                 function (mmd) {
 
-                    threeEve.fit2Scene(scene, mmd);
+                    threeEve.fit2Scene(scene, mmd, false);
 
                     // var box = new THREE.BoxHelper(mmd, 0xffff00);
                     // scene.add(box);
@@ -216,7 +216,7 @@
             var fbx_flg = modelFormat == 'fbx' ? 1 : 0;
             var obj_flg = modelFormat == 'obj' ? 1 : 0;
             var gltf_flg = modelFormat == 'gltf' ? 1 : 0;
-            var vrm_flg = modelFormat == 'vmr' ? 1 : 0;
+            var vrm_flg = modelFormat == 'v' ? 1 : 0;
 
 
             var manager = new THREE.LoadingManager();
@@ -225,9 +225,8 @@
 
                 var isMMD = mmd_flg && !url.match(/base64/);
                 var isGLTF = gltf_flg && !url.match(/canvas-eve/);
-                var isVRM = vrm_flg && !url.match(/canvas-eve/);
 
-                if (isMMD | isGLTF | isVRM | fbx_flg | obj_flg) {
+                if (isMMD | isGLTF | fbx_flg | obj_flg | vrm_flg) {
                     var n = url.replace(baseURL, '');
                     url = URL.createObjectURL(blobs[n]);
                 }
@@ -476,7 +475,7 @@
         //
 
 
-        fit2Scene: (scene, object) => {
+        fit2Scene: (scene, object, bool) => {
             var fovy = 40;
             var camera = new THREE.PerspectiveCamera(fovy, 1, 0.1, 20000);
 
@@ -488,9 +487,12 @@
                 backup = (size.x / 2) / Math.sin((camera.fov / 2) * (Math.PI / 180));
             }
             var camZpos = BB.max.z + backup + camera.near;
+            if (bool) {
+                camZpos = -camZpos;
+            }
 
             camera.position.set(centerpoint.x, centerpoint.y, camZpos);
-            camera.far = camera.near + 10 * size.z;
+            camera.far = camera.near + 300 * size.z;
             camera.updateProjectionMatrix();
 
             scene.userData.camera = camera;
