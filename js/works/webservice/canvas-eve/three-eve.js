@@ -125,7 +125,7 @@
                         if (child.isMesh) {
                             child.castShadow = true;
                             child.receiveShadow = true;
-                            child.material.transparent = false;
+                            child.material.transparent = true;
                             child.material.alphaTest = 0.5;
                         }
                     });
