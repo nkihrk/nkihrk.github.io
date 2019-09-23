@@ -42,7 +42,6 @@
                             setTimeout(function () {
                                 progSet.progress.classList.remove('loading');
                             }, 1000);
-                            console.log('------------------------------------------');
                         }
 
 
@@ -97,9 +96,6 @@
                         progSet.iterate++;
                         console.log('progSet.iterate', progSet.iterate);
 
-                        // This will cause console errors
-                        // URL.revokeObjectURL(this.src);
-
 
                         if (progSet.iterate < progSet.fileCount) {
                             progSet.totalProg = progSet.eachProg * progSet.iterate;
@@ -110,7 +106,6 @@
                             setTimeout(function () {
                                 progSet.progress.classList.remove('loading');
                             }, 1000);
-                            console.log('------------------------------------------');
                         }
 
 

@@ -71,6 +71,10 @@
 ///
 
 
+// Namespace
+var CANVASEVE = CANVASEVE || {};
+
+
 // Variables
 // Update the newFile when adding a new file
 var newFile = {
@@ -247,6 +251,17 @@ const iframePointerReset = function () {
 
 // Just for separation
 const sep = () => console.log('-------------------------------------');
+
+function namespace(ns) {
+    var names = ns.split('.');
+    var parent = window;
+
+    for (var i = 0, len = names.length; i < len; i++) {
+        parent[names[i]] = parent[names[i]] || {};
+        parent = parent[names[i]];
+    }
+    return parent;
+}
 
 
 ///
