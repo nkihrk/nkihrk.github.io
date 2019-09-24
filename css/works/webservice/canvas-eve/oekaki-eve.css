@@ -145,23 +145,26 @@ Common
 
 #color-triangle {
     position: absolute;
+    z-index: 1;
     top: 0;
     left: 0;
 }
 
 #color-wheel-circle {
     position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    z-index: 2;
+    transform: translateX(-50%) translateY(-50%);
     width: 20px;
     height: 20px;
     border: solid 3px white;
     border-radius: 50%;
+
+    cursor: pointer;
 }
 
 #color-triangle-circle {
     position: absolute;
+    z-index: 2;
     top: 50%;
     left: 70%;
     transform: translateX(-50%) translateY(-50%);
@@ -169,4 +172,6 @@ Common
     height: 12px;
     border: solid 2px white;
     border-radius: 50%;
+
+    cursor: pointer;
 }

@@ -656,7 +656,7 @@
                     if (mousewheel_avail_flg == false && glFlgs.canvas.thumbtack_flg == false && glFlgs.canvas.resize_flg == false && glFlgs.canvas.rotate_flg == false) {
                         if (glFlgs.canvas.drag_flg == true) {
 
-                            if (glFlgs.colpick.active_spuit_flg == false && glFlgs.colpick.move_circle_flg == false) {
+                            if (glFlgs.oekaki.move_wheelcircle_flg == false && glFlgs.oekaki.move_trianglecircle_flg == false && glFlgs.colpick.active_spuit_flg == false && glFlgs.colpick.move_circle_flg == false) {
                                 file.$fileId.css({
                                     'left': resLeft + 'px',
                                     'top': resTop + 'px',

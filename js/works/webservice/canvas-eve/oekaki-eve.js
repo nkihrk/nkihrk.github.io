@@ -2,13 +2,23 @@ CANVASEVE.Oekaki = function (container) {
     var size = container.clientWidth;
     var wheelRadius = size / 2;
     var wheelThickness = size / 2 * 0.15;
+    var wheelInnerRadius = wheelRadius - wheelThickness;
     var triangleRadius = (wheelRadius - wheelThickness) * 0.9;
+
+    var originX = $(container).offset().left;
+    var originY = $(container).offset().top;
+    var centerX = originX + size / 2;
+    var centerY = originY + size / 2;
 
     this.container = container;
     this.size = size;
     this.wheelRadius = wheelRadius;
+    this.wheelInnerRadius = wheelInnerRadius;
     this.wheelThickness = wheelThickness;
     this.triangleRadius = triangleRadius;
+
+    this.centerX = centerX;
+    this.centerY = centerY;
 
     this._createWheelCircle();
 
@@ -22,52 +32,130 @@ CANVASEVE.Oekaki.prototype = {
 
     options: {},
 
-    _createWheelCircle: function () {
-        var wheelCircle = document.createElement('div');
-        wheelCircle.id = 'color-wheel-circle';
 
-        this.wheelCircle = wheelCircle;
+    load: function () {
+        this.drawWheel();
+        this.drawTriangle();
+        this.setFlgs();
+        this.resetFlgs();
+        this.handleEvents();
+    },
 
-        this.container.appendChild(wheelCircle);
+
+    setFlgs: function () {
+        var self = this;
+
+        $(document).on(EVENTNAME_TOUCHSTART, '#color-oekaki', function () {
+            var centerX = self.centerX;
+            var centerY = self.centerY;
+            var minR = self.wheelInnerRadius;
+            var maxR = self.wheelRadius;
+            var mouseR = self.getDistance(centerX, centerY, clientX, clientY);
+
+            if (mouseR > minR && maxR > mouseR) {
+                glFlgs.oekaki.move_wheelcircle_flg = true;
+                console.log('glFlgs.oekaki.move_wheelcircle_flg is ', glFlgs.oekaki.move_wheelcircle_flg);
+            }
+
+
+            var mouseX = clientX - centerX;
+            var mouseY = clientY - centerY;
+            var minX = Math.cos(Math.PI * 2 / 3) * self.triangleRadius;
+            var maxX = self.triangleRadius;
+            var maxY = (-mouseX + maxX) / Math.sqrt(3);
+
+            if (mouseX > minX && maxX > mouseX) {
+                if (Math.abs(mouseY) >= 0 && maxY >= Math.abs(mouseY)) {
+                    glFlgs.oekaki.move_trianglecircle_flg = true;
+                    console.log('glFlgs.oekaki.move_trianglecircle_flg is ', glFlgs.oekaki.move_trianglecircle_flg);
+                }
+            }
+        });
+
+
+        $(document).on(EVENTNAME_TOUCHSTART, '#color-wheel-circle', function () {
+            glFlgs.oekaki.move_wheelcircle_flg = true;
+            console.log('glFlgs.oekaki.move_wheelcircle_flg is ', glFlgs.oekaki.move_wheelcircle_flg);
+        });
+        $(document).on(EVENTNAME_TOUCHSTART, '#color-triangle-circle', function () {
+            glFlgs.oekaki.move_trianglecircle_flg = true;
+            console.log('glFlgs.oekaki.move_trianglecircle_flg is ', glFlgs.oekaki.move_trianglecircle_flg);
+        });
     },
 
 
     //
 
 
-    _polar2Cartesian: function (centerX, centerY, radius, angleInDegrees) {
-        const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
-
-        return {
-            x: centerX + radius * Math.cos(angleInRadians),
-            y: centerY + radius * Math.sin(angleInRadians)
-        };
+    resetFlgs: function () {
+        $(document).on(EVENTNAME_TOUCHEND, function () {
+            if (glFlgs.oekaki.move_wheelcircle_flg == true) {
+                glFlgs.oekaki.move_wheelcircle_flg = false;
+                console.log('glFlgs.oekaki.move_wheelcircle_flg is ', glFlgs.oekaki.move_wheelcircle_flg);
+            }
+            if (glFlgs.oekaki.move_trianglecircle_flg == true) {
+                glFlgs.oekaki.move_trianglecircle_flg = false;
+                console.log('glFlgs.oekaki.move_trianglecircle_flg is ', glFlgs.oekaki.move_trianglecircle_flg);
+            }
+        });
     },
 
 
     //
 
 
-    _describeArc: function (x, y, radius, startAngle, endAngle) {
-        const start = this._polar2Cartesian(x, y, radius, endAngle);
-        const end = this._polar2Cartesian(x, y, radius, startAngle);
+    handleEvents: function () {
+        var self = this;
 
-        const arcSweep = endAngle - startAngle <= 180 ? '0' : '1';
+        $(document).on(EVENTNAME_TOUCHSTART, '#color-oekaki', function () {
+            self._colorWheelArea(self);
+        });
 
-        const d = [
-            'M', start.x, start.y,
-            'A', radius, radius, 0, arcSweep, 0, end.x, end.y,
-            'L', x, y,
-            'L', start.x, start.y
-        ].join(' ');
+        $(document).on(EVENTNAME_TOUCHMOVE, function () {
+            var originX = $(self.container).offset().left;
+            var originY = $(self.container).offset().top;
+            var centerX = originX + self.size / 2;
+            var centerY = originY + self.size / 2;
 
-        return d;
+            self.centerX = centerX;
+            self.centerY = centerY;
+
+            if (glFlgs.oekaki.move_wheelcircle_flg == true) {
+                self._updateWheelCircle();
+            }
+            if (glFlgs.oekaki.move_trianglecircle_flg == true) {
+                self._updateTriangleCircle();
+            }
+        });
     },
 
 
     //
+    // Color Wheel
+    //
 
 
+    drawWheel: function () {
+        // https://stackoverflow.com/questions/18206361/svg-multiple-color-on-circle-stroke
+        const resolution = 1;
+        const outerRadius = 100;
+        const innerRadius = outerRadius - this.wheelThickness / this.wheelRadius * 100;
+
+        var root = document.getElementById('color-wheel');
+
+        this._generateConicGradiant(outerRadius, resolution, root);
+        this._generateOverlay(outerRadius, innerRadius, root);
+    },
+    _generateOverlay: function (outerRadius, innerRadius, target) {
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+
+        circle.setAttribute('cx', outerRadius);
+        circle.setAttribute('cy', outerRadius);
+        circle.setAttribute('r', innerRadius);
+        circle.setAttribute('fill', '#262533');
+
+        target.appendChild(circle);
+    },
     _generateConicGradiant: function (radius, resolution, target) {
         for (var i = 0; i < 360 * resolution; i++) {
             const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -87,67 +175,96 @@ CANVASEVE.Oekaki.prototype = {
             target.appendChild(path);
         }
     },
+    _describeArc: function (x, y, radius, startAngle, endAngle) {
+        const start = this._polar2Cartesian(x, y, radius, endAngle);
+        const end = this._polar2Cartesian(x, y, radius, startAngle);
 
+        const arcSweep = endAngle - startAngle <= 180 ? '0' : '1';
 
-    //
+        const d = [
+            'M', start.x, start.y,
+            'A', radius, radius, 0, arcSweep, 0, end.x, end.y,
+            'L', x, y,
+            'L', start.x, start.y
+        ].join(' ');
 
+        return d;
+    },
+    _polar2Cartesian: function (centerX, centerY, radius, angleInDegrees) {
+        const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
 
-    _generateOverlay: function (outerRadius, innerRadius, target) {
-        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-
-        circle.setAttribute('cx', outerRadius);
-        circle.setAttribute('cy', outerRadius);
-        circle.setAttribute('r', innerRadius);
-        circle.setAttribute('fill', '#262533');
-
-        target.appendChild(circle);
+        return {
+            x: centerX + radius * Math.cos(angleInRadians),
+            y: centerY + radius * Math.sin(angleInRadians)
+        };
     },
 
 
     //
 
 
-    drawWheel: function () {
-        // https://stackoverflow.com/questions/18206361/svg-multiple-color-on-circle-stroke
-        const resolution = 1;
-        const outerRadius = 100;
-        const innerRadius = outerRadius - this.wheelThickness / this.wheelRadius * 100;
+    _createWheelCircle: function () {
+        var wheelCircle = document.createElement('div');
+        var r = this.wheelInnerRadius + this.wheelThickness / 2;
+        var theta = 0;
+        var left = r * Math.cos(theta + 3 / 2 * Math.PI) + this.size / 2;
+        var top = r * Math.sin(theta + 3 / 2 * Math.PI) + this.size / 2;
 
-        var root = document.getElementById('color-wheel');
+        wheelCircle.id = 'color-wheel-circle';
+        wheelCircle.style.left = left + 'px';
+        wheelCircle.style.top = top + 'px';
 
-        this._generateConicGradiant(outerRadius, resolution, root);
-        this._generateOverlay(outerRadius, innerRadius, root);
+        this.wheelCircle = wheelCircle;
+
+        this.container.appendChild(wheelCircle);
     },
 
 
     //
 
 
-    _createTriangleCircle: function () {
-        var triangleCircle = document.createElement('div');
-        triangleCircle.id = 'color-triangle-circle';
+    _colorWheelArea: function (self) {
+        var centerX = self.centerX;
+        var centerY = self.centerY;
+        var minR = self.wheelInnerRadius;
+        var maxR = self.wheelRadius;
+        var mouseR = self.getDistance(centerX, centerY, clientX, clientY);
 
-        this.triangleCircle = triangleCircle;
-
-        this.container.appendChild(triangleCircle);
+        if (mouseR > minR && maxR > mouseR) {
+            self._updateWheelCircle();
+        }
     },
 
 
     //
 
 
-    _createTriangle: function () {
-        var c = document.createElement('canvas');
-        c.id = 'color-triangle';
-        c.width = c.height = this.size;
+    _updateWheelCircle: function () {
+        var pointer = this.wheelCircle;
+        var r = this.wheelInnerRadius + this.wheelThickness / 2;
+        var theta = this._calcurateTheta();
+        var left = r * Math.cos(theta) + this.size / 2;
+        var top = r * Math.sin(theta) + this.size / 2;
 
-        var triangleCtx = c.getContext('2d');
-        this.triangleCtx = triangleCtx;
-
-        this.container.appendChild(c);
+        pointer.style.left = left + 'px';
+        pointer.style.top = top + 'px';
     },
 
 
+    //
+
+
+    _calcurateTheta: function () {
+        var centerX = this.centerX;
+        var centerY = this.centerY;
+        var theta = calcRadians(clientX - centerX, clientY - centerY);
+
+        return theta;
+    },
+
+
+    //
+    // Color Triangle
     //
 
 
@@ -193,13 +310,62 @@ CANVASEVE.Oekaki.prototype = {
     //
 
 
-    load: function () {
-        this.drawWheel();
-        this.drawTriangle();
+    _createTriangle: function () {
+        var c = document.createElement('canvas');
+        c.id = 'color-triangle';
+        c.width = c.height = this.size;
+
+        var triangleCtx = c.getContext('2d');
+        this.triangleCtx = triangleCtx;
+
+        this.container.appendChild(c);
+    },
+
+
+    //
+
+
+    _colorTriangleArea: function () {
+
+    },
+
+
+    //
+
+
+    _createTriangleCircle: function () {
+        var triangleCircle = document.createElement('div');
+        triangleCircle.id = 'color-triangle-circle';
+
+        this.triangleCircle = triangleCircle;
+
+        this.container.appendChild(triangleCircle);
+    },
+
+
+    //
+
+
+    _updateTriangleCircle: function () {
+
+    },
+
+
+    ////
+
+
+    getDistance: function (x1, y1, x2, y2) {
+        var xs = x2 - x1,
+            ys = y2 - y1;
+        xs *= xs;
+        ys *= ys;
+
+        return Math.sqrt(xs + ys);
     }
 
 
 };
+
 
 const oekakiContainer = document.getElementById('color-oekaki');
 const oekaki = new CANVASEVE.Oekaki(oekakiContainer);

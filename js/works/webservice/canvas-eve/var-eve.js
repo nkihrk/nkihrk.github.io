@@ -113,6 +113,10 @@ const glFlgs = {
         'active_spuit_flg': false,
         'move_circle_flg': false,
     },
+    'oekaki': {
+        'move_wheelcircle_flg': false,
+        'move_trianglecircle_flg': false,
+    },
 };
 
 // A max length of the HIGHEST_Z_INDEX is 2147483647
