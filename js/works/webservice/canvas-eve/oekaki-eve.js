@@ -109,6 +109,7 @@ CANVASEVE.Oekaki.prototype = {
 
         $(document).on(EVENTNAME_TOUCHSTART, '#color-oekaki', function () {
             self._colorWheelArea(self);
+            self._colorTriangleArea(self);
         });
 
         $(document).on(EVENTNAME_TOUCHMOVE, function () {
@@ -116,9 +117,9 @@ CANVASEVE.Oekaki.prototype = {
             var originY = $(self.container).offset().top;
             var centerX = originX + self.size / 2;
             var centerY = originY + self.size / 2;
-
             self.centerX = centerX;
             self.centerY = centerY;
+
 
             if (glFlgs.oekaki.move_wheelcircle_flg == true) {
                 self._updateWheelCircle();
@@ -136,7 +137,6 @@ CANVASEVE.Oekaki.prototype = {
 
 
     drawWheel: function () {
-        // https://stackoverflow.com/questions/18206361/svg-multiple-color-on-circle-stroke
         const resolution = 1;
         const outerRadius = 100;
         const innerRadius = outerRadius - this.wheelThickness / this.wheelRadius * 100;
@@ -269,7 +269,6 @@ CANVASEVE.Oekaki.prototype = {
 
 
     drawTriangle: function () {
-        // https://github.com/timjb/colortriangle/blob/master/colortriangle.js
         var ctx = this.triangleCtx;
 
         var leftTopX = Math.cos(Math.PI * 2 / 3) * this.triangleRadius;
@@ -325,14 +324,6 @@ CANVASEVE.Oekaki.prototype = {
     //
 
 
-    _colorTriangleArea: function () {
-
-    },
-
-
-    //
-
-
     _createTriangleCircle: function () {
         var triangleCircle = document.createElement('div');
         triangleCircle.id = 'color-triangle-circle';
@@ -346,8 +337,58 @@ CANVASEVE.Oekaki.prototype = {
     //
 
 
-    _updateTriangleCircle: function () {
+    _colorTriangleArea: function (self) {
+        var centerX = self.centerX;
+        var centerY = self.centerY;
+        var mouseX = clientX - centerX;
+        var mouseY = clientY - centerY;
+        var minX = Math.cos(Math.PI * 2 / 3) * self.triangleRadius;
+        var maxX = self.triangleRadius;
+        var maxY = (-mouseX + maxX) / Math.sqrt(3);
 
+        self._updateTriangleCircle();
+
+        if (mouseX > minX && maxX > mouseX) {
+            if (Math.abs(mouseY) >= 0 && maxY >= Math.abs(mouseY)) {
+
+            }
+        }
+    },
+
+
+    //
+
+
+    _updateTriangleCircle: function () {
+        var centerX = this.centerX;
+        var centerY = this.centerY;
+        var mouseX = clientX - centerX;
+        var mouseY = clientY - centerY;
+        var minX = Math.cos(Math.PI * 2 / 3) * this.triangleRadius;
+        var maxX = this.triangleRadius;
+        var minY = (mouseX - maxX) / Math.sqrt(3);
+        var maxY = (-mouseX + maxX) / Math.sqrt(3);
+
+        console.log('minY', minY, 'maxY', maxY, 'mouseY', mouseY);
+
+
+        var pointer = this.triangleCircle;
+        var $container = $(this.container);
+        var parentNodeX = $container.offset().left;
+        var parentNodeY = $container.offset().top;
+        var left = clientX - parentNodeX;
+        var top = clientY - parentNodeY;
+
+        if (mouseX > minX && maxX > mouseX) {
+            pointer.style.left = left + 'px';
+            if (mouseY >= maxY) {
+                pointer.style.top = maxY + centerY + 'px';
+            } else if (minY >= mouseY) {
+                pointer.style.top = minY + centerY + 'px';
+            } else {
+                pointer.style.top = top + 'px';
+            }
+        }
     },
 
 
