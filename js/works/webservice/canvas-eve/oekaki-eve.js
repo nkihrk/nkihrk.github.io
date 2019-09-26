@@ -28,6 +28,7 @@ CANVASEVE.Oekaki = function (container) {
 
     this.newCanvasX = null; // lazy load
     this.newCanvasY = null; // lazy load
+    this.$newCanvasId = null; // lazy load
 
     this.flgs = {
         newcanvas: {
@@ -66,6 +67,7 @@ CANVASEVE.Oekaki.prototype = {
     setFlgs: function () {
         var self = this;
 
+
         $(document).on(EVENTNAME_TOUCHSTART, '#color-oekaki', function () {
             var isWheelArea = self._isWheelArea();
             if (isWheelArea) {
@@ -91,7 +93,8 @@ CANVASEVE.Oekaki.prototype = {
         });
 
 
-        $(document).on(EVENTNAME_TOUCHSTART, function () {
+        $(document).on(EVENTNAME_TOUCHSTART, '#reset-res', function () {
+            console.log('self.flgs.newcanvas.newcanvas_flg is ', self.flgs.newcanvas.newcanvas_flg);
             if (self.flgs.newcanvas.newcanvas_flg == true) {
                 self.flgs.newcanvas.create_canvas_avail_flg = true;
                 self.newCanvasX = clientX;
@@ -108,6 +111,9 @@ CANVASEVE.Oekaki.prototype = {
 
 
     resetFlgs: function () {
+        var self = this;
+
+
         $(document).on(EVENTNAME_TOUCHEND, function () {
             if (glFlgs.oekaki.move_wheelcircle_flg == true) {
                 glFlgs.oekaki.move_wheelcircle_flg = false;
@@ -605,7 +611,7 @@ CANVASEVE.Oekaki.prototype = {
         var h, s, l = (max + min) / 2;
 
         if (max == min) {
-            h = s = 0; // achromatic
+            h = s = 0;
         } else {
             var d = (max - min);
             s = l >= 0.5 ? d / (2 - (max + min)) : d / (max + min);
@@ -635,15 +641,22 @@ CANVASEVE.Oekaki.prototype = {
         if (e.button != 1) {
             e.stopPropagation();
             $container.toggleClass('active');
+
+
             if (this.$toggleButton != null && this.$toggleButton.hasClass('active')) {
                 this.$toggleButton.removeClass('active');
             }
-
             if ($container.hasClass('active')) {
                 this.$toggleButton = $container;
+            }
+
+
+            if ($container.hasClass('active') && $container.attr('id') == 'newcanvas-oekaki') {
                 this.flgs.newcanvas.newcanvas_flg = true;
+                console.log('this.flgs.newcanvas.newcanvas_flg is ', this.flgs.newcanvas.newcanvas_flg);
             } else {
                 this.flgs.newcanvas.newcanvas_flg = false;
+                console.log('this.flgs.newcanvas.newcanvas_flg is ', this.flgs.newcanvas.newcanvas_flg);
             }
         }
     },
@@ -656,16 +669,13 @@ CANVASEVE.Oekaki.prototype = {
 
     _createCanvasWrapper: function () {
         var startX = this.newCanvasX,
-            startY = this.newCanvasY,
-            endX = clientX,
-            endY = clientY;
+            startY = this.newCanvasY;
 
         newFile.id += 1;
         HIGHEST_Z_INDEX += 1;
 
-        const canvas = '<canvas class="canvas-colpick"></canvas>';
         const funcTags = '<div class="thumbtack-wrapper"></div><div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>';
-        const assertFile = '<div id ="' + newFile.id + '" class="file-wrap transparent" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="eve-main is-flipped">' + canvas + '</div></div>';
+        const assertFile = '<div id ="' + newFile.id + '" class="file-wrap selected-dot" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="eve-main is-flipped"></div></div>';
         $('#add-files').append(assertFile);
 
         const fileId = '#' + newFile.id;
@@ -677,6 +687,10 @@ CANVASEVE.Oekaki.prototype = {
             'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
             'z-index': HIGHEST_Z_INDEX,
         });
+
+        this.$newCanvasId = $fileId;
+        console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
+
     },
 
 
@@ -684,7 +698,19 @@ CANVASEVE.Oekaki.prototype = {
 
 
     _updateCanvasVal: function () {
+        var $canvas = this.$newCanvasId,
+            startX = this.newCanvasX,
+            startY = this.newCanvasY,
+            endX = clientX,
+            endY = clientY;
 
+        var resultX = Math.abs(endX - startX),
+            resultY = Math.abs(endY - startY);
+
+        $canvas.css({
+            'width': resultX * mouseWheelVal + 'px',
+            'height': resultY * mouseWheelVal + 'px'
+        });
     },
 };
 

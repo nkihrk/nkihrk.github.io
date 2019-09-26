@@ -16,6 +16,10 @@ video:focus {
     pointer-events: none;
 }
 
+#add-files {
+    height: 0 !important;
+}
+
 
 /*———————————————————————————————————————————————————————
 
