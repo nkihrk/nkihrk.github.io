@@ -20,6 +20,11 @@ CANVASEVE.Oekaki = function (container) {
     this.centerX = centerX;
     this.centerY = centerY;
 
+    this.hue = this.options.hue;
+
+    this.triangleCirclePosX = Math.cos(Math.PI * 2 / 3) * triangleRadius + size / 2;
+    this.triangleCirclePosY = Math.sin(Math.PI * 2 / 3) * triangleRadius + size / 2;
+
     this._createWheelCircle();
 
     this._createTriangle();
@@ -32,6 +37,7 @@ CANVASEVE.Oekaki.prototype = {
 
     options: {
         hue: 0,
+        theta: 0,
     },
 
 
@@ -41,6 +47,7 @@ CANVASEVE.Oekaki.prototype = {
         this.setFlgs();
         this.resetFlgs();
         this.handleEvents();
+        this._getTriangleColor();
     },
 
 
@@ -195,7 +202,7 @@ CANVASEVE.Oekaki.prototype = {
     _createWheelCircle: function () {
         var wheelCircle = document.createElement('div'),
             r = this.wheelInnerRadius + this.wheelThickness / 2,
-            theta = 0,
+            theta = this.options.theta,
             left = r * Math.cos(theta + 3 / 2 * Math.PI) + this.size / 2,
             top = r * Math.sin(theta + 3 / 2 * Math.PI) + this.size / 2;
 
@@ -243,24 +250,43 @@ CANVASEVE.Oekaki.prototype = {
     _updateWheelCircle: function () {
         var pointer = this.wheelCircle,
             r = this.wheelInnerRadius + this.wheelThickness / 2,
-            theta = this._calcurateTheta(),
+            theta = this._calculateTheta(),
             left = r * Math.cos(theta) + this.size / 2,
             top = r * Math.sin(theta) + this.size / 2;
-
         pointer.style.left = left + 'px';
         pointer.style.top = top + 'px';
+
+        var hue = this._calculateHue();
+        this.hue = hue;
+        this._updateTriangle();
     },
 
 
     //
 
 
-    _calcurateTheta: function () {
+    _calculateTheta: function () {
         var centerX = this.centerX,
-            centerY = this.centerY,
-            theta = calcRadians(clientX - centerX, clientY - centerY);
+            centerY = this.centerY;
 
-        return theta;
+        var rad = Math.atan2(clientY - centerY, clientX - centerX) / Math.PI * 180 +
+            (Math.atan2(clientY - centerY, clientX - centerX) > 0 ? 0 : 360);
+
+        return rad / 180 * Math.PI;
+    },
+
+
+    //
+
+
+    _calculateHue: function () {
+        var centerX = this.centerX,
+            centerY = this.centerY;
+
+        var deg = Math.atan2(clientY - centerY, clientX - centerX) / Math.PI * 180 + 90 +
+            (Math.atan2(clientY - centerY, clientX - centerX) / Math.PI * 180 + 90 > 0 ? 0 : 360);
+
+        return deg;
     },
 
 
@@ -289,7 +315,7 @@ CANVASEVE.Oekaki.prototype = {
         ctx.fillRect(-this.wheelRadius, -this.wheelRadius, this.size, this.size);
 
         var grad0 = ctx.createLinearGradient(this.triangleRadius, 0, leftTopX, 0);
-        var hsla = 'hsla(' + Math.round(this.options.hue * (180 / Math.PI)) + ', 100%, 50%, ';
+        var hsla = 'hsla(' + Math.round(this.hue) + ', 100%, 50%, ';
         grad0.addColorStop(0, hsla + '1)');
         grad0.addColorStop(1, hsla + '0)');
         ctx.fillStyle = grad0;
@@ -309,8 +335,9 @@ CANVASEVE.Oekaki.prototype = {
     //
 
 
-    _getHue: function () {
-
+    _updateTriangle: function () {
+        this.drawTriangle();
+        this._setRgb('#test-oekaki');
     },
 
 
@@ -334,6 +361,8 @@ CANVASEVE.Oekaki.prototype = {
     _createTriangleCircle: function () {
         var triangleCircle = document.createElement('div');
         triangleCircle.id = 'color-triangle-circle';
+        triangleCircle.style.left = this.triangleCirclePosX + 'px';
+        triangleCircle.style.top = this.triangleCirclePosY + 'px';
 
         this.triangleCircle = triangleCircle;
         this.container.appendChild(triangleCircle);
@@ -419,6 +448,65 @@ CANVASEVE.Oekaki.prototype = {
             pointer.style.left = maxX + this.size / 2 + 'px';
             pointer.style.top = this.size / 2 + 'px';
         }
+
+        this.triangleCirclePosX = pointer.style.left.replace('px', '');
+        this.triangleCirclePosY = pointer.style.top.replace('px', '');
+        this._setRgb('#test-oekaki');
+    },
+
+
+    //
+
+
+    _setRgb: function (target) {
+        var rgb = this._getTriangleColor(),
+            r = rgb[0],
+            g = rgb[1],
+            b = rgb[2];
+
+        $(target).css('background-color', 'rgb(' + r + ',' + g + ',' + b + ')');
+    },
+
+
+    //
+
+
+    _getRgba: function (x, y) {
+        var ctx = this.triangleCtx;
+        var imagedata = ctx.getImageData(x, y, 1, 1),
+            r = imagedata.data[0],
+            g = imagedata.data[1],
+            b = imagedata.data[2],
+            a = imagedata.data[3];
+
+        return [r, g, b, a];
+    },
+
+
+    //
+
+
+    _getTriangleColor: function () {
+        var x = this.triangleCirclePosX - this.size / 2,
+            y = this.triangleCirclePosY - this.size / 2;
+        var leftTopX = Math.cos(Math.PI * 2 / 3) * this.triangleRadius,
+            leftTopY = Math.sin(Math.PI * 2 / 3) * this.triangleRadius;
+        var a = -Math.tan(Math.PI / 6) * x - y - leftTopY + Math.tan(Math.PI / 6) * leftTopX;
+        var d = Math.abs(a) * Math.sin(Math.PI / 3);
+        var l = this.triangleRadius * 3 / 2;
+
+        var b = this.hsl2rgb(this.hue / 360, 1.0, 0.5);
+        var s = [255, 255, 255];
+
+        var co = [],
+            tmp;
+        for (let i = 0; i < 3; i++) {
+            tmp = s[i] * (l - d) / l + b[i] * (l - (this.triangleRadius - x)) / l;
+            tmp = Math.abs(Math.round(tmp));
+            co.push(tmp);
+        }
+
+        return co;
     },
 
 
@@ -432,6 +520,35 @@ CANVASEVE.Oekaki.prototype = {
         ys *= ys;
 
         return Math.sqrt(xs + ys);
+    },
+
+
+    //
+
+
+    hsl2rgb: function (h, s, l) {
+        var r, g, b;
+
+        if (s == 0) {
+            r = g = b = l;
+        } else {
+            var hue2rgb = function hue2rgb(p, q, t) {
+                if (t < 0) t += 1;
+                if (t > 1) t -= 1;
+                if (t < 1 / 6) return p + (q - p) * 6 * t;
+                if (t < 1 / 2) return q;
+                if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+                return p;
+            }
+
+            var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+            var p = 2 * l - q;
+            r = hue2rgb(p, q, h + 1 / 3);
+            g = hue2rgb(p, q, h);
+            b = hue2rgb(p, q, h - 1 / 3);
+        }
+
+        return [Math.min(Math.floor(r * 256), 255), Math.min(Math.floor(g * 256), 255), Math.min(Math.floor(b * 256), 255)];
     }
 
 

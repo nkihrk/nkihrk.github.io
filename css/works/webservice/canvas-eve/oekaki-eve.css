@@ -165,8 +165,6 @@ Common
 #color-triangle-circle {
     position: absolute;
     z-index: 2;
-    top: 50%;
-    left: 70%;
     transform: translateX(-50%) translateY(-50%);
     width: 12px;
     height: 12px;
