@@ -25,7 +25,8 @@ Common
     right: 50px;
     border-radius: 6px;
     padding-top: 15px;
-    padding-bottom: 25px;
+    padding-bottom: 15px;
+    /* padding-bottom: 25px; */
 
     /* background-color: #2f2d3b; */
     background-color: rgba(38, 37, 51, 0.5);
@@ -34,7 +35,29 @@ Common
 
 /*———————————————————————————————————————————————————————
 
-#pen-oekaki/#tool-oekaki
+#tool-board-oekaki
+
+—————————————————————————————————————————————————————————*/
+
+/* Color board */
+#tool-board-oekaki {
+    /* Overwrite the HIGHEST_Z_INDEX */
+    z-index: 0 !important;
+    width: 330px;
+    top: 400px;
+    right: 50px;
+    border-radius: 6px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    /* background-color: #2f2d3b; */
+    background-color: rgba(38, 37, 51, 0.5);
+}
+
+
+/*———————————————————————————————————————————————————————
+
+#tool-oekaki
 
 —————————————————————————————————————————————————————————*/
 
@@ -42,7 +65,7 @@ Common
     display: flex;
     /* justify-content: flex-end; */
     justify-content: center;
-    margin: 10px 15px 25px 15px;
+    /* margin: 10px 15px 25px 15px; */
 }
 
 

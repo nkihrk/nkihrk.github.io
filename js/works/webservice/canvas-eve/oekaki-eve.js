@@ -21,10 +21,20 @@ CANVASEVE.Oekaki = function (container) {
     this.centerY = centerY;
 
     this.hue = this.options.hue;
-    this.rgb = [0, 0, 0];
+    this.rgb = this.options.rgb;
 
     this.triangleCirclePosX = Math.cos(Math.PI * 2 / 3) * triangleRadius + size / 2;
     this.triangleCirclePosY = Math.sin(Math.PI * 2 / 3) * triangleRadius + size / 2;
+
+    this.newCanvasX = null; // lazy load
+    this.newCanvasY = null; // lazy load
+
+    this.flgs = {
+        newcanvas: {
+            newcanvas_flg: false,
+            create_canvas_avail_flg: false,
+        }
+    };
 
     this._createWheelCircle();
 
@@ -38,6 +48,7 @@ CANVASEVE.Oekaki.prototype = {
 
     options: {
         hue: 0,
+        rgb: [0, 0, 0],
         theta: 0,
     },
 
@@ -78,6 +89,18 @@ CANVASEVE.Oekaki.prototype = {
             glFlgs.oekaki.move_trianglecircle_flg = true;
             console.log('glFlgs.oekaki.move_trianglecircle_flg is ', glFlgs.oekaki.move_trianglecircle_flg);
         });
+
+
+        $(document).on(EVENTNAME_TOUCHSTART, function () {
+            if (self.flgs.newcanvas.newcanvas_flg == true) {
+                self.flgs.newcanvas.create_canvas_avail_flg = true;
+                self.newCanvasX = clientX;
+                self.newCanvasY = clientY;
+
+                self._createCanvasWrapper();
+                console.log('self.flgs.newcanvas.create_canvas_avail_flg is ', self.flgs.newcanvas.create_canvas_avail_flg);
+            }
+        });
     },
 
 
@@ -94,6 +117,12 @@ CANVASEVE.Oekaki.prototype = {
                 glFlgs.oekaki.move_trianglecircle_flg = false;
                 console.log('glFlgs.oekaki.move_trianglecircle_flg is ', glFlgs.oekaki.move_trianglecircle_flg);
             }
+
+
+            if (self.flgs.newcanvas.create_canvas_avail_flg == true) {
+                self.flgs.newcanvas.create_canvas_avail_flg = false;
+                console.log('self.flgs.newcanvas.create_canvas_avail_flg is ', self.flgs.newcanvas.create_canvas_avail_flg);
+            }
         });
     },
 
@@ -104,14 +133,17 @@ CANVASEVE.Oekaki.prototype = {
     handleEvents: function () {
         var self = this;
 
+
         $(document).on(EVENTNAME_TOUCHSTART, '#color-oekaki', function () {
             self._colorWheelArea();
             self._colorTriangleArea();
         });
 
-        $(document).on(EVENTNAME_TOUCHSTART, '#pen-oekaki, #eraser-oekaki', function () {
-            self.toggle();
+
+        $(document).on(EVENTNAME_TOUCHSTART, '#newcanvas-oekaki, #pen-oekaki, #eraser-oekaki, #spuit-oekaki, #filldrip-oekaki', function (e) {
+            self._toggleTool($(this), e);
         });
+
 
         $(document).on(EVENTNAME_TOUCHMOVE, function () {
             var originX = $(self.container).offset().left,
@@ -127,6 +159,11 @@ CANVASEVE.Oekaki.prototype = {
             }
             if (glFlgs.oekaki.move_trianglecircle_flg == true) {
                 self._updateTriangleCircle();
+            }
+
+
+            if (self.flgs.newcanvas.create_canvas_avail_flg == true) {
+                self._updateCanvasVal();
             }
         });
     },
@@ -594,9 +631,61 @@ CANVASEVE.Oekaki.prototype = {
     //
 
 
-    toggle: function () {
+    _toggleTool: function ($container, e) {
+        if (e.button != 1) {
+            e.stopPropagation();
+            $container.toggleClass('active');
+            if (this.$toggleButton != null && this.$toggleButton.hasClass('active')) {
+                this.$toggleButton.removeClass('active');
+            }
 
-    }
+            if ($container.hasClass('active')) {
+                this.$toggleButton = $container;
+                this.flgs.newcanvas.newcanvas_flg = true;
+            } else {
+                this.flgs.newcanvas.newcanvas_flg = false;
+            }
+        }
+    },
+
+
+    //
+    // Canvas
+    //
+
+
+    _createCanvasWrapper: function () {
+        var startX = this.newCanvasX,
+            startY = this.newCanvasY,
+            endX = clientX,
+            endY = clientY;
+
+        newFile.id += 1;
+        HIGHEST_Z_INDEX += 1;
+
+        const canvas = '<canvas class="canvas-colpick"></canvas>';
+        const funcTags = '<div class="thumbtack-wrapper"></div><div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>';
+        const assertFile = '<div id ="' + newFile.id + '" class="file-wrap transparent" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="eve-main is-flipped">' + canvas + '</div></div>';
+        $('#add-files').append(assertFile);
+
+        const fileId = '#' + newFile.id;
+        const $fileId = $(fileId);
+
+        $fileId.css({
+            'left': startX * mouseWheelVal + 'px',
+            'top': startY * mouseWheelVal + 'px',
+            'transform': 'translate(' + xNewMinus + 'px, ' + yNewMinus + 'px' + ')',
+            'z-index': HIGHEST_Z_INDEX,
+        });
+    },
+
+
+    //
+
+
+    _updateCanvasVal: function () {
+
+    },
 };
 
 
