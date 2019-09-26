@@ -25,6 +25,7 @@ Common
     right: 50px;
     border-radius: 6px;
     padding-top: 15px;
+    padding-bottom: 25px;
 
     /* background-color: #2f2d3b; */
     background-color: rgba(38, 37, 51, 0.5);
@@ -33,19 +34,76 @@ Common
 
 /*———————————————————————————————————————————————————————
 
-#pen-oekaki
+#pen-oekaki/#tool-oekaki
+
+—————————————————————————————————————————————————————————*/
+
+#tool-oekaki {
+    display: flex;
+    /* justify-content: flex-end; */
+    justify-content: center;
+    margin: 10px 15px 25px 15px;
+}
+
+
+/*———————————————————————————————————————————————————————
+
+#newcanvas-oekaki/#tool-oekaki
+
+—————————————————————————————————————————————————————————*/
+
+/* Wrapper for a toggling button of oekaki */
+#newcanvas-oekaki {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    border-radius: 6px 0 0 6px;
+    border: solid 1px #c1125b;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+#newcanvas-oekaki::before {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-image: url(/img/works/webservice/canvas-eve/red_newcanvas.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+
+    transition: all .3s ease-in-out;
+}
+
+#newcanvas-oekaki.active {
+    background-color: #c1125b;
+    opacity: 1;
+}
+
+#newcanvas-oekaki.active::before {
+    background-image: url(/img/works/webservice/canvas-eve/dark_newcanvas.png);
+}
+
+
+/*———————————————————————————————————————————————————————
+
+#pen-oekaki/#tool-oekaki
 
 —————————————————————————————————————————————————————————*/
 
 /* Wrapper for a toggling button of oekaki */
 #pen-oekaki {
     position: relative;
-    float: left;
     width: 60px;
     height: 30px;
-    margin: 0 15px;
-    border-radius: 6px;
     border: solid 1px #c1125b;
+    border-left: none;
+    border-right: none;
     cursor: pointer;
     transition: all .2s ease-in-out;
 }
@@ -55,7 +113,7 @@ Common
     display: inline-block;
     width: 15px;
     height: 15px;
-    background-image: url(/img/works/webservice/canvas-eve/red_spuit.png);
+    background-image: url(/img/works/webservice/canvas-eve/red_pen.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -73,25 +131,23 @@ Common
 }
 
 #pen-oekaki.active::before {
-    background-image: url(/img/works/webservice/canvas-eve/dark_spuit.png);
+    background-image: url(/img/works/webservice/canvas-eve/dark_pen.png);
 }
 
 
 /*———————————————————————————————————————————————————————
 
-#eraser-oekaki
+#eraser-oekaki/#tool-oekaki
 
 —————————————————————————————————————————————————————————*/
 
 /* Wrapper for a toggling button of oekaki */
 #eraser-oekaki {
     position: relative;
-    float: right;
     width: 60px;
     height: 30px;
-    margin: 0 15px;
-    border-radius: 6px;
     border: solid 1px #c1125b;
+    border-right: none;
     cursor: pointer;
     transition: all .2s ease-in-out;
 }
@@ -99,9 +155,9 @@ Common
 #eraser-oekaki::before {
     content: '';
     display: inline-block;
-    width: 15px;
+    width: 18px;
     height: 15px;
-    background-image: url(/img/works/webservice/canvas-eve/red_spuit.png);
+    background-image: url(/img/works/webservice/canvas-eve/red_eraser.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -119,7 +175,95 @@ Common
 }
 
 #eraser-oekaki.active::before {
+    background-image: url(/img/works/webservice/canvas-eve/dark_eraser.png);
+}
+
+
+/*———————————————————————————————————————————————————————
+
+#spuit-oekaki/#tool-oekaki
+
+—————————————————————————————————————————————————————————*/
+
+/* Wrapper for a toggling button of oekaki */
+#spuit-oekaki {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    border: solid 1px #c1125b;
+    border-right: none;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+#spuit-oekaki::before {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-image: url(/img/works/webservice/canvas-eve/red_spuit.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+
+    transition: all .3s ease-in-out;
+}
+
+#spuit-oekaki.active {
+    background-color: #c1125b;
+    opacity: 1;
+}
+
+#spuit-oekaki.active::before {
     background-image: url(/img/works/webservice/canvas-eve/dark_spuit.png);
+}
+
+
+/*———————————————————————————————————————————————————————
+
+#filldrip-oekaki/#tool-oekaki
+
+—————————————————————————————————————————————————————————*/
+
+/* Wrapper for a toggling button of oekaki */
+#filldrip-oekaki {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    border-radius: 0 6px 6px 0;
+    border: solid 1px #c1125b;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+#filldrip-oekaki::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 15px;
+    background-image: url(/img/works/webservice/canvas-eve/red_filldrip.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+
+    transition: all .3s ease-in-out;
+}
+
+#filldrip-oekaki.active {
+    background-color: #c1125b;
+    opacity: 1;
+}
+
+#filldrip-oekaki.active::before {
+    background-image: url(/img/works/webservice/canvas-eve/dark_filldrip.png);
 }
 
 
@@ -134,7 +278,7 @@ Common
     position: relative;
     width: 300px;
     height: 300px;
-    margin: 15px;
+    margin: 0 15px;
 }
 
 #color-wheel {

@@ -21,6 +21,7 @@ CANVASEVE.Oekaki = function (container) {
     this.centerY = centerY;
 
     this.hue = this.options.hue;
+    this.rgb = [0, 0, 0];
 
     this.triangleCirclePosX = Math.cos(Math.PI * 2 / 3) * triangleRadius + size / 2;
     this.triangleCirclePosY = Math.sin(Math.PI * 2 / 3) * triangleRadius + size / 2;
@@ -106,6 +107,10 @@ CANVASEVE.Oekaki.prototype = {
         $(document).on(EVENTNAME_TOUCHSTART, '#color-oekaki', function () {
             self._colorWheelArea();
             self._colorTriangleArea();
+        });
+
+        $(document).on(EVENTNAME_TOUCHSTART, '#pen-oekaki, #eraser-oekaki', function () {
+            self.toggle();
         });
 
         $(document).on(EVENTNAME_TOUCHMOVE, function () {
@@ -464,6 +469,7 @@ CANVASEVE.Oekaki.prototype = {
             g = rgb[1],
             b = rgb[2];
 
+        this.rgb = [r, g, b];
         $(target).css('background-color', 'rgb(' + r + ',' + g + ',' + b + ')');
     },
 
@@ -549,9 +555,48 @@ CANVASEVE.Oekaki.prototype = {
         }
 
         return [Math.min(Math.floor(r * 256), 255), Math.min(Math.floor(g * 256), 255), Math.min(Math.floor(b * 256), 255)];
+    },
+
+
+    //
+
+
+    rgb2hsl: function () {
+        r /= 255, g /= 255, b /= 255;
+        var max = Math.max(r, g, b),
+            min = Math.min(r, g, b);
+        var h, s, l = (max + min) / 2;
+
+        if (max == min) {
+            h = s = 0; // achromatic
+        } else {
+            var d = (max - min);
+            s = l >= 0.5 ? d / (2 - (max + min)) : d / (max + min);
+            switch (max) {
+                case r:
+                    h = ((g - b) / d + 0) * 60;
+                    break;
+                case g:
+                    h = ((b - r) / d + 2) * 60;
+                    break;
+                case b:
+                    h = ((r - g) / d + 4) * 60;
+                    break;
+            }
+        }
+
+        return [h, s, l];
+    },
+
+
+    //
+    // Toggle Buttons
+    //
+
+
+    toggle: function () {
+
     }
-
-
 };
 
 
