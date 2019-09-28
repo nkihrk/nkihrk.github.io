@@ -275,6 +275,8 @@ function namespace(ns) {
 // To check whether we can use the touch event or not
 var supportTouch = 'ontouchend' in document;
 console.log('supportTouch', supportTouch);
+var supportPointer = 'onpointerup' in document;
+console.log('supportPointer', supportPointer);
 
 var EVENTNAME_TOUCHSTART = supportTouch ? 'touchstart' : 'mousedown';
 var EVENTNAME_TOUCHMOVE = supportTouch ? 'touchmove' : 'mousemove';
@@ -313,3 +315,10 @@ $(document).on(EVENTNAME_TOUCHMOVE, function (e) {
 document.addEventListener('contextmenu', function (e) {
     e.preventDefault();
 }, false);
+
+// document.addEventListener('touchstart', function (e) {
+//     e.preventDefault();
+// }, false);
+// document.addEventListener('touchmove', function (e) {
+//     e.preventDefault();
+// }, false);

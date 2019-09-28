@@ -14,7 +14,8 @@ Common
 
 
 /* .selected-dot {
-    border: dotted 1px rgba(255, 255, 255, 0.5);
+    border: dotted 1px var(--half-white);
+    background-color: var(--transparent-white);
 } */
 
 .selected-dot {
@@ -37,6 +38,11 @@ Common
     left: 0;
     right: 0;
     pointer-events: none;
+}
+
+.file-wrap.selected-dot {
+    width: 0;
+    transition: '';
 }
 
 
@@ -145,12 +151,12 @@ Common
 
 /*———————————————————————————————————————————————————————
 
-#pen-oekaki/#tool-oekaki
+#brush-oekaki/#tool-oekaki
 
 —————————————————————————————————————————————————————————*/
 
 /* Wrapper for a toggling button of oekaki */
-#pen-oekaki {
+#brush-oekaki {
     position: relative;
     width: 60px;
     height: 30px;
@@ -161,12 +167,12 @@ Common
     transition: all .2s ease-in-out;
 }
 
-#pen-oekaki::before {
+#brush-oekaki::before {
     content: '';
     display: inline-block;
     width: 15px;
     height: 15px;
-    background-image: url(/img/works/webservice/canvas-eve/red_pen.png);
+    background-image: url(/img/works/webservice/canvas-eve/red_brush.png);
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -178,13 +184,13 @@ Common
     transition: all .3s ease-in-out;
 }
 
-#pen-oekaki.active {
+#brush-oekaki.active {
     background-color: #c1125b;
     opacity: 1;
 }
 
-#pen-oekaki.active::before {
-    background-image: url(/img/works/webservice/canvas-eve/dark_pen.png);
+#brush-oekaki.active::before {
+    background-image: url(/img/works/webservice/canvas-eve/dark_brush.png);
 }
 
 

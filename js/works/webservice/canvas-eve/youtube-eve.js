@@ -51,7 +51,7 @@
 
                 // Reset the value of the selected input
                 $(document).on('mousedown', '.backspace-icon', function (e) {
-                    console.log('mousedown .backspace-icon is detected.');
+                    // console.log('mousedown .backspace-icon is detected.');
                     if (e.button != 1) {
                         $(this).parent().children('input').val('');
                     }
@@ -199,7 +199,7 @@
 
 
                         } else {}
-                        console.log('URL', url);
+                        // console.log('URL', url);
                     }
                 });
 
@@ -243,10 +243,10 @@
                                 jsonYt.done(function (jsonData) {
                                     if (isVideo) {
                                         tabName = jsonData.items[0].snippet.title;
-                                        console.log('tabName(isVideo=true)', tabName);
+                                        // console.log('tabName(isVideo=true)', tabName);
                                     } else {
                                         tabName = 'Playlist : Enqueued ' + jsonData.pageInfo.totalResults + ' videos';
-                                        console.log('tabName(isVideo=false)', tabName);
+                                        // console.log('tabName(isVideo=false)', tabName);
                                     }
                                     $selected.parents('.file-wrap').find('.tab-youtube')[0].innerText = tabName;
                                 });

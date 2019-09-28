@@ -25,13 +25,13 @@
                 var yImage = 0; // last y location on the image
                 $(document).on('mousewheel', function (e) {
                     // find current location on screen 
-                    xScreen = e.clientX - $('#plain').offset().left;
-                    yScreen = e.clientY - $('#plain').offset().top;
+                    xScreen = clientX - $('#plain').offset().left;
+                    yScreen = clientY - $('#plain').offset().top;
 
                     // find current location on the image at the current scale
                     xImage = xImage + ((xScreen - xLast) / i);
                     yImage = yImage + ((yScreen - yLast) / i);
-                    console.log('xImage', xImage, 'yImage', yImage);
+                    // console.log('xImage', xImage, 'yImage', yImage);
 
 
                     var delta = e.deltaY;
@@ -90,19 +90,20 @@
                     // determine the location on the screen at the new scale
                     xNew = (xScreen - xImage) / i;
                     yNew = (yScreen - yImage) / i;
-                    console.log('xNew', xNew, 'yNew', yNew);
+                    // console.log('xNew', xNew, 'yNew', yNew);
 
 
                     // save the current screen location
                     xLast = xScreen;
                     yLast = yScreen;
 
-                    console.log('i', i);
+                    // console.log('i', i);
                     mouseWheelVal = 1 / i;
                     $('#zoom').css({
                         'transform': 'scale(' + i + ')' + 'translate(' + xNew + 'px, ' + yNew + 'px' + ')',
                         'transform-origin': xImage + 'px ' + yImage + 'px',
                     });
+                    // debugCircle('zoom-origin', 'orange', $('#zoom').offset().left, $('#zoom').offset().top);
                 });
             };
             setZoom();

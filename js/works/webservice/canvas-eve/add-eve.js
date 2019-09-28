@@ -19,24 +19,24 @@
                     reader.onprogress = function (e) {
                         if (e.lengthComputable) {
                             var percentLoaded = Math.round((e.loaded / e.total) * progSet.eachProg);
-                            console.log('percentLoaded', percentLoaded);
+                            // console.log('percentLoaded', percentLoaded);
 
                             if (percentLoaded < progSet.eachProg) {
                                 var progWidth = percentLoaded + progSet.totalProg;
                                 progSet.progress.style.width = progWidth + '%';
-                                console.log('progWidth', progWidth);
+                                // console.log('progWidth', progWidth);
                             }
                         }
                     };
                     reader.onload = function (e) {
                         progSet.iterate++;
-                        console.log('progSet.iterate', progSet.iterate);
+                        // console.log('progSet.iterate', progSet.iterate);
 
 
                         if (progSet.iterate < progSet.fileCount) {
                             progSet.totalProg = progSet.eachProg * progSet.iterate;
                             progSet.progress.style.width = progSet.totalProg + '%';
-                            console.log('progSet.totalProg', progSet.totalProg);
+                            // console.log('progSet.totalProg', progSet.totalProg);
                         } else {
                             progSet.progress.style.width = '100%';
                             setTimeout(function () {
@@ -89,18 +89,18 @@
                     const img = new Image();
                     img.style.cssText = 'width: 100%;'
                     img.src = URL.createObjectURL(file);
-                    console.log('ObjectURL is successfuly created.');
+                    // console.log('ObjectURL is successfuly created.');
 
 
                     img.onload = function () {
                         progSet.iterate++;
-                        console.log('progSet.iterate', progSet.iterate);
+                        // console.log('progSet.iterate', progSet.iterate);
 
 
                         if (progSet.iterate < progSet.fileCount) {
                             progSet.totalProg = progSet.eachProg * progSet.iterate;
                             progSet.progress.style.width = progSet.totalProg + '%';
-                            console.log('progSet.totalProg', progSet.totalProg);
+                            // console.log('progSet.totalProg', progSet.totalProg);
                         } else {
                             progSet.progress.style.width = '100%';
                             setTimeout(function () {
@@ -274,7 +274,7 @@
             };
 
             const files = e.dataTransfer.files;
-            console.log('files', files);
+            // console.log('files', files);
 
 
             const progSet = {
@@ -303,7 +303,7 @@
                             } else if (initFileEve.isSupported.blobReader(files[i].name)) {
                                 initFileEve.blobReader(files[i], mousePos, progSet);
                             }
-                            console.log('i', i, 'files[i]', files[i]);
+                            // console.log('i', i, 'files[i]', files[i]);
                         }
                     }
                 }

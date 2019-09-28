@@ -16,10 +16,6 @@ video:focus {
     pointer-events: none;
 }
 
-#add-files {
-    height: 0 !important;
-}
-
 
 /*———————————————————————————————————————————————————————
 
@@ -110,16 +106,23 @@ GLSL
     cursor: grabbing;
 }
 
+#add-files {
+    width: 0 !important;
+    height: 0 !important;
+}
+
 /* For moving entire expected elements */
 #plain {
+    width: 0 !important;
+    height: 0 !important;
     scroll-behavior: auto;
     transition: all .1s;
 }
 
 /* For zooming */
 #zoom {
-    width: 100%;
-    height: 100%;
+    width: 0 !important;
+    height: 0 !important;
     position: relative;
     transform: scale(1);
 

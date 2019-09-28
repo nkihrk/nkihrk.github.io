@@ -38,7 +38,7 @@
                 // Image-space mouse coordinates
                 if (e.button == 1) {
                     mousewheel_avail_flg = true;
-                    console.log('mousewheel_avail_flg', mousewheel_avail_flg);
+                    // console.log('mousewheel_avail_flg', mousewheel_avail_flg);
                 }
             });
         };
@@ -66,7 +66,7 @@
                     $('#canvas-eve').removeClass('active-mousewheel');
 
                     mousewheel_avail_flg = false;
-                    console.log('mousewheel_avail_flg', mousewheel_avail_flg);
+                    // console.log('mousewheel_avail_flg', mousewheel_avail_flg);
                 }
             });
         };
@@ -90,6 +90,7 @@
 
                     // Change a mouse pointer to a grabbing
                     $('#canvas-eve').addClass('active-mousewheel');
+                    // debugCircle('plain-origin', 'red', $('#plain').offset().left, $('#plain').offset().top);
                 }
             });
         };

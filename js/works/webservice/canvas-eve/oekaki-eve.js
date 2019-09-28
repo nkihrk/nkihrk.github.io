@@ -29,11 +29,74 @@ CANVASEVE.Oekaki = function (container) {
     this.newCanvasX = null; // lazy load
     this.newCanvasY = null; // lazy load
     this.$newCanvasId = null; // lazy load
+    this.$canvasId = null; // lazy load
+
+    this.drawPointerEvents = [
+        'pointerdown',
+        'pointerup',
+        'pointercancel',
+        'pointermove',
+        'pointerover',
+        'pointerout',
+        'pointerenter',
+        'pointerleave',
+        'gotpointercapture',
+        'lostpointercapture'
+    ];
+    this.drawEvents = [
+        'MSPointerDown',
+        'MSPointerUp',
+        'MSPointerCancel',
+        'MSPointerMove',
+        'MSPointerOver',
+        'MSPointerOut',
+        'MSPointerEnter',
+        'MSPointerLeave',
+        'MSGotPointerCapture',
+        'MSLostPointerCapture',
+        'touchstart',
+        'touchmove',
+        'touchend',
+        'touchenter',
+        'touchleave',
+        'touchcancel',
+        'mouseover',
+        'mousemove',
+        'mouseout',
+        'mouseenter',
+        'mouseleave',
+        'mousedown',
+        'mouseup',
+        'focus',
+        'blur',
+        'click',
+        'webkitmouseforcewillbegin',
+        'webkitmouseforcedown',
+        'webkitmouseforceup',
+        'webkitmouseforcechanged',
+    ];
+    this.lastBrushPos = {
+        x: 0,
+        y: 0
+    };
+    this.isDrawing = false;
+    this.useTilt = false;
+    this.EPenButton = {
+        tip: 0x1, // left mouse, touch contact, pen contact
+        barrel: 0x2, // right mouse, pen barrel button
+        middle: 0x4, // middle mouse
+        eraser: 0x20 // pen eraser button
+    };
 
     this.flgs = {
         newcanvas: {
             newcanvas_flg: false,
             create_canvas_avail_flg: false,
+        },
+
+        brush: {
+            brush_flg: false,
+            draw_canvas_avail_flg: false,
         }
     };
 
@@ -51,6 +114,9 @@ CANVASEVE.Oekaki.prototype = {
         hue: 0,
         rgb: [0, 0, 0],
         theta: 0,
+        brush_size: 4,
+        eraser_size: 30,
+        canvas_color: '#f0e0d6',
     },
 
 
@@ -94,16 +160,25 @@ CANVASEVE.Oekaki.prototype = {
 
 
         $(document).on(EVENTNAME_TOUCHSTART, '#reset-res', function () {
-            console.log('self.flgs.newcanvas.newcanvas_flg is ', self.flgs.newcanvas.newcanvas_flg);
             if (self.flgs.newcanvas.newcanvas_flg == true) {
                 self.flgs.newcanvas.create_canvas_avail_flg = true;
-                self.newCanvasX = clientX;
-                self.newCanvasY = clientY;
+                self.newCanvasX = clientFromZoomX;
+                self.newCanvasY = clientFromZoomY;
 
                 self._createCanvasWrapper();
                 console.log('self.flgs.newcanvas.create_canvas_avail_flg is ', self.flgs.newcanvas.create_canvas_avail_flg);
             }
         });
+
+
+        $(document).on(EVENTNAME_TOUCHSTART, '.oekaki-canvas', function () {
+            if (self.flgs.brush.brush_flg == true) {
+                self.flgs.brush.draw_canvas_avail_flg = true;
+                console.log('self.flgs.brush.draw_canvas_avail_flg is ', self.flgs.brush.draw_canvas_avail_flg);
+            }
+        });
+
+
     },
 
 
@@ -127,6 +202,7 @@ CANVASEVE.Oekaki.prototype = {
 
             if (self.flgs.newcanvas.create_canvas_avail_flg == true) {
                 self.flgs.newcanvas.create_canvas_avail_flg = false;
+                self._createCanvas();
                 console.log('self.flgs.newcanvas.create_canvas_avail_flg is ', self.flgs.newcanvas.create_canvas_avail_flg);
             }
         });
@@ -146,7 +222,7 @@ CANVASEVE.Oekaki.prototype = {
         });
 
 
-        $(document).on(EVENTNAME_TOUCHSTART, '#newcanvas-oekaki, #pen-oekaki, #eraser-oekaki, #spuit-oekaki, #filldrip-oekaki', function (e) {
+        $(document).on(EVENTNAME_TOUCHSTART, '#newcanvas-oekaki, #brush-oekaki, #eraser-oekaki, #spuit-oekaki, #filldrip-oekaki', function (e) {
             self._toggleTool($(this), e);
         });
 
@@ -172,6 +248,29 @@ CANVASEVE.Oekaki.prototype = {
                 self._updateCanvasVal();
             }
         });
+
+
+        if (window.PointerEvent) {
+            for (var i = 0; i < self.drawPointerEvents.length; i++) {
+                $(document).on(self.drawPointerEvents[i], '.oekaki-canvas', function (e) {
+                    if (self.flgs.brush.brush_flg == true) {
+                        const $canvas = $(this).find('canvas');
+                        self._drawCanvasPointer($canvas, e);
+                    }
+                });
+            }
+        } else {
+            for (var i = 0; i < self.drawEvents.length; i++) {
+                $(document).on(self.drawEvents[i], '.oekaki-canvas', function (e) {
+                    if (self.flgs.brush.brush_flg == true) {
+                        const $canvas = $(this).find('canvas');
+                        self._drawCanvas($canvas, e);
+                    }
+                });
+            }
+        }
+
+
     },
 
 
@@ -513,7 +612,7 @@ CANVASEVE.Oekaki.prototype = {
             b = rgb[2];
 
         this.rgb = [r, g, b];
-        $(target).css('background-color', 'rgb(' + r + ',' + g + ',' + b + ')');
+        // $(target).css('background-color', 'rgb(' + r + ',' + g + ',' + b + ')');
     },
 
 
@@ -643,11 +742,11 @@ CANVASEVE.Oekaki.prototype = {
             $container.toggleClass('active');
 
 
-            if (this.$toggleButton != null && this.$toggleButton.hasClass('active')) {
-                this.$toggleButton.removeClass('active');
+            if (this._$toggleButton != null && this._$toggleButton[0] != $container[0] && this._$toggleButton.hasClass('active')) {
+                this._$toggleButton.removeClass('active');
             }
             if ($container.hasClass('active')) {
-                this.$toggleButton = $container;
+                this._$toggleButton = $container;
             }
 
 
@@ -657,6 +756,15 @@ CANVASEVE.Oekaki.prototype = {
             } else {
                 this.flgs.newcanvas.newcanvas_flg = false;
                 console.log('this.flgs.newcanvas.newcanvas_flg is ', this.flgs.newcanvas.newcanvas_flg);
+            }
+
+
+            if ($container.hasClass('active') && $container.attr('id') == 'brush-oekaki') {
+                this.flgs.brush.brush_flg = true;
+                console.log('this.flgs.brush.brush_flg is ', this.flgs.brush.brush_flg);
+            } else {
+                this.flgs.brush.brush_flg = false;
+                console.log('this.flgs.brush.brush_flg is ', this.flgs.brush.brush_flg);
             }
         }
     },
@@ -674,8 +782,8 @@ CANVASEVE.Oekaki.prototype = {
         newFile.id += 1;
         HIGHEST_Z_INDEX += 1;
 
-        const funcTags = '<div class="thumbtack-wrapper"></div><div class="resize-wrapper"></div><div class="rotate-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>';
-        const assertFile = '<div id ="' + newFile.id + '" class="file-wrap selected-dot" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="eve-main is-flipped"></div></div>';
+        const funcTags = '<div class="thumbtack-wrapper"></div><div class="resize-wrapper"></div><div class="flip-wrapper"></div><div class="trash-wrapper"></div>';
+        const assertFile = '<div id ="' + newFile.id + '" class="file-wrap selected-dot oekaki-canvas" style="transition: ' + IS_TRANSITION + ';"><div class="function-wrapper">' + funcTags + '</div><div class="eve-main is-flipped"></div></div>';
         $('#add-files').append(assertFile);
 
         const fileId = '#' + newFile.id;
@@ -688,9 +796,16 @@ CANVASEVE.Oekaki.prototype = {
             'z-index': HIGHEST_Z_INDEX,
         });
 
-        this.$newCanvasId = $fileId;
-        console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
+        // // For colpick-eve.js
+        // if ($('#toggle-colpick').length > 0) {
+        //     if (!$('#toggle-colpick').hasClass('active')) {
+        //         $fileId.addClass('grab-pointer');
+        //     }
+        // } else {
+        //     $fileId.addClass('grab-pointer');
+        // }
 
+        this.$newCanvasId = $fileId;
     },
 
 
@@ -701,8 +816,8 @@ CANVASEVE.Oekaki.prototype = {
         var $canvas = this.$newCanvasId,
             startX = this.newCanvasX,
             startY = this.newCanvasY,
-            endX = clientX,
-            endY = clientY;
+            endX = clientFromZoomX,
+            endY = clientFromZoomY;
 
         var resultX = Math.abs(endX - startX),
             resultY = Math.abs(endY - startY);
@@ -712,6 +827,215 @@ CANVASEVE.Oekaki.prototype = {
             'height': resultY * mouseWheelVal + 'px'
         });
     },
+
+
+    //
+
+
+    _createCanvas: function () {
+        var $newCanvasId = this.$newCanvasId;
+        var c = document.createElement('canvas');
+        var width = $newCanvasId.width(),
+            height = $newCanvasId.height();
+
+        c.width = width;
+        c.height = height;
+
+        var ctx = c.getContext("2d");
+        ctx.canvas.style.touchAction = "none";
+        ctx.fillStyle = this.options.canvas_color;
+        ctx.fillRect(0, 0, width, height);
+
+        $newCanvasId.find('.eve-main').append(c);
+        $newCanvasId.removeClass('selected-dot');
+    },
+
+
+    //
+
+
+    _drawCanvasPointer: function ($canvas, e) {
+        var ctx = $canvas[0].getContext('2d');
+        var canvasRect = $canvas[0].getBoundingClientRect();
+
+        var screenPos = {
+            x: e.clientX,
+            y: e.clientY
+        };
+        var pos = {
+            x: (screenPos.x - canvasRect.left) * mouseWheelVal,
+            y: (screenPos.y - canvasRect.top) * mouseWheelVal
+        };
+
+        var pressure = e.pressure;
+        console.log('e.pressure', e.pressure);
+        if (typeof (pressure) == 'undefined') {
+            pressure = this.options.brush_size;
+        }
+
+        var buttons = e.buttons;
+        var rotate = e.twist;
+
+        var rgb = this.rgb,
+            brushColor = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + 1.0 + ')';
+        const colorBackground = this.options.canvas_color;
+
+        if (e.pointerType) {
+            switch (e.pointerType) {
+                case "touch":
+                    // pressure = 1.0;
+                    ctx.strokeStyle = brushColor;
+                    ctx.lineWidth = pressure;
+                    break;
+                case "pen":
+                    ctx.strokeStyle = brushColor;
+                    ctx.lineWidth = pressure;
+                    // if (this.useTilt) {
+                    //     ctx.lineWidth = pressure * 3 * Math.abs(this.tilt.x);
+                    // } else {
+                    //     ctx.lineWidth = pressure * 10;
+                    // }
+                    break;
+                case "mouse":
+                    ctx.strokeStyle = brushColor;
+                    ctx.lineWidth = pressure;
+                    if (buttons == this.EPenButton.barrel || buttons == this.EPenButton.middle) {
+                        pressure = 0;
+                        ctx.lineWidth = 0;
+                    }
+                    break;
+            }
+
+            if (buttons == this.EPenButton.eraser) {
+                ctx.strokeStyle = colorBackground;
+            }
+
+            switch (e.type) {
+                case "pointerdown":
+                    this.isDrawing = true;
+                    this.lastBrushPos = pos;
+                    break;
+
+                case "pointerup":
+                    this.isDrawing = false;
+                    break;
+
+                case "pointermove":
+                    if (!this.isDrawing) {
+                        return;
+                    }
+
+                    if (buttons == this.EPenButton.eraser) {
+                        var eraserSize = this.options.eraser_size;
+                        ctx.fillStyle = colorBackground;
+                        ctx.fillRect(pos.x, pos.y, eraserSize, eraserSize);
+                        ctx.fill();
+                    } else if (pressure > 0) {
+                        ctx.beginPath();
+                        ctx.lineCap = "round";
+                        ctx.moveTo(this.lastBrushPos.x, this.lastBrushPos.y);
+
+                        var midPoint = this._midPointBetween(this.lastBrushPos, pos);
+                        ctx.quadraticCurveTo(this.lastBrushPos.x, this.lastBrushPos.y, midPoint.x, midPoint.y);
+
+                        ctx.lineTo(pos.x, pos.y);
+                        ctx.stroke();
+                    }
+
+                    this.lastBrushPos = pos;
+                    break;
+
+                case "pointerenter":
+                    document.body.style.cursor = "crosshair";
+                    break;
+
+                case "pointerleave":
+                    document.body.style.cursor = "default";
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    },
+
+
+    //
+
+
+    _drawCanvas: function ($canvas, e) {
+        var ctx = $canvas[0].getContext('2d');
+        var canvasRect = $canvas.getBoundingClientRect();
+        var screenPos = {
+            x: e.clientX,
+            y: e.clientY
+        };
+
+        var pos = {
+            x: screenPos.x - canvasRect.left,
+            y: screenPos.y - canvasRect.top
+        };
+
+        if (pos.x == undefined || pos.y == undefined) {
+            console.log("WARNING: undefined position");
+            return;
+        }
+
+        var pressure = e.pressure;
+        console.log('pressure', pressure);
+        if (typeof (pressure) == 'undefined') {
+            pressure = this.options.brush_size;
+        }
+
+        switch (e.type) {
+            case "mousedown":
+            case "MSPointerDown":
+            case "touchStart":
+                this.isDrawing = true;
+                this.lastBrushPos = pos;
+                break;
+
+            case "mouseup":
+            case "MSPointerUp":
+            case "touchEnd":
+                this.isDrawing = false;
+                break;
+
+            case "mousemove":
+            case "MSPointerMove":
+            case "touchmove":
+                if (this.isDrawing) {
+                    ctx.lineWidth = pressure;
+
+                    ctx.beginPath();
+                    ctx.lineCap = "round";
+                    ctx.moveTo(this.lastBrushPos.x, this.lastBrushPos.y);
+
+                    var midPoint = this._midPointBetween(this.lastBrushPos, pos);
+                    ctx.quadraticCurveTo(this.lastBrushPos.x, this.lastBrushPos.y, midPoint.x, midPoint.y);
+
+                    ctx.lineTo(pos.x, pos.y);
+                    ctx.stroke();
+                }
+
+                this.lastBrushPos = pos;
+                break;
+
+            default:
+                break;
+        }
+    },
+
+
+    //
+
+
+    _midPointBetween: function (p1, p2) {
+        return {
+            x: p1.x + (p2.x - p1.x) / 2,
+            y: p1.y + (p2.y - p1.y) / 2
+        };
+    }
 };
 
 

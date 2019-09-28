@@ -188,7 +188,7 @@
                     initMtl(file);
                 } else {
                     blobs[file.name] = file;
-                    console.log('blobs', blobs);
+                    // console.log('blobs', blobs);
                 }
             });
 
@@ -199,7 +199,7 @@
                 rootFileName = rootFilePath.replace(baseURL, '');
                 blobs[rootFileName] = file;
                 modelFormat = file.name.split('.').pop().toLowerCase();
-                console.log('blobs', blobs, 'baseURL', baseURL, 'rootFilePath', rootFilePath);
+                // console.log('blobs', blobs, 'baseURL', baseURL, 'rootFilePath', rootFilePath);
             }
 
 
@@ -208,7 +208,7 @@
                 baseURL = THREE.LoaderUtils.extractUrlBase(mtlFilePath);
                 mtlFileName = mtlFilePath.replace(baseURL, '');
                 blobs[mtlFileName] = file;
-                console.log('blobs', blobs);
+                // console.log('blobs', blobs);
             }
 
 
@@ -221,7 +221,7 @@
 
             var manager = new THREE.LoadingManager();
             manager.setURLModifier((url) => {
-                console.log('url', url);
+                // console.log('url', url);
 
                 var isMMD = mmd_flg && !url.match(/base64/);
                 var isGLTF = gltf_flg && !url.match(/canvas-eve/);
@@ -236,7 +236,7 @@
             });
 
             manager.onStart = function (url, itemsLoaded, itemsTotal) {
-                console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+                // console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
 
                 if (progSet.iterate == 0) {
                     progSet.progress.classList.add('loading');
@@ -244,20 +244,20 @@
             };
 
             manager.onProgress = function (url, itemsLoaded, itemsTotal) {
-                console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+                // console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
 
                 progSet.iterate++;
-                console.log('progSet.iterate', progSet.iterate);
+                // console.log('progSet.iterate', progSet.iterate);
 
                 if (progSet.iterate < progSet.fileCount) {
                     progSet.totalProg = progSet.eachProg * progSet.iterate;
                     progSet.progress.style.width = progSet.totalProg + '%';
-                    console.log('progSet.totalProg', progSet.totalProg);
+                    // console.log('progSet.totalProg', progSet.totalProg);
                 }
             };
 
             manager.onLoad = function () {
-                console.log('Loading complete!');
+                // console.log('Loading complete!');
 
                 progSet.progress.style.width = '100%';
                 setTimeout(function () {
@@ -267,7 +267,7 @@
             };
 
             manager.onError = function (url) {
-                console.log('There was an error loading ' + url);
+                // console.log('There was an error loading ' + url);
             };
 
 
@@ -394,7 +394,7 @@
             };
 
             const files = e.dataTransfer.files;
-            console.log('files', files);
+            // console.log('files', files);
 
 
             const progSet = {
@@ -413,7 +413,7 @@
                     if (readFileEve.isSupported(file.name)) {
                         supported_model_flg = true;
                         modelFormat = file.name.split('.').pop().toLowerCase();
-                        console.log('modelFormat', modelFormat);
+                        // console.log('modelFormat', modelFormat);
                     }
                 });
                 if (supported_model_flg == true) {
@@ -511,7 +511,10 @@
 
         animate: () => {
             threeEve.render();
-            requestAnimationFrame(threeEve.animate);
+            // requestAnimationFrame(threeEve.animate);
+            setTimeout(function () {
+                requestAnimationFrame(threeEve.animate);
+            }, 1000 / 120);
         },
 
 
@@ -538,43 +541,46 @@
             renderer.clear(true, true);
             renderer.setScissorTest(true);
 
-            scenes.forEach(function (scene) {
+            if (!!scenes[0]) {
+                scenes.forEach(function (scene) {
 
-                var element = scene.userData.element;
+                    var element = scene.userData.element;
 
-                var controls = scene.userData.controls;
-                if (controls) {
-                    controls.rotateSpeed = 1 * mouseWheelVal;
-                    controls.panSpeed = 1 * mouseWheelVal;
-                    if ($('#' + currentId).find('.thumbtack-wrapper').hasClass('active')) {
-                        controls.enabled = true;
-                    } else {
-                        controls.enabled = false;
+                    var controls = scene.userData.controls;
+                    if (!!controls) {
+                        controls.rotateSpeed = 1 * mouseWheelVal;
+                        controls.panSpeed = 1 * mouseWheelVal;
+                        if ($('#' + currentId).find('.thumbtack-wrapper').hasClass('active')) {
+                            controls.enabled = true;
+                        } else {
+                            controls.enabled = false;
+                        }
                     }
-                }
 
-                var rect = element.getBoundingClientRect();
-                if (rect.bottom < 0 || rect.top > renderer.domElement.clientHeight ||
-                    rect.right < 0 || rect.left > renderer.domElement.clientWidth) {
-                    return;
-                }
+                    var rect = element.getBoundingClientRect();
+                    if (rect.bottom < 0 || rect.top > renderer.domElement.clientHeight ||
+                        rect.right < 0 || rect.left > renderer.domElement.clientWidth) {
+                        return;
+                    }
 
-                var width = rect.right - rect.left;
-                var height = rect.bottom - rect.top;
-                var left = rect.left;
-                var bottom = renderer.domElement.clientHeight - rect.bottom;
+                    var width = rect.right - rect.left;
+                    var height = rect.bottom - rect.top;
+                    var left = rect.left;
+                    var bottom = renderer.domElement.clientHeight - rect.bottom;
 
-                // console.log('width', width, 'height', height, 'left', left, 'bottom', bottom);
+                    // console.log('width', width, 'height', height, 'left', left, 'bottom', bottom);
 
-                renderer.setViewport(left, bottom, width, height);
-                renderer.setScissor(left, bottom, width, height);
+                    renderer.setViewport(left, bottom, width, height);
+                    renderer.setScissor(left, bottom, width, height);
 
-                var camera = scene.userData.camera;
-                if (camera) {
-                    renderer.render(scene, camera);
-                    renderer.autoClear = false;
-                }
-            });
+                    var camera = scene.userData.camera;
+                    if (!!camera) {
+                        renderer.render(scene, camera);
+                        renderer.autoClear = false;
+                    }
+                });
+            }
+
         }
     };
     threeEve.init();
