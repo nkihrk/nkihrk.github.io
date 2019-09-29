@@ -742,11 +742,11 @@ CANVASEVE.Oekaki.prototype = {
             $container.toggleClass('active');
 
 
-            if (this._$toggleButton != null && this._$toggleButton[0] != $container[0] && this._$toggleButton.hasClass('active')) {
-                this._$toggleButton.removeClass('active');
+            if (this.__$toggleButton != null && this.__$toggleButton[0] != $container[0] && this.__$toggleButton.hasClass('active')) {
+                this.__$toggleButton.removeClass('active');
             }
             if ($container.hasClass('active')) {
-                this._$toggleButton = $container;
+                this.__$toggleButton = $container;
             }
 
 
