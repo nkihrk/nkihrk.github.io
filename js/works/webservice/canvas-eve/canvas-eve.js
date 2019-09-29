@@ -206,7 +206,7 @@
 
                     // This if argument is the prefix for colpick-eve.js
                     if (glFlgs.colpick.active_spuit_flg == false) {
-                        // $(this).prepend('<div class="selected"></div>');
+                        $(this).prepend('<div class="selected"></div>');
                         // Added selected symbols and other functions
                         if (glFlgs.config.only_draggable_flg == false) {
                             // Resizing boxes
