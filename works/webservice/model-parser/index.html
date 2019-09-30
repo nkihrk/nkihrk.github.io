@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+    <meta charset="utf-8">
+    <meta name="robots" content="all">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <title>Model Parser</title>
+    <meta name="keywords" content="fbx, mmd, pmx, pmd, obj, glTF, vrm, model viewer, viewer, model parser, parser">
+    <meta name="description"
+        content="Viewing and Parsing any model formats including FBX, MMD(PMX/PMD), OBJ, glTF/glTF(Draco), VRM.">
+    <meta name="author" content="NkiHrk">
+    <meta name="copyright" content="&copy; NkiHrk">
+    <meta property="og:title" content="Model Parser">
+    <meta property="og:type" content="website">
+    <meta property="og:description"
+        content="Viewing and Parsing any model formats including FBX, MMD(PMX/PMD), OBJ, glTF/glTF(Draco), VRM.">
+    <meta property="og:url" content="https://nkihrk.github.io">
+    <meta property="og:site_name" content="NkiHrk.github.io">
+    <meta property="og:image" content="">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@QU00h">
+
+    <!-- Facebook -->
+    <meta property="fb:app_id" content="480666636053173">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <link rel="stylesheet" href="/css/common/Reboot.css">
+    <link rel="stylesheet" href="https://use.typekit.net/kqb4obi.css">
+    <link rel="stylesheet" href="/css/common/styles.css">
+    <link rel="stylesheet" href="/css/works/webservice/canvas-eve/canvas-eve.css">
+    <link rel="icon" href="/img/common/favicon.ico">
+
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+</head>
+
+<body>
+
+    <div id="loader-bg" style="position: fixed; z-index: 1;">
+        <div id="loading">
+            <div class="spin-wrapper">
+                <div class="spinner"></div>
+            </div>
+        </div><!-- #loading -->
+    </div><!-- #loader-bg -->
+
+
+    <div id="container">
+
+    </div>
+
+
+    <script src="/js/common/jquery-3.4.0.min.js"></script>
+    <script src="/js/common/jquery.mousewheel.min.js"></script>
+    <script src="/js/works/webservice/common/common.js"></script>
+
+    <!-- Three.js -->
+    <script src="/js/works/webservice/canvas-eve/three/three.min.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/stats.min.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/OrbitControls.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/inflate.min.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/TGALoader.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/FBXLoader.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/DRACOLoader.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/GLTFLoader.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/three-vrm.min.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/OBJLoader.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/MTLLoader.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/mmdparser.js"></script>
+    <script src="/js/works/webservice/canvas-eve/three/module/MMDLoader.js"></script>
+    <script src="/js/works/webservice/model-parser/load.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-101863956-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-101863956-2');
+    </script>
+
+
+</body>
+
+</html>
