@@ -43,7 +43,7 @@ THREE.MMDLoader = (function () {
 		this.parser = null; // lazy generation
 		this.meshBuilder = new MeshBuilder(this.manager);
 		this.animationBuilder = new AnimationBuilder();
-		this.modelFormat = null;
+		this.modelFormat = null; // lazy load
 
 	}
 

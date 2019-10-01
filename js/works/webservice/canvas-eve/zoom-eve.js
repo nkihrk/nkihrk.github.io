@@ -103,7 +103,7 @@
                         'transform': 'scale(' + i + ')' + 'translate(' + xNew + 'px, ' + yNew + 'px' + ')',
                         'transform-origin': xImage + 'px ' + yImage + 'px',
                     });
-                    // debugCircle('zoom-origin', 'orange', $('#zoom').offset().left, $('#zoom').offset().top);
+                    debugCircle('zoom-origin', 'orange', $('#zoom').offset().left, $('#zoom').offset().top);
                 });
             };
             setZoom();

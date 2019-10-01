@@ -90,7 +90,7 @@
 
                     // Change a mouse pointer to a grabbing
                     $('#canvas-eve').addClass('active-mousewheel');
-                    // debugCircle('plain-origin', 'red', $('#plain').offset().left, $('#plain').offset().top);
+                    debugCircle('plain-origin', 'red', $('#plain').offset().left, $('#plain').offset().top);
                 }
             });
         };
