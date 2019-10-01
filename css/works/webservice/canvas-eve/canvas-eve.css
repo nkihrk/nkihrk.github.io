@@ -1,8 +1,5 @@
 @charset "UTF-8";
 
-.adsfsfsdfasd {
-    color: white;
-}
 
 /*———————————————————————————————————————————————————————
 
@@ -17,11 +14,6 @@ video:focus {
 
 .pointer-events-none {
     pointer-events: none;
-}
-
-.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa {
-    color: white;
-    background: #c1125b;
 }
 
 
