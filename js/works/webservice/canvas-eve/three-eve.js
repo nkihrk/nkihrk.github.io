@@ -597,8 +597,6 @@ CANVASEVE.Three = (function (w, $) {
 // const three = new CANVASEVE.Three();
 // console.log(three);
 
-//
-
 
 //
 // Model`s directories => /js/works/webservice/canvas-eve/three/model/
