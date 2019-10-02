@@ -594,8 +594,8 @@ CANVASEVE.Three = (function (w, $) {
 
 })(window, jQuery);
 
-const three = new CANVASEVE.Three();
-console.log(three);
+// const three = new CANVASEVE.Three();
+// console.log(three);
 
 
 //
@@ -1181,5 +1181,5 @@ const threeEve = {
 
     }
 };
-// threeEve.init();
-// threeEve.animate();
+threeEve.init();
+threeEve.animate();
