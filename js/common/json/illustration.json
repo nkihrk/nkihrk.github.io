@@ -1,269 +1,258 @@
-[{
-        "name": "Pekorinu-chan from Princess Connect! Re:Dive",
-        "url": {
-            "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=74505481",
-            "image": [
-                "/img/works/illustration/pekorinu.jpg"
-            ]
-        },
-        "content": {
-            "linkName": "VISIT PIXIV",
-            "date": "May 2, 2019",
-            "text": "Pekorinu-chan💕",
-            "size": [{
-                "width": 1200,
-                "height": 1700
-            }]
-        },
-        "tag": [
-            "#Pekorinu",
-            "#Princess Connect! Re:Dive"
-        ]
+[
+  {
+    "name": "Formidable from AzurLane",
+    "url": {
+      "link": "https://www.pixiv.net/artworks/77461321",
+      "image": ["/img/works/illustration/formidable_hosei_3.png"]
     },
-    {
-        "name": "Shimakaze from AzurLane",
-        "url": {
-            "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=74362254",
-            "image": [
-                "/img/works/illustration/島風_最終調整.png"
-            ]
-        },
-        "content": {
-            "linkName": "VISIT PIXIV",
-            "date": "April 24, 2019",
-            "text": "The new charcter Shimakaze will be appeared in the Yostar`s new console game, AzurLane CrossWave. Can`t wait to play!",
-            "size": [{
-                "width": 1470,
-                "height": 2400
-            }]
-        },
-        "tag": [
-            "#Shimakaze",
-            "#AzurLane"
-        ]
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "October 25, 2019",
+      "text": "Formidable-chan💕",
+      "size": [
+        {
+          "width": 1239,
+          "height": 885
+        }
+      ]
     },
-    {
-        "name": "Jeanne from FGO",
-        "url": {
-            "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=74031803",
-            "image": [
-                "/img/works/illustration/Jeanne_kakou_kiritori.png"
-            ]
-        },
-        "content": {
-            "linkName": "VISIT PIXIV",
-            "date": "April 4, 2019",
-            "text": "Jeanne (๑˃̵ᴗ˂̵) so cute",
-            "size": [{
-                "width": 1017,
-                "height": 1428
-            }]
-        },
-        "tag": [
-            "#Jeanne d`arc",
-            "#Fate/Grand Order"
-        ]
+    "tag": ["#Formidable", "#AzurLane"]
+  },
+  {
+    "name": "Pekorinu-chan from Princess Connect! Re:Dive",
+    "url": {
+      "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=74505481",
+      "image": ["/img/works/illustration/pekorinu.jpg"]
     },
-    {
-        "name": "Nero from FGO",
-        "url": {
-            "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73707155",
-            "image": [
-                "/img/works/illustration/ネロ_16-9.png",
-                "/img/works/illustration/ネロ_背景なしVer.png"
-            ]
-        },
-        "content": {
-            "linkName": "VISIT PIXIV",
-            "date": "March 16, 2019",
-            "text": "Nero-chama! I really love to draw her ( ˘ω˘) I need more ",
-            "size": [{
-                    "width": 1699,
-                    "height": 955
-                },
-                {
-                    "width": 1700,
-                    "height": 1300
-                }
-            ]
-        },
-        "tag": [
-            "#Nero Claudius",
-            "#Fate/Grand Order"
-        ]
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "May 2, 2019",
+      "text": "Pekorinu-chan💕",
+      "size": [
+        {
+          "width": 1200,
+          "height": 1700
+        }
+      ]
     },
-    {
-        "name": "Illustrious from AzurLane",
-        "url": {
-            "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73581669",
-            "image": [
-                "/img/works/illustration/illustrious_最終補正.png"
-            ]
-        },
-        "content": {
-            "linkName": "VISIT PIXIV",
-            "date": "March 9, 2019",
-            "text": "Illustrious💕",
-            "size": [{
-                "width": 1152,
-                "height": 1524
-            }]
-        },
-        "tag": [
-            "#Illustrious",
-            "#AzurLane"
-        ]
+    "tag": ["#Pekorinu", "#Princess Connect! Re:Dive"]
+  },
+  {
+    "name": "Shimakaze from AzurLane",
+    "url": {
+      "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=74362254",
+      "image": ["/img/works/illustration/島風_最終調整.png"]
     },
-    {
-        "name": "Original character",
-        "url": {
-            "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73435945",
-            "image": [
-                "/img/works/illustration/original_6.png"
-            ]
-        },
-        "content": {
-            "linkName": "VISIT PIXIV",
-            "date": "February 28, 2019",
-            "text": "Original character. Just for practice",
-            "size": [{
-                "width": 1400,
-                "height": 2100
-            }]
-        },
-        "tag": [
-            "#Original"
-        ]
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "April 24, 2019",
+      "text": "The new charcter Shimakaze will be appeared in the Yostar`s new console game, AzurLane CrossWave. Can`t wait to play!",
+      "size": [
+        {
+          "width": 1470,
+          "height": 2400
+        }
+      ]
     },
-    {
-        "name": "Manryo from Flower Knight Girl",
-        "url": {
-            "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73380853",
-            "image": [
-                "/img/works/illustration/花騎士マンリョウasdasfasfasdsgsdagfasfasf.png"
-            ]
-        },
-        "content": {
-            "linkName": "VISIT PIXIV",
-            "date": "February 25, 2019",
-            "text": "Commission.",
-            "size": [{
-                "width": 2999,
-                "height": 1688
-            }]
-        },
-        "tag": [
-            "#Manryo",
-            "#Flower Knight Girl"
-        ]
+    "tag": ["#Shimakaze", "#AzurLane"]
+  },
+  {
+    "name": "Jeanne from FGO",
+    "url": {
+      "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=74031803",
+      "image": ["/img/works/illustration/Jeanne_kakou_kiritori.png"]
     },
-    {
-        "name": "Shikibu Murasaki from FGO",
-        "url": {
-            "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73240732",
-            "image": [
-                "/img/works/illustration/紫式部_添削.png"
-            ]
-        },
-        "content": {
-            "linkName": "VISIT PIXIV",
-            "date": "February 17, 2019",
-            "text": "Commission.",
-            "size": [{
-                "width": 4000,
-                "height": 3000
-            }]
-        },
-        "tag": [
-            "#Shikibu Murasaki",
-            "#Fate/Grand Order"
-        ]
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "April 4, 2019",
+      "text": "Jeanne (๑˃̵ᴗ˂̵) so cute",
+      "size": [
+        {
+          "width": 1017,
+          "height": 1428
+        }
+      ]
     },
-    {
-        "name": "Asuka Langley Shikinami from Evangelion",
-        "url": {
-            "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73064804",
-            "image": [
-                "/img/works/illustration/tumblr_pmmfa515NQ1x5sdt3o2_1280.png"
-            ]
-        },
-        "content": {
-            "linkName": "VISIT PIXIV",
-            "date": "February 8, 2019",
-            "text": "I love Asuka (๑˃̵ᴗ˂̵) Ohhhhhhhhh I want to draw more of her",
-            "size": [{
-                "width": 1005,
-                "height": 1407
-            }]
-        },
-        "tag": [
-            "#Asuka Langley Shikinami",
-            "#NEON GENESIS EVANGELION"
-        ]
+    "tag": ["#Jeanne d`arc", "#Fate/Grand Order"]
+  },
+  {
+    "name": "Nero from FGO",
+    "url": {
+      "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73707155",
+      "image": [
+        "/img/works/illustration/ネロ_16-9.png",
+        "/img/works/illustration/ネロ_背景なしVer.png"
+      ]
     },
-    {
-        "name": "Homura From Xenoblade2",
-        "url": {
-            "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=72566894",
-            "image": [
-                "/img/works/illustration/ホムラ_浴衣_2.png"
-            ]
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "March 16, 2019",
+      "text": "Nero-chama! I really love to draw her ( ˘ω˘) I need more ",
+      "size": [
+        {
+          "width": 1699,
+          "height": 955
         },
-        "content": {
-            "linkName": "VISIT PIXIV",
-            "date": "January 9, 2019",
-            "text": "The kimono version of Homura-chan ( ˘ω˘)",
-            "size": [{
-                "width": 2500,
-                "height": 3500
-            }]
-        },
-        "tag": [
-            "#Homura",
-            "#Xenoblade2"
-        ]
+        {
+          "width": 1700,
+          "height": 1300
+        }
+      ]
     },
-    {
-        "name": "Unity-chan",
-        "url": {
-            "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=71948338",
-            "image": [
-                "/img/works/illustration/Unity-Chan_fin.png"
-            ]
-        },
-        "content": {
-            "linkName": "VISIT PIXIV",
-            "date": "December 3, 2018",
-            "text": "Drew Unity-chan for my friend.",
-            "size": [{
-                "width": 2662,
-                "height": 1486
-            }]
-        },
-        "tag": [
-            "#Unity-chan"
-        ]
+    "tag": ["#Nero Claudius", "#Fate/Grand Order"]
+  },
+  {
+    "name": "Illustrious from AzurLane",
+    "url": {
+      "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73581669",
+      "image": ["/img/works/illustration/illustrious_最終補正.png"]
     },
-    {
-        "name": "Victorious from AzurLane",
-        "url": {
-            "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=68321013",
-            "image": [
-                "/img/works/illustration/victorious.png"
-            ]
-        },
-        "content": {
-            "linkName": "VISIT PIXIV",
-            "date": "April 20, 2018",
-            "text": "Victorious-chan!!! She is one of my favourite characters. Really love to draw💕",
-            "size": [{
-                "width": 2500,
-                "height": 3300
-            }]
-        },
-        "tag": [
-            "#Victorious",
-            "#AzurLane"
-        ]
-    }
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "March 9, 2019",
+      "text": "Illustrious💕",
+      "size": [
+        {
+          "width": 1152,
+          "height": 1524
+        }
+      ]
+    },
+    "tag": ["#Illustrious", "#AzurLane"]
+  },
+  {
+    "name": "Original character",
+    "url": {
+      "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73435945",
+      "image": ["/img/works/illustration/original_6.png"]
+    },
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "February 28, 2019",
+      "text": "Original character. Just for practice",
+      "size": [
+        {
+          "width": 1400,
+          "height": 2100
+        }
+      ]
+    },
+    "tag": ["#Original"]
+  },
+  {
+    "name": "Manryo from Flower Knight Girl",
+    "url": {
+      "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73380853",
+      "image": [
+        "/img/works/illustration/花騎士マンリョウasdasfasfasdsgsdagfasfasf.png"
+      ]
+    },
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "February 25, 2019",
+      "text": "Commission.",
+      "size": [
+        {
+          "width": 2999,
+          "height": 1688
+        }
+      ]
+    },
+    "tag": ["#Manryo", "#Flower Knight Girl"]
+  },
+  {
+    "name": "Shikibu Murasaki from FGO",
+    "url": {
+      "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73240732",
+      "image": ["/img/works/illustration/紫式部_添削.png"]
+    },
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "February 17, 2019",
+      "text": "Commission.",
+      "size": [
+        {
+          "width": 4000,
+          "height": 3000
+        }
+      ]
+    },
+    "tag": ["#Shikibu Murasaki", "#Fate/Grand Order"]
+  },
+  {
+    "name": "Asuka Langley Shikinami from Evangelion",
+    "url": {
+      "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=73064804",
+      "image": ["/img/works/illustration/tumblr_pmmfa515NQ1x5sdt3o2_1280.png"]
+    },
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "February 8, 2019",
+      "text": "I love Asuka (๑˃̵ᴗ˂̵) Ohhhhhhhhh I want to draw more of her",
+      "size": [
+        {
+          "width": 1005,
+          "height": 1407
+        }
+      ]
+    },
+    "tag": ["#Asuka Langley Shikinami", "#NEON GENESIS EVANGELION"]
+  },
+  {
+    "name": "Homura From Xenoblade2",
+    "url": {
+      "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=72566894",
+      "image": ["/img/works/illustration/ホムラ_浴衣_2.png"]
+    },
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "January 9, 2019",
+      "text": "The kimono version of Homura-chan ( ˘ω˘)",
+      "size": [
+        {
+          "width": 2500,
+          "height": 3500
+        }
+      ]
+    },
+    "tag": ["#Homura", "#Xenoblade2"]
+  },
+  {
+    "name": "Unity-chan",
+    "url": {
+      "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=71948338",
+      "image": ["/img/works/illustration/Unity-Chan_fin.png"]
+    },
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "December 3, 2018",
+      "text": "Drew Unity-chan for my friend.",
+      "size": [
+        {
+          "width": 2662,
+          "height": 1486
+        }
+      ]
+    },
+    "tag": ["#Unity-chan"]
+  },
+  {
+    "name": "Victorious from AzurLane",
+    "url": {
+      "link": "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=68321013",
+      "image": ["/img/works/illustration/victorious.png"]
+    },
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "April 20, 2018",
+      "text": "Victorious-chan!!! She is one of my favourite characters. Really love to draw💕",
+      "size": [
+        {
+          "width": 2500,
+          "height": 3300
+        }
+      ]
+    },
+    "tag": ["#Victorious", "#AzurLane"]
+  }
 ]
