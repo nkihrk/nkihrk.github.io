@@ -1,5 +1,24 @@
 [
   {
+    "name": "Usada from  Di Gi Charat",
+    "url": {
+      "link": "https://www.pixiv.net/artworks/77521750",
+      "image": ["/img/works/illustration/usada.png"]
+    },
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "October 28, 2019",
+      "text": "Usada!!!",
+      "size": [
+        {
+          "width": 1600,
+          "height": 2140
+        }
+      ]
+    },
+    "tag": ["#Hikaru Usada", "#Di Gi Charat"]
+  },
+  {
     "name": "Formidable from AzurLane",
     "url": {
       "link": "https://www.pixiv.net/artworks/77461321",
