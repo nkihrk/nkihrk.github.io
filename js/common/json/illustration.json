@@ -1,5 +1,24 @@
 [
   {
+    "name": "Formidable from AzurLane",
+    "url": {
+      "link": "https://www.pixiv.net/artworks/77664201",
+      "image": ["/img/works/illustration/formidable_shusaku_1.png"]
+    },
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "November 5, 2019",
+      "text": "Formidable-chan💕",
+      "size": [
+        {
+          "width": 1353,
+          "height": 2726
+        }
+      ]
+    },
+    "tag": ["#Formidable", "#AzurLane"]
+  },
+  {
     "name": "Usada from  Di Gi Charat",
     "url": {
       "link": "https://www.pixiv.net/artworks/77521750",

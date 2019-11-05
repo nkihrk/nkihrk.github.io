@@ -7,198 +7,197 @@
 
 /* Prefix of a */
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 /* Bluring background image */
 .twitter {
-    background-image: url(/img/島風_2.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
+  background-image: url(/img/formidable_hosei_3.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
 }
 
 .twitter::before {
-    background: inherit;
-    content: '';
-    filter: brightness(70%) contrast(120%) blur(20px);
-    position: absolute;
-    top: -60px;
-    right: -60px;
-    bottom: -60px;
-    left: -60px;
-    z-index: -1;
+  background: inherit;
+  content: '';
+  filter: brightness(70%) contrast(120%) blur(20px);
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  bottom: -60px;
+  left: -60px;
+  z-index: -1;
 }
 
 /* Centering header and status with flex */
 .header-twitter,
 .status-twitter ul {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* Set border-top and -bottom of .status-twitter */
 .status-twitter {
-    border-top: solid 1px rgba(255, 255, 255, 0.5);
-    border-bottom: solid 1px rgba(255, 255, 255, 0.5);
+  border-top: solid 1px rgba(255, 255, 255, 0.5);
+  border-bottom: solid 1px rgba(255, 255, 255, 0.5);
 }
 
 /* Set content-twitter to be 100% width of .twitter .content-block */
 .content-twitter {
-    width: 100%;
-    /* margin: 60px 0; */
+  width: 100%;
+  /* margin: 60px 0; */
 }
 
 /* Common settings of the .status-twitter icons */
 .icon {
-    position: relative;
-    padding-left: 55px;
-    margin: 0px 20px;
+  position: relative;
+  padding-left: 55px;
+  margin: 0px 20px;
 }
 
 /* Fix the each width of .status-num to be stable */
 .status-num {
-    display: inline-block;
-    width: 40px;
-    text-align: left;
+  display: inline-block;
+  width: 40px;
+  text-align: left;
 }
 
 /* tweets-icon */
 .tweets-icon.icon::before {
-    content: '';
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    background-image: url(/img/tweets.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    vertical-align: middle;
-    position: absolute;
-    left: 0;
-    top: 40%;
-    transform: translateY(-50%);
+  content: '';
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-image: url(/img/tweets.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  position: absolute;
+  left: 0;
+  top: 40%;
+  transform: translateY(-50%);
 }
 
 /* followers-icon */
 .followers-icon.icon::before {
-    content: '';
-    display: inline-block;
-    width: 70px;
-    height: 50px;
-    background-image: url(/img/followers.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    vertical-align: middle;
-    position: absolute;
-    left: -20px;
-    top: 40%;
-    transform: translateY(-50%);
+  content: '';
+  display: inline-block;
+  width: 70px;
+  height: 50px;
+  background-image: url(/img/followers.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  position: absolute;
+  left: -20px;
+  top: 40%;
+  transform: translateY(-50%);
 }
 
 .followers-icon.icon {
-    margin-left: 45px;
+  margin-left: 45px;
 }
 
 /* likes-icon */
 .likes-icon.icon::before {
-    content: '';
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    background-image: url(/img/likes.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    vertical-align: middle;
-    position: absolute;
-    left: 0;
-    top: 40%;
-    transform: translateY(-50%);
+  content: '';
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-image: url(/img/likes.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  position: absolute;
+  left: 0;
+  top: 40%;
+  transform: translateY(-50%);
 }
 
 .status-twitter {
-    width: 600px;
-    margin: 30px auto 30px auto;
-    padding-top: 25px;
-    padding-bottom: 15px;
+  width: 600px;
+  margin: 30px auto 30px auto;
+  padding-top: 25px;
+  padding-bottom: 15px;
 }
-
 
 /* height of the .fig > img */
 .fig img {
-    height: 50px;
+  height: 50px;
 }
 
 /* Fix the pos of .hover-shadow-single  */
 .hover-shadow-single {
-    margin: 40px auto 0px auto;
+  margin: 40px auto 0px auto;
 }
 
 /* Fix the pos of .jump-icon */
 .jump-icon {
-    padding-right: 30px;
+  padding-right: 30px;
 }
 
 .jump-icon::after {
-    width: 80%;
-    height: 80%;
-    left: 130px;
-    top: 45%;
+  width: 80%;
+  height: 80%;
+  left: 130px;
+  top: 45%;
 }
 
 /* Media queries in common fields*/
 /* Larger than mobile */
 @media (min-width: 0px) {
-    .header-twitter {
-        text-align: center;
-    }
+  .header-twitter {
+    text-align: center;
+  }
 
-    .wrapper-gradation-circlized.circlized {
-        margin-right: 0;
-    }
+  .wrapper-gradation-circlized.circlized {
+    margin-right: 0;
+  }
 
-    .status-twitter {
-        width: 300px;
-    }
+  .status-twitter {
+    width: 300px;
+  }
 
-    .status-twitter li {
-        display: block;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
+  .status-twitter li {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 
-    #p-skill {
-        font-size: 1.3rem;
-    }
+  #p-skill {
+    font-size: 1.3rem;
+  }
 
-    .hover-shadow-single {
-        padding: 15px 50px;
-    }
+  .hover-shadow-single {
+    padding: 15px 50px;
+  }
 }
 
 @media (min-width: 630px) {
-    .header-twitter {
-        text-align: left;
-    }
+  .header-twitter {
+    text-align: left;
+  }
 
-    .wrapper-gradation-circlized.circlized {
-        margin-right: 2.0rem;
-    }
+  .wrapper-gradation-circlized.circlized {
+    margin-right: 2rem;
+  }
 
-    .status-twitter {
-        width: 600px;
-    }
+  .status-twitter {
+    width: 600px;
+  }
 
-    .status-twitter li {
-        display: inline-block;
-    }
+  .status-twitter li {
+    display: inline-block;
+  }
 
-    #p-skill {
-        font-size: 1.8rem;
-    }
+  #p-skill {
+    font-size: 1.8rem;
+  }
 
-    .hover-shadow-single {
-        padding: 15px 150px;
-    }
+  .hover-shadow-single {
+    padding: 15px 150px;
+  }
 }
