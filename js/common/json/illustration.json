@@ -2,6 +2,25 @@
   {
     "name": "Formidable from AzurLane",
     "url": {
+      "link": "https://www.pixiv.net/artworks/77749127",
+      "image": ["/img/works/illustration/formidable_2.png"]
+    },
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "November 11, 2019",
+      "text": "Formidable-chan💕",
+      "size": [
+        {
+          "width": 2048,
+          "height": 2147
+        }
+      ]
+    },
+    "tag": ["#Formidable", "#AzurLane"]
+  },
+  {
+    "name": "Formidable from AzurLane",
+    "url": {
       "link": "https://www.pixiv.net/artworks/77664201",
       "image": ["/img/works/illustration/formidable_shusaku_1.png"]
     },
