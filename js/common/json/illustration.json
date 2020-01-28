@@ -2,6 +2,101 @@
   {
     "name": "Formidable from AzurLane",
     "url": {
+      "link": "https://www.pixiv.net/artworks/78947715",
+      "image": ["/img/works/illustration/formidable_lighting_contrast_3.png"]
+    },
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "January 17, 2020",
+      "text": "Formidable-chan💕",
+      "size": [
+        {
+          "width": 1800,
+          "height": 1012
+        }
+      ]
+    },
+    "tag": ["#Formidable", "#AzurLane"]
+  },
+  {
+    "name": "Just boobs",
+    "url": {
+      "link": "https://www.pixiv.net/artworks/78853125",
+      "image": ["/img/works/illustration/おっぱい_kako.png"]
+    },
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "January 12, 2020",
+      "text": "🤔",
+      "size": [
+        {
+          "width": 2732,
+          "height": 2048
+        }
+      ]
+    },
+    "tag": ["#Boobs", "#Sketch"]
+  },
+  {
+    "name": "Formidable from AzurLane",
+    "url": {
+      "link": "https://www.pixiv.net/artworks/78619233",
+      "image": ["/img/works/illustration/formidable_5_purple_contrast.png"]
+    },
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "January 1, 2020",
+      "text": "Formidable-chan💕",
+      "size": [
+        {
+          "width": 2732,
+          "height": 2048
+        }
+      ]
+    },
+    "tag": ["#Formidable", "#AzurLane"]
+  },
+  {
+    "name": "Just a butt",
+    "url": {
+      "link": "https://www.pixiv.net/artworks/78468747",
+      "image": ["/img/works/illustration/ass_kako2.jpg"]
+    },
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "December 25, 2019",
+      "text": "🤔",
+      "size": [
+        {
+          "width": 2732,
+          "height": 2048
+        }
+      ]
+    },
+    "tag": ["#Butt", "#Sketch"]
+  },
+  {
+    "name": "Formidable from AzurLane",
+    "url": {
+      "link": "https://www.pixiv.net/artworks/78260265",
+      "image": ["/img/works/illustration/formidable_4_crop_contrast.png"]
+    },
+    "content": {
+      "linkName": "VISIT PIXIV",
+      "date": "December 12, 2019",
+      "text": "Formidable-chan💕",
+      "size": [
+        {
+          "width": 1271,
+          "height": 1781
+        }
+      ]
+    },
+    "tag": ["#Formidable", "#AzurLane"]
+  },
+  {
+    "name": "Formidable from AzurLane",
+    "url": {
       "link": "https://www.pixiv.net/artworks/77936701",
       "image": ["/img/works/illustration/formidable_3.png"]
     },
