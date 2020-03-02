@@ -1,24 +1,5 @@
 [
   {
-    "name": "Muscles study 3",
-    "url": {
-      "link": "",
-      "image": ["/img/works/others/筋肉3.png"]
-    },
-    "content": {
-      "linkName": "",
-      "date": "December 28, 2019",
-      "text": "Just Muscles",
-      "size": [
-        {
-          "width": 1887,
-          "height": 2048
-        }
-      ]
-    },
-    "tag": ["#Sketch"]
-  },
-  {
     "name": "A timelapse of the Butt",
     "url": {
       "link": "",
@@ -183,24 +164,5 @@
       ]
     },
     "tag": ["#Drawing", "#Practice"]
-  },
-  {
-    "name": "The ex-page of Code",
-    "url": {
-      "link": "/works/code/",
-      "image": ["/img/works/others/chrome_2019-07-27_01-10-02.jpg"]
-    },
-    "content": {
-      "linkName": "VIEW PAGE",
-      "date": "July 27, 2019",
-      "text": "Designed the top page of Code. Since the Illustration page has no such stuff, I decided to take it off from the Code to make it fair-look.You can check the actual one from the link at the right-up corner.",
-      "size": [
-        {
-          "width": 1858,
-          "height": 977
-        }
-      ]
-    },
-    "tag": ["#Design"]
   }
 ]

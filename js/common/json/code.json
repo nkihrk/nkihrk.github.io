@@ -1,190 +1,241 @@
 {
-    "shader": [{
-            "name": "Translucent Shader",
-            "url": {
-                "link": "https://github.com/nkihrk/everyday-one-shader/blob/master/BRDFTranslucentSSS.shader",
-                "image": [
-                    "/img/works/shader/BRDFTranslucentSSS.gif"
-                ]
-            },
-            "content": {
-                "linkName": "VIEW CODE",
-                "date": "July 20, 2019",
-                "text": "Using various techniques to simulate translucency. Go check my code to see how it works.",
-                "size": [{
-                    "width": 1000,
-                    "height": 563
-                }]
-            },
-            "tag": [
-                "#ShaderLab",
-                "#HLSL",
-                "#Shader",
-                "#Unity"
-            ]
-        },
-        {
-            "name": "Unlit Waterfall Shader",
-            "url": {
-                "link": "https://github.com/nkihrk/everyday-one-shader/blob/master/UnlitWaterFallShader.Shader",
-                "image": [
-                    "/img/works/shader/UnlitWaterFall_3.gif"
-                ]
-            },
-            "content": {
-                "linkName": "VIEW CODE",
-                "date": "July 20, 2019",
-                "text": "Trying to express cartoon-like waterfall like the one from Zelda. I am not that satisfied with the result shading, but yup still looks nice at some point.",
-                "size": [{
-                    "width": 1000,
-                    "height": 563
-                }]
-            },
-            "tag": [
-                "#ShaderLab",
-                "#HLSL",
-                "#Shader",
-                "#Unity"
-            ]
-        },
-        {
-            "name": "Fire Shader",
-            "url": {
-                "link": "https://github.com/nkihrk/everyday-one-shader/blob/master/FireShader.shader",
-                "image": [
-                    "/img/works/shader/bandicam 2018-09-10 07-27-13-144.gif",
-                    "/img/works/shader/bandicam_2018-09-12_01-08-48-646.gif"
-                ]
-            },
-            "content": {
-                "linkName": "VIEW CODE",
-                "date": "July 20, 2019",
-                "text": "Using noise texture to simulate fire.",
-                "size": [{
-                        "width": 1000,
-                        "height": 550
-                    },
-                    {
-                        "width": 1000,
-                        "height": 550
-                    }
-                ]
-            },
-            "tag": [
-                "#ShaderLab",
-                "#HLSL",
-                "#Shader",
-                "#Unity"
-            ]
-        },
-        {
-            "name": "Burning Outline Shader",
-            "url": {
-                "link": "https://github.com/nkihrk/everyday-one-shader/blob/master/BurningOutlineShader.shader",
-                "image": [
-                    "/img/works/shader/bandicam_2018-09-15_17-39-52-972.gif",
-                    "/img/works/shader/bandicam_2018-09-12_15-05-26-060.gif"
-                ]
-            },
-            "content": {
-                "linkName": "VIEW CODE",
-                "date": "July 20, 2019",
-                "text": "The burning effect is calculated in screen-space. That`s the key point of this shader. Push the surface polygons a bit to the same direction as a normal vector in screen-space, which we can only concentrate on x and y coordinate, and no need to care about z coordinate for calculation, only for adjustment.",
-                "size": [{
-                        "width": 1000,
-                        "height": 548
-                    },
-                    {
-                        "width": 1000,
-                        "height": 550
-                    }
-                ]
-            },
-            "tag": [
-                "#ShaderLab",
-                "#HLSL",
-                "#Shader",
-                "#Unity"
-            ]
-        },
-        {
-            "name": "Cross Hatching Shader",
-            "url": {
-                "link": "https://github.com/nkihrk/HatchingShader/blob/master/HatchingShader.shader",
-                "image": [
-                    "/img/works/shader/ugolino_with_hatching_shader.jpg",
-                    "/img/works/shader/D9km0JvUEAAACqN.jpg"
-                ]
-            },
-            "content": {
-                "linkName": "VIEW CODE",
-                "date": "July 20, 2019",
-                "text": "I got ideas from the paper called 'Real-time Hatching'. Customized their method and tried to improve it to make it more practical in game-use.",
-                "size": [{
-                        "width": 1209,
-                        "height": 1608
-                    },
-                    {
-                        "width": 1950,
-                        "height": 986
-                    }
-                ]
-            },
-            "tag": [
-                "#ShaderLab",
-                "#HLSL",
-                "#Shader",
-                "#Unity"
-            ]
-        },
-        {
-            "name": "GPU Raytracing with Unity",
-            "url": {
-                "link": "",
-                "image": [
-                    "/img/works/shader/DogDSAJVAAE0ITm.jpg"
-                ]
-            },
-            "content": {
-                "linkName": "",
-                "date": "July 20, 2019",
-                "text": "GPU Raytracing with C# and Compute Shader. There are many tutorials on how to make GPU Raytracer with Unity, so I tested for studying. It actually helped me a lot to understand the mechanism of path tracing. Next time, I`ll try to import fbx model via C# and render it with path tracer.",
-                "size": [{
-                    "width": 1200,
-                    "height": 661
-                }]
-            },
-            "tag": [
-                "#Compute Shader",
-                "#Ray Tracing",
-                "#HLSL",
-                "#Shader",
-                "#Unity"
-            ]
-        },
-        {
-            "name": "Burning Effect Shader",
-            "url": {
-                "link": "https://github.com/nkihrk/everyday-one-shader/blob/master/BurningEffect.shader",
-                "image": [
-                    "/img/works/shader/bandicam_2018-09-07_13-19-37-498.gif"
-                ]
-            },
-            "content": {
-                "linkName": "VIEW CODE",
-                "date": "July 20, 2019",
-                "text": "Trying to simulate burning effect using noise texture. Also using fire image for burning. So there we need a base texture for the model`s detail and a noise texture for simulating fire-like animation, and a fire image for burning outline.",
-                "size": [{
-                    "width": 1000,
-                    "height": 550
-                }]
-            },
-            "tag": [
-                "#ShaderLab",
-                "#HLSL",
-                "#Shader",
-                "#Unity"
-            ]
-        }
-    ]
+  "shader": [
+    {
+      "name": "Faking SpotLight",
+      "url": {
+        "link": "",
+        "image": ["/img/works/shader/spotlight_2.png"]
+      },
+      "content": {
+        "linkName": "",
+        "date": "March 2, 2020",
+        "text": "Faking SpotLight looks like Unity's default SpotLight. Just a test implementation for some comission.",
+        "size": [
+          {
+            "width": 1480,
+            "height": 1070
+          }
+        ]
+      },
+      "tag": ["#ShaderLab", "#Unity"]
+    },
+    {
+      "name": "Faking PointLight",
+      "url": {
+        "link": "",
+        "image": ["/img/works/shader/pointlight_1.png"]
+      },
+      "content": {
+        "linkName": "",
+        "date": "March 2, 2020",
+        "text": "Faking PointLight looks like Unity's default PointLight. Just a test implementation for some comission.",
+        "size": [
+          {
+            "width": 1460,
+            "height": 970
+          }
+        ]
+      },
+      "tag": ["#ShaderLab", "#Unity"]
+    },
+    {
+      "name": "Translucent Shader",
+      "url": {
+        "link": "https://github.com/nkihrk/everyday-one-shader/blob/master/BRDFTranslucentSSS.shader",
+        "image": ["/img/works/shader/BRDFTranslucentSSS.gif"]
+      },
+      "content": {
+        "linkName": "VIEW CODE",
+        "date": "July 20, 2019",
+        "text": "Using various techniques to simulate translucency. Go check my code to see how it works.",
+        "size": [
+          {
+            "width": 1000,
+            "height": 563
+          }
+        ]
+      },
+      "tag": ["#ShaderLab", "#Unity"]
+    },
+    {
+      "name": "Ice Shader",
+      "url": {
+        "link": "https://github.com/nkihrk/everyday-one-shader/blob/master/IceShader.shader",
+        "image": ["/img/works/shader/bandicam_2018-09-03_22-59-01-611.gif"]
+      },
+      "content": {
+        "linkName": "VIEW CODE",
+        "date": "July 20, 2019",
+        "text": "Simulating ice-like shading.",
+        "size": [
+          {
+            "width": 1000,
+            "height": 550
+          }
+        ]
+      },
+      "tag": ["#ShaderLab", "#Unity"]
+    },
+    {
+      "name": "Plastic Shader",
+      "url": {
+        "link": "https://github.com/nkihrk/everyday-one-shader/blob/master/PlasticShader.shader",
+        "image": [
+          "/img/works/shader/PlasticShader_2.gif",
+          "/img/works/shader/PlasticShader.gif"
+        ]
+      },
+      "content": {
+        "linkName": "VIEW CODE",
+        "date": "July 20, 2019",
+        "text": "Simulating plastic-like shading.",
+        "size": [
+          {
+            "width": 1000,
+            "height": 563
+          },
+          {
+            "width": 1000,
+            "height": 563
+          }
+        ]
+      },
+      "tag": ["#ShaderLab", "#Unity"]
+    },
+    {
+      "name": "Unlit Waterfall Shader",
+      "url": {
+        "link": "https://github.com/nkihrk/everyday-one-shader/blob/master/UnlitWaterFallShader.Shader",
+        "image": ["/img/works/shader/UnlitWaterFall_3.gif"]
+      },
+      "content": {
+        "linkName": "VIEW CODE",
+        "date": "July 20, 2019",
+        "text": "Trying to express cartoon-like waterfall like the one from Zelda. I am not that satisfied with the result shading, but yup still looks nice at some point.",
+        "size": [
+          {
+            "width": 1000,
+            "height": 563
+          }
+        ]
+      },
+      "tag": ["#ShaderLab", "#Unity"]
+    },
+    {
+      "name": "Fire Shader",
+      "url": {
+        "link": "https://github.com/nkihrk/everyday-one-shader/blob/master/FireShader.shader",
+        "image": [
+          "/img/works/shader/bandicam 2018-09-10 07-27-13-144.gif",
+          "/img/works/shader/bandicam_2018-09-12_01-08-48-646.gif"
+        ]
+      },
+      "content": {
+        "linkName": "VIEW CODE",
+        "date": "July 20, 2019",
+        "text": "Using noise texture to simulate fire.",
+        "size": [
+          {
+            "width": 1000,
+            "height": 550
+          },
+          {
+            "width": 1000,
+            "height": 550
+          }
+        ]
+      },
+      "tag": ["#ShaderLab", "#Unity"]
+    },
+    {
+      "name": "Burning Outline Shader",
+      "url": {
+        "link": "https://github.com/nkihrk/everyday-one-shader/blob/master/BurningOutlineShader.shader",
+        "image": [
+          "/img/works/shader/bandicam_2018-09-15_17-39-52-972.gif",
+          "/img/works/shader/bandicam_2018-09-12_15-05-26-060.gif"
+        ]
+      },
+      "content": {
+        "linkName": "VIEW CODE",
+        "date": "July 20, 2019",
+        "text": "The burning effect is calculated in screen-space. That`s the key point of this shader. Push the surface polygons a bit to the same direction as a normal vector in screen-space, which we can only concentrate on x and y coordinate, and no need to care about z coordinate for calculation, only for adjustment.",
+        "size": [
+          {
+            "width": 1000,
+            "height": 548
+          },
+          {
+            "width": 1000,
+            "height": 550
+          }
+        ]
+      },
+      "tag": ["#ShaderLab", "#Unity"]
+    },
+    {
+      "name": "Cross Hatching Shader",
+      "url": {
+        "link": "https://github.com/nkihrk/HatchingShader/blob/master/HatchingShader.shader",
+        "image": [
+          "/img/works/shader/ugolino_with_hatching_shader.jpg",
+          "/img/works/shader/D9km0JvUEAAACqN.jpg"
+        ]
+      },
+      "content": {
+        "linkName": "VIEW CODE",
+        "date": "July 20, 2019",
+        "text": "I got ideas from the paper called 'Real-time Hatching'. Customized their method and tried to improve it to make it more practical in game-use.",
+        "size": [
+          {
+            "width": 1209,
+            "height": 1608
+          },
+          {
+            "width": 1950,
+            "height": 986
+          }
+        ]
+      },
+      "tag": ["#ShaderLab", "#Unity"]
+    },
+    {
+      "name": "GPU Raytracing with Unity",
+      "url": {
+        "link": "",
+        "image": ["/img/works/shader/DogDSAJVAAE0ITm.jpg"]
+      },
+      "content": {
+        "linkName": "",
+        "date": "July 20, 2019",
+        "text": "GPU Raytracing with C# and Compute Shader. There are many tutorials on how to make GPU Raytracer with Unity, so I tested for studying. It actually helped me a lot to understand the mechanism of path tracing. Next time, I`ll try to import fbx model via C# and render it with path tracer.",
+        "size": [
+          {
+            "width": 1200,
+            "height": 661
+          }
+        ]
+      },
+      "tag": ["#Compute Shader", "#Ray Tracing", "#HLSL", "#Unity"]
+    },
+    {
+      "name": "Burning Effect Shader",
+      "url": {
+        "link": "https://github.com/nkihrk/everyday-one-shader/blob/master/BurningEffect.shader",
+        "image": ["/img/works/shader/bandicam_2018-09-07_13-19-37-498.gif"]
+      },
+      "content": {
+        "linkName": "VIEW CODE",
+        "date": "July 20, 2019",
+        "text": "Trying to simulate burning effect using noise texture. Also using fire image for burning. So there we need a base texture for the model`s detail and a noise texture for simulating fire-like animation, and a fire image for burning outline.",
+        "size": [
+          {
+            "width": 1000,
+            "height": 550
+          }
+        ]
+      },
+      "tag": ["#ShaderLab", "#Unity"]
+    }
+  ]
 }

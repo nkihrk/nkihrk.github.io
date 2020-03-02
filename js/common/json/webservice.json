@@ -1,5 +1,43 @@
 [
   {
+    "name": "Angular colPicker",
+    "url": {
+      "link": "https://nkihrk.github.io/ng-colPicker/",
+      "image": ["/img/works/webservice/angular-colpicker.gif"]
+    },
+    "content": {
+      "linkName": "VISIT",
+      "date": "February 20, 2019",
+      "text": "The Angular implementation of Photoshop-like color picker.",
+      "size": [
+        {
+          "width": 1920,
+          "height": 1011
+        }
+      ]
+    },
+    "tag": ["#Angular", "#Angular-colPicker", "#CANVAS EVE"]
+  },
+  {
+    "name": "Angular Ruler",
+    "url": {
+      "link": "https://nkihrk.github.io/Angular-Ruler/",
+      "image": ["/img/works/webservice/angular-ruler.gif"]
+    },
+    "content": {
+      "linkName": "VISIT",
+      "date": "February 16, 2019",
+      "text": "The Angular representation of window ruler.",
+      "size": [
+        {
+          "width": 1000,
+          "height": 539
+        }
+      ]
+    },
+    "tag": ["#Angular", "#Angular-Ruler", "#CANVAS EVE"]
+  },
+  {
     "name": "COLPICK EVE",
     "url": {
       "link": "/works/webservice/colpick-eve/",
