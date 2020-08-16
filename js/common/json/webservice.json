@@ -1,5 +1,43 @@
 [
   {
+    "name": "ZVP",
+    "url": {
+      "link": "https://nkihrk.github.io/zvp/",
+      "image": ["/img/works/webservice/zvp.png"]
+    },
+    "content": {
+      "linkName": "VISIT",
+      "date": "July 11, 2020",
+      "text": "ZVP is a zoomable video player with YouTube-like UI for your Angular applications.",
+      "size": [
+        {
+          "width": 1920,
+          "height": 1080
+        }
+      ]
+    },
+    "tag": ["#Angular"]
+  },
+  {
+    "name": "InfiDraw",
+    "url": {
+      "link": "https://nkihrk.github.io/infi-draw/#/dashboard",
+      "image": ["/img/works/webservice/infi-draw.png"]
+    },
+    "content": {
+      "linkName": "VISIT",
+      "date": "July 4, 2020",
+      "text": "InfiDraw provides infinite canvas with drawing featrue.",
+      "size": [
+        {
+          "width": 1920,
+          "height": 1009
+        }
+      ]
+    },
+    "tag": ["#Angular"]
+  },
+  {
     "name": "CANVAS EVE LITE",
     "url": {
       "link": "https://canvas-eve-lite.web.app/",
