@@ -1,43 +1,25 @@
 {
   "shader": [
     {
-      "name": "Faking SpotLight",
+      "name": "GLSL Metaball",
       "url": {
-        "link": "",
-        "image": ["/img/works/shader/spotlight_2.png"]
+        "link": "https://github.com/nkihrk/GLSL-in-Angular",
+        "image": ["/img/works/shader/metaball.gif"]
       },
       "content": {
-        "linkName": "",
-        "date": "March 2, 2020",
-        "text": "Faking SpotLight looks like Unity's default SpotLight. Just a test implementation for some comission.",
+        "linkName": "VIEW CODE",
+        "date": "September 20, 2020",
+        "text": "This is my first raymarching shader using GLSL",
         "size": [
           {
-            "width": 1480,
-            "height": 1070
+            "width": 1080,
+            "height": 608
           }
         ]
       },
-      "tag": ["#ShaderLab", "#Unity"]
+      "tag": ["#GLSL", "#raymarching"]
     },
-    {
-      "name": "Faking PointLight",
-      "url": {
-        "link": "",
-        "image": ["/img/works/shader/pointlight_1.png"]
-      },
-      "content": {
-        "linkName": "",
-        "date": "March 2, 2020",
-        "text": "Faking PointLight looks like Unity's default PointLight. Just a test implementation for some comission.",
-        "size": [
-          {
-            "width": 1460,
-            "height": 970
-          }
-        ]
-      },
-      "tag": ["#ShaderLab", "#Unity"]
-    },
+
     {
       "name": "Translucent Shader",
       "url": {
