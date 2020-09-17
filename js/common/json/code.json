@@ -19,7 +19,6 @@
       },
       "tag": ["#GLSL", "#raymarching"]
     },
-
     {
       "name": "Translucent Shader",
       "url": {
